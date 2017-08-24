@@ -4,6 +4,7 @@
     var Node = Hilo3d.Node;
     var BasicMaterial = Hilo3d.BasicMaterial;
     var Geometry = Hilo3d.Geometry;
+    var GeometryData = Hilo3d.GeometryData;
     var Mesh = Hilo3d.Mesh;
     var util = Hilo3d.util;
     var Matrix4 = Hilo3d.Matrix4;
@@ -41,15 +42,15 @@
             var geometryData = {};
             if (attr.Normal) {
                 var info = attr.Normal.Array.Float32Array;
-                geometryData.normals = new Float32Array(buffer, info.Offset, info.Size * 3);
+                geometryData.normals = new GeometryData(new Float32Array(buffer, info.Offset, info.Size * 3), 3);
             }
             if (attr.Vertex) {
                 var info = attr.Vertex.Array.Float32Array;
-                geometryData.vertices = new Float32Array(buffer, info.Offset, info.Size * 3);
+                geometryData.vertices = new GeometryData(new Float32Array(buffer, info.Offset, info.Size * 3), 3);
             }
             if (attr.TexCoord0) {
                 var info = attr.TexCoord0.Array.Float32Array;
-                geometryData.uvs = new Float32Array(buffer, info.Offset, info.Size * 2);
+                geometryData.uvs = new GeometryData(new Float32Array(buffer, info.Offset, info.Size * 2), 2);
             }
 
             util.each(data.PrimitiveSetList, function (set) {
@@ -59,7 +60,7 @@
                         vertices: geometryData.vertices,
                         normals: geometryData.normals,
                         uvs: geometryData.uvs,
-                        indices: new Uint16Array(buffer, info.Offset, info.Size),
+                        indices: new GeometryData(new Uint16Array(buffer, info.Offset, info.Size), 1),
                         mode: set.DrawElementsUShort.Mode === 'TRIANGLE_STRIP' ? 5 : 4
                     });
                     var mesh = new Mesh({
