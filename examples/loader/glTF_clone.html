@@ -13,10 +13,11 @@
     <script src="../js/OrbitControls.js"></script>
     <script src="../js/init.js"></script>
     <script>
+        renderer.useInstanced = true;
         var loader = new Hilo3d.GLTFLoader();
         loader.load({
             name: 'JPN',
-            useInstanced: false,
+            useInstanced: true,
             src: '//cx.alicdn.com/tmx/0356679fd543809bba95dfaea32e1d45.gltf'
         }).then(function (model) {
             var node = model.node;

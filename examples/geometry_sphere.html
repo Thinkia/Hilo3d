@@ -12,6 +12,7 @@
 <script src="../build/Hilo3d.js"></script>
 <script src="./js/stats.js"></script>
 <script src="./js/OrbitControls.js"></script>
+<script src="./js/NormalTangentHelper.js"></script>
 <script src="./js/init.js"></script>
 <script>
     var container = new Hilo3d.Node();
@@ -41,23 +42,7 @@
         container.addChild(mesh);
         stage.addChild(container);
 
-        // var tangentGeometry = new Hilo3d.Geometry({
-        //     mode: Hilo3d.constants.LINES
-        // });
-
-        // var tangents = geometry.tangents.data;
-        // var vertices = geometry.vertices.data;
-        // for(var i = 0;i < tangents.length;i += 3){
-        //     tangentGeometry.addLine([vertices[i], vertices[i+1], vertices[i+2]], [vertices[i]+tangents[i], vertices[i+1]+tangents[i+1], vertices[i+2]+tangents[i+2]]);
-        // }
-        // var tangentMesh = new Hilo3d.Mesh({
-        //     geometry: tangentGeometry,
-        //     material: new Hilo3d.BasicMaterial({
-        //         lightType:'NONE',
-        //         diffuse:new Hilo3d.Color(1, 0, 0)
-        //     })
-        // });
-        // container.addChild(tangentMesh);
+        // container.addChild(NormalTangentHelper.create(mesh, 0.1));
     })
 </script>
 </body>
