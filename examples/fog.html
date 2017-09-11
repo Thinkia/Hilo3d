@@ -55,7 +55,10 @@
         }, function(err) {
             return new Hilo3d.Color(1, 0, 0);
         }).then(function(diffuse) {
-            var material = new Hilo3d.BasicMaterial({ diffuse : diffuse });
+            var material = new Hilo3d.BasicMaterial({ 
+                diffuse : diffuse,
+                side:Hilo3d.constants.FRONT_AND_BACK
+            });
             var geometry = new Hilo3d.PlaneGeometry();
 
             for (var i = 0; i < 100; i++) {
@@ -63,7 +66,8 @@
                 var rect = new Hilo3d.Mesh({
                     geometry: geometry,
                     material: Math.random() < .5 ? material : new Hilo3d.BasicMaterial({
-                        diffuse: new Hilo3d.Color(Math.random(), Math.random(), Math.random())
+                        diffuse: new Hilo3d.Color(Math.random(), Math.random(), Math.random()),
+                        side:Hilo3d.constants.FRONT_AND_BACK
                     }),
                     x: randInt(-r, r),
                     y: randInt(-r, r),
