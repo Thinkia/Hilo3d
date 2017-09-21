@@ -3807,6 +3807,12 @@
             
             <span class="subtitle"><a href="#members" class="subtitle-name">Members</a><a class="toggle-inherited" href="javascript:void(0);" type="member">Show Inherited</a></span>
             
+                <li  data-name="Euler#className"><a href="Euler.html#className">className</a></li>
+            
+                <li  data-name="Euler#isEuler"><a href="Euler.html#isEuler">isEuler</a></li>
+            
+                <li  data-name="Euler#order"><a href="Euler.html#order">order</a></li>
+            
                 <li  data-name="Euler#x"><a href="Euler.html#x">x</a></li>
             
                 <li  data-name="Euler#y"><a href="Euler.html#y">y</a></li>
@@ -5671,12 +5677,125 @@
 		
 		
 		
+		<th>Default</th>
+		
 		
 		<th class="last">Description</th>
 	</tr>
 	</thead>
 	
 	<tbody>
+	
+        <tr >
+            
+                <td class="name">
+                    <a name="className"></a>
+                    <code>className</code>
+                </td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+            
+            
+            
+            
+                <td class="default">
+                
+                    Euler
+                
+                </td>
+            
+            
+            <td class="description last">
+                
+                
+                
+    
+                
+            </td>
+        </tr>
+	
+	
+        <tr >
+            
+                <td class="name">
+                    <a name="isEuler"></a>
+                    <code>isEuler</code>
+                </td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">boolean</span>
+
+
+            
+            </td>
+            
+            
+            
+            
+                <td class="default">
+                
+                    true
+                
+                </td>
+            
+            
+            <td class="description last">
+                
+                
+                
+    
+                
+            </td>
+        </tr>
+	
+	
+        <tr >
+            
+                <td class="name">
+                    <a name="order"></a>
+                    <code>order</code>
+                </td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+            
+            
+            
+            
+                <td class="default">
+                
+                    'ZYX'
+                
+                </td>
+            
+            
+            <td class="description last">
+                
+                <p>旋转顺序，默认为 ZYX</p>
+                
+    
+                
+            </td>
+        </tr>
+	
 	
         <tr >
             
@@ -5697,6 +5816,10 @@
             
             
             
+            
+                <td class="default">
+                
+                </td>
             
             
             <td class="description last">
@@ -5729,6 +5852,10 @@
             
             
             
+                <td class="default">
+                
+                </td>
+            
             
             <td class="description last">
                 
@@ -5759,6 +5886,10 @@
             
             
             
+            
+                <td class="default">
+                
+                </td>
             
             
             <td class="description last">
@@ -5796,7 +5927,7 @@
         
             
             <div class="tag-source">
-                math/Euler.js, line 29
+                math/Euler.js, line 43
             </div>
             
         </div>
@@ -5986,7 +6117,7 @@
         
             
             <div class="tag-source">
-                math/Euler.js, line 41
+                math/Euler.js, line 55
             </div>
             
         </div>
@@ -6177,7 +6308,7 @@
         
             
             <div class="tag-source">
-                math/Euler.js, line 53
+                math/Euler.js, line 67
             </div>
             
         </div>
@@ -6367,12 +6498,12 @@
         <div class="nameContainer">
             <h4 class="name" id="fromMat4">
                 
-                fromMat4<span class="signature">(mat)</span><span class="glyphicon glyphicon-circle-arrow-right"></span><span class="type-signature returnType">{<a href="Euler.html">Euler</a>}</span>
+                fromMat4<span class="signature">(mat, <span class="optional">order</span>)</span><span class="glyphicon glyphicon-circle-arrow-right"></span><span class="type-signature returnType">{<a href="Euler.html">Euler</a>}</span>
             </h4>
         
             
             <div class="tag-source">
-                math/Euler.js, line 64
+                math/Euler.js, line 79
             </div>
             
         </div>
@@ -6402,6 +6533,8 @@
 		<th>Type</th>
 		
 		
+		<th>Default</th>
+		
 		
 		<th class="last">Description</th>
 	</tr>
@@ -6425,10 +6558,55 @@
             </td>
             
             
+                <td class="default">
+                
+                </td>
+            
             
             <td class="description last">
                 
+                    
+                    
+                        
+                    
+                
                 <p>rotation matrix</p></td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>order</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+            
+            
+                <td class="default">
+                
+                    'ZYX'
+                
+                </td>
+            
+            
+            <td class="description last">
+                
+                    
+                        <span class="optional">optional</span>
+                    
+                    
+                        
+                    
+                
+                <p>旋转顺序，默认为 'ZYX'</p></td>
         </tr>
 	
 	
@@ -6516,7 +6694,7 @@
         
             
             <div class="tag-source">
-                math/Euler.js, line 94
+                math/Euler.js, line 163
             </div>
             
         </div>
@@ -6665,7 +6843,7 @@
         
 
         <footer>
-            Documentation generated by <a target="_blank" href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.4</a>
+            Documentation generated by <a target="_blank" href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.3</a>
         </footer>
     </div>
 </div>

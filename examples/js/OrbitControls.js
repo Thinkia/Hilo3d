@@ -1,6 +1,7 @@
 (function (win) {
     var PI2 = Math.PI / 2;
     var tempEuler = new Hilo3d.Euler();
+    tempEuler.order = 'XYZ';
     var tempQuat = new Hilo3d.Quaternion();
     var tempMatrix = new Hilo3d.Matrix4();
     var tempVector = new Hilo3d.Vector3();
@@ -32,6 +33,9 @@
         this.isLockScale = !!opt.isLockScale;
         this.isLockRotate = !!opt.isLockRotate;
         this.isLockMove = !!opt.isLockMove;
+        if (opt.eulerOrder) {
+            tempEuler.order = opt.eulerOrder;
+        }
 
         if (this.isLockZ) {
             tempEuler.x = this.model.rotationX * Math.PI / 180;
