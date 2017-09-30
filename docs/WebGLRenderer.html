@@ -4914,7 +4914,17 @@
             
                 <li  data-name="WebGLRenderer#alpha"><a href="WebGLRenderer.html#alpha">alpha</a></li>
             
+                <li  data-name="WebGLRenderer#depth"><a href="WebGLRenderer.html#depth">depth</a></li>
+            
+                <li  data-name="WebGLRenderer#stencil"><a href="WebGLRenderer.html#stencil">stencil</a></li>
+            
                 <li  data-name="WebGLRenderer#antialias"><a href="WebGLRenderer.html#antialias">antialias</a></li>
+            
+                <li  data-name="WebGLRenderer#premultipliedAlpha"><a href="WebGLRenderer.html#premultipliedAlpha">premultipliedAlpha</a></li>
+            
+                <li  data-name="WebGLRenderer#preserveDrawingBuffer"><a href="WebGLRenderer.html#preserveDrawingBuffer">preserveDrawingBuffer</a></li>
+            
+                <li  data-name="WebGLRenderer#failIfMajorPerformanceCaveat"><a href="WebGLRenderer.html#failIfMajorPerformanceCaveat">failIfMajorPerformanceCaveat</a></li>
             
                 <li  data-name="WebGLRenderer#useFramebuffer"><a href="WebGLRenderer.html#useFramebuffer">useFramebuffer</a></li>
             
@@ -5987,6 +5997,80 @@
         <tr >
             
                 <td class="name">
+                    <a name="depth"></a>
+                    <code>depth</code>
+                </td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">Boolean</span>
+
+
+            
+            </td>
+            
+            
+            
+            
+                <td class="default">
+                
+                    true
+                
+                </td>
+            
+            
+            <td class="description last">
+                
+                
+                
+    
+                
+            </td>
+        </tr>
+	
+	
+        <tr >
+            
+                <td class="name">
+                    <a name="stencil"></a>
+                    <code>stencil</code>
+                </td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">Boolean</span>
+
+
+            
+            </td>
+            
+            
+            
+            
+                <td class="default">
+                
+                    false
+                
+                </td>
+            
+            
+            <td class="description last">
+                
+                
+                
+    
+                
+            </td>
+        </tr>
+	
+	
+        <tr >
+            
+                <td class="name">
                     <a name="antialias"></a>
                     <code>antialias</code>
                 </td>
@@ -6014,6 +6098,117 @@
             <td class="description last">
                 
                 <p>是否开启抗锯齿</p>
+                
+    
+                
+            </td>
+        </tr>
+	
+	
+        <tr >
+            
+                <td class="name">
+                    <a name="premultipliedAlpha"></a>
+                    <code>premultipliedAlpha</code>
+                </td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">Boolean</span>
+
+
+            
+            </td>
+            
+            
+            
+            
+                <td class="default">
+                
+                    true
+                
+                </td>
+            
+            
+            <td class="description last">
+                
+                <p>Boolean that indicates that the page compositor will assume the drawing buffer contains colors with pre-multiplied alpha.</p>
+                
+    
+                
+            </td>
+        </tr>
+	
+	
+        <tr >
+            
+                <td class="name">
+                    <a name="preserveDrawingBuffer"></a>
+                    <code>preserveDrawingBuffer</code>
+                </td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">Boolean</span>
+
+
+            
+            </td>
+            
+            
+            
+            
+                <td class="default">
+                
+                    false
+                
+                </td>
+            
+            
+            <td class="description last">
+                
+                <p>If the value is true the buffers will not be cleared and will preserve their values until cleared or overwritten by the author.</p>
+                
+    
+                
+            </td>
+        </tr>
+	
+	
+        <tr >
+            
+                <td class="name">
+                    <a name="failIfMajorPerformanceCaveat"></a>
+                    <code>failIfMajorPerformanceCaveat</code>
+                </td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">Boolean</span>
+
+
+            
+            </td>
+            
+            
+            
+            
+                <td class="default">
+                
+                    false
+                
+                </td>
+            
+            
+            <td class="description last">
+                
+                <p>Boolean that indicates if a context will be created if the system performance is low.</p>
                 
     
                 
@@ -6453,7 +6648,7 @@
         
             
             <div class="tag-source">
-                renderer/WebGLRenderer.js, line 212
+                renderer/WebGLRenderer.js, line 245
             </div>
             
         </div>
@@ -6647,7 +6842,7 @@
         
             
             <div class="tag-source">
-                renderer/WebGLRenderer.js, line 228
+                renderer/WebGLRenderer.js, line 261
             </div>
             
         </div>
@@ -6785,7 +6980,7 @@
         
             
             <div class="tag-source">
-                renderer/WebGLRenderer.js, line 242
+                renderer/WebGLRenderer.js, line 275
             </div>
             
         </div>
@@ -7023,7 +7218,7 @@
         
             
             <div class="tag-source">
-                renderer/WebGLRenderer.js, line 286
+                renderer/WebGLRenderer.js, line 319
             </div>
             
         </div>
@@ -7093,7 +7288,7 @@
         
             
             <div class="tag-source">
-                renderer/WebGLRenderer.js, line 353
+                renderer/WebGLRenderer.js, line 392
             </div>
             
         </div>
@@ -7231,7 +7426,7 @@
         
             
             <div class="tag-source">
-                renderer/WebGLRenderer.js, line 369
+                renderer/WebGLRenderer.js, line 408
             </div>
             
         </div>
@@ -7369,7 +7564,7 @@
         
             
             <div class="tag-source">
-                renderer/WebGLRenderer.js, line 383
+                renderer/WebGLRenderer.js, line 422
             </div>
             
         </div>
@@ -7507,7 +7702,7 @@
         
             
             <div class="tag-source">
-                renderer/WebGLRenderer.js, line 407
+                renderer/WebGLRenderer.js, line 446
             </div>
             
         </div>
@@ -7701,7 +7896,7 @@
         
             
             <div class="tag-source">
-                renderer/WebGLRenderer.js, line 428
+                renderer/WebGLRenderer.js, line 467
             </div>
             
         </div>
@@ -7862,7 +8057,7 @@
         
             
             <div class="tag-source">
-                renderer/WebGLRenderer.js, line 458
+                renderer/WebGLRenderer.js, line 497
             </div>
             
         </div>
@@ -8000,7 +8195,7 @@
         
             
             <div class="tag-source">
-                renderer/WebGLRenderer.js, line 482
+                renderer/WebGLRenderer.js, line 521
             </div>
             
         </div>
@@ -8217,7 +8412,7 @@
         
             
             <div class="tag-source">
-                renderer/WebGLRenderer.js, line 517
+                renderer/WebGLRenderer.js, line 556
             </div>
             
         </div>
@@ -8355,7 +8550,7 @@
         
             
             <div class="tag-source">
-                renderer/WebGLRenderer.js, line 526
+                renderer/WebGLRenderer.js, line 565
             </div>
             
         </div>
@@ -8470,7 +8665,7 @@
         
             
             <div class="tag-source">
-                renderer/WebGLRenderer.js, line 541
+                renderer/WebGLRenderer.js, line 580
             </div>
             
         </div>
@@ -8608,7 +8803,7 @@
         
             
             <div class="tag-source">
-                renderer/WebGLRenderer.js, line 604
+                renderer/WebGLRenderer.js, line 643
             </div>
             
         </div>
@@ -8678,7 +8873,7 @@
         
             
             <div class="tag-source">
-                renderer/WebGLRenderer.js, line 614
+                renderer/WebGLRenderer.js, line 653
             </div>
             
         </div>
@@ -8808,7 +9003,7 @@
         
             
             <div class="tag-source">
-                renderer/WebGLRenderer.js, line 630
+                renderer/WebGLRenderer.js, line 669
             </div>
             
         </div>
@@ -8878,7 +9073,7 @@
         
             
             <div class="tag-source">
-                renderer/WebGLRenderer.js, line 642
+                renderer/WebGLRenderer.js, line 681
             </div>
             
         </div>
@@ -8993,7 +9188,7 @@
         
             
             <div class="tag-source">
-                renderer/WebGLRenderer.js, line 650
+                renderer/WebGLRenderer.js, line 689
             </div>
             
         </div>
@@ -9108,7 +9303,7 @@
         
             
             <div class="tag-source">
-                renderer/WebGLRenderer.js, line 661
+                renderer/WebGLRenderer.js, line 700
             </div>
             
         </div>
@@ -9269,7 +9464,7 @@
         
             
             <div class="tag-source">
-                renderer/WebGLRenderer.js, line 685
+                renderer/WebGLRenderer.js, line 724
             </div>
             
         </div>
@@ -9392,7 +9587,7 @@
         
             
             <div class="tag-source">
-                renderer/WebGLRenderer.js, line 581
+                renderer/WebGLRenderer.js, line 620
             </div>
             
         </div>
@@ -9462,7 +9657,7 @@
         
             
             <div class="tag-source">
-                renderer/WebGLRenderer.js, line 595
+                renderer/WebGLRenderer.js, line 634
             </div>
             
         </div>
@@ -9533,7 +9728,7 @@
         
 
         <footer>
-            Documentation generated by <a target="_blank" href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.3</a>
+            Documentation generated by <a target="_blank" href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a>
         </footer>
     </div>
 </div>

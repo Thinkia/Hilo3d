@@ -4914,7 +4914,17 @@
             
                 <li  data-name="WebGLRenderer#alpha"><a href="WebGLRenderer.html#alpha">alpha</a></li>
             
+                <li  data-name="WebGLRenderer#depth"><a href="WebGLRenderer.html#depth">depth</a></li>
+            
+                <li  data-name="WebGLRenderer#stencil"><a href="WebGLRenderer.html#stencil">stencil</a></li>
+            
                 <li  data-name="WebGLRenderer#antialias"><a href="WebGLRenderer.html#antialias">antialias</a></li>
+            
+                <li  data-name="WebGLRenderer#premultipliedAlpha"><a href="WebGLRenderer.html#premultipliedAlpha">premultipliedAlpha</a></li>
+            
+                <li  data-name="WebGLRenderer#preserveDrawingBuffer"><a href="WebGLRenderer.html#preserveDrawingBuffer">preserveDrawingBuffer</a></li>
+            
+                <li  data-name="WebGLRenderer#failIfMajorPerformanceCaveat"><a href="WebGLRenderer.html#failIfMajorPerformanceCaveat">failIfMajorPerformanceCaveat</a></li>
             
                 <li  data-name="WebGLRenderer#useFramebuffer"><a href="WebGLRenderer.html#useFramebuffer">useFramebuffer</a></li>
             
@@ -5602,13 +5612,13 @@
 	
         <tr>
             
-                <td class="name"><code>params.antialias</code></td>
+                <td class="name"><code>params.clearColor</code></td>
             
             
             <td class="type">
             
                 
-<span class="param-type">Boolean</span>
+<span class="param-type"><a href="Color.html">Color</a></span>
 
 
             
@@ -5617,7 +5627,7 @@
             
                 <td class="default">
                 
-                    true
+                    new Color(1, 1, 1, 1)
                 
                 </td>
             
@@ -5631,43 +5641,7 @@
                         
                     
                 
-                <p>是否抗锯齿。</p></td>
-        </tr>
-	
-	
-	
-        <tr>
-            
-                <td class="name"><code>params.alpha</code></td>
-            
-            
-            <td class="type">
-            
-                
-<span class="param-type">Boolean</span>
-
-
-            
-            </td>
-            
-            
-                <td class="default">
-                
-                    false
-                
-                </td>
-            
-            
-            <td class="description last">
-                
-                    
-                        <span class="optional">optional</span>
-                    
-                    
-                        
-                    
-                
-                <p>是否背景透明。</p></td>
+                <p>背景色。</p></td>
         </tr>
 	
 	
@@ -5710,13 +5684,13 @@
 	
         <tr>
             
-                <td class="name"><code>params.clearColor</code></td>
+                <td class="name"><code>params.alpha</code></td>
             
             
             <td class="type">
             
                 
-<span class="param-type"><a href="Color.html">Color</a></span>
+<span class="param-type">Boolean</span>
 
 
             
@@ -5725,7 +5699,7 @@
             
                 <td class="default">
                 
-                    new Color(1, 1, 1, 1)
+                    false
                 
                 </td>
             
@@ -5739,7 +5713,223 @@
                         
                     
                 
-                <p>背景色。</p></td>
+                <p>是否背景透明。</p></td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>params.depth</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">Boolean</span>
+
+
+            
+            </td>
+            
+            
+                <td class="default">
+                
+                    true
+                
+                </td>
+            
+            
+            <td class="description last">
+                
+                    
+                        <span class="optional">optional</span>
+                    
+                    
+                        
+                    
+                
+                <p>是否需要深度缓冲区。</p></td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>params.stencil</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">Boolean</span>
+
+
+            
+            </td>
+            
+            
+                <td class="default">
+                
+                    false
+                
+                </td>
+            
+            
+            <td class="description last">
+                
+                    
+                        <span class="optional">optional</span>
+                    
+                    
+                        
+                    
+                
+                <p>是否需要模版缓冲区。</p></td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>params.antialias</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">Boolean</span>
+
+
+            
+            </td>
+            
+            
+                <td class="default">
+                
+                    true
+                
+                </td>
+            
+            
+            <td class="description last">
+                
+                    
+                        <span class="optional">optional</span>
+                    
+                    
+                        
+                    
+                
+                <p>是否抗锯齿。</p></td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>params.premultipliedAlpha</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">Boolean</span>
+
+
+            
+            </td>
+            
+            
+                <td class="default">
+                
+                    true
+                
+                </td>
+            
+            
+            <td class="description last">
+                
+                    
+                        <span class="optional">optional</span>
+                    
+                    
+                        
+                    
+                
+                <p>是否需要 premultipliedAlpha。</p></td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>params.preserveDrawingBuffer</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">Boolean</span>
+
+
+            
+            </td>
+            
+            
+                <td class="default">
+                
+                    false
+                
+                </td>
+            
+            
+            <td class="description last">
+                
+                    
+                        <span class="optional">optional</span>
+                    
+                    
+                        
+                    
+                
+                <p>是否需要 preserveDrawingBuffer。</p></td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>params.failIfMajorPerformanceCaveat</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">Boolean</span>
+
+
+            
+            </td>
+            
+            
+                <td class="default">
+                
+                    false
+                
+                </td>
+            
+            
+            <td class="description last">
+                
+                    
+                        <span class="optional">optional</span>
+                    
+                    
+                        
+                    
+                
+                <p>是否需要 failIfMajorPerformanceCaveat。</p></td>
         </tr>
 	
 	
@@ -6989,7 +7179,7 @@
         
             
             <div class="tag-source">
-                core/Stage.js, line 111
+                core/Stage.js, line 116
             </div>
             
         </div>
@@ -7219,7 +7409,7 @@
         
             
             <div class="tag-source">
-                core/Stage.js, line 136
+                core/Stage.js, line 141
             </div>
             
         </div>
@@ -7357,7 +7547,7 @@
         
             
             <div class="tag-source">
-                core/Stage.js, line 152
+                core/Stage.js, line 157
             </div>
             
         </div>
@@ -7541,7 +7731,7 @@
         
             
             <div class="tag-source">
-                core/Stage.js, line 160
+                core/Stage.js, line 165
             </div>
             
         </div>
@@ -10870,7 +11060,7 @@
         
 
         <footer>
-            Documentation generated by <a target="_blank" href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.3</a>
+            Documentation generated by <a target="_blank" href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a>
         </footer>
     </div>
 </div>
