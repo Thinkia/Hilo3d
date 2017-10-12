@@ -176,6 +176,7 @@
 
         var loader = new Hilo3d.GLTFLoader();
         loader.load({
+            isUnQuantizeInShader: false,
             src: '//ossgw.alicdn.com/tmall-c3/tmx/f3159fe279655ea93a4447448cdcd1fd.gltf'
         }).then(function(model){
             model.meshes.forEach(function(mesh){

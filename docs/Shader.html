@@ -3427,6 +3427,8 @@
             
                 <li  data-name="Material#className"><a href="Material.html#className">className</a></li>
             
+                <li  data-name="Material#lightType"><a href="Material.html#lightType">lightType</a></li>
+            
                 <li  data-name="Material#wireframe"><a href="Material.html#wireframe">wireframe</a></li>
             
                 <li  data-name="Material#depthTest"><a href="Material.html#depthTest">depthTest</a></li>
@@ -3615,7 +3617,11 @@
             
                 <li  data-name="ShaderMaterial#fs"><a href="ShaderMaterial.html#fs">fs</a></li>
             
+                <li  data-name="ShaderMaterial#getCustomRenderOption"><a href="ShaderMaterial.html#getCustomRenderOption">getCustomRenderOption</a></li>
+            
                 <li class="inherited-member" data-name="ShaderMaterial#isMaterial"><a href="ShaderMaterial.html#isMaterial">isMaterial</a></li>
+            
+                <li class="inherited-member" data-name="ShaderMaterial#lightType"><a href="ShaderMaterial.html#lightType">lightType</a></li>
             
                 <li class="inherited-member" data-name="ShaderMaterial#wireframe"><a href="ShaderMaterial.html#wireframe">wireframe</a></li>
             
@@ -5043,6 +5049,8 @@
             
                 <li  data-name="Shader.reset"><a href="Shader.html#.reset">reset</a></li>
             
+                <li  data-name="Shader.getHeaderKey"><a href="Shader.html#.getHeaderKey">getHeaderKey</a></li>
+            
                 <li  data-name="Shader.getHeader"><a href="Shader.html#.getHeader">getHeader</a></li>
             
                 <li  data-name="Shader.getShader"><a href="Shader.html#.getShader">getShader</a></li>
@@ -6058,6 +6066,219 @@
 <dl >
     <dt>
         <div class="nameContainer">
+            <h4 class="name" id=".getHeaderKey">
+                
+                <span class="type-signature static">static</span>Shader.getHeaderKey<span class="signature">(mesh, material, lightManager, fog)</span><span class="glyphicon glyphicon-circle-arrow-right"></span><span class="type-signature returnType">{string}</span>
+            </h4>
+        
+            
+            <div class="tag-source">
+                shader/Shader.js, line 111
+            </div>
+            
+        </div>
+    </dt>
+    <dd>
+        
+        
+        <div class="description">
+            <p>获取header缓存的key</p>
+        </div>
+        
+
+        
+        
+        
+        
+        
+            
+
+<table class="params">
+    <thead>
+	<tr>
+		
+		<th>Name</th>
+		
+		
+		<th>Type</th>
+		
+		
+		
+		<th class="last">Description</th>
+	</tr>
+	</thead>
+	
+	<tbody>
+	
+	
+        <tr>
+            
+                <td class="name"><code>mesh</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type"><a href="Mesh.html">Mesh</a></span>
+
+
+            
+            </td>
+            
+            
+            
+            <td class="description last">
+                
+                <p>mesh</p></td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>material</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type"><a href="Material.html">Material</a></span>
+
+
+            
+            </td>
+            
+            
+            
+            <td class="description last">
+                
+                <p>材质</p></td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>lightManager</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type"><a href="LightManager.html">LightManager</a></span>
+
+
+            
+            </td>
+            
+            
+            
+            <td class="description last">
+                
+                <p>lightManager</p></td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>fog</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type"><a href="Fog.html">Fog</a></span>
+
+
+            
+            </td>
+            
+            
+            
+            <td class="description last">
+                
+                <p>fog</p></td>
+        </tr>
+	
+	
+	</tbody>
+</table>
+        
+        
+        
+<dl class="details">
+    
+        
+    
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+</dl>
+
+        
+        
+
+        
+
+        
+        
+        
+        
+        
+        <h5>Returns:</h5>
+        
+
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Type</th>
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+    <tbody>
+    
+        <tr>
+            
+            <td class="type">
+            
+                        string
+                        
+                    
+            </td>
+            <td class="description last"></td>
+        </tr>
+    
+    </tbody>
+</table>
+
+        
+        
+        
+    </dd>
+</dl>
+        
+            
+<dl >
+    <dt>
+        <div class="nameContainer">
             <h4 class="name" id=".getHeader">
                 
                 <span class="type-signature static">static</span>Shader.getHeader<span class="signature">(mesh, material, lightManager, fog)</span><span class="glyphicon glyphicon-circle-arrow-right"></span><span class="type-signature returnType">{String}</span>
@@ -6065,7 +6286,7 @@
         
             
             <div class="tag-source">
-                shader/Shader.js, line 112
+                shader/Shader.js, line 132
             </div>
             
         </div>
@@ -6278,7 +6499,7 @@
         
             
             <div class="tag-source">
-                shader/Shader.js, line 152
+                shader/Shader.js, line 179
             </div>
             
         </div>
@@ -6514,7 +6735,7 @@
         
             
             <div class="tag-source">
-                shader/Shader.js, line 169
+                shader/Shader.js, line 198
             </div>
             
         </div>
@@ -6727,7 +6948,7 @@
         
             
             <div class="tag-source">
-                shader/Shader.js, line 227
+                shader/Shader.js, line 237
             </div>
             
         </div>

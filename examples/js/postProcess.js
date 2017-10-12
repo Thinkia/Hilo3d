@@ -151,7 +151,7 @@ var postProcess = {
             gl.clear(gl.COLOR_BUFFER_BIT);
         }
 
-        var shader = Hilo3d.Shader.getCustomShader(screenVert, screenFrag, pass.id);
+        var shader = Hilo3d.Shader.getCustomShader(screenVert, screenFrag, '', pass.id);
         var program = Hilo3d.Program.getProgram(shader, state);
         program.useProgram();
 

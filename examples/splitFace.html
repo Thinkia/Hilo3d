@@ -162,6 +162,7 @@
 
         var loader = new Hilo3d.GLTFLoader();
         loader.load({
+            isUnQuantizeInShader: false,
             src: '//ossgw.alicdn.com/tmall-c3/tmx/be064aa4ab91137ef16541d960ec5739.gltf'
         }).then(function(model){
             model.node.needCallChildUpdate = true;

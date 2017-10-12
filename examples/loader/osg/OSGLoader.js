@@ -257,7 +257,6 @@
                 }
             }
         },
-<<<<<<< HEAD
         decodeFloatData2(mode, data, itemSize, name, decodeControl) {
             //              e,   t,     r,      n,      a
             var namePrefix = "POSITION" === name ? "vtx_" : "uv_0_";
@@ -290,42 +289,14 @@
                         newData[s + u] = S[u] + data[s + u] * y[u];
                     }
                 }
-||||||| merged common ancestors
-        parseGeometry: function (parent, data, buffer) {
-            var material = this.getMaterial(data);
-            var attr = data.VertexAttributeList;
-            var geometryData = {};
-            if (attr.Normal) {
-                var info = attr.Normal.Array.Float32Array;
-                geometryData.normals = new Float32Array(buffer, info.Offset, info.Size * 3);
-=======
-        parseGeometry: function (parent, data, buffer) {
-            var material = this.getMaterial(data);
-            var attr = data.VertexAttributeList;
-            var geometryData = {};
-            if (attr.Normal) {
-                var info = attr.Normal.Array.Float32Array;
-                geometryData.normals = new GeometryData(new Float32Array(buffer, info.Offset, info.Size * 3), 3);
->>>>>>> master
             }
-<<<<<<< HEAD
             return newData;
         },
         decodeGeometryData(attrName, info, buffers, decodeControl, indices) {
             this.geometryDataMap = this.geometryDataMap || {};
             if (this.geometryDataMap[info.UniqueID]) {
                 return this.geometryDataMap[info.UniqueID];
-||||||| merged common ancestors
-            if (attr.Vertex) {
-                var info = attr.Vertex.Array.Float32Array;
-                geometryData.vertices = new Float32Array(buffer, info.Offset, info.Size * 3);
-=======
-            if (attr.Vertex) {
-                var info = attr.Vertex.Array.Float32Array;
-                geometryData.vertices = new GeometryData(new Float32Array(buffer, info.Offset, info.Size * 3), 3);
->>>>>>> master
             }
-<<<<<<< HEAD
 
             var arrayInfo = info.Array;
             var TypedArray = Float32Array;
@@ -342,15 +313,6 @@
                 TypedArray = Uint16Array;
             } else {
                 console.warn('cant resolve', info.Array);
-||||||| merged common ancestors
-            if (attr.TexCoord0) {
-                var info = attr.TexCoord0.Array.Float32Array;
-                geometryData.uvs = new Float32Array(buffer, info.Offset, info.Size * 2);
-=======
-            if (attr.TexCoord0) {
-                var info = attr.TexCoord0.Array.Float32Array;
-                geometryData.uvs = new GeometryData(new Float32Array(buffer, info.Offset, info.Size * 2), 2);
->>>>>>> master
             }
 
             var buffer = buffers[arrayInfo.File];
@@ -426,7 +388,6 @@
             var attr = data.VertexAttributeList;
             userData.__xx = [0];
             util.each(data.PrimitiveSetList, function (set) {
-<<<<<<< HEAD
                 var drawInfo = set.DrawElementsUShort || set.DrawElementsUInt;
                 if (!drawInfo) {
                     console.log('has no drawInfo', set);
@@ -445,37 +406,6 @@
                 }
                 if (attr.TexCoord0) {
                     geometry.uvs = that.decodeGeometryData('UV', attr.TexCoord0, buffers, userData, indices);
-||||||| merged common ancestors
-                if (set.DrawElementsUShort) {
-                    var info = set.DrawElementsUShort.Indices.Array.Uint16Array;
-                    var geometry = new Geometry({
-                        vertices: geometryData.vertices,
-                        normals: geometryData.normals,
-                        uvs: geometryData.uvs,
-                        indices: new Uint16Array(buffer, info.Offset, info.Size),
-                        mode: set.DrawElementsUShort.Mode === 'TRIANGLE_STRIP' ? 5 : 4
-                    });
-                    var mesh = new Mesh({
-                        geometry,
-                        material
-                    });
-                    parent.addChild(mesh);
-=======
-                if (set.DrawElementsUShort) {
-                    var info = set.DrawElementsUShort.Indices.Array.Uint16Array;
-                    var geometry = new Geometry({
-                        vertices: geometryData.vertices,
-                        normals: geometryData.normals,
-                        uvs: geometryData.uvs,
-                        indices: new GeometryData(new Uint16Array(buffer, info.Offset, info.Size), 1),
-                        mode: set.DrawElementsUShort.Mode === 'TRIANGLE_STRIP' ? 5 : 4
-                    });
-                    var mesh = new Mesh({
-                        geometry,
-                        material
-                    });
-                    parent.addChild(mesh);
->>>>>>> master
                 }
                 if (geometry.mode < 4) {
                     return;

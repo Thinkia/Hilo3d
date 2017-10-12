@@ -82,6 +82,8 @@
         this.model.scaleX *= s;
         this.model.scaleY *= s;
         this.model.scaleZ *= s;
+
+        this.onScale && this.onScale(s);
     };
 
     OrbitControls.prototype.move = function(x, y) {
