@@ -10,8 +10,8 @@ var NormalTangentHelper = {
         var vertices = geometry.vertices;
 
         var colors = [
-            [1, 0, 0],
-            [0, 1, 0]
+            [0, 0, 1],
+            [1, 0, 0]
         ];
         [normals, tangents].forEach(function(info, index) {
             if(info){

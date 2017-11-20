@@ -689,12 +689,6 @@ const GLTFParser = Class.create( /** @lends GLTFParser.prototype */ {
             }
         }
 
-        if (geometry._tangents) {
-            if (geometry._tangents.length > geometry.vertices.length) {
-                geometry._tangents.stride = 16;
-                geometry._tangents.size = 3;
-            }
-        }
     },
     handlerSkinedMesh(mesh, skin) {
         if (!skin) {
