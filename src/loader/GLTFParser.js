@@ -70,6 +70,9 @@ const glTFAttrToGeometry = {
     },
     TANGENT: {
         name: 'tangents'
+    },
+    COLOR_0: {
+        name: 'colors'
     }
 };
 
@@ -262,8 +265,12 @@ const GLTFParser = Class.create( /** @lends GLTFParser.prototype */ {
                     'transparency',
                     'normalMap'
                 ].forEach(name => {
-                    if (util.isStrOrNumber(values[name]) && this.json.textures[values[name]]) {
-                        map[values[name]] = true;
+                    let value = values[name];
+                    if (value instanceof Object && 'index' in value) {
+                        value = value.index;
+                    }
+                    if (util.isStrOrNumber(value) && this.json.textures[value]) {
+                        map[value] = true;
                     }
                 });
             }
@@ -328,6 +335,8 @@ const GLTFParser = Class.create( /** @lends GLTFParser.prototype */ {
     getColorOrTexture(value) {
         if (Array.isArray(value)) {
             return new Color(value[0], value[1], value[2]);
+        } else if (value instanceof Object && 'index' in value) {
+            value = value.index;
         }
         return this.textures[value];
     },
@@ -563,6 +572,9 @@ const GLTFParser = Class.create( /** @lends GLTFParser.prototype */ {
             }
         }
         accessor.data = result;
+        if (accessor.normalized) {
+            result.normalized = true;
+        }
         return result;
     },
     getArrayByAccessor(name, isDecode) {
