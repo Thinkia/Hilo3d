@@ -891,7 +891,20 @@ const GLTFParser = Class.create( /** @lends GLTFParser.prototype */ {
 
         this.parseCameras();
 
-        let nodes = this.json.scenes[this.json.scene || 0].nodes;
+        const scene = this.json.scenes[this.getDefaultSceneName()];
+        if (!scene) {
+            console.warn('GLTFParser:no scene!');
+            return {
+                node: this.node,
+                meshes: [],
+                cameras: [],
+                lights: [],
+                textures: [],
+                materials: []
+            };
+        }
+
+        const nodes = scene.nodes;
         nodes.forEach(node => this.parseNode(node, this.node));
 
         this.node.resetSkinedMeshRootNode();
@@ -911,6 +924,17 @@ const GLTFParser = Class.create( /** @lends GLTFParser.prototype */ {
             textures: Object.values(this.textures),
             materials: Object.values(this.materials)
         };
+    },
+    getDefaultSceneName() {
+        if (this.defaultScene !== undefined) {
+            return this.defaultScene;
+        }
+
+        if (this.json.scenes) {
+            return Object.keys(this.json.scenes)[0];
+        }
+
+        return null;
     }
 });
 

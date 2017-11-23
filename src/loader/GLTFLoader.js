@@ -26,6 +26,7 @@ const GLTFLoader = Class.create(/** @lends GLTFLoader.prototype */{
      * 加载glTF模型
      * @param {object} params 加载参数
      * @param {string} params.src glTF模型地址
+     * @param {number|string} [params.defaultScene] 加载后要展示的场景，默认读模型里的
      * @param {boolean} [params.isProgressive=false] 是否渐进式加载，图片加载完前使用占位图片
      * @param {boolean} [params.isUnQuantizeInShader=true] 是否在shader中进行量化解压数据
      * @param {function} [params.preHandlerImageURI=null] 图片URL预处理函数

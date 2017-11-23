@@ -24,11 +24,13 @@
             x: -1,
             onUpdate: function() {
                 this.rotationX += .5;
-                // this.rotationY += .5;
+                this.rotationY += .5;
             }
         });
         stage.addChild(colorBox);
 
+        var angle = 0;
+        var axis = new Hilo3d.Vector3(1, 1, 1).normalize();
         var textureBox = new Hilo3d.Mesh({
             geometry:boxGeometry,
             material: new Hilo3d.BasicMaterial({
@@ -39,8 +41,8 @@
             }),
             x: 1,
             onUpdate: function() {
-                this.rotationX += .5;
-                this.rotationZ += .5;
+                angle += Hilo3d.math.DEG2RAD;
+                this.quaternion.setAxisAngle(axis, angle);
             }
         });
         stage.addChild(textureBox);
