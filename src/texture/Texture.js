@@ -46,7 +46,7 @@ const Texture = Class.create( /** @lends Texture.prototype */ {
          */
         reset(gl) {
             cache.each(texture => {
-                texture.destroy(gl);
+                texture.releaseGLTexture(gl);
             });
         }
     },
@@ -274,15 +274,19 @@ const Texture = Class.create( /** @lends Texture.prototype */ {
         gl.texParameterf(this.target, gl.TEXTURE_WRAP_T, this.wrapT);
         return this.tex;
     },
+    releaseGLTexture(gl) {
+        if (this.tex) {
+            gl.deleteTexture(this.tex);
+            delete this.tex;
+        }
+    },
     /**
      * 销毁当前Texture
      * @param {WebGL2RenderingContext} gl gl
      */
     destroy(gl) {
-        if (this.tex) {
-            gl.deleteTexture(this.tex);
-            delete this.tex;
-        }
+        this.releaseGLTexture(gl);
+        cache.removeObject(this);
     }
 });
 

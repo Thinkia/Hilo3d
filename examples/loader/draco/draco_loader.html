@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <title>Hilo3d Draco Loader Demo</title>
+    <link rel="stylesheet" type="text/css" href="../../example.css">
+</head>
+<body>
+    <div id="container"></div>
+    <!-- <script src="//g.alicdn.com/tmapp/animation-data/4.1.37/jc/tools/vconsole.min.js"></script> -->
+    <script src="../../../build/Hilo3d.js"></script>
+    <script src="./draco_decoder.js"></script>
+    <!-- <script src="./draco_wasm_wrapper.js"></script> -->
+    <script src="./DracoLoader.js"></script>
+    <script src="../../js/stats.js"></script>
+    <script src="../../js/OrbitControls.js"></script>
+    <script src="../../js/init.js"></script>
+    <script>
+        // var dracoLoader = new Hilo3d.DracoLoader();
+        // dracoLoader.load({
+        //     // src: '/dl/models/bunry.drc'
+        //     src: '/draco/out.drc'
+        // }).then(function (geometry) {
+        //     window.xx = geometry;
+        //     stage.addChild(new Hilo3d.Mesh({
+        //         geometry: geometry,
+        //         material: new Hilo3d.BasicMaterial({
+        //             // wireframe: true,
+        //             // lightType: 'NONE',
+        //             // diffuse: new Hilo3d.Color(1, 0, 0, 1)
+        //             // specular: new Hilo3d.Color(0.2, 0.2, 0.2, 1),
+        //             // shininess: 11.3,
+        //             // diffuse: new Hilo3d.LazyTexture({
+        //             //     src: '//cx.alicdn.com/tmx/17c2cb9c15d349437a2afbca1d60440b.png'
+        //             // })
+        //         })
+        //     }))
+        // });
+
+
+        setTimeout(function () {
+            var glTFLoader = new Hilo3d.GLTFLoader();
+            glTFLoader.load({
+                src: '//ossgw.alicdn.com/tmall-c3/tmx/6a21e4092a90e37db21302aeb8f2cf9c.gltf'
+                // src: '/model-viewer/models/test/test.gltf'
+                // src: '/dl/models/output/aston_2010.gltf'
+            }).then(model => {
+                stage.addChild(model.node);
+                window.model = model;
+                // model.meshes.forEach(mesh => {
+                //     mesh.material = new Hilo3d.BasicMaterial({
+                //         diffuse: new Hilo3d.Color(1, 0, 0, 1)
+                //     });
+                // })
+                // model.node.setScale(0.00003);
+                // model.node.rotationX = 173;
+                // model.node.rotationZ = -180;
+            })
+        }, 1000);
+    </script>
+</body>
+</html>

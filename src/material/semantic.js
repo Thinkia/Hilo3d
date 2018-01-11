@@ -398,6 +398,18 @@ const semantic = {
     /**
      * @type {semanticObject}
      */
+    NORMALMAPSCALE: {
+        get(mesh, material, programInfo) {
+            if (!material.normalMapScale) {
+                return undefined;
+            }
+            return material.normalMapScale.elements;
+        }
+    },
+
+    /**
+     * @type {semanticObject}
+     */
     SHININESS: {
         get(mesh, material, programInfo) {
             return material.shininess;
@@ -850,6 +862,12 @@ const semantic = {
             return material.alphaCutoff;
         }
     },
+    EXPOSURE: {
+        get(mesh, material, programInfo) {
+            return material.exposure;
+        }
+    },
+
     // Morph Animation Uniforms
     MORPHWEIGHTS: {
         isDependMesh: true,
@@ -882,7 +900,7 @@ const semantic = {
                     let idx = geometry._originalMorphIndices ? geometry._originalMorphIndices[i] : i;
                     const data = geometry.targets[name][idx];
                     const idxCacheKey = `_target_${name}_${i}`;
-                    if (geometry[idxCacheKey] !== idx) {
+                    if (geometry[idxCacheKey] !== idx && data) {
                         data.isDirty = true;
                         geometry[idxCacheKey] = idx;
                     }

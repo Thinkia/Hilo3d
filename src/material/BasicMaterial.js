@@ -24,11 +24,11 @@ const BasicMaterial = Class.create( /** @lends BasicMaterial.prototype */ {
      */
     className: 'BasicMaterial',
     /**
-     * 光照类型，支持: NONE, PHONE, BLINN
-     * @default PHONE
+     * 光照类型，支持: NONE, PHONG, BLINN-PHONG, LAMBERT
+     * @default BLINN-PHONG
      * @type {string}
      */
-    lightType: 'PHONG',
+    lightType: 'BLINN-PHONG',
     /**
      * 漫反射贴图，或颜色
      * @default Color(.5, .5, .5)
@@ -112,6 +112,7 @@ const BasicMaterial = Class.create( /** @lends BasicMaterial.prototype */ {
             u_ambient: 'AMBIENT',
             u_emission: 'EMISSION',
             u_normalMap: 'NORMALMAP',
+            u_normalMapScale: 'NORMALMAPSCALE',
             u_shininess: 'SHININESS',
             u_reflectivity: 'REFLECTIVITY',
             u_refractRatio: 'REFRACTRATIO',
@@ -125,9 +126,10 @@ const BasicMaterial = Class.create( /** @lends BasicMaterial.prototype */ {
         BasicMaterial.superclass.getRenderOption.call(this, option);
 
         const lightType = this.lightType;
-        if (lightType === 'PHONG' || lightType === 'BLINN') {
+        if (lightType === 'PHONG' || lightType === 'BLINN-PHONG') {
             option.HAS_SPECULAR = 1;
         }
+
         let needUV = false;
         const diffuse = this.diffuse;
         if (diffuse && diffuse.isTexture) {

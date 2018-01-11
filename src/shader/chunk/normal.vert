@@ -3,7 +3,7 @@
     uniform mat3 u_normalMatrix;
     varying vec3 v_normal;
 
-    #ifdef HILO_HAS_NORMAL_MAP
+    #ifdef HILO_NORMAL_MAP
         attribute vec4 a_tangent;
         varying mat3 v_TBN;
     #endif

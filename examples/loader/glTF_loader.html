@@ -152,7 +152,7 @@
         });
         cameraSelect.addEventListener('change', function() {
             var value = Number(cameraSelect.value);
-            if (!value || !currentModel.cameras[value]) {
+            if (!currentModel.cameras[value]) {
                 stage.camera = camera;
             } else {
                 stage.camera = currentModel.cameras[value];

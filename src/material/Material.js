@@ -74,6 +74,21 @@ const Material = Class.create( /** @lends Material.prototype */ {
     depthFunc: LESS,
 
     _cullFace: true,
+
+    /**
+     * 法线贴图
+     * @default null
+     * @type {Texture}
+     */
+    normalMap: null,
+
+    /**
+     * 法线贴图scale
+     * @default null
+     * @type {Vector3}
+     */
+    normalMapScale: null,
+    
     /**
      * 是否开启 CullFace
      * @default true
@@ -227,6 +242,20 @@ const Material = Class.create( /** @lends Material.prototype */ {
     alphaCutoff: 0,
 
     /**
+     * 是否使用HDR
+     * @default false
+     * @type {Boolean}
+     */
+    useHDR: false,
+
+    /**
+     * 曝光度，仅在 useHDR 为 true 时生效
+     * @default 1
+     * @type {Number}
+     */
+    exposure: 1,
+
+    /**
      * @constructs
      * @param {object} params 初始化参数，所有params都会复制到实例上
      */
@@ -269,6 +298,7 @@ const Material = Class.create( /** @lends Material.prototype */ {
             u_fogColor: 'FOGCOLOR',
             u_fogInfo: 'FOGINFO',
             u_alphaCutoff: 'ALPHACUTOFF',
+            u_exposure: 'EXPOSURE',
 
             // Quantization
             u_positionDecodeMat: 'POSITIONDECODEMAT',
@@ -309,12 +339,21 @@ const Material = Class.create( /** @lends Material.prototype */ {
         if (option.HAS_LIGHT) {
             option.HAS_NORMAL = 1;
             if (this.normalMap) {
-                option.HAS_NORMAL_MAP = 1;
+                option.NORMAL_MAP = 1;
                 option.HAS_TEXCOORD0 = true;
+
+                if (this.normalMapScale) {
+                    option.NORMAL_MAP_SCALE = true;
+                }
             }
         }
+
         if (this.alphaCutoff > 0) {
             option.ALPHA_CUTOFF = 1;
+        }
+
+        if (this.useHDR) {
+            option.USE_HDR = 1;
         }
         return option;
     },

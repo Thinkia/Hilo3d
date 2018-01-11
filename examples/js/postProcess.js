@@ -1,19 +1,19 @@
 var postProcess = {
     passes: [],
     texture: null,
-    init: function(renderer) {
+    init: function(renderer, framebufferOption) {
         var that = this;
         that.renderer = renderer;
         renderer.useFramebuffer = true;
         if (renderer.isInit) {
-            that._init();
+            that._init(framebufferOption);
         } else {
             renderer.on('init', function() {
-                that._init();
+                that._init(framebufferOption);
             }, true);
         }
     },
-    _init() {
+    _init(framebufferOption) {
         var renderer = this.renderer;
         this.state = renderer.state;
         this.gl = renderer.gl;
@@ -22,6 +22,7 @@ var postProcess = {
             width: renderer.width,
             height: renderer.height
         };
+        Object.assign(bufferParams, framebufferOption||{});
         this.frontBuffer = new Hilo3d.Framebuffer(renderer, bufferParams);
         this.backBuffer = new Hilo3d.Framebuffer(renderer, bufferParams);
     },
@@ -31,16 +32,16 @@ var postProcess = {
      * @param {String} params.frag
      * @param {Object} params.uniforms
      */
-    addPass(params) {
+    addPass(params, uid) {
         var pass = Object.assign({}, params);
-        pass.id = Hilo3d.math.generateUUID('pass');
+        pass.id = uid||Hilo3d.math.generateUUID('pass');
         this.passes.push(pass);
         return pass;
     },
     /**
      * @param {Array} kernel
      */
-    addKernelPass(kernel) {
+    addKernelPass(kernel, uid) {
         var renderer = this.renderer;
         var frag = '\n\
             precision HILO_MAX_FRAGMENT_PRECISION float;\n\
@@ -98,7 +99,7 @@ var postProcess = {
             kernel: kernel,
             frag: frag,
             uniforms: uniforms
-        });
+        }, uid);
 
         return pass;
     },

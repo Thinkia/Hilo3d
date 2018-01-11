@@ -81,7 +81,8 @@ const glTFAttrToGeometry = {
  */
 const GLTFParser = Class.create( /** @lends GLTFParser.prototype */ {
     Statics: {
-        MAGIC: 'glTF'
+        MAGIC: 'glTF',
+        extensionHandlers: {}
     },
     isProgressive: false,
     isUnQuantizeInShader: true,
@@ -128,6 +129,16 @@ const GLTFParser = Class.create( /** @lends GLTFParser.prototype */ {
             // this glTF model havn't use quantize!
             this.isUnQuantizeInShader = false;
         }
+    },
+    parseExtensions(extensions, result) {
+        util.each(extensions, (info, name) => {
+            const handler = this.extensionHandlers && this.extensionHandlers[name] || GLTFParser.extensionHandlers[name];
+            if (handler) {
+                result = handler(info, this, result);
+            }
+        });
+
+        return result;
     },
     parseBinary(buffer) {
         this.isBinary = true;
@@ -682,6 +693,12 @@ const GLTFParser = Class.create( /** @lends GLTFParser.prototype */ {
         return geometry;
     },
     handlerGeometry(geometry, primitive) {
+        if (primitive.extensions) {
+            return this.parseExtensions(primitive.extensions);
+        }
+        if (!geometry) {
+            geometry = new Geometry();
+        }
         if ('indices' in primitive) {
             geometry.indices = this.getAccessorData(primitive.indices);
         }
@@ -700,20 +717,24 @@ const GLTFParser = Class.create( /** @lends GLTFParser.prototype */ {
                 delete geometry[info.name].decodeMat;
             }
         }
-
+        return geometry;
     },
     handlerSkinedMesh(mesh, skin) {
         if (!skin) {
             return;
         }
         const jointCount = (skin.jointNames || skin.joints).length;
-        mesh.bindShapeMatrix = new Matrix4();
+        let bindShapeMatrix;
         if (skin.bindShapeMatrix) {
-            mesh.bindShapeMatrix.fromArray(skin.bindShapeMatrix);
+            bindShapeMatrix = new Matrix4().fromArray(skin.bindShapeMatrix);
         }
         const inverseBindMatrices = this.getArrayByAccessor(skin.inverseBindMatrices, true);
         for (let i = 0; i < jointCount; i++) {
-            mesh.inverseBindMatrices.push(new Matrix4().fromArray(inverseBindMatrices[i]));
+            const inverseBindMatrice = new Matrix4().fromArray(inverseBindMatrices[i]);
+            if (bindShapeMatrix) {
+                inverseBindMatrice.multiply(bindShapeMatrix);
+            }
+            mesh.inverseBindMatrices.push(inverseBindMatrice);
         }
         mesh.jointNames = skin.jointNames || skin.joints;
         if (this.useInstanced) {
@@ -723,31 +744,29 @@ const GLTFParser = Class.create( /** @lends GLTFParser.prototype */ {
     parseMesh(meshName, node, nodeData) {
         let meshData = this.json.meshes[meshName];
         meshData.primitives.forEach(primitive => {
+            let mesh;
             if (primitive.meshNode) {
-                node.addChild(primitive.meshNode.clone());
-                return;
-            }
-
-            let geometry;
-            if (primitive.targets && primitive.targets.length) {
-                geometry = this.createMorphGeometry(primitive, meshData.weights);
+                mesh = primitive.meshNode.clone();
             } else {
-                geometry = new Geometry();
+                let geometry;
+                if (primitive.targets && primitive.targets.length) {
+                    geometry = this.createMorphGeometry(primitive, meshData.weights);
+                }
+                geometry = this.handlerGeometry(geometry, primitive);
+
+                let material = this.materials[primitive.material] || new BasicMaterial();
+                const skin = this.json.skins && this.json.skins[nodeData.skin];
+                const MeshClass = skin ? SkinedMesh : Mesh;
+                mesh = new MeshClass({
+                    geometry,
+                    material,
+                    name: 'mesh-' + (meshData.name || meshName)
+                });
+
+                this.handlerSkinedMesh(mesh, skin);
+
+                primitive.meshNode = mesh;
             }
-            this.handlerGeometry(geometry, primitive);
-
-            let material = this.materials[primitive.material] || new BasicMaterial();
-            const skin = this.json.skins && this.json.skins[nodeData.skin];
-            const MeshClass = skin ? SkinedMesh : Mesh;
-            const mesh = new MeshClass({
-                geometry,
-                material,
-                name: 'mesh-' + (meshData.name || meshName)
-            });
-
-            this.handlerSkinedMesh(mesh, skin);
-
-            primitive.meshNode = mesh;
             node.addChild(mesh);
             this.meshes.push(mesh);
         });
@@ -793,12 +812,13 @@ const GLTFParser = Class.create( /** @lends GLTFParser.prototype */ {
     parseNode(nodeName, parentNode) {
         let node;
         let data = this.json.nodes[nodeName];
-        if (data.camera && this.cameras[data.camera]) {
-            node = this.cameras[data.camera];
-        } else {
-            node = new Node({
-                name: this.isGLTF2 ? (data.name || nodeName) : nodeName
-            });
+
+        node = new Node({
+            name: nodeName
+        });
+
+        if ('camera' in data && this.cameras[data.camera]) {
+            node.addChild(this.cameras[data.camera]);
         }
         this.handlerNodeTransform(node, data);
 
@@ -827,16 +847,12 @@ const GLTFParser = Class.create( /** @lends GLTFParser.prototype */ {
             return null;
         }
         const animStatesList = [];
-        for (let name in this.json.animations) {
-            let info = this.json.animations[name];
+        util.each(this.json.animations, (info) => {
             info.channels.forEach(channel => {
                 let path = channel.target.path;
                 let nodeId = channel.target.id;
                 if (this.isGLTF2) {
                     nodeId = channel.target.node;
-                    if (this.json.nodes[nodeId].name) {
-                        nodeId = this.json.nodes[nodeId].name;
-                    }
                 }
 
                 const sampler = info.samplers[channel.sampler];
@@ -848,7 +864,7 @@ const GLTFParser = Class.create( /** @lends GLTFParser.prototype */ {
                     path = 'quaternion';
                 }
                 const animStates = new AnimationStates({
-                    interpolationTpye: sampler.interpolation,
+                    interpolationType: sampler.interpolation,
                     nodeName: nodeId,
                     keyTime,
                     states,
@@ -856,7 +872,7 @@ const GLTFParser = Class.create( /** @lends GLTFParser.prototype */ {
                 });
                 animStatesList.push(animStates);
             });
-        }
+        });
         if (!animStatesList.length) {
             return null;
         }

@@ -24,28 +24,6 @@
         camera.far = 5;
 
         stage.addChild(new Hilo3d.AxisNetHelper({ size: 5 }));
-        function run (node) {
-            tweenTo(node, { z: 0.5 }, { duration: 2000 }).then(function () {
-                return tweenTo(node, { rotationX: 90 }, { duration: 500 });
-            }).then(function () {
-                return tweenTo(node, { y: -.5 }, { duration: 2000 });
-            }).then(function () {
-                return tweenTo(node, { rotationX: 180 }, { duration: 500 });
-            }).then(function () {
-                return tweenTo(node, { z: -.5 }, { duration: 2000 });
-            }).then(function () {
-                return tweenTo(node, { rotationX: 270 }, { duration: 500 });
-            }).then(function () {
-                return tweenTo(node, { y: .5 }, { duration: 2000 });
-            }).then(function () {
-                return tweenTo(node, { rotationX: 360 }, { duration: 500 });
-            }).then(function () {
-                node.rotationX = 0;
-                run(node);
-            });
-        }
-
-
 
         var loader = new Hilo3d.GLTFLoader();
         loader.load({
@@ -59,8 +37,24 @@
 
             model.node.y = .5;
             model.node.z = -.5;
-            run(model.node);
 
+            var run = function(){
+                var node = model.node;
+                var Tween = Hilo3d.Tween;
+                Tween.to(node, { z: 0.5 }, { duration: 2000 })
+                .link(Tween.to(node, { rotationX: 90 }, { duration: 500, delay:'+0' }))
+                .link(Tween.to(node, { y: -.5 }, { duration: 2000, delay:'+0' }))
+                .link(Tween.to(node, { rotationX: 180 }, { duration: 500, delay:'+0' }))
+                .link(Tween.to(node, { z: -.5 }, { duration: 2000, delay:'+0' }))
+                .link(Tween.to(node, { rotationX: 270 }, { duration: 500, delay:'+0' }))
+                .link(Tween.to(node, { y: .5 }, { duration: 2000, delay:'+0' }))
+                .link(Tween.to(node, { rotationX: 360 }, { duration: 500, delay:'+0', onComplete:function(){
+                    node.rotationX = 0;
+                    run();
+                }}))
+            }            
+
+            run();
             stage.addChild(box);
             stage.addChild(model.node);
         });

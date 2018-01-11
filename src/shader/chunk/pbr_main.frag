@@ -1,9 +1,12 @@
 vec4 baseColor = u_baseColor;
 #ifdef HILO_BASECOLOR_MAP
-    baseColor = texture2D(u_baseColorMap, v_texcoord0) * u_baseColor;
-#elif defined(HILO_HAS_COLOR)
-    baseColor = v_color;
+    baseColor *= texture2D(u_baseColorMap, v_texcoord0);
 #endif
+
+#if defined(HILO_HAS_COLOR)
+    baseColor *= v_color;
+#endif
+
 color.a = baseColor.a;
 
 #pragma glslify: import('./transparency_main.frag');

@@ -20,7 +20,7 @@ void main(void) {
     #ifdef HILO_HAS_NORMAL
         vec3 normal = a_normal;
     #endif
-    #ifdef HILO_HAS_NORMAL_MAP
+    #ifdef HILO_NORMAL_MAP
         vec4 tangent = a_tangent;
     #endif
 

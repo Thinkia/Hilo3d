@@ -145,7 +145,7 @@ const Shader = Class.create( /** @lends Shader.prototype */ {
                     headers.HAS_FOG = 1;
                 }
 
-                if (headers.HAS_NORMAL && headers.HAS_NORMAL_MAP) {
+                if (headers.HAS_NORMAL && headers.NORMAL_MAP) {
                     headers.HAS_TANGENT = 1;
                 }
 

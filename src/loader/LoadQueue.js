@@ -4,13 +4,15 @@ const util = require('../utils/util');
 const BasicLoader = require('./BasicLoader');
 const GLTFLoader = require('./GLTFLoader');
 const TextureLoader = require('./TextureLoader');
+const HDRLoader = require('./HDRLoader');
 const CubeTextureLoader = require('./CubeTextureLoader');
 
 const LoaderClassMap = {
     Texture: TextureLoader,
     CubeTexture: CubeTextureLoader,
     glb: GLTFLoader,
-    gltf: GLTFLoader
+    gltf: GLTFLoader,
+    hdr: HDRLoader
 };
 
 /**

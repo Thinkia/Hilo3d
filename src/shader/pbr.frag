@@ -17,7 +17,5 @@ void main(void) {
     #pragma glslify: import('./chunk/lightFog_main.frag');
     #pragma glslify: import('./chunk/pbr_main.frag');
     #pragma glslify: import('./chunk/fog_main.frag');
-
-    color.rgb *= color.a;
-    gl_FragColor = color;
+    #pragma glslify: import('./chunk/frag_color.frag');
 }

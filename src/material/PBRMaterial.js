@@ -82,12 +82,7 @@ const PBRMaterial = Class.create( /** @lends PBRMaterial.prototype */ {
      * @type {boolean}
      */
     aoInMetallicRoughness: false,
-    /**
-     * 法线贴图
-     * @default null
-     * @type {Texture}
-     */
-    normalMap: null,
+    
     /**
      * 漫反射辐照(Diffuse IBL)贴图
      * @default null
@@ -174,6 +169,7 @@ const PBRMaterial = Class.create( /** @lends PBRMaterial.prototype */ {
             u_specularGlossinessMap: 'SPECULARGLOSSINESSMAP',
 
             u_normalMap: 'NORMALMAP',
+            u_normalMapScale: 'NORMALMAPSCALE',
             u_transparency: 'TRANSPARENCY'
         });
     },
