@@ -134,12 +134,7 @@ const PBRMaterial = Class.create( /** @lends PBRMaterial.prototype */ {
 
 
     usedUniformVectors: 11,
-    /**
-     * 透明度 0~1
-     * @default 1
-     * @type {number}
-     */
-    transparency: 1,
+    
     /**
      * @constructs
      * @param {object} params 初始化参数，所有params都会复制到实例上
@@ -151,7 +146,6 @@ const PBRMaterial = Class.create( /** @lends PBRMaterial.prototype */ {
         PBRMaterial.superclass.constructor.call(this, params);
 
         Object.assign(this.uniforms, {
-            u_emission: 'EMISSION',
             u_baseColor: 'BASECOLOR',
             u_baseColorMap: 'BASECOLORMAP',
             u_metallic: 'METALLIC',
@@ -166,11 +160,7 @@ const PBRMaterial = Class.create( /** @lends PBRMaterial.prototype */ {
 
             u_specular: 'SPECULAR',
             u_glossiness: 'GLOSSINESS',
-            u_specularGlossinessMap: 'SPECULARGLOSSINESSMAP',
-
-            u_normalMap: 'NORMALMAP',
-            u_normalMapScale: 'NORMALMAPSCALE',
-            u_transparency: 'TRANSPARENCY'
+            u_specularGlossinessMap: 'SPECULARGLOSSINESSMAP'
         });
     },
     getRenderOption(option = {}) {
@@ -214,16 +204,6 @@ const PBRMaterial = Class.create( /** @lends PBRMaterial.prototype */ {
                 option.SPECULAR_GLOSSINESS_MAP = 1;
                 needUV = true;
             }
-        }
-
-        if (this.emission) {
-            option.EMISSION_MAP = 1;
-            needUV = true;
-        }
-
-        if (this.transparency.isTexture) {
-            option.TRANSPARENCY_MAP = 1;
-            needUV = true;
         }
 
         if (needUV) {

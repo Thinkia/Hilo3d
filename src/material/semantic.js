@@ -407,6 +407,18 @@ const semantic = {
         }
     },
 
+     /**
+     * @type {semanticObject}
+     */
+    PARALLAXMAP: {
+        get(mesh, material, programInfo) {
+            if (!material.parallaxMap || !material.parallaxMap.isTexture) {
+                return undefined;
+            }
+            return semantic.handlerColorOrTexture(material.parallaxMap, programInfo.textureIndex);
+        }
+    },
+
     /**
      * @type {semanticObject}
      */

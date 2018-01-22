@@ -26,8 +26,6 @@
         time:0,
         geometry: geometry,
         material: new Hilo3d.ShaderMaterial({
-            transparent:true,
-            transparency:1,
             diffuse: new Hilo3d.LazyTexture({
                 crossOrigin: true,
                 src: '//gw.alicdn.com/tfs/TB1Q8dQSVXXXXciXVXXXXXXXXXX-512-512.jpg'
@@ -40,7 +38,11 @@
                         return mesh.time;
                     }
                 },
-                u_transparency:'TRANSPARENCY'
+                'u_light.color.b':{
+                    get:function(){
+                        return Math.random() - .5;
+                    }
+                }
             },
             attributes:{
                 a_position: 'POSITION',
@@ -51,12 +53,23 @@
                 varying vec2 v_texcoord0;
                 uniform sampler2D u_diffuse;
                 uniform float u_time;
-                uniform float u_transparency;
+                
+                struct color{
+                    float r;
+                    float g;
+                    float b;
+                };
+
+                struct light{
+                    color color;
+                };
+                
+                uniform light u_light;
                 void main(void) {
                     float uOffset = sin(u_time * 0.0005);
                     float vOffset = cos(u_time * 0.0003);
                     vec4 diffuse = texture2D(u_diffuse, vec2(v_texcoord0.x + uOffset, v_texcoord0.y + vOffset));    
-                    gl_FragColor = vec4(diffuse.rgb, u_transparency);
+                    gl_FragColor = vec4(diffuse.r, diffuse.g, u_light.color.b, 1);
                 }
             `,
             vs:`

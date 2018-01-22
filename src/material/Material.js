@@ -1,6 +1,7 @@
 const Class = require('../core/Class');
 const math = require('../math/math');
 const semantic = require('./semantic');
+const log = require('../utils/log');
 const {
     LESS,
     BACK,
@@ -83,12 +84,19 @@ const Material = Class.create( /** @lends Material.prototype */ {
     normalMap: null,
 
     /**
+     * 视差贴图
+     * @default null
+     * @type {Texture}
+     */
+    parallaxMap: null,
+
+    /**
      * 法线贴图scale
      * @default null
      * @type {Vector3}
      */
     normalMapScale: null,
-    
+
     /**
      * 是否开启 CullFace
      * @default true
@@ -207,6 +215,13 @@ const Material = Class.create( /** @lends Material.prototype */ {
      */
     isDirty: false,
 
+    /**
+     * 透明度 0~1
+     * @default 1
+     * @type {number}
+     */
+    transparency: 1,
+    
     _transparent: false,
     /**
      * 是否需要透明
@@ -273,6 +288,8 @@ const Material = Class.create( /** @lends Material.prototype */ {
             u_normalMatrix: 'MODELVIEWINVERSETRANSPOSE',
             u_modelViewMatrix: 'MODELVIEW',
             u_modelViewProjectionMatrix: 'MODELVIEWPROJECTION',
+
+            // light
             u_ambientLightsColor: 'AMBIENTLIGHTSCOLOR',
             u_directionalLightsColor: 'DIRECTIONALLIGHTSCOLOR',
             u_directionalLightsInfo: 'DIRECTIONALLIGHTSINFO',
@@ -306,7 +323,13 @@ const Material = Class.create( /** @lends Material.prototype */ {
             u_uvDecodeMat: 'UVDECODEMAT',
 
             // morph
-            u_morphWeights: 'MORPHWEIGHTS'
+            u_morphWeights: 'MORPHWEIGHTS',
+
+            u_normalMap: 'NORMALMAP',
+            u_normalMapScale: 'NORMALMAPSCALE',
+            u_parallaxMap: 'PARALLAXMAP',
+            u_emission: 'EMISSION',
+            u_transparency: 'TRANSPARENCY'
         };
         /**
          * 可以通过指定，semantic来指定值的获取方式，或者自定义get方法
@@ -336,16 +359,23 @@ const Material = Class.create( /** @lends Material.prototype */ {
         const lightType = this.lightType;
         option[`LIGHT_TYPE_${lightType}`] = 1;
         option.SIDE = this.side;
+        let needUV = false;
+
         if (option.HAS_LIGHT) {
             option.HAS_NORMAL = 1;
             if (this.normalMap) {
                 option.NORMAL_MAP = 1;
-                option.HAS_TEXCOORD0 = true;
+                needUV = true;
 
                 if (this.normalMapScale) {
-                    option.NORMAL_MAP_SCALE = true;
+                    option.NORMAL_MAP_SCALE = 1;
                 }
             }
+        }
+
+        if (this.parallaxMap) {
+            option.PARALLAX_MAP = 1;
+            needUV = true;
         }
 
         if (this.alphaCutoff > 0) {
@@ -354,6 +384,20 @@ const Material = Class.create( /** @lends Material.prototype */ {
 
         if (this.useHDR) {
             option.USE_HDR = 1;
+        }
+
+        if (this.emission && this.emission.isTexture) {
+            option.EMISSION_MAP = 1;
+            needUV = true;
+        }
+
+        if (this.transparency.isTexture) {
+            option.TRANSPARENCY_MAP = 1;
+            needUV = true;
+        }
+
+        if (needUV) {
+            option.HAS_TEXCOORD0 = 1;
         }
         return option;
     },
@@ -395,7 +439,7 @@ const Material = Class.create( /** @lends Material.prototype */ {
         }
 
         if (!info || !info.get) {
-            console.warn('Material.getInfo: no this semantic:' + name);
+            log.warnOnce('material.getInfo-' + name, 'Material.getInfo: no this semantic:' + name);
             info = blankInfo;
         }
 

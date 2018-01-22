@@ -91,12 +91,6 @@ const BasicMaterial = Class.create( /** @lends BasicMaterial.prototype */ {
     shininess: 32,
     usedUniformVectors: 11,
     /**
-     * 透明度 0~1
-     * @default 1
-     * @type {number}
-     */
-    transparency: 1,
-    /**
      * @constructs
      * @param {object} params 初始化参数，所有params都会复制到实例上
      */
@@ -110,16 +104,12 @@ const BasicMaterial = Class.create( /** @lends BasicMaterial.prototype */ {
             u_diffuse: 'DIFFUSE',
             u_specular: 'SPECULAR',
             u_ambient: 'AMBIENT',
-            u_emission: 'EMISSION',
-            u_normalMap: 'NORMALMAP',
-            u_normalMapScale: 'NORMALMAPSCALE',
             u_shininess: 'SHININESS',
             u_reflectivity: 'REFLECTIVITY',
             u_refractRatio: 'REFRACTRATIO',
             u_refractivity: 'REFRACTIVITY',
-            u_transparency: 'TRANSPARENCY',
             u_skyboxMap: 'SKYBOXMAP',
-            u_skyboxMatrix: 'SKYBOXMATRIX',
+            u_skyboxMatrix: 'SKYBOXMATRIX'
         });
     },
     getRenderOption(option = {}) {
@@ -140,21 +130,11 @@ const BasicMaterial = Class.create( /** @lends BasicMaterial.prototype */ {
                 needUV = true;
             }
         }
-
-        if (this.transparency && this.transparency.isTexture) {
-            option.TRANSPARENCY_MAP = 1;
-            needUV = true;
-        }
-
+    
         if (option.HAS_LIGHT) {
             
             if (this.specular && this.specular.isTexture) {
                 option.SPECULAR_MAP = 1;
-                needUV = true;
-            }
-
-            if (this.emission && this.emission.isTexture) {
-                option.EMISSION_MAP = 1;
                 needUV = true;
             }
 
