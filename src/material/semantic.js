@@ -203,6 +203,15 @@ const semantic = {
         }
     },
 
+     /**
+     * @type {semanticObject}
+     */
+    VIEWPROJECTION: {
+        get(mesh, material, programInfo) {
+            return camera.viewProjectionMatrix.elements;
+        }
+    },
+
     /**
      * @type {semanticObject}
      */
