@@ -1891,6 +1891,20 @@
             
                 <li  data-name="GeometryData#copy"><a href="GeometryData.html#copy">copy</a></li>
             
+                <li  data-name="GeometryData#getOffset"><a href="GeometryData.html#getOffset">getOffset</a></li>
+            
+                <li  data-name="GeometryData#get"><a href="GeometryData.html#get">get</a></li>
+            
+                <li  data-name="GeometryData#set"><a href="GeometryData.html#set">set</a></li>
+            
+                <li  data-name="GeometryData#getByOffset"><a href="GeometryData.html#getByOffset">getByOffset</a></li>
+            
+                <li  data-name="GeometryData#setByOffset"><a href="GeometryData.html#setByOffset">setByOffset</a></li>
+            
+                <li  data-name="GeometryData#traverse"><a href="GeometryData.html#traverse">traverse</a></li>
+            
+                <li  data-name="GeometryData#traverseByComponent"><a href="GeometryData.html#traverseByComponent">traverseByComponent</a></li>
+            
             </ul>
             <ul class="events itemMembers">
             
@@ -4975,6 +4989,8 @@
             
                 <li  data-name="Framebuffer#framebuffer"><a href="Framebuffer.html#framebuffer">framebuffer</a></li>
             
+                <li  data-name="Framebuffer#framebuffer"><a href="Framebuffer.html#framebuffer">framebuffer</a></li>
+            
             </ul>
             <ul class="typedefs itemMembers">
             
@@ -4982,6 +4998,8 @@
             <ul class="methods itemMembers">
             
             <span class="subtitle"><a href="#methods" class="subtitle-name">Methods</a><a class="toggle-inherited" href="javascript:void(0);" type="method">Show Inherited</a></span>
+            
+                <li  data-name="Framebuffer#isComplete"><a href="Framebuffer.html#isComplete">isComplete</a></li>
             
                 <li  data-name="Framebuffer#bind"><a href="Framebuffer.html#bind">bind</a></li>
             
@@ -5012,17 +5030,21 @@
             
                 <li  data-name="Program#isProgram"><a href="Program.html#isProgram">isProgram</a></li>
             
-                <li  data-name="Program#state"><a href="Program.html#state">state</a></li>
-            
                 <li  data-name="Program#fragShader"><a href="Program.html#fragShader">fragShader</a></li>
             
                 <li  data-name="Program#vertexShader"><a href="Program.html#vertexShader">vertexShader</a></li>
             
-                <li  data-name="Program#id"><a href="Program.html#id">id</a></li>
-            
                 <li  data-name="Program#attributes"><a href="Program.html#attributes">attributes</a></li>
             
                 <li  data-name="Program#uniforms"><a href="Program.html#uniforms">uniforms</a></li>
+            
+                <li  data-name="Program#program"><a href="Program.html#program">program</a></li>
+            
+                <li  data-name="Program#gl"><a href="Program.html#gl">gl</a></li>
+            
+                <li  data-name="Program#state"><a href="Program.html#state">state</a></li>
+            
+                <li  data-name="Program#id"><a href="Program.html#id">id</a></li>
             
             </ul>
             <ul class="typedefs itemMembers">
@@ -5035,6 +5057,8 @@
                 <li  data-name="Program.reset"><a href="Program.html#.reset">reset</a></li>
             
                 <li  data-name="Program.getProgram"><a href="Program.html#.getProgram">getProgram</a></li>
+            
+                <li  data-name="Program.getBlankProgram"><a href="Program.html#.getBlankProgram">getBlankProgram</a></li>
             
                 <li  data-name="Program#createProgram"><a href="Program.html#createProgram">createProgram</a></li>
             
@@ -5349,9 +5373,21 @@
             
                 <li  data-name="WebGLState#depthMask"><a href="WebGLState.html#depthMask">depthMask</a></li>
             
+                <li  data-name="WebGLState#clear"><a href="WebGLState.html#clear">clear</a></li>
+            
                 <li  data-name="WebGLState#depthRange"><a href="WebGLState.html#depthRange">depthRange</a></li>
             
+                <li  data-name="WebGLState#stencilFunc"><a href="WebGLState.html#stencilFunc">stencilFunc</a></li>
+            
+                <li  data-name="WebGLState#stencilMask"><a href="WebGLState.html#stencilMask">stencilMask</a></li>
+            
+                <li  data-name="WebGLState#stencilOp"><a href="WebGLState.html#stencilOp">stencilOp</a></li>
+            
+                <li  data-name="WebGLState#colorMask"><a href="WebGLState.html#colorMask">colorMask</a></li>
+            
                 <li  data-name="WebGLState#cullFace"><a href="WebGLState.html#cullFace">cullFace</a></li>
+            
+                <li  data-name="WebGLState#frontFace"><a href="WebGLState.html#frontFace">frontFace</a></li>
             
                 <li  data-name="WebGLState#blendFuncSeparate"><a href="WebGLState.html#blendFuncSeparate">blendFuncSeparate</a></li>
             
@@ -5734,6 +5770,8 @@
             <span class="subtitle"><a href="#methods" class="subtitle-name">Methods</a><a class="toggle-inherited" href="javascript:void(0);" type="method">Show Inherited</a></span>
             
                 <li  data-name="Cache#get"><a href="Cache.html#get">get</a></li>
+            
+                <li  data-name="Cache#getObject"><a href="Cache.html#getObject">getObject</a></li>
             
                 <li  data-name="Cache#add"><a href="Cache.html#add">add</a></li>
             
@@ -6711,6 +6749,1038 @@
         
         
         
+        
+        
+        
+    </dd>
+</dl>
+        
+            
+<dl >
+    <dt>
+        <div class="nameContainer">
+            <h4 class="name" id="getOffset">
+                
+                getOffset<span class="signature">(index)</span><span class="glyphicon glyphicon-circle-arrow-right"></span><span class="type-signature returnType">{Number}</span>
+            </h4>
+        
+            
+            <div class="tag-source">
+                geometry/GeometryData.js, line 198
+            </div>
+            
+        </div>
+    </dt>
+    <dd>
+        
+        
+        <div class="description">
+            <p>获取偏移值</p>
+        </div>
+        
+
+        
+        
+        
+        
+        
+            
+
+<table class="params">
+    <thead>
+	<tr>
+		
+		<th>Name</th>
+		
+		
+		<th>Type</th>
+		
+		
+		
+		<th class="last">Description</th>
+	</tr>
+	</thead>
+	
+	<tbody>
+	
+	
+        <tr>
+            
+                <td class="name"><code>index</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">Number</span>
+
+
+            
+            </td>
+            
+            
+            
+            <td class="description last">
+                
+                </td>
+        </tr>
+	
+	
+	</tbody>
+</table>
+        
+        
+        
+<dl class="details">
+    
+        
+    
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+</dl>
+
+        
+        
+
+        
+
+        
+        
+        
+        
+        
+        <h5>Returns:</h5>
+        
+
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Type</th>
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+    <tbody>
+    
+        <tr>
+            
+            <td class="type">
+            
+                        Number
+                        
+                    
+            </td>
+            <td class="description last"></td>
+        </tr>
+    
+    </tbody>
+</table>
+
+        
+        
+        
+    </dd>
+</dl>
+        
+            
+<dl >
+    <dt>
+        <div class="nameContainer">
+            <h4 class="name" id="get">
+                
+                get<span class="signature">(index)</span><span class="glyphicon glyphicon-circle-arrow-right"></span><span class="type-signature returnType">{Number|<a href="Vector2.html">Vector2</a>|<a href="Vector3.html">Vector3</a>|<a href="Vector4.html">Vector4</a>}</span>
+            </h4>
+        
+            
+            <div class="tag-source">
+                geometry/GeometryData.js, line 210
+            </div>
+            
+        </div>
+    </dt>
+    <dd>
+        
+        
+        <div class="description">
+            <p>获取值</p>
+        </div>
+        
+
+        
+        
+        
+        
+        
+            
+
+<table class="params">
+    <thead>
+	<tr>
+		
+		<th>Name</th>
+		
+		
+		<th>Type</th>
+		
+		
+		
+		<th class="last">Description</th>
+	</tr>
+	</thead>
+	
+	<tbody>
+	
+	
+        <tr>
+            
+                <td class="name"><code>index</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">Number</span>
+
+
+            
+            </td>
+            
+            
+            
+            <td class="description last">
+                
+                </td>
+        </tr>
+	
+	
+	</tbody>
+</table>
+        
+        
+        
+<dl class="details">
+    
+        
+    
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+</dl>
+
+        
+        
+
+        
+
+        
+        
+        
+        
+        
+        <h5>Returns:</h5>
+        
+
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Type</th>
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+    <tbody>
+    
+        <tr>
+            
+            <td class="type">
+            
+                        Number
+                         | 
+                    
+                        <a href="Vector2.html">Vector2</a>
+                         | 
+                    
+                        <a href="Vector3.html">Vector3</a>
+                         | 
+                    
+                        <a href="Vector4.html">Vector4</a>
+                        
+                    
+            </td>
+            <td class="description last"></td>
+        </tr>
+    
+    </tbody>
+</table>
+
+        
+        
+        
+    </dd>
+</dl>
+        
+            
+<dl >
+    <dt>
+        <div class="nameContainer">
+            <h4 class="name" id="set">
+                
+                set<span class="signature">(index, value)</span>
+            </h4>
+        
+            
+            <div class="tag-source">
+                geometry/GeometryData.js, line 219
+            </div>
+            
+        </div>
+    </dt>
+    <dd>
+        
+        
+        <div class="description">
+            <p>设置值</p>
+        </div>
+        
+
+        
+        
+        
+        
+        
+            
+
+<table class="params">
+    <thead>
+	<tr>
+		
+		<th>Name</th>
+		
+		
+		<th>Type</th>
+		
+		
+		
+		<th class="last">Description</th>
+	</tr>
+	</thead>
+	
+	<tbody>
+	
+	
+        <tr>
+            
+                <td class="name"><code>index</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">Number</span>
+
+
+            
+            </td>
+            
+            
+            
+            <td class="description last">
+                
+                </td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>value</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">Number</span>
+|
+
+<span class="param-type"><a href="Vector2.html">Vector2</a></span>
+|
+
+<span class="param-type"><a href="Vector3.html">Vector3</a></span>
+|
+
+<span class="param-type"><a href="Vector4.html">Vector4</a></span>
+
+
+            
+            </td>
+            
+            
+            
+            <td class="description last">
+                
+                </td>
+        </tr>
+	
+	
+	</tbody>
+</table>
+        
+        
+        
+<dl class="details">
+    
+        
+    
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+</dl>
+
+        
+        
+
+        
+
+        
+        
+        
+        
+        
+        
+        
+    </dd>
+</dl>
+        
+            
+<dl >
+    <dt>
+        <div class="nameContainer">
+            <h4 class="name" id="getByOffset">
+                
+                getByOffset<span class="signature">(offset)</span><span class="glyphicon glyphicon-circle-arrow-right"></span><span class="type-signature returnType">{Number|<a href="Vector2.html">Vector2</a>|<a href="Vector3.html">Vector3</a>|<a href="Vector4.html">Vector4</a>}</span>
+            </h4>
+        
+            
+            <div class="tag-source">
+                geometry/GeometryData.js, line 229
+            </div>
+            
+        </div>
+    </dt>
+    <dd>
+        
+        
+        <div class="description">
+            <p>根据 offset 获取值</p>
+        </div>
+        
+
+        
+        
+        
+        
+        
+            
+
+<table class="params">
+    <thead>
+	<tr>
+		
+		<th>Name</th>
+		
+		
+		<th>Type</th>
+		
+		
+		
+		<th class="last">Description</th>
+	</tr>
+	</thead>
+	
+	<tbody>
+	
+	
+        <tr>
+            
+                <td class="name"><code>offset</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">Number</span>
+
+
+            
+            </td>
+            
+            
+            
+            <td class="description last">
+                
+                </td>
+        </tr>
+	
+	
+	</tbody>
+</table>
+        
+        
+        
+<dl class="details">
+    
+        
+    
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+</dl>
+
+        
+        
+
+        
+
+        
+        
+        
+        
+        
+        <h5>Returns:</h5>
+        
+
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Type</th>
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+    <tbody>
+    
+        <tr>
+            
+            <td class="type">
+            
+                        Number
+                         | 
+                    
+                        <a href="Vector2.html">Vector2</a>
+                         | 
+                    
+                        <a href="Vector3.html">Vector3</a>
+                         | 
+                    
+                        <a href="Vector4.html">Vector4</a>
+                        
+                    
+            </td>
+            <td class="description last"></td>
+        </tr>
+    
+    </tbody>
+</table>
+
+        
+        
+        
+    </dd>
+</dl>
+        
+            
+<dl >
+    <dt>
+        <div class="nameContainer">
+            <h4 class="name" id="setByOffset">
+                
+                setByOffset<span class="signature">(offset, value)</span>
+            </h4>
+        
+            
+            <div class="tag-source">
+                geometry/GeometryData.js, line 243
+            </div>
+            
+        </div>
+    </dt>
+    <dd>
+        
+        
+        <div class="description">
+            <p>根据 offset 设置值</p>
+        </div>
+        
+
+        
+        
+        
+        
+        
+            
+
+<table class="params">
+    <thead>
+	<tr>
+		
+		<th>Name</th>
+		
+		
+		<th>Type</th>
+		
+		
+		
+		<th class="last">Description</th>
+	</tr>
+	</thead>
+	
+	<tbody>
+	
+	
+        <tr>
+            
+                <td class="name"><code>offset</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">Number</span>
+
+
+            
+            </td>
+            
+            
+            
+            <td class="description last">
+                
+                </td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>value</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">Number</span>
+|
+
+<span class="param-type"><a href="Vector2.html">Vector2</a></span>
+|
+
+<span class="param-type"><a href="Vector3.html">Vector3</a></span>
+|
+
+<span class="param-type"><a href="Vector4.html">Vector4</a></span>
+
+
+            
+            </td>
+            
+            
+            
+            <td class="description last">
+                
+                </td>
+        </tr>
+	
+	
+	</tbody>
+</table>
+        
+        
+        
+<dl class="details">
+    
+        
+    
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+</dl>
+
+        
+        
+
+        
+
+        
+        
+        
+        
+        
+        
+        
+    </dd>
+</dl>
+        
+            
+<dl >
+    <dt>
+        <div class="nameContainer">
+            <h4 class="name" id="traverse">
+                
+                traverse<span class="signature">(callback(attribute,)</span><span class="glyphicon glyphicon-circle-arrow-right"></span><span class="type-signature returnType">{Boolean}</span>
+            </h4>
+        
+            
+            <div class="tag-source">
+                geometry/GeometryData.js, line 258
+            </div>
+            
+        </div>
+    </dt>
+    <dd>
+        
+        
+        <div class="description">
+            <p>按 index 遍历</p>
+        </div>
+        
+
+        
+        
+        
+        
+        
+            
+
+<table class="params">
+    <thead>
+	<tr>
+		
+		<th>Name</th>
+		
+		
+		<th>Type</th>
+		
+		
+		
+		<th class="last">Description</th>
+	</tr>
+	</thead>
+	
+	<tbody>
+	
+	
+        <tr>
+            
+                <td class="name"><code>callback(attribute,</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">function</span>
+
+
+            
+            </td>
+            
+            
+            
+            <td class="description last">
+                
+                <p>index, offset)</p></td>
+        </tr>
+	
+	
+	</tbody>
+</table>
+        
+        
+        
+<dl class="details">
+    
+        
+    
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+</dl>
+
+        
+        
+
+        
+
+        
+        
+        
+        
+        
+        <h5>Returns:</h5>
+        
+
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Type</th>
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+    <tbody>
+    
+        <tr>
+            
+            <td class="type">
+            
+                        Boolean
+                        
+                    
+            </td>
+            <td class="description last"></td>
+        </tr>
+    
+    </tbody>
+</table>
+
+        
+        
+        
+    </dd>
+</dl>
+        
+            
+<dl >
+    <dt>
+        <div class="nameContainer">
+            <h4 class="name" id="traverseByComponent">
+                
+                traverseByComponent<span class="signature">(callback(data,)</span><span class="glyphicon glyphicon-circle-arrow-right"></span><span class="type-signature returnType">{Boolean}</span>
+            </h4>
+        
+            
+            <div class="tag-source">
+                geometry/GeometryData.js, line 275
+            </div>
+            
+        </div>
+    </dt>
+    <dd>
+        
+        
+        <div class="description">
+            <p>按 Component 遍历 Component</p>
+        </div>
+        
+
+        
+        
+        
+        
+        
+            
+
+<table class="params">
+    <thead>
+	<tr>
+		
+		<th>Name</th>
+		
+		
+		<th>Type</th>
+		
+		
+		
+		<th class="last">Description</th>
+	</tr>
+	</thead>
+	
+	<tbody>
+	
+	
+        <tr>
+            
+                <td class="name"><code>callback(data,</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">function</span>
+
+
+            
+            </td>
+            
+            
+            
+            <td class="description last">
+                
+                <p>offset)</p></td>
+        </tr>
+	
+	
+	</tbody>
+</table>
+        
+        
+        
+<dl class="details">
+    
+        
+    
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+</dl>
+
+        
+        
+
+        
+
+        
+        
+        
+        
+        
+        <h5>Returns:</h5>
+        
+
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Type</th>
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+    <tbody>
+    
+        <tr>
+            
+            <td class="type">
+            
+                        Boolean
+                        
+                    
+            </td>
+            <td class="description last"></td>
+        </tr>
+    
+    </tbody>
+</table>
+
         
         
         
