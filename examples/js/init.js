@@ -37,7 +37,8 @@ ticker.addTick(Hilo3d.Tween);
 ticker.addTick(Hilo3d.Animation);
 var stats = new Stats(ticker, stage.renderer.renderInfo);
 var orbitControls = new OrbitControls(stage, {
-    isLockMove:true
+    isLockMove:true,
+    isLockZ:true
 });
 
 setTimeout(function(){

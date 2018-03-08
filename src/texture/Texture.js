@@ -11,7 +11,7 @@ const {
     REPEAT,
     CLAMP_TO_EDGE,
     UNSIGNED_BYTE
-} = require('../constants/webgl');
+} = require('../constants/index');
 
 const cache = new Cache();
 /**

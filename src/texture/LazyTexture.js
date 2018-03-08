@@ -1,4 +1,5 @@
 const Class = require('../core/Class');
+const EventMixin = require('../core/EventMixin');
 const Texture = require('./Texture');
 const BasicLoader = require('../loader/BasicLoader');
 
@@ -9,6 +10,8 @@ placeHolder.src = 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAA
  * 懒加载纹理
  * @class
  * @extends Texture
+ * @fires load 加载成功事件
+ * @fires error 加载失败事件
  * @example
  * var material = new Hilo3d.BasicMaterial({
  *     diffuse: new Hilo3d.LazyTexture({
@@ -19,6 +22,7 @@ placeHolder.src = 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAA
  */
 const LazyTexture = Class.create(/** @lends LazyTexture.prototype */{
     Extends: Texture,
+    Mixes: EventMixin,
     /**
      * @default true
      * @type {boolean}
@@ -69,7 +73,9 @@ const LazyTexture = Class.create(/** @lends LazyTexture.prototype */{
      * @param {string} [params.src] 图片地址
      */
     constructor(params) {
+
         if (params) {
+            // 必须在src设置前赋值
             if ('crossOrigin' in params) {
                 this.crossOrigin = params.crossOrigin;
             }
@@ -78,7 +84,7 @@ const LazyTexture = Class.create(/** @lends LazyTexture.prototype */{
             }
         }
         LazyTexture.superclass.constructor.call(this, params);
-        this.image = params.placeHolder || placeHolder;
+        this.image = this.placeHolder || placeHolder;
     },
     /**
      * 加载图片
@@ -89,7 +95,9 @@ const LazyTexture = Class.create(/** @lends LazyTexture.prototype */{
         return LazyTexture.loader.loadImg(this.src, this.crossOrigin).then(img => {
             this.image = img;
             this.needUpdate = true;
+            this.fire('load');
         }, err => {
+            this.fire('error');
             console.warn(`LazyTexture Failed ${err}`);
         });
     }

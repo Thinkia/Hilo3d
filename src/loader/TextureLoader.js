@@ -21,6 +21,16 @@ const Texture = require('../texture/Texture');
 const TextureLoader = Class.create(/** @lends TextureLoader.prototype */{
     Extends: BasicLoader,
     /**
+     * @default true
+     * @type {boolean}
+     */
+    isTextureLoader: true,
+    /**
+     * @default TextureLoader
+     * @type {string}
+     */
+    className: 'TextureLoader',
+    /**
      * @constructs
      */
     constructor() {

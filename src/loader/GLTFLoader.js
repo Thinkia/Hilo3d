@@ -17,6 +17,16 @@ const GLTFParser = require('./GLTFParser');
 const GLTFLoader = Class.create(/** @lends GLTFLoader.prototype */{
     Extends: BasicLoader,
     /**
+     * @default true
+     * @type {boolean}
+     */
+    isGLTFLoader: true,
+    /**
+     * @default GLTFLoader
+     * @type {string}
+     */
+    className: 'GLTFLoader',
+    /**
      * @constructs
      */
     constructor() {

@@ -126,13 +126,15 @@
     Hilo3d.LoadQueue.addLoader('drc', DracoLoader);
 
     window.totalTime = 0;
-    Hilo3d.GLTFParser.extensionHandlers.KHR_draco_mesh_compression = function (info, parser) {
-        var startTime = Date.now();
-        var bufferView = parser.bufferViews[info.bufferView];
-        var uintArray = new Uint8Array(bufferView.buffer, bufferView.byteOffset, bufferView.byteLength);
+    Hilo3d.GLTFParser.extensionHandlers.KHR_draco_mesh_compression = {
+        parse: function (info, parser) {
+            var startTime = Date.now();
+            var bufferView = parser.bufferViews[info.bufferView];
+            var uintArray = new Uint8Array(bufferView.buffer, bufferView.byteOffset, bufferView.byteLength);
 
-        var geometry = decode(uintArray, info);
-        totalTime += Date.now() - startTime;
-        return geometry;
-    }
+            var geometry = decode(uintArray, info);
+            totalTime += Date.now() - startTime;
+            return geometry;
+        }
+    };
 })();

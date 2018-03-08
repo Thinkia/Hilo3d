@@ -13,6 +13,7 @@
     <script src="./js/stats.js"></script>
     <script src="./js/OrbitControls.js"></script>
     <script src="./js/init.js"></script>
+    <script src="./js/postProcess.js"></script>
     <script>
         var loader = new Hilo3d.GLTFLoader();
         loader.load({
@@ -23,22 +24,42 @@
             stage.addChild(model.node);
         });
 
-        var mph = new Hilo3d.MeshPicker({
-            renderer: stage.renderer,
-            debug: true
+        var meshPickerHelper = new Hilo3d.MeshPicker({
+            renderer: stage.renderer
         });
 
+        var selectedMesh;
         stage.container.addEventListener('click', function(evt) {
-            var mesh = mph.getSelection(evt.clientX, evt.clientY)[0];
-            console.log(evt.clientX, evt.clientY, mesh);
-            if (mesh) {
-                if (mesh.material.isSelected) {
-                    mesh.material.isSelected = false;
-                    mesh.material.transparency /= 0.5;
-                } else {
-                    mesh.material.isSelected = true;
-                    mesh.material.transparency *= 0.5;
-                }
+            selectedMesh = meshPickerHelper.getSelection(evt.clientX, evt.clientY)[0];
+        });
+
+        var transparentMaterial = new Hilo3d.Material;
+        transparentMaterial.transparent = true;
+
+        postProcess.init(renderer);
+        var edgePass = postProcess.addKernelPass(postProcess.kernels.edgeDetect6, 'edgeDetect6');
+
+        renderer.on('afterRender', () => {
+            if(selectedMesh){
+                //render transparent mesh
+                postProcess.frontBuffer.bind();
+                renderer.clear(new Hilo3d.Color(0, 0, 0, 0));
+                renderer.forceMaterial = new Hilo3d.BasicMaterial({
+                    diffuse:new Hilo3d.Color(1, 1, 1),
+                    lightType:'NONE'
+                });
+                renderer.renderMesh(selectedMesh);
+                renderer.forceMaterial = null;
+                
+                // render edge
+                postProcess.backBuffer.bind();
+                renderer.setupBlend(gl, transparentMaterial);
+                postProcess.draw(postProcess.frontBuffer.texture, edgePass);
+                
+                // render screen
+                renderer.state.bindSystemFramebuffer();
+                renderer.setupBlend(gl, transparentMaterial);
+                postProcess.backBuffer.render(0, 0, 1, 1);
             }
         });
     </script>

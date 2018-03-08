@@ -1,9 +1,9 @@
 const Class = require('../core/Class');
 const EventMixin = require('../core/EventMixin');
-const Cache = require('./Cache');
+const LoadCache = require('./LoadCache');
 const util = require('../utils/util');
 
-const cache = new Cache();
+const cache = new LoadCache();
 
 /**
  * 基础的资源加载类
@@ -13,6 +13,10 @@ const cache = new Cache();
  * @borrows EventMixin#on as #on
  * @borrows EventMixin#off as #off
  * @borrows EventMixin#fire as #fire
+ * @fires beforeload 加载前事件
+ * @fires loaded 加载事件
+ * @fires failed 失败事件
+ * @fires progress 进度事件
  * @example
  * var loader = new Hilo3d.BasicLoader();
  * loader.load({
@@ -32,8 +36,24 @@ const cache = new Cache();
  */
 const BasicLoader = Class.create(/** @lends BasicLoader.prototype */{
     Mixes: EventMixin,
+    /**
+     * @default true
+     * @type {boolean}
+     */
+    isBasicLoader: true,
+    /**
+     * @default BasicLoader
+     * @type {string}
+     */
+    className: 'BasicLoader',
     Statics: {
         _cache: cache,
+        enalbeCache() {
+            cache.enabled = true;
+        },
+        disableCache() {
+            cache.enabled = false;
+        },
         deleteCache(key) {
             cache.remove(key);
         },
@@ -81,18 +101,19 @@ const BasicLoader = Class.create(/** @lends BasicLoader.prototype */{
      */
     loadImg(url, crossOrigin) {
         let file = cache.get(url);
+
         if (file) {
             return cache.wait(file);
         }
 
         return new Promise((resolve, reject) => {
             let img = new Image();
-            cache.update(url, Cache.PENDING);
+            cache.update(url, LoadCache.PENDING);
             img.onload = () => {
                 img.onerror = null;
                 img.onabort = null;
                 img.onload = null;
-                cache.update(url, Cache.LOADED, img);
+                cache.update(url, LoadCache.LOADED, img);
                 resolve(img);
             };
             img.onerror = () => {
@@ -100,7 +121,7 @@ const BasicLoader = Class.create(/** @lends BasicLoader.prototype */{
                 img.onabort = null;
                 img.onload = null;
                 const err = new Error(`Image load failed for ${url.slice(0, 100)}`);
-                cache.update(url, Cache.FAILED, err);
+                cache.update(url, LoadCache.FAILED, err);
                 reject(err);
             };
             img.onabort = img.onerror;
@@ -134,17 +155,17 @@ const BasicLoader = Class.create(/** @lends BasicLoader.prototype */{
             return cache.wait(file);
         }
 
-        cache.update(url, Cache.PENDING);
+        cache.update(url, LoadCache.PENDING);
 
         this.fire('beforeload');
 
         return this.request({ url, type }).then(data => {
             this.fire('loaded');
-            cache.update(url, Cache.LOADED, data);
+            cache.update(url, LoadCache.LOADED, data);
             return data;
         }, err => {
             this.fire('failed', err);
-            cache.update(url, Cache.FAILED);
+            cache.update(url, LoadCache.FAILED);
             throw new Error(`Resource load failed for ${url}, ${err}`);
         });
     },

@@ -8,7 +8,7 @@ const {
     NEAREST,
     CLAMP_TO_EDGE,
     FLOAT
-} = require('../constants/webgl');
+} = require('../constants/index');
 
 /**
  * 数据纹理

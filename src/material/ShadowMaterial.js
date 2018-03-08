@@ -2,7 +2,7 @@ const Class = require('../core/Class');
 const BasicMaterial = require('./BasicMaterial');
 const {
     FRONT
-} = require('../constants/webgl');
+} = require('../constants/index');
 
 const ShadowMaterial = Class.create({
     Extends: BasicMaterial,

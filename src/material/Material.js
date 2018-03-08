@@ -3,7 +3,7 @@ const math = require('../math/math');
 const semantic = require('./semantic');
 const log = require('../utils/log');
 const {
-    LESS,
+    LEQUAL,
     BACK,
     FRONT,
     FRONT_AND_BACK,
@@ -11,7 +11,7 @@ const {
     ONE,
     FUNC_ADD,
     ONE_MINUS_SRC_ALPHA
-} = require('../constants/webgl');
+} = require('../constants/index');
 
 const blankInfo = {
     isBlankInfo: true,
@@ -72,7 +72,7 @@ const Material = Class.create( /** @lends Material.prototype */ {
      * @default LESS
      * @type {GLenum}
      */
-    depthFunc: LESS,
+    depthFunc: LEQUAL,
 
     _cullFace: true,
 

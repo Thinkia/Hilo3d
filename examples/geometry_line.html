@@ -13,7 +13,10 @@
     <script src="./js/OrbitControls.js"></script>
     <script src="./js/init.js"></script>
     <script>
-        var material = new Hilo3d.BasicMaterial({ diffuse : new Hilo3d.Color(1, 0, 0) });
+        var material = new Hilo3d.BasicMaterial({ 
+            diffuse : new Hilo3d.Color(1, 0, 0),
+            lightType:'NONE'
+        });
         var geometry = new Hilo3d.Geometry({ mode: 1 });
         geometry.addPoints([0, 0, 0], [1, 0, 0], [0, 1, 0], [0, 0, 1]);
         geometry.addIndices(0, 1, 0, 2, 0, 3);

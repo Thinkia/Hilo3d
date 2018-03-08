@@ -28,6 +28,16 @@ const CubeTexture = require('../texture/CubeTexture');
 const CubeTextureLoader = Class.create(/** @lends CubeTextureLoader.prototype */{
     Extends: BasicLoader,
     /**
+     * @default true
+     * @type {boolean}
+     */
+    isCubeTextureLoader: true,
+    /**
+     * @default CubeTextureLoader
+     * @type {string}
+     */
+    className: 'CubeTextureLoader',
+    /**
      * @constructs
      */
     constructor() {

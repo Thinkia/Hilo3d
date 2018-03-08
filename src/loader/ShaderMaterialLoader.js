@@ -42,6 +42,16 @@ const ShaderMaterial = require('../material/ShaderMaterial');
  */
 const ShaderMaterialLoader = Class.create({
     Extends: BasicLoader,
+    /**
+     * @default true
+     * @type {boolean}
+     */
+    isShaderMaterialLoader: true,
+    /**
+     * @default ShaderMaterialLoader
+     * @type {string}
+     */
+    className: 'ShaderMaterialLoader',
     constructor() {
         ShaderMaterialLoader.superclass.constructor.call(this);
     },

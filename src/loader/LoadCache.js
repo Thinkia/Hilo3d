@@ -5,10 +5,21 @@ const EventMixin = require('../core/EventMixin');
  * 加载缓存类
  * @class
  * @mixes EventMixin
+ * @fires update 更新事件
  * @ignore
  */
-const Cache = Class.create(/** @lends Cache.prototype */{
+const LoadCache = Class.create( /** @lends LoadCache.prototype */ {
     Mixes: EventMixin,
+    /**
+     * @default true
+     * @type {Boolean}
+     */
+    isLoadCache: true,
+    /**
+     * @default LoadCache
+     * @type {String}
+     */
+    className: 'LoadCache',
     Statics: {
         PENDING: 1,
         LOADED: 2,
@@ -25,7 +36,11 @@ const Cache = Class.create(/** @lends Cache.prototype */{
         if (!this.enabled) {
             return;
         }
-        let file = { key, state, data };
+        let file = {
+            key,
+            state,
+            data
+        };
         this._files[key] = file;
         this.fire('update', file);
         this.fire(`update:${file.key}`, file);
@@ -46,18 +61,18 @@ const Cache = Class.create(/** @lends Cache.prototype */{
         if (!file) {
             return Promise.reject();
         }
-        if (file.state === Cache.LOADED) {
+        if (file.state === LoadCache.LOADED) {
             return Promise.resolve(file.data);
-        } else if (file.state === Cache.FAILED) {
+        } else if (file.state === LoadCache.FAILED) {
             return Promise.reject();
         }
 
         return new Promise((resolve, reject) => {
             this.on(`update:${file.key}`, evt => {
                 let file = evt.detail;
-                if (file.state === Cache.LOADED) {
+                if (file.state === LoadCache.LOADED) {
                     resolve(file.data);
-                } else if (file.state === Cache.FAILED) {
+                } else if (file.state === LoadCache.FAILED) {
                     reject(file.data);
                 }
             }, true);
@@ -65,4 +80,4 @@ const Cache = Class.create(/** @lends Cache.prototype */{
     }
 });
 
-module.exports = Cache;
+module.exports = LoadCache;

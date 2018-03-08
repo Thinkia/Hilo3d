@@ -8,10 +8,20 @@ const {
     NEAREST,
     CLAMP_TO_EDGE,
     FLOAT
-} = require('../constants/webgl');
+} = require('../constants/index');
 
 const HDRLoader = Class.create({
     Extends: BasicLoader,
+    /**
+     * @default true
+     * @type {boolean}
+     */
+    isHDRLoader: true,
+    /**
+     * @default HDRLoader
+     * @type {string}
+     */
+    className: 'HDRLoader',
     constructor() {
         HDRLoader.superclass.constructor.call(this);
     },

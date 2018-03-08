@@ -19,7 +19,9 @@ const LoaderClassMap = {
  * 队列加载器，用于批量加载
  * @class
  * @mixes EventMixin
- * @fires complete load error
+ * @fires complete 完成事件
+ * @fires load 加载事件
+ * @fires error 错误事件
  * @example
  * var loadQueue = new Hilo3d.LoadQueue([{
  *     type: 'CubeTexture',
@@ -61,7 +63,16 @@ const LoaderClassMap = {
  */
 const LoadQueue = Class.create(/** @lends LoadQueue.prototype */{
     Mixes: EventMixin,
-
+    /**
+     * @default true
+     * @type {boolean}
+     */
+    isLoadQueue: true,
+    /**
+     * @default LoadQueue
+     * @type {string}
+     */
+    className: 'LoadQueue',
     Statics: {
         /**
          * 给LoadQueue类添加扩展Loader

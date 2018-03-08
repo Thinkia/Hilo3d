@@ -22,7 +22,7 @@ const {
     FRONT,
     BACK,
     FRONT_AND_BACK
-} = require('../constants/webgl');
+} = require('../constants/index');
 
 const ComponentTypeMap = {
     5120: [1, Int8Array],
@@ -80,6 +80,16 @@ const glTFAttrToGeometry = {
  * @class
  */
 const GLTFParser = Class.create( /** @lends GLTFParser.prototype */ {
+    /**
+     * @default true
+     * @type {boolean}
+     */
+    isGLTFParser: true,
+    /**
+     * @default GLTFParser
+     * @type {string}
+     */
+    className: 'GLTFParser',
     Statics: {
         MAGIC: 'glTF',
         extensionHandlers: {}
@@ -130,11 +140,14 @@ const GLTFParser = Class.create( /** @lends GLTFParser.prototype */ {
             this.isUnQuantizeInShader = false;
         }
     },
+    getExtensionHandler(name) {
+        return this.extensionHandlers && this.extensionHandlers[name] || GLTFParser.extensionHandlers[name];
+    },
     parseExtensions(extensions, result) {
         util.each(extensions, (info, name) => {
-            const handler = this.extensionHandlers && this.extensionHandlers[name] || GLTFParser.extensionHandlers[name];
-            if (handler) {
-                result = handler(info, this, result);
+            const extension = this.getExtensionHandler(name);
+            if (extension && extension.parse) {
+                result = extension.parse(info, this, result);
             }
         });
 
@@ -174,15 +187,24 @@ const GLTFParser = Class.create( /** @lends GLTFParser.prototype */ {
         }
     },
     loadResources(loader) {
+        const actions = [];
         if (this.isBinary) {
-            return this.loadBuffers(loader).then(() => {
+            actions.push(this.loadBuffers(loader).then(() => {
                 return this.loadTextures(loader);
-            });
+            }));
+        } else {
+            actions.push(this.loadBuffers(loader));
+            actions.push(this.loadTextures(loader));
         }
-        return Promise.all([
-            this.loadBuffers(loader),
-            this.loadTextures(loader)
-        ]);
+
+        for (let extensionName in this.extensionsUsed) {
+            const extension = this.getExtensionHandler(extensionName);
+            if (extension && extension.init) {
+                actions.push(extension.init(loader, this));
+            }
+        }
+
+        return Promise.all(actions);
     },
     loadBuffers(loader) {
         this.buffers = {};
@@ -636,29 +658,21 @@ const GLTFParser = Class.create( /** @lends GLTFParser.prototype */ {
         util.each(technique.states.functions, (value, fnName) => {
             switch (fnName) {
                 case 'blendEquationSeparate':
-                    {
-                        material.blendEquation = value[0];
-                        material.blendEquationAlpha = value[1];
-                        break;
-                    }
+                    material.blendEquation = value[0];
+                    material.blendEquationAlpha = value[1];
+                    break;
                 case 'blendFuncSeparate':
-                    {
-                        material.blendSrc = value[0];
-                        material.blendDst = value[1];
-                        material.blendSrcAlpha = value[2];
-                        material.blendDstAlpha = value[3];
-                        break;
-                    }
+                    material.blendSrc = value[0];
+                    material.blendDst = value[1];
+                    material.blendSrcAlpha = value[2];
+                    material.blendDstAlpha = value[3];
+                    break;
                 case 'depthMask':
-                    {
-                        material.depthMask = value[0];
-                        break;
-                    }
+                    material.depthMask = value[0];
+                    break;
                 case 'cullFace':
-                    {
-                        material.cullFaceType = value[0];
-                        break;
-                    }
+                    material.cullFaceType = value[0];
+                    break;
                 default:
                     material[fnName] = value;
                     break;
@@ -814,7 +828,8 @@ const GLTFParser = Class.create( /** @lends GLTFParser.prototype */ {
         let data = this.json.nodes[nodeName];
 
         node = new Node({
-            name: nodeName
+            name: nodeName,
+            _originName: data.name
         });
 
         if ('camera' in data && this.cameras[data.camera]) {

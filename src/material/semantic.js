@@ -90,7 +90,7 @@ const semantic = {
     },
 
     // attributes
-    
+
     /**
      * @type {semanticObject}
      */
@@ -164,7 +164,7 @@ const semantic = {
     },
 
     // uniforms
-    
+
     /**
      * @type {semanticObject}
      */
@@ -203,7 +203,7 @@ const semantic = {
         }
     },
 
-     /**
+    /**
      * @type {semanticObject}
      */
     VIEWPROJECTION: {
@@ -416,7 +416,7 @@ const semantic = {
         }
     },
 
-     /**
+    /**
      * @type {semanticObject}
      */
     PARALLAXMAP: {
@@ -505,7 +505,7 @@ const semantic = {
     },
 
     // light
-    
+
     /**
      * @type {semanticObject}
      */
@@ -688,7 +688,7 @@ const semantic = {
     },
 
     // fog
-    
+
     /**
      * @type {semanticObject}
      */
@@ -714,7 +714,7 @@ const semantic = {
     },
 
     // unQuantize
-    
+
     /**
      * @type {semanticObject}
      */
@@ -746,7 +746,7 @@ const semantic = {
     },
 
     // pbr
-    
+
     /**
      * @type {semanticObject}
      */
@@ -851,7 +851,7 @@ const semantic = {
             return undefined;
         }
     },
-    
+
     /**
      * @type {semanticObject}
      */

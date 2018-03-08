@@ -62,7 +62,7 @@ var postProcess = {
                 texture2D(u_diffuse, v_texcoord0 + onePixel * vec2(-1,  1)) * u_kernel[6] +\n\
                 texture2D(u_diffuse, v_texcoord0 + onePixel * vec2( 0,  1)) * u_kernel[7] +\n\
                 texture2D(u_diffuse, v_texcoord0 + onePixel * vec2( 1,  1)) * u_kernel[8] ;\n\
-                gl_FragColor = vec4((colorSum / u_kernelWeight).rgb, 1.0);\n\
+                gl_FragColor = colorSum/u_kernelWeight;\n\
             }';
 
         var u_textureSize = new Float32Array([0, 0]);

@@ -6,7 +6,7 @@ const {
     LINEAR,
     CLAMP_TO_EDGE,
     TEXTURE_CUBE_MAP_POSITIVE_X
-} = require('../constants/webgl');
+} = require('../constants/index');
 
 /**
  * 立方体纹理
