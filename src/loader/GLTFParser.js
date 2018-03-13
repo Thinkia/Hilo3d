@@ -394,7 +394,7 @@ const GLTFParser = Class.create( /** @lends GLTFParser.prototype */ {
             material.normalMap = this.textures[values.normalTexture.index];
         }
         if (values.occlusionTexture) {
-            material.ao = this.textures[values.occlusionTexture.index];
+            material.occlusionMap = this.textures[values.occlusionTexture.index];
         }
         if (values.emissiveTexture) {
             material.emission = this.textures[values.emissiveTexture.index];
@@ -430,10 +430,10 @@ const GLTFParser = Class.create( /** @lends GLTFParser.prototype */ {
                 material.baseColorMap = this.textures[subValues.baseColorTexture.index];
             }
             if (subValues.metallicRoughnessTexture) {
-                material.metallicRoughness = this.textures[subValues.metallicRoughnessTexture.index];
-                if (material.ao === material.metallicRoughness) {
-                    material.ao = 1;
-                    material.aoInMetallicRoughness = true;
+                material.metallicRoughnessMap = this.textures[subValues.metallicRoughnessTexture.index];
+                if (material.occlusionMap === material.metallicRoughnessMap) {
+                    material.occlusionMap = null;
+                    material.occlusionInMetallicRoughnessMap = true;
                 }
             }
             if ('roughnessFactor' in subValues) {

@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <title>glTF loader example</title>
     <link rel="stylesheet" type="text/css" href="../example.css">
     <style>
@@ -21,6 +22,7 @@
     <div id="container"></div>
     <select name="modelSelect" id="modelSelect"></select>
     <select name="cameraSelect" id="cameraSelect"></select>
+    <!-- <script src="//g.alicdn.com/tmapp/animation-data/4.1.37/jc/tools/vconsole.min.js"></script> -->
     <script src="../../build/Hilo3d.js"></script>
     <script src="../js/stats.js"></script>
     <script src="../js/OrbitControls.js"></script>
@@ -91,6 +93,9 @@
         var currentModel = null;
         function showModel(modelInfo) {
             loader.load(modelInfo).then(function(model){
+                if (Hilo3d.AliAMCExtension && Hilo3d.AliAMCExtension._decodeTotalTime) {
+                    console.log('AMC total decode time is:', Hilo3d.AliAMCExtension._decodeTotalTime);
+                }
                 if (currentModel) {
                     currentModel.node.removeFromParent();
                     currentModel.anim && currentModel.anim.stop();
@@ -143,6 +148,7 @@
 
         var modelInfo = glTFModels.JPN;
         var query = location.search.slice(1);
+        query = query.split('&')[0];
         if (glTFModels[query]) {
             modelInfo = glTFModels[query];
         } else if (query) {

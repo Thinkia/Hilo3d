@@ -16,10 +16,10 @@ color.a = baseColor.a;
     vec3 N = normal;
     vec3 V = normalize(viewPos - v_fragPos);
 
-    #ifdef HILO_AO_MAP
-        float ao  = texture2D(u_ao, v_texcoord0).r;
+    #ifdef HILO_OCCLUSION_MAP
+        float ao  = texture2D(u_occlusionMap, v_texcoord0).r;
     #else
-        float ao = u_ao;
+        float ao = 1.0;
     #endif
 
     #ifdef HILO_PBR_SPECULAR_GLOSSINESS
@@ -43,13 +43,13 @@ color.a = baseColor.a;
         #ifdef HILO_ROUGHNESS_MAP
             roughness  = texture2D(u_roughnessMap, v_texcoord0).r * u_roughness;
         #endif
-        #ifdef HILO_METALLIC_ROUGHNESS
-            vec4 metallicRoughness = texture2D(u_metallicRoughness, v_texcoord0);
-            #ifdef HILO_AO_IN_METALLIC_ROUGHNESS
-                ao = metallicRoughness.r;
+        #ifdef HILO_METALLIC_ROUGHNESS_MAP
+            vec4 metallicRoughnessMap = texture2D(u_metallicRoughnessMap, v_texcoord0);
+            #ifdef HILO_OCCLUSION_MAP_IN_METALLIC_ROUGHNESS_MAP
+                ao = metallicRoughnessMap.r;
             #endif
-            roughness = metallicRoughness.g * u_roughness;
-            metallic = metallicRoughness.b * u_metallic;
+            roughness = metallicRoughnessMap.g * u_roughness;
+            metallic = metallicRoughnessMap.b * u_metallic;
         #endif
         roughness = clamp(roughness, 0.04, 1.0);
         metallic = clamp(metallic, 0.0, 1.0);

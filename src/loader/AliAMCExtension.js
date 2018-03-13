@@ -6,12 +6,16 @@ const GeometryData = require('../geometry/GeometryData');
 const mockHilo3d = { Geometry, GeometryData };
 
 const AliAMCExtension = {
+    _decodeTotalTime: 0,
     init() {
-        return AMDecompression.initWASM('//ossgw.alicdn.com/tmall-c3/tmx/14e48042eddab1646fc6513636c4fa07.wasm');
+        return AMDecompression.initWASM(AliAMCExtension.wasmURL);
     },
     parse(info, parser) {
+        const st = Date.now();
         const bufferView = parser.bufferViews[info.bufferView];
-        const amcGeometry = AMDecompression.decompressWithWASM(new Uint8Array(bufferView.buffer, bufferView.byteOffset, bufferView.byteLength));
+        const data = new Uint8Array(bufferView.buffer, bufferView.byteOffset, bufferView.byteLength);
+        const amcGeometry = AMDecompression.decompressWithWASM(data);
+        AliAMCExtension._decodeTotalTime += Date.now() - st;
         return amcGeometry.toHilo3dGeometry(mockHilo3d);
     }
 };

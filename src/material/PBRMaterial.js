@@ -69,19 +69,19 @@ const PBRMaterial = Class.create( /** @lends PBRMaterial.prototype */ {
      * @default null
      * @type {Texture}
      */
-    metallicRoughness: null,
+    metallicRoughnessMap: null,
     /**
-     * 环境光遮蔽
-     * @default 1
-     * @type {Texture|Number}
+     * 环境光遮蔽贴图
+     * @default null
+     * @type {Texture}
      */
-    ao: 1,
+    occlusionMap: null,
     /**
-     * 环境光遮蔽贴图(AO MAP)包含在 metallicRoughness 的R通道中
+     * 环境光遮蔽贴图(occlusionMap)包含在 metallicRoughnessMap 的R通道中
      * @default false
      * @type {boolean}
      */
-    aoInMetallicRoughness: false,
+    occlusionInMetallicRoughnessMap: false,
     
     /**
      * 漫反射辐照(Diffuse IBL)贴图
@@ -152,8 +152,8 @@ const PBRMaterial = Class.create( /** @lends PBRMaterial.prototype */ {
             u_metallicMap: 'METALLICMAP',
             u_roughness: 'ROUGHNESS',
             u_roughnessMap: 'ROUGHNESSMAP',
-            u_metallicRoughness: 'METALLICROUGHNESS',
-            u_ao: 'AO',
+            u_metallicRoughnessMap: 'METALLICROUGHNESSMAP',
+            u_occlusionMap: 'OCCLUSIONMAP',
             u_diffuseEnvMap: 'DIFFUSEENVMAP',
             u_brdfLUT: 'BRDFLUT',
             u_specularEnvMap: 'SPECULARENVMAP',
@@ -179,16 +179,16 @@ const PBRMaterial = Class.create( /** @lends PBRMaterial.prototype */ {
             option.ROUGHNESS_MAP = 1;
             needUV = true;
         }
-        if (this.metallicRoughness) {
-            option.METALLIC_ROUGHNESS = 1;
+        if (this.metallicRoughnessMap) {
+            option.METALLIC_ROUGHNESS_MAP = 1;
             needUV = true;
         }
-        if (this.ao && this.ao.isTexture) {
-            option.AO_MAP = 1;
+        if (this.occlusionMap && this.occlusionMap.isTexture) {
+            option.OCCLUSION_MAP = 1;
             needUV = true;
         }
-        if (this.aoInMetallicRoughness) {
-            option.AO_IN_METALLIC_ROUGHNESS = 1;
+        if (this.occlusionInMetallicRoughnessMap) {
+            option.OCCLUSION_MAP_IN_METALLIC_ROUGHNESS_MAP = 1;
         }
 
         if (this.diffuseEnvMap) {

@@ -180,5 +180,11 @@
     )
   }
 
-  window.ddsParseHeaders = parseHeaders;
+  if(typeof module !== 'undefined'){
+        module.exports = parseHeaders;
+    }
+
+    if(typeof window !== 'undefined'){
+        window.ddsParseHeaders = parseHeaders;
+    }
 })();

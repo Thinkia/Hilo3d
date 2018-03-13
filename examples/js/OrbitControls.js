@@ -1,4 +1,4 @@
-(function (win) {
+(function () {
     var PI2 = Math.PI / 2;
     var tempEuler = new Hilo3d.Euler();
     tempEuler.order = 'XYZ';
@@ -245,5 +245,11 @@
         }
     }
 
-    win.OrbitControls = OrbitControls;
-})(this);
+    if(typeof module !== 'undefined'){
+        module.exports = OrbitControls;
+    }
+
+    if(typeof window !== 'undefined'){
+        window.OrbitControls = OrbitControls;
+    }
+})();

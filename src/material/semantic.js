@@ -804,10 +804,10 @@ const semantic = {
     /**
      * @type {semanticObject}
      */
-    METALLICROUGHNESS: {
+    METALLICROUGHNESSMAP: {
         get(mesh, material, programInfo) {
-            if (material.metallicRoughness && material.metallicRoughness.isTexture) {
-                return semantic.handlerColorOrTexture(material.metallicRoughness, programInfo.textureIndex);
+            if (material.metallicRoughnessMap && material.metallicRoughnessMap.isTexture) {
+                return semantic.handlerColorOrTexture(material.metallicRoughnessMap, programInfo.textureIndex);
             }
             return undefined;
         }
@@ -816,13 +816,13 @@ const semantic = {
     /**
      * @type {semanticObject}
      */
-    AO: {
+    OCCLUSIONMAP: {
         get(mesh, material, programInfo) {
-            const ao = material.ao;
-            if (ao.isTexture) {
-                return semantic.handlerColorOrTexture(ao, programInfo.textureIndex);
+            const occlusionMap = material.occlusionMap;
+            if (occlusionMap && occlusionMap.isTexture) {
+                return semantic.handlerColorOrTexture(occlusionMap, programInfo.textureIndex);
             }
-            return ao;
+            return undefined;
         }
     },
 

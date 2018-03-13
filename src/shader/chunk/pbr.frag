@@ -10,13 +10,11 @@ uniform float u_metallic;
 #ifdef HILO_ROUGHNESS_MAP
     uniform sampler2D u_roughnessMap;
 #endif
-#ifdef HILO_METALLIC_ROUGHNESS
-    uniform sampler2D u_metallicRoughness;
+#ifdef HILO_METALLIC_ROUGHNESS_MAP
+    uniform sampler2D u_metallicRoughnessMap;
 #endif
-#ifdef HILO_AO_MAP
-    uniform sampler2D u_ao;
-#else
-    uniform float u_ao;
+#ifdef HILO_OCCLUSION_MAP
+    uniform sampler2D u_occlusionMap;
 #endif
 
 #ifdef HILO_DIFFUSE_ENV_MAP
