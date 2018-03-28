@@ -1,11 +1,13 @@
-const Class = require('../core/Class');
-const EventMixin = require('../core/EventMixin');
-const util = require('../utils/util');
-const BasicLoader = require('./BasicLoader');
-const GLTFLoader = require('./GLTFLoader');
-const TextureLoader = require('./TextureLoader');
-const HDRLoader = require('./HDRLoader');
-const CubeTextureLoader = require('./CubeTextureLoader');
+import Class from '../core/Class';
+import EventMixin from '../core/EventMixin';
+import BasicLoader from './BasicLoader';
+import GLTFLoader from './GLTFLoader';
+import TextureLoader from './TextureLoader';
+import HDRLoader from './HDRLoader';
+import CubeTextureLoader from './CubeTextureLoader';
+import {
+    getExtension
+} from '../utils/util';
 
 const LoaderClassMap = {
     Texture: TextureLoader,
@@ -61,7 +63,7 @@ const LoaderClassMap = {
  *     stage.addChild(model.node);
  * }).start();
  */
-const LoadQueue = Class.create(/** @lends LoadQueue.prototype */{
+const LoadQueue = Class.create( /** @lends LoadQueue.prototype */ {
     Mixes: EventMixin,
     /**
      * @default true
@@ -193,7 +195,7 @@ const LoadQueue = Class.create(/** @lends LoadQueue.prototype */{
         let loader = item.loader;
         if (loader) return loader;
 
-        const type = item.type || util.getExtension(item.src);
+        const type = item.type || getExtension(item.src);
 
         let Loader = LoaderClassMap[type] || BasicLoader;
         return new Loader();
@@ -250,4 +252,4 @@ const LoadQueue = Class.create(/** @lends LoadQueue.prototype */{
     }
 });
 
-module.exports = LoadQueue;
+export default LoadQueue;

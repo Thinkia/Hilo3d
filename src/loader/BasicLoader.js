@@ -1,7 +1,10 @@
-const Class = require('../core/Class');
-const EventMixin = require('../core/EventMixin');
-const LoadCache = require('./LoadCache');
-const util = require('../utils/util');
+import Class from '../core/Class';
+import EventMixin from '../core/EventMixin';
+import LoadCache from './LoadCache';
+import {
+    getExtension,
+    each
+} from '../utils/util';
 
 const cache = new LoadCache();
 
@@ -34,7 +37,7 @@ const cache = new LoadCache();
  *     });
  * });
  */
-const BasicLoader = Class.create(/** @lends BasicLoader.prototype */{
+const BasicLoader = Class.create( /** @lends BasicLoader.prototype */ {
     Mixes: EventMixin,
     /**
      * @default true
@@ -72,7 +75,7 @@ const BasicLoader = Class.create(/** @lends BasicLoader.prototype */{
         const src = data.src;
         let type = data.type;
         if (!type) {
-            const ext = util.getExtension(src);
+            const ext = getExtension(src);
             if (/^(?:png|jpe?g|gif|webp|bmp)$/i.test(ext)) {
                 type = 'img';
             }
@@ -159,7 +162,10 @@ const BasicLoader = Class.create(/** @lends BasicLoader.prototype */{
 
         this.fire('beforeload');
 
-        return this.request({ url, type }).then(data => {
+        return this.request({
+            url,
+            type
+        }).then(data => {
             this.fire('loaded');
             cache.update(url, LoadCache.LOADED, data);
             return data;
@@ -218,7 +224,7 @@ const BasicLoader = Class.create(/** @lends BasicLoader.prototype */{
             if (opt.type === 'buffer') {
                 xhr.responseType = 'arraybuffer';
             }
-            util.each(opt.headers, (value, name) => {
+            each(opt.headers, (value, name) => {
                 xhr.setRequestHeader(name, value);
             });
             xhr.send(opt.body || null);
@@ -226,4 +232,4 @@ const BasicLoader = Class.create(/** @lends BasicLoader.prototype */{
     }
 });
 
-module.exports = BasicLoader;
+export default BasicLoader;

@@ -1,3 +1,5 @@
+#pragma glslify: import('../method/textureEnvMap.glsl');
+
 uniform vec4 u_baseColor;
 #ifdef HILO_BASECOLOR_MAP
     uniform sampler2D u_baseColorMap;
@@ -18,11 +20,19 @@ uniform float u_metallic;
 #endif
 
 #ifdef HILO_DIFFUSE_ENV_MAP
-    uniform samplerCube u_diffuseEnvMap;
+    #ifdef HILO_DIFFUSE_ENV_MAP_CUBE
+        uniform samplerCube u_diffuseEnvMap;
+    #else
+        uniform sampler2D u_diffuseEnvMap;
+    #endif
 #endif
 #ifdef HILO_SPECULAR_ENV_MAP
     uniform sampler2D u_brdfLUT;
-    uniform samplerCube u_specularEnvMap;
+    #ifdef HILO_SPECULAR_ENV_MAP_CUBE
+        uniform samplerCube u_specularEnvMap;
+    #else
+        uniform sampler2D u_specularEnvMap;
+    #endif
 #endif
 
 #ifdef HILO_EMISSION_MAP

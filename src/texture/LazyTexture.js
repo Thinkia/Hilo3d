@@ -1,7 +1,7 @@
-const Class = require('../core/Class');
-const EventMixin = require('../core/EventMixin');
-const Texture = require('./Texture');
-const BasicLoader = require('../loader/BasicLoader');
+import Class from '../core/Class';
+import EventMixin from '../core/EventMixin';
+import Texture from './Texture';
+import BasicLoader from '../loader/BasicLoader';
 
 const placeHolder = new Image();
 placeHolder.src = 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7';
@@ -103,4 +103,4 @@ const LazyTexture = Class.create(/** @lends LazyTexture.prototype */{
     }
 });
 
-module.exports = LazyTexture;
+export default LazyTexture;

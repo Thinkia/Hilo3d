@@ -1,12 +1,13 @@
-const Class = require('../core/Class');
-const Texture = require('./Texture');
-const {
+import Class from '../core/Class';
+import Texture from './Texture';
+
+import {
     TEXTURE_CUBE_MAP,
     RGB,
     LINEAR,
     CLAMP_TO_EDGE,
     TEXTURE_CUBE_MAP_POSITIVE_X
-} = require('../constants/index');
+} from '../constants/index';
 
 /**
  * 立方体纹理
@@ -187,4 +188,4 @@ const CubeTexture = Class.create(/** @lends CubeTexture.prototype */{
     }
 });
 
-module.exports = CubeTexture;
+export default CubeTexture;

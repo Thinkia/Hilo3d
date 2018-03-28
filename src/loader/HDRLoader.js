@@ -1,14 +1,14 @@
-const Class = require('../core/Class');
-const BasicLoader = require('./BasicLoader');
-const Texture = require('../texture/Texture');
-const parseHDR = require('parse-hdr');
+import parseHDR from 'parse-hdr';
+import Class from '../core/Class';
+import BasicLoader from './BasicLoader';
+import Texture from '../texture/Texture';
 
-const {
+import {
     RGBA,
     NEAREST,
     CLAMP_TO_EDGE,
     FLOAT
-} = require('../constants/index');
+} from '../constants/index';
 
 const HDRLoader = Class.create({
     Extends: BasicLoader,
@@ -54,4 +54,4 @@ const HDRLoader = Class.create({
     }
 });
 
-module.exports = HDRLoader;
+export default HDRLoader;

@@ -1,6 +1,6 @@
-const Class = require('../core/Class');
-const Material = require('./Material');
-const Color = require('../math/Color');
+import Class from '../core/Class';
+import Material from './Material';
+import Color from '../math/Color';
 
 /**
  * 基础材质
@@ -56,15 +56,15 @@ const BasicMaterial = Class.create( /** @lends BasicMaterial.prototype */ {
     /**
      * 环境贴图
      * @default null
-     * @type {CubeTexture}
+     * @type {CubeTexture|Texture}
      */
-    skyboxMap: null,
+    specularEnvMap: null,
     /**
      * 环境贴图变化矩阵，如旋转等
      * @default null
      * @type {Matrix4}
      */
-    skyboxMatrix: null,
+    specularEnvMatrix: null,
     /**
      * 反射率
      * @default 0
@@ -108,8 +108,8 @@ const BasicMaterial = Class.create( /** @lends BasicMaterial.prototype */ {
             u_reflectivity: 'REFLECTIVITY',
             u_refractRatio: 'REFRACTRATIO',
             u_refractivity: 'REFRACTIVITY',
-            u_skyboxMap: 'SKYBOXMAP',
-            u_skyboxMatrix: 'SKYBOXMATRIX'
+            u_specularEnvMap: 'SPECULARENVMAP',
+            u_specularEnvMatrix: 'SPECULARENVMATRIX'
         });
     },
     getRenderOption(option = {}) {
@@ -130,9 +130,9 @@ const BasicMaterial = Class.create( /** @lends BasicMaterial.prototype */ {
                 needUV = true;
             }
         }
-    
+
         if (option.HAS_LIGHT) {
-            
+
             if (this.specular && this.specular.isTexture) {
                 option.SPECULAR_MAP = 1;
                 needUV = true;
@@ -143,8 +143,11 @@ const BasicMaterial = Class.create( /** @lends BasicMaterial.prototype */ {
                 needUV = true;
             }
 
-            if (this.skyboxMap) {
-                option.SKYBOX_MAP = 1;
+            if (this.specularEnvMap) {
+                option.SPECULAR_ENV_MAP = 1;
+                if (this.specularEnvMap.isCubeTexture) {
+                    option.SPECULAR_ENV_MAP_CUBE = 1;
+                }
             }
         }
 
@@ -156,4 +159,4 @@ const BasicMaterial = Class.create( /** @lends BasicMaterial.prototype */ {
     }
 });
 
-module.exports = BasicMaterial;
+export default BasicMaterial;

@@ -28,6 +28,10 @@
     <script src="../js/OrbitControls.js"></script>
     <script src="../js/init.js"></script>
     <script>
+        Hilo3d.AliAMCExtension.useAuto = false;
+        Hilo3d.AliAMCExtension.useWASM = true;
+        Hilo3d.AliAMCExtension.useWebWorker = true;
+
         var showSphere = false;
         var ossBasePath = '//ossgw.alicdn.com/tmall-c3/tmx/';
         var glTFModels = {
@@ -80,7 +84,7 @@
             test: {
                 name: 'test',
                 notOSS: true,
-                isProgressive: false,
+                isProgressive: true,
                 // src: '/model-viewer/models/test/test.gltf'
                 src: '/dl/models/tmx/test.gltf'
                 // src: '/glTF-Sample-Models/1.0/Buggy/glTF/Buggy.gltf'

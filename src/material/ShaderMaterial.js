@@ -1,5 +1,5 @@
-const Class = require('../core/Class');
-const Material = require('./Material');
+import Class from '../core/Class';
+import Material from './Material';
 
 /**
  * Shader材质
@@ -81,4 +81,4 @@ const ShaderMaterial = Class.create(/** @lends ShaderMaterial.prototype */{
     getCustomRenderOption: null
 });
 
-module.exports = ShaderMaterial;
+export default ShaderMaterial;

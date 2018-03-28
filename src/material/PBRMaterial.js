@@ -1,6 +1,6 @@
-const Class = require('../core/Class');
-const Color = require('../math/Color');
-const Material = require('./Material');
+import Class from '../core/Class';
+import Color from '../math/Color';
+import Material from './Material';
 
 /**
  * PBR材质
@@ -82,11 +82,11 @@ const PBRMaterial = Class.create( /** @lends PBRMaterial.prototype */ {
      * @type {boolean}
      */
     occlusionInMetallicRoughnessMap: false,
-    
+
     /**
      * 漫反射辐照(Diffuse IBL)贴图
      * @default null
-     * @type {CubeTexture}
+     * @type {CubeTexture|Texture}
      */
     diffuseEnvMap: null,
     /**
@@ -98,7 +98,7 @@ const PBRMaterial = Class.create( /** @lends PBRMaterial.prototype */ {
     /**
      * 环境反射(Specular IBL)贴图
      * @default null
-     * @type {CubeTexture}
+     * @type {CubeTexture|Texture}
      */
     specularEnvMap: null,
     /**
@@ -134,7 +134,7 @@ const PBRMaterial = Class.create( /** @lends PBRMaterial.prototype */ {
 
 
     usedUniformVectors: 11,
-    
+
     /**
      * @constructs
      * @param {object} params 初始化参数，所有params都会复制到实例上
@@ -193,9 +193,15 @@ const PBRMaterial = Class.create( /** @lends PBRMaterial.prototype */ {
 
         if (this.diffuseEnvMap) {
             option.DIFFUSE_ENV_MAP = 1;
+            if (this.diffuseEnvMap.isCubeTexture) {
+                option.DIFFUSE_ENV_MAP_CUBE = 1;
+            }
         }
         if (this.brdfLUT && this.specularEnvMap) {
             option.SPECULAR_ENV_MAP = 1;
+            if (this.specularEnvMap.isCubeTexture) {
+                option.SPECULAR_ENV_MAP_CUBE = 1;
+            }
         }
 
         if (this.isSpecularGlossiness) {
@@ -214,4 +220,4 @@ const PBRMaterial = Class.create( /** @lends PBRMaterial.prototype */ {
     }
 });
 
-module.exports = PBRMaterial;
+export default PBRMaterial;

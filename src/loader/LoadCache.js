@@ -1,5 +1,5 @@
-const Class = require('../core/Class');
-const EventMixin = require('../core/EventMixin');
+import Class from '../core/Class';
+import EventMixin from '../core/EventMixin';
 
 /**
  * 加载缓存类
@@ -80,4 +80,4 @@ const LoadCache = Class.create( /** @lends LoadCache.prototype */ {
     }
 });
 
-module.exports = LoadCache;
+export default LoadCache;

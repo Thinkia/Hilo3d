@@ -1,6 +1,6 @@
-const Class = require('../core/Class');
-const BasicLoader = require('./BasicLoader');
-const ShaderMaterial = require('../material/ShaderMaterial');
+import Class from '../core/Class';
+import BasicLoader from './BasicLoader';
+import ShaderMaterial from '../material/ShaderMaterial';
 
 /**
  * ShaderMaterial加载类
@@ -83,4 +83,4 @@ const ShaderMaterialLoader = Class.create({
     }
 });
 
-module.exports = ShaderMaterialLoader;
+export default ShaderMaterialLoader;

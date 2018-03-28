@@ -118,7 +118,7 @@ color.a = baseColor.a;
     #endif
 
     #ifdef HILO_DIFFUSE_ENV_MAP
-        vec3 diffuseLight = textureCube(u_diffuseEnvMap, N).rgb;
+        vec3 diffuseLight = textureEnvMap(u_diffuseEnvMap, N).rgb;
         color.rgb += ao * diffuseLight * diffuseColor;
     #endif
 
@@ -126,13 +126,7 @@ color.a = baseColor.a;
         vec3 R = -normalize(reflect(V, N));
         float NdotV = abs(dot(N, V)) + 0.001;
         vec3 brdf = texture2D(u_brdfLUT, vec2(NdotV, 1.0 - roughness)).rgb;
-        #ifdef HILO_USE_TEX_LOD
-            float mipCount = 9.0; // resolution of 512x512
-            float lod = (roughness * mipCount);
-            vec3 specularLight = textureCubeLodEXT(u_specularEnvMap, R, lod).rgb;
-        #else
-            vec3 specularLight = textureCube(u_specularEnvMap, R).rgb;
-        #endif
+        vec3 specularLight = textureEnvMap(u_specularEnvMap, R).rgb;
         color.rgb += ao * specularLight * specularColor * (brdf.x + brdf.y);
     #endif
 

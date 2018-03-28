@@ -31,47 +31,35 @@
     }]).on('complete', function () {
         var result = loadQueue.getAllContent();
         var skyboxMap = result[0];
+        var model = window.model = result[1];
 
-        var geometry = new Hilo3d.BoxGeometry();
-
-        var box = new Hilo3d.Mesh({
-            geometry: geometry,
+        var skybox = new Hilo3d.Mesh({
+            geometry: new Hilo3d.BoxGeometry(),
             material: new Hilo3d.BasicMaterial({
                 lightType: 'NONE',
                 side: Hilo3d.constants.BACK,
                 diffuse: skyboxMap
             })
         }).addTo(stage);
-        box.setScale(20);
-
+        skybox.setScale(20);
 
         var material = new Hilo3d.BasicMaterial({
             diffuse: new Hilo3d.Color(0, 0, 0),
-            skyboxMap: skyboxMap,
+            specularEnvMap: skyboxMap,
             refractRatio: 1/1.5,
             refractivity: 0.8,
             reflectivity: 0.2
         });
 
-        var model = result[1];
-        window.xx = model;
         model.node.setScale(0.001);
         model.meshes.forEach(function (m) {
             m.material = material;
             material.jointCount = model.materials[0].jointCount;
-        });
+        }); 
         stage.addChild(model.node);
         model.node.onUpdate = function () {
-            material.skyboxMatrix = new Hilo3d.Matrix4().invert(stage.worldMatrix);
+            material.specularEnvMatrix = new Hilo3d.Matrix4().invert(stage.worldMatrix);
         }
-
-        // var mesh = new Hilo3d.Mesh({
-        //     geometry: geometry,
-        //     material: material,
-        //     onUpdate: function () {
-        //         material.skyboxMatrix = new Hilo3d.Matrix4().invert(stage.worldMatrix);
-        //     }
-        // }).addTo(stage);
     }).start();
 </script>
 </body>

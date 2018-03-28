@@ -1,21 +1,24 @@
-const Class = require('../core/Class');
-const math = require('../math/math');
-const Texture = require('./Texture');
-const util = require('../utils/util');
-const {
+import Class from '../core/Class';
+import math from '../math/math';
+import Texture from './Texture';
+import {
+    getTypedArrayClass
+} from '../utils/util';
+
+import {
     TEXTURE_2D,
     RGBA,
     NEAREST,
     CLAMP_TO_EDGE,
     FLOAT
-} = require('../constants/index');
+} from '../constants/index';
 
 /**
  * 数据纹理
  * @class
  * @extends Texture
  */
-const DataTexture = Class.create(/** @lends DataTexture.prototype */{
+const DataTexture = Class.create( /** @lends DataTexture.prototype */ {
     Extends: Texture,
     /**
      * @default true
@@ -82,7 +85,7 @@ const DataTexture = Class.create(/** @lends DataTexture.prototype */{
         const h = n - w;
         this.width = 2 ** w;
         this.height = 2 ** h;
-        this.DataClass = util.getTypedArrayClass(this.type);
+        this.DataClass = getTypedArrayClass(this.type);
     },
 
     /**
@@ -120,4 +123,4 @@ const DataTexture = Class.create(/** @lends DataTexture.prototype */{
     }
 });
 
-module.exports = DataTexture;
+export default DataTexture;

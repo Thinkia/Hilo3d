@@ -1,6 +1,6 @@
-const Class = require('../core/Class');
-const BasicLoader = require('./BasicLoader');
-const GLTFParser = require('./GLTFParser');
+import Class from '../core/Class';
+import BasicLoader from './BasicLoader';
+import GLTFParser from './GLTFParser';
 
 /**
  * glTF模型加载类
@@ -48,10 +48,7 @@ const GLTFLoader = Class.create(/** @lends GLTFLoader.prototype */{
         return this.loadRes(params.src, 'buffer')
             .then(buffer => {
                 let parser = new GLTFParser(buffer, params);
-                parser.parse();
-                return parser.loadResources(this).then(() => {
-                    return parser.parseScene();
-                });
+                return parser.parse(this);
             }).catch(err => {
                 console.warn('load gltf failed', err.message, err.stack);
                 throw err;
@@ -59,7 +56,7 @@ const GLTFLoader = Class.create(/** @lends GLTFLoader.prototype */{
     }
 });
 
-module.exports = GLTFLoader;
+export default GLTFLoader;
 
 /**
  * GLTFLoader 模型加载完返回的对象格式

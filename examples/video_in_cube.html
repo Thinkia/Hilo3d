@@ -63,10 +63,9 @@
                 }),
                 material: new Hilo3d.BasicMaterial({
                     diffuse: texture,
-                    // diffuse: new Hilo3d.Color(1, 0, 0),
-                    skyboxMap: skyboxMap,
-                    skyboxMatrix: mat,
-                    reflectivity: 0.1
+                    specularEnvMap: skyboxMap,
+                    specularEnvMatrix: mat,
+                    reflectivity: .1
                 })
             });
             window.tv = tv;

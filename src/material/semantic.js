@@ -1,8 +1,8 @@
 /* eslint no-unused-vars: "off" */
-const DataTexture = require('../texture/DataTexture');
-const Vector3 = require('../math/Vector3');
-const Matrix3 = require('../math/Matrix3');
-const Matrix4 = require('../math/Matrix4');
+import DataTexture from '../texture/DataTexture';
+import Vector3 from '../math/Vector3';
+import Matrix3 from '../math/Matrix3';
+import Matrix4 from '../math/Matrix4';
 
 const tempVector3 = new Vector3();
 const tempMatrix3 = new Matrix3();
@@ -132,6 +132,43 @@ const semantic = {
             return mesh.geometry.uvs;
         }
     },
+
+    /**
+     * @type {semanticObject}
+     */
+    CAMERAFAR: {
+        get(mesh, material, programInfo) {
+            if (camera.isPerspectiveCamera) {
+                return camera.far;
+            }
+            return undefined;
+        }
+    },
+
+    /**
+     * @type {semanticObject}
+     */
+    CAMERANEAR: {
+        get(mesh, material, programInfo) {
+            if (camera.isPerspectiveCamera) {
+                return camera.near;
+            }
+            return undefined;
+        }
+    },
+
+    /**
+     * @type {semanticObject}
+     */
+    CAMERATYPE: {
+        get(mesh, material, programInfo) {
+            if (camera.isPerspectiveCamera) {
+                return 1;
+            }
+            return 0;
+        }
+    },
+
 
     /**
      * @type {semanticObject}
@@ -455,22 +492,10 @@ const semantic = {
     /**
      * @type {semanticObject}
      */
-    SKYBOXMAP: {
+    SPECULARENVMATRIX: {
         get(mesh, material, programInfo) {
-            if (material.skyboxMap && material.skyboxMap.isTexture) {
-                return semantic.handlerColorOrTexture(material.skyboxMap, programInfo.textureIndex);
-            }
-            return undefined;
-        }
-    },
-
-    /**
-     * @type {semanticObject}
-     */
-    SKYBOXMATRIX: {
-        get(mesh, material, programInfo) {
-            if (material.skyboxMap && material.skyboxMatrix) {
-                return material.skyboxMatrix.elements;
+            if (material.specularEnvMatrix && material.specularEnvMap) {
+                return material.specularEnvMatrix.elements;
             }
             tempMatrix4.identity();
             return tempMatrix4.elements;
@@ -832,7 +857,7 @@ const semantic = {
     DIFFUSEENVMAP: {
         get(mesh, material, programInfo) {
             const diffuseEnvMap = material.diffuseEnvMap;
-            if (diffuseEnvMap && diffuseEnvMap.isCubeTexture) {
+            if (diffuseEnvMap && diffuseEnvMap.isTexture) {
                 return semantic.handlerColorOrTexture(diffuseEnvMap, programInfo.textureIndex);
             }
             return undefined;
@@ -858,7 +883,7 @@ const semantic = {
     SPECULARENVMAP: {
         get(mesh, material, programInfo) {
             const specularEnvMap = material.specularEnvMap;
-            if (specularEnvMap && specularEnvMap.isCubeTexture) {
+            if (specularEnvMap && specularEnvMap.isTexture) {
                 return semantic.handlerColorOrTexture(specularEnvMap, programInfo.textureIndex);
             }
             return undefined;
@@ -940,4 +965,4 @@ const semantic = {
  * @property {Function} get 获取数据方法
  */
 
-module.exports = semantic;
+export default semantic;

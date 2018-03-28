@@ -94,17 +94,17 @@
         color.rgb += u_ambientLightsColor * lightAmbient;
     #endif
 
-    #if defined(HILO_SKYBOX_MAP) && defined(HILO_HAS_SPECULAR)
+    #if defined(HILO_SPECULAR_ENV_MAP) && defined(HILO_HAS_SPECULAR)
         vec3 I = normalize(v_fragPos - viewPos);
         if (u_reflectivity > 0.0) {
             vec3 R = reflect(I, normal);
-            R = normalize(vec3(u_skyboxMatrix * vec4(R, 1.0)));
-            lightSpecular += textureCube(u_skyboxMap, R).rgb * u_reflectivity;
+            R = normalize(vec3(u_specularEnvMatrix * vec4(R, 1.0)));
+            lightSpecular += textureEnvMap(u_specularEnvMap, R).rgb * u_reflectivity;
         }
         if (u_refractivity > 0.0) {
             vec3 R = refract(I, normal, u_refractRatio);
-            R = normalize(vec3(u_skyboxMatrix * vec4(R, 1.0)));
-            lightSpecular += textureCube(u_skyboxMap, R).rgb * u_refractivity;
+            R = normalize(vec3(u_specularEnvMatrix * vec4(R, 1.0)));
+            lightSpecular += textureEnvMap(u_specularEnvMap, R).rgb * u_refractivity;
         }
     #endif
 

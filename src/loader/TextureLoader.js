@@ -1,6 +1,6 @@
-const Class = require('../core/Class');
-const BasicLoader = require('./BasicLoader');
-const Texture = require('../texture/Texture');
+import Class from '../core/Class';
+import BasicLoader from './BasicLoader';
+import Texture from '../texture/Texture';
 
 /**
  * Texture加载类
@@ -57,4 +57,4 @@ const TextureLoader = Class.create(/** @lends TextureLoader.prototype */{
     }
 });
 
-module.exports = TextureLoader;
+export default TextureLoader;

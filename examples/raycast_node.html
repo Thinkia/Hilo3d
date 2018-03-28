@@ -43,7 +43,7 @@
 
             ray.fromCamera(camera, mousePos.x, mousePos.y, stage.width, stage.height);
 
-            var hitResult = stage.raycast(ray);
+            var hitResult = stage.raycast(ray, true);
             if(hitResult){
                 console.log(hitResult);
                 hitResult.forEach(function(raycastInfo, index){

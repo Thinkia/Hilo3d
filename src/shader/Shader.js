@@ -1,11 +1,11 @@
-const Class = require('../core/Class');
-const math = require('../math/math');
-const Cache = require('../utils/Cache');
-const capabilities = require('../renderer/capabilities');
-const basicFragCode = require('./basic.frag');
-const basicVertCode = require('./basic.vert');
-const depthFragCode = require('./depth.frag');
-const pbrFragCode = require('./pbr.frag');
+import Class from '../core/Class';
+import math from '../math/math';
+import Cache from '../utils/Cache';
+import capabilities from '../renderer/capabilities';
+import basicFragCode from './basic.frag';
+import basicVertCode from './basic.vert';
+import geometryFragCode from './geometry.frag';
+import pbrFragCode from './pbr.frag';
 
 const cache = new Cache();
 
@@ -209,8 +209,8 @@ const Shader = Class.create( /** @lends Shader.prototype */ {
                 let vs = basicVertCode;
 
                 if (material.isBasicMaterial) {
-                    if (material.isShadowMaterial) {
-                        fs += depthFragCode;
+                    if (material.isGeometryMaterial) {
+                        fs += geometryFragCode;
                     } else {
                         fs += basicFragCode;
                     }
@@ -262,4 +262,4 @@ const Shader = Class.create( /** @lends Shader.prototype */ {
     }
 });
 
-module.exports = Shader;
+export default Shader;

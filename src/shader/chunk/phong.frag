@@ -1,3 +1,5 @@
+#pragma glslify: import('../method/textureEnvMap.glsl');
+
 #ifdef HILO_HAS_LIGHT
     #ifdef HILO_HAS_SPECULAR
         uniform float u_shininess;
@@ -15,9 +17,13 @@
     #ifdef HILO_AMBIENT_MAP
         uniform sampler2D u_ambient;
     #endif
-    #ifdef HILO_SKYBOX_MAP
-        uniform samplerCube u_skyboxMap;
-        uniform mat4 u_skyboxMatrix;
+    #ifdef HILO_SPECULAR_ENV_MAP
+        #ifdef HILO_SPECULAR_ENV_MAP_CUBE
+            uniform samplerCube u_specularEnvMap;
+        #else
+            uniform sampler2D u_specularEnvMap;
+        #endif
+        uniform mat4 u_specularEnvMatrix;
         uniform float u_reflectivity;
         uniform float u_refractRatio;
         uniform float u_refractivity;

@@ -1,3 +1,7 @@
+#ifdef HILO_IGNORE_TRANSPARENT
+color.a = 1.0;
+#endif
+
 color.rgb *= color.a;
 
 #ifdef HILO_USE_HDR

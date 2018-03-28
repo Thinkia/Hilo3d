@@ -186,16 +186,33 @@
                 vao.addAttribute(new Hilo3d.GeometryData(new Float32Array([0, 1, 1, 1, 0, 0, 1, 0])), program.attributes.a_texcoord0);
             }
 
-            state.activeTexture(gl.TEXTURE0);
-            state.bindTexture(gl.TEXTURE_2D, texture);
+            if(!uniforms.u_diffuse){
+                uniforms.u_diffuse = this.uniformTextureGetter(texture);
+            }
 
             for (var name in uniforms) {
                 var value = uniforms[name];
-                if (value && program.uniforms[name]) {
-                    program[name] = value.get ? value.get() : value;
+                var programInfo = program.uniforms[name];
+                if (value && programInfo) {
+                    program[name] = value.get ? value.get(programInfo) : value;
                 }
             }
             vao.draw();
+        },
+        uniformTextureGetter(texture){
+            var state = this.state;
+            var gl = state.gl;
+            return {
+                get:function(programInfo){
+                    if(texture.isTexture){
+                        texture = texture.getGLTexture(state)
+                    }
+                    var textureIndex = programInfo.textureIndex;
+                    state.activeTexture(gl.TEXTURE0 + textureIndex);
+                    state.bindTexture(Hilo3d.constants.TEXTURE_2D, texture);
+                    return textureIndex;
+                }
+            };
         },
         kernels: {
             normal: [

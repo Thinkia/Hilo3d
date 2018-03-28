@@ -1,9 +1,10 @@
-const Class = require('../core/Class');
-const math = require('../math/math');
-const capabilities = require('../renderer/capabilities');
-const Cache = require('../utils/Cache');
-const log = require('../utils/log');
-const {
+import Class from '../core/Class';
+import math from '../math/math';
+import capabilities from '../renderer/capabilities';
+import Cache from '../utils/Cache';
+import log from '../utils/log';
+
+import {
     TEXTURE_2D,
     RGBA,
     LINEAR,
@@ -11,7 +12,7 @@ const {
     REPEAT,
     CLAMP_TO_EDGE,
     UNSIGNED_BYTE
-} = require('../constants/index');
+} from '../constants/index';
 
 const cache = new Cache();
 /**
@@ -290,4 +291,4 @@ const Texture = Class.create( /** @lends Texture.prototype */ {
     }
 });
 
-module.exports = Texture;
+export default Texture;

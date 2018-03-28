@@ -1,8 +1,9 @@
-const Class = require('../core/Class');
-const math = require('../math/math');
-const semantic = require('./semantic');
-const log = require('../utils/log');
-const {
+import Class from '../core/Class';
+import math from '../math/math';
+import semantic from './semantic';
+import log from '../utils/log';
+
+import {
     LEQUAL,
     BACK,
     FRONT,
@@ -11,7 +12,7 @@ const {
     ONE,
     FUNC_ADD,
     ONE_MINUS_SRC_ALPHA
-} = require('../constants/index');
+} from '../constants/index';
 
 const blankInfo = {
     isBlankInfo: true,
@@ -96,6 +97,13 @@ const Material = Class.create( /** @lends Material.prototype */ {
      * @type {Vector3}
      */
     normalMapScale: null,
+
+    /**
+     * 是否忽略透明度
+     * @type {Boolean}
+     * @default false
+     */
+    ignoreTranparent: false,
 
     /**
      * 是否开启 CullFace
@@ -221,7 +229,7 @@ const Material = Class.create( /** @lends Material.prototype */ {
      * @type {number}
      */
     transparency: 1,
-    
+
     _transparent: false,
     /**
      * 是否需要透明
@@ -396,6 +404,10 @@ const Material = Class.create( /** @lends Material.prototype */ {
             needUV = true;
         }
 
+        if (this.ignoreTranparent) {
+            option.IGNORE_TRANSPARENT = 1;
+        }
+
         if (needUV) {
             option.HAS_TEXCOORD0 = 1;
         }
@@ -460,4 +472,4 @@ const Material = Class.create( /** @lends Material.prototype */ {
     }
 });
 
-module.exports = Material;
+export default Material;

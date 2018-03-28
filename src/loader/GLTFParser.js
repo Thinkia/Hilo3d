@@ -1,28 +1,29 @@
-const Class = require('../core/Class');
-const Node = require('../core/Node');
-const BasicMaterial = require('../material/BasicMaterial');
-const PBRMaterial = require('../material/PBRMaterial');
-const Geometry = require('../geometry/Geometry');
-const MorphGeometry = require('../geometry/MorphGeometry');
-const GeometryData = require('../geometry/GeometryData');
-const Mesh = require('../core/Mesh');
-const SkinedMesh = require('../core/SkinedMesh');
-const LazyTexture = require('../texture/LazyTexture');
-const math = require('../math/math');
-const Matrix4 = require('../math/Matrix4');
-const Color = require('../math/Color');
-const util = require('../utils/util');
-const AnimationStates = require('../animation/AnimationStates');
-const Animation = require('../animation/Animation');
-const PerspectiveCamera = require('../camera/PerspectiveCamera');
-const {
+import Class from '../core/Class';
+import Node from '../core/Node';
+import BasicMaterial from '../material/BasicMaterial';
+import PBRMaterial from '../material/PBRMaterial';
+import Geometry from '../geometry/Geometry';
+import MorphGeometry from '../geometry/MorphGeometry';
+import GeometryData from '../geometry/GeometryData';
+import Mesh from '../core/Mesh';
+import SkinedMesh from '../core/SkinedMesh';
+import LazyTexture from '../texture/LazyTexture';
+import math from '../math/math';
+import Matrix4 from '../math/Matrix4';
+import Color from '../math/Color';
+import AnimationStates from '../animation/AnimationStates';
+import Animation from '../animation/Animation';
+import PerspectiveCamera from '../camera/PerspectiveCamera';
+import * as util from '../utils/util';
+
+import {
     BLEND,
     DEPTH_TEST,
     CULL_FACE,
     FRONT,
     BACK,
     FRONT_AND_BACK
-} = require('../constants/index');
+} from '../constants/index';
 
 const ComponentTypeMap = {
     5120: [1, Int8Array],
@@ -108,7 +109,7 @@ const GLTFParser = Class.create( /** @lends GLTFParser.prototype */ {
         Object.assign(this, params);
         this.content = content;
     },
-    parse() {
+    parse(loader) {
         if (this.content instanceof ArrayBuffer) {
             let buffer = this.content;
             let magic = util.convertUint8ArrayToString(new Uint8Array(buffer, 0, 4));
@@ -128,6 +129,10 @@ const GLTFParser = Class.create( /** @lends GLTFParser.prototype */ {
         console.log('glTFVersion', this.glTFVersion);
 
         this.parseExtensionUsed();
+
+        return this.loadResources(loader)
+            .then(() => this.parseGeometries())
+            .then(() => this.parseScene());
     },
     parseExtensionUsed() {
         this.extensionsUsed = {};
@@ -376,15 +381,23 @@ const GLTFParser = Class.create( /** @lends GLTFParser.prototype */ {
     createPBRMaterial(materialData) {
         const material = new PBRMaterial();
         let values = materialData;
-        if (values.alphaMode === 'BLEND') {
-            material.transparent = true;
-        } else if (values.alphaMode === 'MASK') {
-            if ('alphaCutoff' in values) {
-                material.alphaCutoff = values.alphaCutoff;
-            } else {
-                material.alphaCutoff = 0.5;
-            }
+        switch (values.alphaMode) {
+            case 'BLEND':
+                material.transparent = true;
+                break;
+            case 'MASK':
+                if ('alphaCutoff' in values) {
+                    material.alphaCutoff = values.alphaCutoff;
+                } else {
+                    material.alphaCutoff = 0.5;
+                }
+                break;
+            case 'OPAQUE':
+            default:
+                material.ignoreTranparent = true;
+                break;
         }
+
         if (!values.doubleSided) {
             material.side = FRONT;
         } else {
@@ -755,6 +768,35 @@ const GLTFParser = Class.create( /** @lends GLTFParser.prototype */ {
             mesh.useInstanced = true;
         }
     },
+    fixProgressiveGeometry(primitive, geometry) {
+        primitive._geometry = geometry;
+        if (this.isProgressive && primitive._meshes) {
+            primitive._meshes.forEach(mesh => {
+                mesh.visible = true;
+                mesh.geometry = geometry;
+            });
+        }
+    },
+    parseGeometries() {
+        const promise = util.serialRun(this.json.meshes, (meshData) => {
+            return util.serialRun(meshData.primitives, (primitive) => {
+                let geometry;
+                if (primitive.targets && primitive.targets.length) {
+                    geometry = this.createMorphGeometry(primitive, meshData.weights);
+                }
+                primitive._geometry = geometry;
+                let result = this.handlerGeometry(geometry, primitive);
+                if (result.then) {
+                    return result.then(geometry => {
+                        this.fixProgressiveGeometry(primitive, geometry);
+                    });
+                }
+                this.fixProgressiveGeometry(primitive, result);
+                return result;
+            });
+        });
+        return this.isProgressive ? null : promise;
+    },
     parseMesh(meshName, node, nodeData) {
         let meshData = this.json.meshes[meshName];
         meshData.primitives.forEach(primitive => {
@@ -762,24 +804,22 @@ const GLTFParser = Class.create( /** @lends GLTFParser.prototype */ {
             if (primitive.meshNode) {
                 mesh = primitive.meshNode.clone();
             } else {
-                let geometry;
-                if (primitive.targets && primitive.targets.length) {
-                    geometry = this.createMorphGeometry(primitive, meshData.weights);
-                }
-                geometry = this.handlerGeometry(geometry, primitive);
-
                 let material = this.materials[primitive.material] || new BasicMaterial();
                 const skin = this.json.skins && this.json.skins[nodeData.skin];
                 const MeshClass = skin ? SkinedMesh : Mesh;
                 mesh = new MeshClass({
-                    geometry,
+                    geometry: primitive._geometry,
                     material,
                     name: 'mesh-' + (meshData.name || meshName)
                 });
 
                 this.handlerSkinedMesh(mesh, skin);
-
                 primitive.meshNode = mesh;
+            }
+            if (this.isProgressive && !mesh.geometry) {
+                mesh.visible = false;
+                primitive._meshes = primitive._meshes || [];
+                primitive._meshes.push(mesh);
             }
             node.addChild(mesh);
             this.meshes.push(mesh);
@@ -948,7 +988,9 @@ const GLTFParser = Class.create( /** @lends GLTFParser.prototype */ {
 
         return {
             node: this.node,
+            scene: this.node,
             meshes: this.meshes,
+            json: this.json,
             anim,
             cameras: Object.values(this.cameras),
             lights: [],
@@ -969,4 +1011,4 @@ const GLTFParser = Class.create( /** @lends GLTFParser.prototype */ {
     }
 });
 
-module.exports = GLTFParser;
+export default GLTFParser;

@@ -1,6 +1,6 @@
-const Class = require('../core/Class');
-const BasicLoader = require('./BasicLoader');
-const CubeTexture = require('../texture/CubeTexture');
+import Class from '../core/Class';
+import BasicLoader from './BasicLoader';
+import CubeTexture from '../texture/CubeTexture';
 
 /**
  * CubeTexture加载类
@@ -85,4 +85,4 @@ const CubeTextureLoader = Class.create(/** @lends CubeTextureLoader.prototype */
     }
 });
 
-module.exports = CubeTextureLoader;
+export default CubeTextureLoader;
