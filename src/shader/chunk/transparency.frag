@@ -1,5 +1,5 @@
 #ifdef HILO_TRANSPARENCY_MAP
-    uniform sampler2D u_transparency;
+    uniform hiloSampler2D u_transparency;
 #else
     uniform float u_transparency;
 #endif

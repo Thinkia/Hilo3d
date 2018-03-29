@@ -1,6 +1,6 @@
 float transparency = 1.0;
 #ifdef HILO_TRANSPARENCY_MAP
-    transparency = texture2D(u_transparency, v_texcoord0).r;
+    transparency = hiloTexture2D(u_transparency).r;
 #else
     transparency = u_transparency;
 #endif

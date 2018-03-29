@@ -17,9 +17,13 @@ void main(void) {
     #ifdef HILO_HAS_TEXCOORD0
         vec2 uv = a_texcoord0;
     #endif
+    #ifdef HILO_HAS_TEXCOORD1
+        vec2 uv1 = a_texcoord1;
+    #endif
     #ifdef HILO_HAS_NORMAL
         vec3 normal = a_normal;
     #endif
+
     #ifdef HILO_NORMAL_MAP
         vec4 tangent = a_tangent;
     #endif

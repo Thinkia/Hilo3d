@@ -53,6 +53,10 @@ const glTFAttrToGeometry = {
         name: 'uvs',
         decodeMatName: 'uvDecodeMat'
     },
+    TEXCOORD_1: {
+        name: 'uvs1',
+        decodeMatName: 'uv1DecodeMat',
+    },
     NORMAL: {
         name: 'normals',
         decodeMatName: 'normalDecodeMat'
@@ -336,6 +340,7 @@ const GLTFParser = Class.create( /** @lends GLTFParser.prototype */ {
             }
 
             const texture = new LazyTexture(textureData);
+            texture.uv = undefined;
             texture.autoLoad = this.isProgressive;
             texture.crossOrigin = true;
             texture.src = uri;
@@ -369,6 +374,21 @@ const GLTFParser = Class.create( /** @lends GLTFParser.prototype */ {
         if (!this.isBinary) {
             delete this.buffers;
         }
+    },
+    // get Texture for glTF 2.0
+    getTexture(textureInfo) {
+        let texture = this.textures[textureInfo.index];
+        const texCoord = textureInfo.texCoord || 0;
+
+        const key = textureInfo.index + '_' + texCoord;
+        if (this.textures[key]) {
+            texture = this.textures[key];
+        } else if (typeof texture.uv === 'number' && texture.uv !== texCoord) {
+            texture = texture.clone();
+            this.textures[key] = texture;
+        }
+        texture.uv = texCoord;
+        return texture;
     },
     getColorOrTexture(value) {
         if (Array.isArray(value)) {
@@ -404,16 +424,16 @@ const GLTFParser = Class.create( /** @lends GLTFParser.prototype */ {
             material.side = FRONT_AND_BACK;
         }
         if (values.normalTexture) {
-            material.normalMap = this.textures[values.normalTexture.index];
+            material.normalMap = this.getTexture(values.normalTexture);
         }
         if (values.occlusionTexture) {
-            material.occlusionMap = this.textures[values.occlusionTexture.index];
+            material.occlusionMap = this.getTexture(values.occlusionTexture);
         }
         if (values.emissiveTexture) {
-            material.emission = this.textures[values.emissiveTexture.index];
+            material.emission = this.getTexture(values.emissiveTexture);
         }
         if (values.transparencyTexture) {
-            material.transparency = this.textures[values.transparencyTexture.index];
+            material.transparency = this.getTexture(values.transparencyTexture);
         }
         if (values.extensions && values.extensions.KHR_materials_pbrSpecularGlossiness) {
             const subValues = values.extensions.KHR_materials_pbrSpecularGlossiness;
@@ -421,7 +441,7 @@ const GLTFParser = Class.create( /** @lends GLTFParser.prototype */ {
                 material.baseColor.fromArray(subValues.diffuseFactor);
             }
             if (subValues.diffuseTexture) {
-                material.baseColorMap = this.textures[subValues.diffuseTexture.index];
+                material.baseColorMap = this.getTexture(subValues.diffuseTexture);
             }
             if (subValues.specularFactor) {
                 material.specular.fromArray(subValues.specularFactor);
@@ -431,7 +451,7 @@ const GLTFParser = Class.create( /** @lends GLTFParser.prototype */ {
                 material.glossiness = subValues.glossinessFactor;
             }
             if (subValues.specularGlossinessTexture) {
-                material.specularGlossinessMap = this.textures[subValues.specularGlossinessTexture.index];
+                material.specularGlossinessMap = this.getTexture(subValues.specularGlossinessTexture);
             }
             material.isSpecularGlossiness = true;
         } else if (values.pbrMetallicRoughness) {
@@ -440,10 +460,10 @@ const GLTFParser = Class.create( /** @lends GLTFParser.prototype */ {
                 material.baseColor.fromArray(subValues.baseColorFactor);
             }
             if (subValues.baseColorTexture) {
-                material.baseColorMap = this.textures[subValues.baseColorTexture.index];
+                material.baseColorMap = this.getTexture(subValues.baseColorTexture);
             }
             if (subValues.metallicRoughnessTexture) {
-                material.metallicRoughnessMap = this.textures[subValues.metallicRoughnessTexture.index];
+                material.metallicRoughnessMap = this.getTexture(subValues.metallicRoughnessTexture);
                 if (material.occlusionMap === material.metallicRoughnessMap) {
                     material.occlusionMap = null;
                     material.occlusionInMetallicRoughnessMap = true;

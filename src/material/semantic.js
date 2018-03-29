@@ -76,17 +76,34 @@ const semantic = {
 
     handlerColorOrTexture(value, textureIndex) {
         if (value && value.isTexture) {
-            let texture = value.getGLTexture(state);
-            state.activeTexture(gl.TEXTURE0 + textureIndex);
-            state.bindTexture(value.target, texture);
-            return textureIndex;
+            return this.handlerTexture(value, textureIndex);
         }
+
         if (value && value.isColor) {
             value.toArray(tempFloat32Array);
         } else {
             tempFloat32Array[0] = tempFloat32Array[1] = tempFloat32Array[2] = 0.5;
         }
         return tempFloat32Array;
+    },
+
+    handlerTexture(value, textureIndex) {
+        if (value && value.isTexture) {
+            let texture = value.getGLTexture(state);
+            state.activeTexture(gl.TEXTURE0 + textureIndex);
+            state.bindTexture(value.target, texture);
+            return textureIndex;
+        }
+
+        return undefined;
+    },
+
+    handlerUV(texture) {
+        if (texture && texture.isTexture) {
+            return texture.uv || 0;
+        }
+
+        return 0;
     },
 
     // attributes
@@ -114,10 +131,15 @@ const semantic = {
      */
     TANGENT: {
         get(mesh, material, programInfo) {
-            if (!mesh.material.normalMap || !mesh.material.normalMap.isTexture) {
-                return undefined;
+            const normalMap = material.normalMap;
+            if (normalMap && normalMap.isTexture) {
+                if (Number(normalMap.uv) === 1) {
+                    return mesh.geometry.tangents1;
+                }
+                return mesh.geometry.tangents;
             }
-            return mesh.geometry.tangents;
+
+            return undefined;
         }
     },
 
@@ -130,6 +152,18 @@ const semantic = {
                 return undefined;
             }
             return mesh.geometry.uvs;
+        }
+    },
+
+    /**
+     * @type {semanticObject}
+     */
+    TEXCOORD_1: {
+        get(mesh, material, programInfo) {
+            if (!mesh.geometry.uvs1) {
+                return undefined;
+            }
+            return mesh.geometry.uvs1;
         }
     },
 
@@ -368,7 +402,7 @@ const semantic = {
         get(mesh, material, programInfo) {
             if (mesh.isSkinedMesh) {
                 mesh.updateJointMatTexture();
-                return semantic.handlerColorOrTexture(mesh.jointMatTexture, programInfo.textureIndex);
+                return semantic.handlerTexture(mesh.jointMatTexture, programInfo.textureIndex);
             }
             console.warn('Current mesh is not SkinedMesh!', mesh.id);
             return undefined;
@@ -396,54 +430,6 @@ const semantic = {
     /**
      * @type {semanticObject}
      */
-    DIFFUSE: {
-        get(mesh, material, programInfo) {
-            return semantic.handlerColorOrTexture(material.diffuse, programInfo.textureIndex);
-        }
-    },
-
-    /**
-     * @type {semanticObject}
-     */
-    SPECULAR: {
-        get(mesh, material, programInfo) {
-            return semantic.handlerColorOrTexture(material.specular, programInfo.textureIndex);
-        }
-    },
-
-    /**
-     * @type {semanticObject}
-     */
-    EMISSION: {
-        get(mesh, material, programInfo) {
-            return semantic.handlerColorOrTexture(material.emission, programInfo.textureIndex);
-        }
-    },
-
-    /**
-     * @type {semanticObject}
-     */
-    AMBIENT: {
-        get(mesh, material, programInfo) {
-            return semantic.handlerColorOrTexture(material.ambient, programInfo.textureIndex);
-        }
-    },
-
-    /**
-     * @type {semanticObject}
-     */
-    NORMALMAP: {
-        get(mesh, material, programInfo) {
-            if (!material.normalMap || !material.normalMap.isTexture) {
-                return undefined;
-            }
-            return semantic.handlerColorOrTexture(material.normalMap, programInfo.textureIndex);
-        }
-    },
-
-    /**
-     * @type {semanticObject}
-     */
     NORMALMAPSCALE: {
         get(mesh, material, programInfo) {
             if (!material.normalMapScale) {
@@ -453,17 +439,6 @@ const semantic = {
         }
     },
 
-    /**
-     * @type {semanticObject}
-     */
-    PARALLAXMAP: {
-        get(mesh, material, programInfo) {
-            if (!material.parallaxMap || !material.parallaxMap.isTexture) {
-                return undefined;
-            }
-            return semantic.handlerColorOrTexture(material.parallaxMap, programInfo.textureIndex);
-        }
-    },
 
     /**
      * @type {semanticObject}
@@ -471,21 +446,6 @@ const semantic = {
     SHININESS: {
         get(mesh, material, programInfo) {
             return material.shininess;
-        }
-    },
-
-    /**
-     * @type {semanticObject}
-     */
-    TRANSPARENCY: {
-        get(mesh, material, programInfo) {
-            if ('transparency' in material) {
-                if (material.transparency.isTexture) {
-                    return semantic.handlerColorOrTexture(material.transparency, programInfo.textureIndex);
-                }
-                return material.transparency;
-            }
-            return 1;
         }
     },
 
@@ -769,6 +729,12 @@ const semantic = {
         },
         isDependMesh: true
     },
+    UV1DECODEMAT: {
+        get(mesh, material, programInfo) {
+            return mesh.geometry.uv1DecodeMat;
+        },
+        isDependMesh: true
+    },
 
     // pbr
 
@@ -784,27 +750,9 @@ const semantic = {
     /**
      * @type {semanticObject}
      */
-    BASECOLORMAP: {
-        get(mesh, material, programInfo) {
-            return semantic.handlerColorOrTexture(material.baseColorMap, programInfo.textureIndex);
-        }
-    },
-
-    /**
-     * @type {semanticObject}
-     */
     METALLIC: {
         get(mesh, material, programInfo) {
             return material.metallic;
-        }
-    },
-
-    /**
-     * @type {semanticObject}
-     */
-    METALLICMAP: {
-        get(mesh, material, programInfo) {
-            return semantic.handlerColorOrTexture(material.metallicMap, programInfo.textureIndex);
         }
     },
 
@@ -817,50 +765,13 @@ const semantic = {
         }
     },
 
-    /**
-     * @type {semanticObject}
-     */
-    ROUGHNESSMAP: {
-        get(mesh, material, programInfo) {
-            return semantic.handlerColorOrTexture(material.roughnessMap, programInfo.textureIndex);
-        }
-    },
-
-    /**
-     * @type {semanticObject}
-     */
-    METALLICROUGHNESSMAP: {
-        get(mesh, material, programInfo) {
-            if (material.metallicRoughnessMap && material.metallicRoughnessMap.isTexture) {
-                return semantic.handlerColorOrTexture(material.metallicRoughnessMap, programInfo.textureIndex);
-            }
-            return undefined;
-        }
-    },
-
-    /**
-     * @type {semanticObject}
-     */
-    OCCLUSIONMAP: {
-        get(mesh, material, programInfo) {
-            const occlusionMap = material.occlusionMap;
-            if (occlusionMap && occlusionMap.isTexture) {
-                return semantic.handlerColorOrTexture(occlusionMap, programInfo.textureIndex);
-            }
-            return undefined;
-        }
-    },
 
     /**
      * @type {semanticObject}
      */
     DIFFUSEENVMAP: {
         get(mesh, material, programInfo) {
-            const diffuseEnvMap = material.diffuseEnvMap;
-            if (diffuseEnvMap && diffuseEnvMap.isTexture) {
-                return semantic.handlerColorOrTexture(diffuseEnvMap, programInfo.textureIndex);
-            }
-            return undefined;
+            return semantic.handlerTexture(material.diffuseEnvMap, programInfo.textureIndex);
         }
     },
 
@@ -869,11 +780,7 @@ const semantic = {
      */
     BRDFLUT: {
         get(mesh, material, programInfo) {
-            const brdfLUT = material.brdfLUT;
-            if (brdfLUT && brdfLUT.isTexture) {
-                return semantic.handlerColorOrTexture(brdfLUT, programInfo.textureIndex);
-            }
-            return undefined;
+            return semantic.handlerTexture(material.brdfLUT, programInfo.textureIndex);
         }
     },
 
@@ -882,25 +789,12 @@ const semantic = {
      */
     SPECULARENVMAP: {
         get(mesh, material, programInfo) {
-            const specularEnvMap = material.specularEnvMap;
-            if (specularEnvMap && specularEnvMap.isTexture) {
-                return semantic.handlerColorOrTexture(specularEnvMap, programInfo.textureIndex);
-            }
-            return undefined;
+            return semantic.handlerTexture(material.specularEnvMap, programInfo.textureIndex);
         }
     },
     GLOSSINESS: {
         get(mesh, material, programInfo) {
             return material.glossiness;
-        }
-    },
-    SPECULARGLOSSINESSMAP: {
-        get(mesh, material, programInfo) {
-            const map = material.specularGlossinessMap;
-            if (map && map.isTexture) {
-                return semantic.handlerColorOrTexture(map, programInfo.textureIndex);
-            }
-            return undefined;
         }
     },
     ALPHACUTOFF: {
@@ -955,6 +849,90 @@ const semantic = {
             }(info[1], i))
         };
     }
+});
+
+
+// Texture or Vector4
+[
+    ['DIFFUSE', 'diffuse'],
+    ['SPECULAR', 'specular'],
+    ['EMISSION', 'emission'],
+    ['AMBIENT', 'ambient'],
+].forEach(info => {
+    const [
+        semanticName,
+        textureName,
+    ] = info;
+
+    semantic[semanticName] = {
+        get(mesh, material, programInfo) {
+            return semantic.handlerColorOrTexture(material[textureName], programInfo.textureIndex);
+        }
+    };
+
+    semantic[`${semanticName}UV`] = {
+        get(mesh, material, programInfo) {
+            return semantic.handlerUV(material[textureName]);
+        }
+    };
+});
+
+// Texture
+[
+    ['NORMALMAP', 'normalMap'],
+    ['PARALLAXMAP', 'parallaxMap'],
+    ['BASECOLORMAP', 'baseColorMap'],
+    ['METALLICMAP', 'metallicMap'],
+    ['ROUGHNESSMAP', 'roughnessMap'],
+    ['METALLICROUGHNESSMAP', 'metallicRoughnessMap'],
+    ['OCCLUSIONMAP', 'occlusionMap'],
+    ['SPECULARGLOSSINESSMAP', 'specularGlossinessMap'],
+].forEach(info => {
+    const [
+        semanticName,
+        textureName,
+    ] = info;
+
+    semantic[semanticName] = {
+        get(mesh, material, programInfo) {
+            return semantic.handlerTexture(material[textureName], programInfo.textureIndex);
+        }
+    };
+
+    semantic[`${semanticName}UV`] = {
+        get(mesh, material, programInfo) {
+            return semantic.handlerUV(material[textureName]);
+        }
+    };
+});
+
+// TRANSPARENCY
+[
+    ['TRANSPARENCY', 'transparency']
+].forEach(info => {
+    const [
+        semanticName,
+        textureName,
+    ] = info;
+
+    semantic[semanticName] = {
+        get(mesh, material, programInfo) {
+            const value = material[textureName];
+            if (value && value.isTexture) {
+                return semantic.handlerTexture(value, programInfo.textureIndex);
+            } else if (value !== undefined && value !== null) {
+                return value;
+            }
+
+            return 1;
+        }
+    };
+
+    semantic[`${semanticName}UV`] = {
+        get(mesh, material, programInfo) {
+            return semantic.handlerUV(material[textureName]);
+        }
+    };
 });
 
 /**

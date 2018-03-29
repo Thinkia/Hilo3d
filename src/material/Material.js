@@ -329,16 +329,22 @@ const Material = Class.create( /** @lends Material.prototype */ {
             u_positionDecodeMat: 'POSITIONDECODEMAT',
             u_normalDecodeMat: 'NORMALDECODEMAT',
             u_uvDecodeMat: 'UVDECODEMAT',
+            u_uv1DecodeMat: 'UV1DECODEMAT',
 
             // morph
             u_morphWeights: 'MORPHWEIGHTS',
-
-            u_normalMap: 'NORMALMAP',
             u_normalMapScale: 'NORMALMAPSCALE',
-            u_parallaxMap: 'PARALLAXMAP',
             u_emission: 'EMISSION',
             u_transparency: 'TRANSPARENCY'
         };
+
+        this.addTextureUniforms({
+            u_normalMap: 'NORMALMAP',
+            u_parallaxMap: 'PARALLAXMAP',
+            u_emission: 'EMISSION',
+            u_transparency: 'TRANSPARENCY'
+        });
+
         /**
          * 可以通过指定，semantic来指定值的获取方式，或者自定义get方法
          * @default {}
@@ -349,6 +355,7 @@ const Material = Class.create( /** @lends Material.prototype */ {
             a_normal: 'NORMAL',
             a_tangent: 'TANGENT',
             a_texcoord0: 'TEXCOORD_0',
+            a_texcoord1: 'TEXCOORD_1',
             a_color: 'COLOR_0',
             a_skinIndices: 'SKININDICES',
             a_skinWeights: 'SKINWEIGHTS'
@@ -363,27 +370,37 @@ const Material = Class.create( /** @lends Material.prototype */ {
 
         Object.assign(this, params);
     },
+    addTextureUniforms(textureUniforms) {
+        const uniforms = {};
+        for (const uniformName in textureUniforms) {
+            const semanticName = textureUniforms[uniformName];
+            uniforms[`${uniformName}.texture`] = semanticName;
+            uniforms[`${uniformName}.uv`] = `${semanticName}UV`;
+        }
+        Object.assign(this.uniforms, uniforms);
+    },
     getRenderOption(option = {}) {
         const lightType = this.lightType;
         option[`LIGHT_TYPE_${lightType}`] = 1;
         option.SIDE = this.side;
-        let needUV = false;
+
+        const textureOption = this._textureOption.reset(option);
 
         if (option.HAS_LIGHT) {
             option.HAS_NORMAL = 1;
-            if (this.normalMap) {
-                option.NORMAL_MAP = 1;
-                needUV = true;
-
+            textureOption.add(this.normalMap, 'NORMAL_MAP', () => {
                 if (this.normalMapScale) {
                     option.NORMAL_MAP_SCALE = 1;
                 }
-            }
+            });
         }
 
-        if (this.parallaxMap) {
-            option.PARALLAX_MAP = 1;
-            needUV = true;
+        textureOption.add(this.parallaxMap, 'PARALLAX_MAP');
+        textureOption.add(this.emission, 'EMISSION_MAP');
+        textureOption.add(this.transparency, 'TRANSPARENCY_MAP');
+
+        if (this.ignoreTranparent) {
+            option.IGNORE_TRANSPARENT = 1;
         }
 
         if (this.alphaCutoff > 0) {
@@ -394,25 +411,59 @@ const Material = Class.create( /** @lends Material.prototype */ {
             option.USE_HDR = 1;
         }
 
-        if (this.emission && this.emission.isTexture) {
-            option.EMISSION_MAP = 1;
-            needUV = true;
-        }
-
-        if (this.transparency.isTexture) {
-            option.TRANSPARENCY_MAP = 1;
-            needUV = true;
-        }
-
-        if (this.ignoreTranparent) {
-            option.IGNORE_TRANSPARENT = 1;
-        }
-
-        if (needUV) {
-            option.HAS_TEXCOORD0 = 1;
-        }
+        textureOption.update();
         return option;
     },
+    _textureOption: {
+        uvTypes: null,
+        option: null,
+        reset(option) {
+            this.option = option;
+            this.uvTypes = {};
+            return this;
+        },
+        add(texture, optionName, callback) {
+            if (texture && texture.isTexture) {
+                const {
+                    uvTypes,
+                    option
+                } = this;
+
+                const uv = texture.uv || 0;
+                uvTypes[uv] = 1;
+                option[optionName] = uv;
+
+                if (texture.isCubeTexture) {
+                    option[`${optionName}_CUBE`] = 1;
+                }
+
+                if (callback) {
+                    callback(texture);
+                }
+            }
+
+            return this;
+        },
+        update() {
+            const supportUV = [0, 1];
+            const {
+                uvTypes,
+                option
+            } = this;
+
+            for (const type in uvTypes) {
+                if (supportUV.indexOf(Number(type)) !== -1) {
+                    option[`HAS_TEXCOORD${type}`] = 1;
+                } else {
+                    console.warn(`uv_${type} not support!`);
+                    option.HAS_TEXCOORD0 = 1;
+                }
+            }
+
+            return this;
+        }
+    },
+
     getInstancedUniforms() {
         let instancedUniforms = this._instancedUniforms;
         if (!this._instancedUniforms) {
@@ -434,8 +485,8 @@ const Material = Class.create( /** @lends Material.prototype */ {
     getUniformData(name, mesh, programInfo) {
         return this.getUniformInfo(name).get(mesh, this, programInfo);
     },
-    getAttributeData(name, mesh) {
-        return this.getAttributeInfo(name).get(mesh);
+    getAttributeData(name, mesh, programInfo) {
+        return this.getAttributeInfo(name).get(mesh, this, programInfo);
     },
     getUniformInfo(name) {
         return this.getInfo('uniforms', name);

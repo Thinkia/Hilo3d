@@ -4,7 +4,7 @@
     vec3 viewPos = vec3(0, 0, 0);
 
     #ifdef HILO_AMBIENT_MAP
-        lightAmbient = texture2D(u_ambient, v_texcoord0).rgb;
+        lightAmbient = hiloTexture2D(u_ambient).rgb;
     #else
         lightAmbient = diffuse.rgb;
     #endif
@@ -12,14 +12,14 @@
     #ifdef HILO_HAS_SPECULAR
         vec3 lightSpecular = vec3(0, 0, 0);
         #ifdef HILO_SPECULAR_MAP
-            vec4 specular = texture2D(u_specular, v_texcoord0);
+            vec4 specular = hiloTexture2D(u_specular);
         #else
             vec4 specular = u_specular;
         #endif
     #endif
     
     #ifdef HILO_EMISSION_MAP
-        vec4 emission = texture2D(u_emission, v_texcoord0);
+        vec4 emission = hiloTexture2D(u_emission);
     #else
         vec4 emission = u_emission;
     #endif

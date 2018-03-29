@@ -8,6 +8,9 @@
     #ifdef HILO_UV_QUANTIZED
         uniform mat3 u_uvDecodeMat;
     #endif
+    #ifdef HILO_UV1_QUANTIZED
+        uniform mat3 u_uv1DecodeMat;
+    #endif
 
     vec2 unQuantize(vec2 data, mat3 decodeMat) {
         vec3 result = vec3(data, 1.0);

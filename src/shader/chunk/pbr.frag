@@ -1,22 +1,22 @@
 #pragma glslify: import('../method/textureEnvMap.glsl');
 
 uniform vec4 u_baseColor;
-#ifdef HILO_BASECOLOR_MAP
-    uniform sampler2D u_baseColorMap;
+#ifdef HILO_BASE_COLOR_MAP
+    uniform hiloSampler2D u_baseColorMap;
 #endif
 uniform float u_metallic;
 #ifdef HILO_METALLIC_MAP
-    uniform sampler2D u_metallicMap;
+    uniform hiloSampler2D u_metallicMap;
 #endif
   uniform float u_roughness;
 #ifdef HILO_ROUGHNESS_MAP
-    uniform sampler2D u_roughnessMap;
+    uniform hiloSampler2D u_roughnessMap;
 #endif
 #ifdef HILO_METALLIC_ROUGHNESS_MAP
-    uniform sampler2D u_metallicRoughnessMap;
+    uniform hiloSampler2D u_metallicRoughnessMap;
 #endif
 #ifdef HILO_OCCLUSION_MAP
-    uniform sampler2D u_occlusionMap;
+    uniform hiloSampler2D u_occlusionMap;
 #endif
 
 #ifdef HILO_DIFFUSE_ENV_MAP
@@ -36,14 +36,14 @@ uniform float u_metallic;
 #endif
 
 #ifdef HILO_EMISSION_MAP
-    uniform sampler2D u_emission;
+    uniform hiloSampler2D u_emission;
 #endif
 
 #ifdef HILO_PBR_SPECULAR_GLOSSINESS
     uniform vec4 u_specular;
     uniform float u_glossiness;
     #ifdef HILO_SPECULAR_GLOSSINESS_MAP
-        uniform sampler2D u_specularGlossinessMap;
+        uniform hiloSampler2D u_specularGlossinessMap;
     #endif
 #endif
 

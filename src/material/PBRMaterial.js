@@ -147,74 +147,45 @@ const PBRMaterial = Class.create( /** @lends PBRMaterial.prototype */ {
 
         Object.assign(this.uniforms, {
             u_baseColor: 'BASECOLOR',
-            u_baseColorMap: 'BASECOLORMAP',
             u_metallic: 'METALLIC',
-            u_metallicMap: 'METALLICMAP',
             u_roughness: 'ROUGHNESS',
+            u_specular: 'SPECULAR',
+            u_glossiness: 'GLOSSINESS',
+            u_brdfLUT: 'BRDFLUT',
+            u_specularEnvMap: 'SPECULARENVMAP',
+            u_diffuseEnvMap: 'DIFFUSEENVMAP'
+        });
+
+        this.addTextureUniforms({
+            u_baseColorMap: 'BASECOLORMAP',
+            u_metallicMap: 'METALLICMAP',
             u_roughnessMap: 'ROUGHNESSMAP',
             u_metallicRoughnessMap: 'METALLICROUGHNESSMAP',
             u_occlusionMap: 'OCCLUSIONMAP',
-            u_diffuseEnvMap: 'DIFFUSEENVMAP',
-            u_brdfLUT: 'BRDFLUT',
-            u_specularEnvMap: 'SPECULARENVMAP',
-
-            u_specular: 'SPECULAR',
-            u_glossiness: 'GLOSSINESS',
             u_specularGlossinessMap: 'SPECULARGLOSSINESSMAP'
         });
     },
     getRenderOption(option = {}) {
         PBRMaterial.superclass.getRenderOption.call(this, option);
+        const textureOption = this._textureOption.reset(option);
 
-        let needUV = false;
-        if (this.baseColorMap) {
-            option.BASECOLOR_MAP = 1;
-            needUV = true;
-        }
-        if (this.metallicMap) {
-            option.METALLIC_MAP = 1;
-            needUV = true;
-        }
-        if (this.roughnessMap) {
-            option.ROUGHNESS_MAP = 1;
-            needUV = true;
-        }
-        if (this.metallicRoughnessMap) {
-            option.METALLIC_ROUGHNESS_MAP = 1;
-            needUV = true;
-        }
-        if (this.occlusionMap && this.occlusionMap.isTexture) {
-            option.OCCLUSION_MAP = 1;
-            needUV = true;
-        }
-        if (this.occlusionInMetallicRoughnessMap) {
-            option.OCCLUSION_MAP_IN_METALLIC_ROUGHNESS_MAP = 1;
-        }
+        textureOption.add(this.baseColorMap, 'BASE_COLOR_MAP');
+        textureOption.add(this.metallicMap, 'METALLIC_MAP');
+        textureOption.add(this.roughnessMap, 'ROUGHNESS_MAP');
+        textureOption.add(this.metallicRoughnessMap, 'METALLIC_ROUGHNESS_MAP');
+        textureOption.add(this.occlusionInMetallicRoughnessMap, 'OCCLUSION_MAP_IN_METALLIC_ROUGHNESS_MAP');
+        textureOption.add(this.diffuseEnvMap, 'DIFFUSE_ENV_MAP');
 
-        if (this.diffuseEnvMap) {
-            option.DIFFUSE_ENV_MAP = 1;
-            if (this.diffuseEnvMap.isCubeTexture) {
-                option.DIFFUSE_ENV_MAP_CUBE = 1;
-            }
-        }
-        if (this.brdfLUT && this.specularEnvMap) {
-            option.SPECULAR_ENV_MAP = 1;
-            if (this.specularEnvMap.isCubeTexture) {
-                option.SPECULAR_ENV_MAP_CUBE = 1;
-            }
+        if (this.brdfLUT) {
+            textureOption.add(this.specularEnvMap, 'SPECULAR_ENV_MAP');
         }
 
         if (this.isSpecularGlossiness) {
             option.PBR_SPECULAR_GLOSSINESS = 1;
-            if (this.specularGlossinessMap) {
-                option.SPECULAR_GLOSSINESS_MAP = 1;
-                needUV = true;
-            }
+            textureOption.add(this.specularGlossinessMap, 'SPECULAR_GLOSSINESS_MAP');
         }
 
-        if (needUV) {
-            option.HAS_TEXCOORD0 = 1;
-        }
+        textureOption.update();
 
         return option;
     }

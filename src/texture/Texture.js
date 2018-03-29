@@ -190,6 +190,12 @@ const Texture = Class.create( /** @lends Texture.prototype */ {
      * @type {boolean}
      */
     autoUpdate: false,
+    /**
+     * uv
+     * @default 0
+     * @type {Number}
+     */
+    uv: 0,
 
     /**
      * @constructs
@@ -288,6 +294,12 @@ const Texture = Class.create( /** @lends Texture.prototype */ {
     destroy(gl) {
         this.releaseGLTexture(gl);
         cache.removeObject(this);
+    },
+    clone() {
+        const option = Object.assign({}, this);
+        delete option.id;
+        const texture = new this.constructor(option);
+        return texture;
     }
 });
 

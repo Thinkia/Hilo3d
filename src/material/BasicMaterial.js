@@ -111,49 +111,40 @@ const BasicMaterial = Class.create( /** @lends BasicMaterial.prototype */ {
             u_specularEnvMap: 'SPECULARENVMAP',
             u_specularEnvMatrix: 'SPECULARENVMATRIX'
         });
+
+        this.addTextureUniforms({
+            u_diffuse: 'DIFFUSE',
+            u_specular: 'SPECULAR',
+            u_ambient: 'AMBIENT'
+        });
     },
     getRenderOption(option = {}) {
         BasicMaterial.superclass.getRenderOption.call(this, option);
+
+        const textureOption = this._textureOption.reset(option);
 
         const lightType = this.lightType;
         if (lightType === 'PHONG' || lightType === 'BLINN-PHONG') {
             option.HAS_SPECULAR = 1;
         }
 
-        let needUV = false;
+
         const diffuse = this.diffuse;
         if (diffuse && diffuse.isTexture) {
             if (diffuse.isCubeTexture) {
                 option.DIFFUSE_CUBE_MAP = 1;
             } else {
-                option.DIFFUSE_MAP = 1;
-                needUV = true;
+                textureOption.add(this.diffuse, 'DIFFUSE_MAP');
             }
         }
 
         if (option.HAS_LIGHT) {
-
-            if (this.specular && this.specular.isTexture) {
-                option.SPECULAR_MAP = 1;
-                needUV = true;
-            }
-
-            if (this.ambient && this.ambient.isTexture) {
-                option.AMBIENT_MAP = 1;
-                needUV = true;
-            }
-
-            if (this.specularEnvMap) {
-                option.SPECULAR_ENV_MAP = 1;
-                if (this.specularEnvMap.isCubeTexture) {
-                    option.SPECULAR_ENV_MAP_CUBE = 1;
-                }
-            }
+            textureOption.add(this.specular, 'SPECULAR_MAP');
+            textureOption.add(this.ambient, 'AMBIENT_MAP');
+            textureOption.add(this.specularEnvMap, 'SPECULAR_ENV_MAP');
         }
 
-        if (needUV) {
-            option.HAS_TEXCOORD0 = 1;
-        }
+        textureOption.update();
 
         return option;
     }

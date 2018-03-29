@@ -45,6 +45,7 @@ Hilo3d, a WebGL Rendering Engine developed by Alibaba Group.It could help develo
   * [shader_material](https://hiloteam.github.io/Hilo3d/examples/shader_material.html)
   * [shadow](https://hiloteam.github.io/Hilo3d/examples/shadow.html)
   * [skybox](https://hiloteam.github.io/Hilo3d/examples/skybox.html)
+  * [sphereEnvMap](https://hiloteam.github.io/Hilo3d/examples/sphereEnvMap.html)
   * [spotLight](https://hiloteam.github.io/Hilo3d/examples/spotLight.html)
   * [ssao](https://hiloteam.github.io/Hilo3d/examples/ssao.html)
   * [transparent](https://hiloteam.github.io/Hilo3d/examples/transparent.html)

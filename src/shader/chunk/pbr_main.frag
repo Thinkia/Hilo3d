@@ -1,6 +1,6 @@
 vec4 baseColor = u_baseColor;
-#ifdef HILO_BASECOLOR_MAP
-    baseColor *= texture2D(u_baseColorMap, v_texcoord0);
+#ifdef HILO_BASE_COLOR_MAP
+    baseColor *= hiloTexture2D(u_baseColorMap);
 #endif
 
 #if defined(HILO_HAS_COLOR)
@@ -17,7 +17,7 @@ color.a = baseColor.a;
     vec3 V = normalize(viewPos - v_fragPos);
 
     #ifdef HILO_OCCLUSION_MAP
-        float ao  = texture2D(u_occlusionMap, v_texcoord0).r;
+        float ao  = hiloTexture2D(u_occlusionMap).r;
     #else
         float ao = 1.0;
     #endif
@@ -26,7 +26,7 @@ color.a = baseColor.a;
         vec3 specular = u_specular.rgb;
         float glossiness = u_glossiness;
         #ifdef HILO_SPECULAR_GLOSSINESS_MAP
-            vec4 specularGlossiness = texture2D(u_specularGlossinessMap, v_texcoord0);
+            vec4 specularGlossiness = hiloTexture2D(u_specularGlossinessMap);
             specular = specularGlossiness.rgb * specular;
             glossiness = specularGlossiness.a * glossiness;
         #endif
@@ -38,13 +38,13 @@ color.a = baseColor.a;
         float metallic = u_metallic;
         float roughness = u_roughness;
         #ifdef HILO_METALLIC_MAP
-            metallic = texture2D(u_metallicMap, v_texcoord0).r * u_metallic;
+            metallic = hiloTexture2D(u_metallicMap).r * u_metallic;
         #endif
         #ifdef HILO_ROUGHNESS_MAP
-            roughness  = texture2D(u_roughnessMap, v_texcoord0).r * u_roughness;
+            roughness  = hiloTexture2D(u_roughnessMap).r * u_roughness;
         #endif
         #ifdef HILO_METALLIC_ROUGHNESS_MAP
-            vec4 metallicRoughnessMap = texture2D(u_metallicRoughnessMap, v_texcoord0);
+            vec4 metallicRoughnessMap = hiloTexture2D(u_metallicRoughnessMap);
             #ifdef HILO_OCCLUSION_MAP_IN_METALLIC_ROUGHNESS_MAP
                 ao = metallicRoughnessMap.r;
             #endif
@@ -135,7 +135,7 @@ color.a = baseColor.a;
     #endif
 
     #ifdef HILO_EMISSION_MAP
-        color.rgb += texture2D(u_emission, v_texcoord0).rgb;
+        color.rgb += hiloTexture2D(u_emission).rgb;
     #endif
 
     color.rgb += Lo;
