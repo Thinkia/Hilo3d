@@ -218,6 +218,18 @@ const Shader = Class.create( /** @lends Shader.prototype */ {
                     fs += pbrFragCode;
                 }
 
+                // fix android 7- struct sample2D bug
+                const hasUV0 = header.indexOf('HILO_HAS_TEXCOORD0') > -1;
+                const hasUV1 = header.indexOf('HILO_HAS_TEXCOORD1') > -1;
+                if (hasUV0 || hasUV1) {
+                    const regExp = new RegExp('hiloTexture2D\\(\\s*([\\w_]+)\\s*\\)', 'g');
+                    if (hasUV0 && hasUV1) {
+                        fs = fs.replace(regExp, 'hiloTexture2D($1.texture, $1.uv)');
+                    } else {
+                        fs = fs.replace(regExp, 'hiloTexture2D($1.texture)');
+                    }
+                }
+
                 if (instancedUniforms) {
                     const instancedUniformsReg = new RegExp(`^\\s*uniform\\s+(\\w+)\\s+(${instancedUniforms});`, 'gm');
                     vs = vs.replace(instancedUniformsReg, 'attribute $1 $2;');

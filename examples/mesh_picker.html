@@ -17,7 +17,7 @@
     <script>
         var loader = new Hilo3d.GLTFLoader();
         loader.load({
-            src: '//cx.alicdn.com/tmx/59724b74e80d9d1211456f0917cea75d.gltf'
+            src: '//cx.alicdn.com/tmx/36c8c69b771f42ca692ded534d764b77.gltf'
         }).then(function(model){
             window.xx = model;
             model.node.setScale(0.002);
@@ -30,7 +30,8 @@
 
         var selectedMesh;
         stage.container.addEventListener('click', function(evt) {
-            selectedMesh = meshPickerHelper.getSelection(evt.clientX, evt.clientY)[0];
+            const mesh = meshPickerHelper.getSelection(evt.clientX, evt.clientY)[0];
+            selectedMesh = mesh || selectedMesh;
         });
 
         var transparentMaterial = new Hilo3d.Material;
