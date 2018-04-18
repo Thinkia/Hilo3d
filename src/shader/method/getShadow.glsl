@@ -29,4 +29,29 @@ float getShadow(sampler2D shadowMap, vec2 shadowMapSize, float bias, vec3 fragPo
     return 1.0 - shadow / 9.0;
 }
 
+float getShadow(samplerCube shadowMap, float bias, vec3 distanceVec, mat4 lightSpaceMatrix) {
+    float currentDistance = length(distanceVec);
+    vec3 direction = normalize(( lightSpaceMatrix * vec4(-distanceVec, 1.0) ).xyz);
+
+    float shadow = 0.0;
+    const float samples = 2.0;
+    const float offset = 0.01;
+    const float step = offset / (samples * 0.5);
+    for(float x = -offset; x < offset; x +=step)
+    {
+        for(float y = -offset; y < offset; y +=step)
+        {
+            for(float z = -offset; z < offset; z +=step)
+            {
+                float closestDistance = textureCube(shadowMap, direction + vec3(x, y, z)).r;
+                if(currentDistance - bias > closestDistance)
+                    shadow += 1.0;
+            }
+        }
+    }
+    shadow /= (samples * samples * samples);
+
+    return 1.0 - shadow;
+}
+
 #pragma glslify: export(getShadow)

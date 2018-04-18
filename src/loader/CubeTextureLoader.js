@@ -1,6 +1,7 @@
 import Class from '../core/Class';
 import BasicLoader from './BasicLoader';
 import CubeTexture from '../texture/CubeTexture';
+import Loader from './Loader';
 
 /**
  * CubeTexture加载类
@@ -84,5 +85,7 @@ const CubeTextureLoader = Class.create(/** @lends CubeTextureLoader.prototype */
         });
     }
 });
+
+Loader.addLoader('CubeTexture', CubeTextureLoader);
 
 export default CubeTextureLoader;

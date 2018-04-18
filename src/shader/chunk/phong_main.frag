@@ -4,7 +4,7 @@
     vec3 viewPos = vec3(0, 0, 0);
 
     #ifdef HILO_AMBIENT_MAP
-        lightAmbient = hiloTexture2D(u_ambient).rgb;
+        lightAmbient = HILO_TEXTURE_2D(u_ambient).rgb;
     #else
         lightAmbient = diffuse.rgb;
     #endif
@@ -12,14 +12,14 @@
     #ifdef HILO_HAS_SPECULAR
         vec3 lightSpecular = vec3(0, 0, 0);
         #ifdef HILO_SPECULAR_MAP
-            vec4 specular = hiloTexture2D(u_specular);
+            vec4 specular = HILO_TEXTURE_2D(u_specular);
         #else
             vec4 specular = u_specular;
         #endif
     #endif
     
     #ifdef HILO_EMISSION_MAP
-        vec4 emission = hiloTexture2D(u_emission);
+        vec4 emission = HILO_TEXTURE_2D(u_emission);
     #else
         vec4 emission = u_emission;
     #endif
@@ -79,13 +79,21 @@
             vec3 distanceVec = u_pointLightsPos[i] - v_fragPos;
             vec3 lightDir = normalize(distanceVec);
 
+            float shadow = 1.0;
+            #ifdef HILO_POINT_LIGHTS_SMC
+                if (i < HILO_POINT_LIGHTS_SMC) {
+                    float bias = max(u_pointLightsShadowBias[i][1] * (1.0 - dot(normal, lightDir)), u_pointLightsShadowBias[i][0]);
+                    shadow = getShadow(u_pointLightsShadowMap[i], bias, distanceVec, u_pointLightSpaceMatrix[i]);
+                }
+            #endif
+            
             float diff = getDiffuse(normal, lightDir);
             float attenuation = getPointAttenuation(distanceVec, u_pointLightsInfo[i]);
-            lightDiffuse += diff * attenuation * u_pointLightsColor[i];
+            lightDiffuse += diff * attenuation * u_pointLightsColor[i] * shadow;
 
             #ifdef HILO_HAS_SPECULAR
                 float spec = getSpecular(viewPos, v_fragPos, lightDir, normal, u_shininess);
-                lightSpecular += spec * attenuation * u_pointLightsColor[i];
+                lightSpecular += spec * attenuation * u_pointLightsColor[i] * shadow;
             #endif
         }
     #endif

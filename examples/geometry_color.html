@@ -19,7 +19,8 @@
         var mesh = new Hilo3d.Mesh({
             geometry: geometry,
             material: new Hilo3d.BasicMaterial({
-                lightType: 'NONE'
+                lightType: 'NONE',
+                side:Hilo3d.constants.FRONT_AND_BACK
             })
         });
         stage.addChild(mesh);

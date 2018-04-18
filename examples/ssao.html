@@ -61,7 +61,7 @@
         depthFramebuffer.init();
         var depthMaterial = new Hilo3d.GeometryMaterial({
             vertexType:Hilo3d.constants.DEPTH,
-            writeOriginData:writeOriginData
+            writeOriginData:false
         });
 
         var ssaoFramebuffer = new Hilo3d.Framebuffer(renderer, {

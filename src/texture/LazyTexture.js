@@ -1,7 +1,7 @@
 import Class from '../core/Class';
 import EventMixin from '../core/EventMixin';
 import Texture from './Texture';
-import BasicLoader from '../loader/BasicLoader';
+import Loader from '../loader/Loader';
 
 const placeHolder = new Image();
 placeHolder.src = 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7';
@@ -20,14 +20,16 @@ placeHolder.src = 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAA
  *     });
  * });
  */
-const LazyTexture = Class.create(/** @lends LazyTexture.prototype */{
+const LazyTexture = Class.create( /** @lends LazyTexture.prototype */ {
     Extends: Texture,
     Mixes: EventMixin,
+
     /**
      * @default true
      * @type {boolean}
      */
     isLazyTexture: true,
+
     /**
      * @default LazyTexture
      * @type {string}
@@ -35,18 +37,21 @@ const LazyTexture = Class.create(/** @lends LazyTexture.prototype */{
     className: 'LazyTexture',
 
     _src: '',
+
     /**
      * 图片是否跨域
      * @default false
      * @type {boolean}
      */
     crossOrigin: false,
+
     /**
      * 是否在设置src后立即加载图片
      * @default true
      * @type {boolean}
      */
     autoLoad: true,
+
     /**
      * 图片地址
      * @type {string}
@@ -64,6 +69,14 @@ const LazyTexture = Class.create(/** @lends LazyTexture.prototype */{
             }
         }
     },
+
+    /**
+     * 加载类型
+     * @default img
+     * @type {String}
+     */
+    resType: 'img',
+
     /**
      * @constructs
      * @param {object} params 初始化参数，所有params都会复制到实例上
@@ -86,16 +99,27 @@ const LazyTexture = Class.create(/** @lends LazyTexture.prototype */{
         LazyTexture.superclass.constructor.call(this, params);
         this.image = this.placeHolder || placeHolder;
     },
+
     /**
      * 加载图片
      * @return {Promise} 返回加载的Promise
      */
     load() {
-        LazyTexture.loader = LazyTexture.loader || new BasicLoader();
-        return LazyTexture.loader.loadImg(this.src, this.crossOrigin).then(img => {
-            this.image = img;
-            this.needUpdate = true;
-            this.fire('load');
+        LazyTexture.loader = LazyTexture.loader || new Loader();
+        return LazyTexture.loader.load({
+            src: this.src,
+            crossOrigin: this.crossOrigin,
+            type: this.resType
+        }).then(img => {
+            if (img.isTexture) {
+                Object.assign(this, img);
+                this.needUpdate = true;
+                this.fire('load');
+            } else {
+                this.image = img;
+                this.needUpdate = true;
+                this.fire('load');
+            }
         }, err => {
             this.fire('error');
             console.warn(`LazyTexture Failed ${err}`);

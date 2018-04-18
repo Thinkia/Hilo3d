@@ -33,7 +33,8 @@
             material: new Hilo3d.BasicMaterial({
                 diffuse: new Hilo3d.DataTexture({
                     data: data
-                })
+                }),
+                side:Hilo3d.constants.FRONT_AND_BACK
             }),
             onUpdate: function() {
                 for (var i = 0; i < 128; i++) {

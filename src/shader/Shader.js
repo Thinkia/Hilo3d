@@ -43,35 +43,55 @@ const Shader = Class.create( /** @lends Shader.prototype */ {
          * @type {Object}
          */
         shaders: {
-            'diffuse.frag': require('./chunk/diffuse.frag'),
-            'diffuse_main.frag': require('./chunk/diffuse_main.frag'),
-            'fog.frag': require('./chunk/fog.frag'),
-            'fog_main.frag': require('./chunk/fog_main.frag'),
-            'joint.vert': require('./chunk/joint.vert'),
-            'joint_main.vert': require('./chunk/joint_main.vert'),
-            'light.frag': require('./chunk/light.frag'),
-            'lightFog.vert': require('./chunk/lightFog.vert'),
-            'lightFog_main.vert': require('./chunk/lightFog_main.vert'),
-            'phong.frag': require('./chunk/phong.frag'),
-            'phong_main.frag': require('./chunk/phong_main.frag'),
-            'normal.vert': require('./chunk/normal.vert'),
-            'normal_main.vert': require('./chunk/normal_main.vert'),
-            'precision.vert': require('./chunk/precision.vert'),
-            'precision.frag': require('./chunk/precision.frag'),
-            'transparency.frag': require('./chunk/transparency.frag'),
-            'transparency_main.frag': require('./chunk/transparency_main.frag'),
-            'unQuantize.vert': require('./chunk/unQuantize.vert'),
-            'unQuantize_main.vert': require('./chunk/unQuantize_main.vert'),
-            'uv.vert': require('./chunk/uv.vert'),
-            'uv_main.vert': require('./chunk/uv_main.vert'),
+            'chunk/baseDefine.glsl': require('./chunk/baseDefine.glsl'),
+            'chunk/color.frag': require('./chunk/color.frag'),
+            'chunk/color.vert': require('./chunk/color.vert'),
+            'chunk/color_main.vert': require('./chunk/color_main.vert'),
+            'chunk/diffuse.frag': require('./chunk/diffuse.frag'),
+            'chunk/diffuse_main.frag': require('./chunk/diffuse_main.frag'),
+            'chunk/fog.frag': require('./chunk/fog.frag'),
+            'chunk/fog_main.frag': require('./chunk/fog_main.frag'),
+            'chunk/frag_color.frag': require('./chunk/frag_color.frag'),
+            'chunk/joint.vert': require('./chunk/joint.vert'),
+            'chunk/joint_main.vert': require('./chunk/joint_main.vert'),
+            'chunk/light.frag': require('./chunk/light.frag'),
+            'chunk/lightFog.frag': require('./chunk/lightFog.frag'),
+            'chunk/lightFog.vert': require('./chunk/lightFog.vert'),
+            'chunk/lightFog_main.frag': require('./chunk/lightFog_main.frag'),
+            'chunk/lightFog_main.vert': require('./chunk/lightFog_main.vert'),
+            'chunk/morph.vert': require('./chunk/morph.vert'),
+            'chunk/morph_main.vert': require('./chunk/morph_main.vert'),
+            'chunk/normal.frag': require('./chunk/normal.frag'),
+            'chunk/normal.vert': require('./chunk/normal.vert'),
+            'chunk/normal_main.frag': require('./chunk/normal_main.frag'),
+            'chunk/normal_main.vert': require('./chunk/normal_main.vert'),
+            'chunk/pbr.frag': require('./chunk/pbr.frag'),
+            'chunk/pbr_main.frag': require('./chunk/pbr_main.frag'),
+            'chunk/phong.frag': require('./chunk/phong.frag'),
+            'chunk/phong_main.frag': require('./chunk/phong_main.frag'),
+            'chunk/precision.frag': require('./chunk/precision.frag'),
+            'chunk/precision.vert': require('./chunk/precision.vert'),
+            'chunk/transparency.frag': require('./chunk/transparency.frag'),
+            'chunk/transparency_main.frag': require('./chunk/transparency_main.frag'),
+            'chunk/unQuantize.vert': require('./chunk/unQuantize.vert'),
+            'chunk/unQuantize_main.vert': require('./chunk/unQuantize_main.vert'),
+            'chunk/uv.frag': require('./chunk/uv.frag'),
+            'chunk/uv.vert': require('./chunk/uv.vert'),
+            'chunk/uv_main.vert': require('./chunk/uv_main.vert'),
 
-            'getDiffuse.glsl': require('./method/getDiffuse.glsl'),
-            'getPointAttenuation.glsl': require('./method/getPointAttenuation.glsl'),
-            'getShadow.glsl': require('./method/getShadow.glsl'),
-            'getSpecular.glsl': require('./method/getSpecular.glsl'),
+            'method/getDiffuse.glsl': require('./method/getDiffuse.glsl'),
+            'method/getPointAttenuation.glsl': require('./method/getPointAttenuation.glsl'),
+            'method/getShadow.glsl': require('./method/getShadow.glsl'),
+            'method/getSpecular.glsl': require('./method/getSpecular.glsl'),
+            'method/textureEnvMap.glsl': require('./method/textureEnvMap.glsl'),
+            'method/transpose.glsl': require('./method/transpose.glsl'),
 
-            'screen.vert': require('./screen.vert'),
+            'basic.frag': require('./basic.frag'),
+            'basic.vert': require('./basic.vert'),
+            'geometry.frag': require('./geometry.frag'),
+            'pbr.frag': require('./pbr.frag'),
             'screen.frag': require('./screen.frag'),
+            'screen.vert': require('./screen.vert')
         },
 
         /**
@@ -216,18 +236,6 @@ const Shader = Class.create( /** @lends Shader.prototype */ {
                     }
                 } else if (material.isPBRMaterial) {
                     fs += pbrFragCode;
-                }
-
-                // fix android 7- struct sample2D bug
-                const hasUV0 = header.indexOf('HILO_HAS_TEXCOORD0') > -1;
-                const hasUV1 = header.indexOf('HILO_HAS_TEXCOORD1') > -1;
-                if (hasUV0 || hasUV1) {
-                    const regExp = new RegExp('hiloTexture2D\\(\\s*([\\w_]+)\\s*\\)', 'g');
-                    if (hasUV0 && hasUV1) {
-                        fs = fs.replace(regExp, 'hiloTexture2D($1.texture, $1.uv)');
-                    } else {
-                        fs = fs.replace(regExp, 'hiloTexture2D($1.texture)');
-                    }
                 }
 
                 if (instancedUniforms) {

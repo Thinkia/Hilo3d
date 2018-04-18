@@ -55,15 +55,6 @@
                 wrapS: 33071,
                 wrapT: 33071
             });
-            // var skybox = new Hilo3d.Mesh({
-            //     geometry: new Hilo3d.BoxGeometry(),
-            //     material: new Hilo3d.BasicMaterial({
-            //         lightType: 'NONE',
-            //         diffuse: skyboxMap
-            //     })
-            // });
-            // skybox.setScale(100);
-            // stage.addChild(skybox);
 
             var model = result.filter(function(r){return r.node})[0];
             model.node.setScale(.002);
@@ -71,19 +62,13 @@
             screenMaterial.diffuse = khcTexture;
             model.materials.forEach(function(material){
                 if (material === screenMaterial) {
-                    material.skyboxMap = skyboxMap;
-                    material.reflectivity = 0.05;
+                    material.lightType = 'NONE';
                     return;
                 }
                 material.skyboxMap = skyboxMap;
                 material.reflectivity = .1;
             });
             stage.addChild(model.node);
-            // model.node.setScale(.01);
-            // model.materials.forEach(function(material){
-            //     material.skyboxMap = skyboxMap;
-            //     material.reflectivity = .1;
-            // });
         }).start();
     </script>
 </body>

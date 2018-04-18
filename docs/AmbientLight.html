@@ -167,6 +167,12 @@
             
                 <li  data-name="semantic.POINTLIGHTSINFO"><a href="semantic.html#.POINTLIGHTSINFO">POINTLIGHTSINFO</a></li>
             
+                <li  data-name="semantic.POINTLIGHTSSHADOWMAP"><a href="semantic.html#.POINTLIGHTSSHADOWMAP">POINTLIGHTSSHADOWMAP</a></li>
+            
+                <li  data-name="semantic.POINTLIGHTSSHADOWBIAS"><a href="semantic.html#.POINTLIGHTSSHADOWBIAS">POINTLIGHTSSHADOWBIAS</a></li>
+            
+                <li  data-name="semantic.POINTLIGHTSPACEMATRIX"><a href="semantic.html#.POINTLIGHTSPACEMATRIX">POINTLIGHTSPACEMATRIX</a></li>
+            
                 <li  data-name="semantic.SPOTLIGHTSPOS"><a href="semantic.html#.SPOTLIGHTSPOS">SPOTLIGHTSPOS</a></li>
             
                 <li  data-name="semantic.SPOTLIGHTSDIR"><a href="semantic.html#.SPOTLIGHTSDIR">SPOTLIGHTSDIR</a></li>
@@ -2659,7 +2665,7 @@
             
             <span class="subtitle"><a href="#members" class="subtitle-name">Members</a><a class="toggle-inherited" href="javascript:void(0);" type="member">Show Inherited</a></span>
             
-                <li  data-name="AmbientLight#amount"><a href="AmbientLight.html#amount">amount</a></li>
+                <li class="inherited-member" data-name="AmbientLight#amount"><a href="AmbientLight.html#amount">amount</a></li>
             
                 <li class="inherited-member" data-name="AmbientLight#color"><a href="AmbientLight.html#color">color</a></li>
             
@@ -2692,6 +2698,8 @@
             
                 <li  data-name="DirectionalLight#direction"><a href="DirectionalLight.html#direction">direction</a></li>
             
+                <li class="inherited-member" data-name="DirectionalLight#amount"><a href="DirectionalLight.html#amount">amount</a></li>
+            
                 <li class="inherited-member" data-name="DirectionalLight#color"><a href="DirectionalLight.html#color">color</a></li>
             
             </ul>
@@ -2714,6 +2722,8 @@
             <ul class="members itemMembers">
             
             <span class="subtitle"><a href="#members" class="subtitle-name">Members</a><a class="toggle-inherited" href="javascript:void(0);" type="member">Show Inherited</a></span>
+            
+                <li  data-name="Light#amount"><a href="Light.html#amount">amount</a></li>
             
                 <li  data-name="Light#color"><a href="Light.html#color">color</a></li>
             
@@ -2895,6 +2905,8 @@
             
                 <li  data-name="PointLight#quadraticAttenuation"><a href="PointLight.html#quadraticAttenuation">quadraticAttenuation</a></li>
             
+                <li class="inherited-member" data-name="PointLight#amount"><a href="PointLight.html#amount">amount</a></li>
+            
                 <li class="inherited-member" data-name="PointLight#color"><a href="PointLight.html#color">color</a></li>
             
                 <li class="inherited-member" data-name="PointLight#isNode"><a href="PointLight.html#isNode">isNode</a></li>
@@ -3039,6 +3051,8 @@
                 <li  data-name="SpotLight#quadraticAttenuation"><a href="SpotLight.html#quadraticAttenuation">quadraticAttenuation</a></li>
             
                 <li  data-name="SpotLight#direction"><a href="SpotLight.html#direction">direction</a></li>
+            
+                <li class="inherited-member" data-name="SpotLight#amount"><a href="SpotLight.html#amount">amount</a></li>
             
                 <li class="inherited-member" data-name="SpotLight#color"><a href="SpotLight.html#color">color</a></li>
             
@@ -3761,7 +3775,7 @@
             
                 <li  data-name="PBRMaterial#occlusionMap"><a href="PBRMaterial.html#occlusionMap">occlusionMap</a></li>
             
-                <li  data-name="PBRMaterial#occlusionInMetallicRoughnessMap"><a href="PBRMaterial.html#occlusionInMetallicRoughnessMap">occlusionInMetallicRoughnessMap</a></li>
+                <li  data-name="PBRMaterial#isOcclusionInMetallicRoughnessMap"><a href="PBRMaterial.html#isOcclusionInMetallicRoughnessMap">isOcclusionInMetallicRoughnessMap</a></li>
             
                 <li  data-name="PBRMaterial#diffuseEnvMap"><a href="PBRMaterial.html#diffuseEnvMap">diffuseEnvMap</a></li>
             
@@ -5629,6 +5643,8 @@
             
                 <li  data-name="LazyTexture#src"><a href="LazyTexture.html#src">src</a></li>
             
+                <li  data-name="LazyTexture#resType"><a href="LazyTexture.html#resType">resType</a></li>
+            
                 <li class="inherited-member" data-name="LazyTexture#isTexture"><a href="LazyTexture.html#isTexture">isTexture</a></li>
             
                 <li class="inherited-member" data-name="LazyTexture#image"><a href="LazyTexture.html#image">image</a></li>
@@ -6035,7 +6051,7 @@
 	
 	<tbody>
 	
-        <tr >
+        <tr class="inherited-member">
             
                 <td class="name">
                     <a name="amount"></a>
@@ -6057,12 +6073,12 @@
             
                 <td class="default">
                 
-                    1
-                
                 </td>
             
             
             <td class="description last">
+                
+                    <span class="inherited optional"><a href="Light.html#amount">inherited</a></span>
                 
                 <p>光强度</p>
                 

@@ -1,6 +1,7 @@
 import Class from '../core/Class';
 import BasicLoader from './BasicLoader';
 import Texture from '../texture/Texture';
+import Loader from './Loader';
 
 /**
  * Texture加载类
@@ -56,5 +57,7 @@ const TextureLoader = Class.create(/** @lends TextureLoader.prototype */{
         });
     }
 });
+
+Loader.addLoader('Texture', TextureLoader);
 
 export default TextureLoader;

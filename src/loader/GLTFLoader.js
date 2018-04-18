@@ -1,6 +1,7 @@
 import Class from '../core/Class';
 import BasicLoader from './BasicLoader';
 import GLTFParser from './GLTFParser';
+import Loader from './Loader';
 
 /**
  * glTF模型加载类
@@ -55,6 +56,9 @@ const GLTFLoader = Class.create(/** @lends GLTFLoader.prototype */{
             });
     }
 });
+
+Loader.addLoader('gltf', GLTFLoader);
+Loader.addLoader('glb', GLTFLoader);
 
 export default GLTFLoader;
 

@@ -3,6 +3,10 @@ import DataTexture from '../texture/DataTexture';
 import Vector3 from '../math/Vector3';
 import Matrix3 from '../math/Matrix3';
 import Matrix4 from '../math/Matrix4';
+import {
+    TEXTURE_2D,
+    TEXTURE_CUBE_MAP
+} from '../constants/';
 
 const tempVector3 = new Vector3();
 const tempMatrix3 = new Matrix3();
@@ -89,13 +93,16 @@ const semantic = {
 
     handlerTexture(value, textureIndex) {
         if (value && value.isTexture) {
-            let texture = value.getGLTexture(state);
-            state.activeTexture(gl.TEXTURE0 + textureIndex);
-            state.bindTexture(value.target, texture);
-            return textureIndex;
+            return this.handlerGLTexture(value.target, value.getGLTexture(state), textureIndex);
         }
 
         return undefined;
+    },
+
+    handlerGLTexture(target, texture, textureIndex) {
+        state.activeTexture(gl.TEXTURE0 + textureIndex);
+        state.bindTexture(target, texture);
+        return textureIndex;
     },
 
     handlerUV(texture) {
@@ -524,9 +531,7 @@ const semantic = {
     DIRECTIONALLIGHTSSHADOWMAP: {
         get(mesh, material, programInfo) {
             const result = lightManager.directionalInfo.shadowMap.map((texture, i) => {
-                state.activeTexture(gl.TEXTURE0 + programInfo.textureIndex + i);
-                state.bindTexture(gl.TEXTURE_2D, texture);
-                return programInfo.textureIndex + i;
+                return semantic.handlerGLTexture(TEXTURE_2D, texture, programInfo.textureIndex + i);
             });
             return result;
         }
@@ -589,6 +594,36 @@ const semantic = {
     /**
      * @type {semanticObject}
      */
+    POINTLIGHTSSHADOWMAP: {
+        get(mesh, material, programInfo) {
+            const result = lightManager.pointInfo.shadowMap.map((texture, i) => {
+                return semantic.handlerGLTexture(TEXTURE_CUBE_MAP, texture, programInfo.textureIndex + i);
+            });
+            return result;
+        }
+    },
+
+    /**
+     * @type {semanticObject}
+     */
+    POINTLIGHTSSHADOWBIAS: {
+        get(mesh, material, programInfo) {
+            return lightManager.pointInfo.shadowBias;
+        }
+    },
+
+    /**
+     * @type {semanticObject}
+     */
+    POINTLIGHTSPACEMATRIX: {
+        get(mesh, material, programInfo) {
+            return lightManager.pointInfo.lightSpaceMatrix;
+        }
+    },
+
+    /**
+     * @type {semanticObject}
+     */
     SPOTLIGHTSPOS: {
         get(mesh, material, programInfo) {
             return lightManager.spotInfo.poses;
@@ -637,9 +672,7 @@ const semantic = {
     SPOTLIGHTSSHADOWMAP: {
         get(mesh, material, programInfo) {
             const result = lightManager.spotInfo.shadowMap.map((texture, i) => {
-                state.activeTexture(gl.TEXTURE0 + programInfo.textureIndex + i);
-                state.bindTexture(gl.TEXTURE_2D, texture);
-                return programInfo.textureIndex + i;
+                return semantic.handlerGLTexture(TEXTURE_2D, texture, programInfo.textureIndex + i);
             });
             return result;
         }
@@ -887,6 +920,7 @@ const semantic = {
     ['METALLICROUGHNESSMAP', 'metallicRoughnessMap'],
     ['OCCLUSIONMAP', 'occlusionMap'],
     ['SPECULARGLOSSINESSMAP', 'specularGlossinessMap'],
+    ['LIGHTMAP', 'lightMap']
 ].forEach(info => {
     const [
         semanticName,

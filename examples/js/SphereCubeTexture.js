@@ -140,5 +140,5 @@
         }
     });
     Hilo3d.SphereCubeTextureLoader = SphereCubeTextureLoader;
-    Hilo3d.LoadQueue.addLoader('SphereCubeTexture', SphereCubeTextureLoader);
+    Hilo3d.Loader.addLoader('SphereCubeTexture', SphereCubeTextureLoader);
 })();

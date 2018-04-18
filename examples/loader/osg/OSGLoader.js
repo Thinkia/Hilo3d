@@ -499,5 +499,5 @@
     });
 
     Hilo3d.OSGLoader = OSGLoader;
-    Hilo3d.LoadQueue.addLoader('osg', OSGLoader);
+    Hilo3d.Loader.addLoader('osg', OSGLoader);
 })();

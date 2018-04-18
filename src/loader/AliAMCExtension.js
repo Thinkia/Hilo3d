@@ -12,7 +12,7 @@ const AliAMCExtension = {
     workerURL: '',
     useWASM: true,
     useWebWorker: true,
-    useAuto: false,
+    useAuto: true,
     init() {
         if (AliAMCExtension.useAuto) {
             return AMDecompression.initWASM(AliAMCExtension.wasmURL);

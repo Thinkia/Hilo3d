@@ -167,6 +167,12 @@
             
                 <li  data-name="semantic.POINTLIGHTSINFO"><a href="semantic.html#.POINTLIGHTSINFO">POINTLIGHTSINFO</a></li>
             
+                <li  data-name="semantic.POINTLIGHTSSHADOWMAP"><a href="semantic.html#.POINTLIGHTSSHADOWMAP">POINTLIGHTSSHADOWMAP</a></li>
+            
+                <li  data-name="semantic.POINTLIGHTSSHADOWBIAS"><a href="semantic.html#.POINTLIGHTSSHADOWBIAS">POINTLIGHTSSHADOWBIAS</a></li>
+            
+                <li  data-name="semantic.POINTLIGHTSPACEMATRIX"><a href="semantic.html#.POINTLIGHTSPACEMATRIX">POINTLIGHTSPACEMATRIX</a></li>
+            
                 <li  data-name="semantic.SPOTLIGHTSPOS"><a href="semantic.html#.SPOTLIGHTSPOS">SPOTLIGHTSPOS</a></li>
             
                 <li  data-name="semantic.SPOTLIGHTSDIR"><a href="semantic.html#.SPOTLIGHTSDIR">SPOTLIGHTSDIR</a></li>
@@ -2659,7 +2665,7 @@
             
             <span class="subtitle"><a href="#members" class="subtitle-name">Members</a><a class="toggle-inherited" href="javascript:void(0);" type="member">Show Inherited</a></span>
             
-                <li  data-name="AmbientLight#amount"><a href="AmbientLight.html#amount">amount</a></li>
+                <li class="inherited-member" data-name="AmbientLight#amount"><a href="AmbientLight.html#amount">amount</a></li>
             
                 <li class="inherited-member" data-name="AmbientLight#color"><a href="AmbientLight.html#color">color</a></li>
             
@@ -2692,6 +2698,8 @@
             
                 <li  data-name="DirectionalLight#direction"><a href="DirectionalLight.html#direction">direction</a></li>
             
+                <li class="inherited-member" data-name="DirectionalLight#amount"><a href="DirectionalLight.html#amount">amount</a></li>
+            
                 <li class="inherited-member" data-name="DirectionalLight#color"><a href="DirectionalLight.html#color">color</a></li>
             
             </ul>
@@ -2714,6 +2722,8 @@
             <ul class="members itemMembers">
             
             <span class="subtitle"><a href="#members" class="subtitle-name">Members</a><a class="toggle-inherited" href="javascript:void(0);" type="member">Show Inherited</a></span>
+            
+                <li  data-name="Light#amount"><a href="Light.html#amount">amount</a></li>
             
                 <li  data-name="Light#color"><a href="Light.html#color">color</a></li>
             
@@ -2895,6 +2905,8 @@
             
                 <li  data-name="PointLight#quadraticAttenuation"><a href="PointLight.html#quadraticAttenuation">quadraticAttenuation</a></li>
             
+                <li class="inherited-member" data-name="PointLight#amount"><a href="PointLight.html#amount">amount</a></li>
+            
                 <li class="inherited-member" data-name="PointLight#color"><a href="PointLight.html#color">color</a></li>
             
                 <li class="inherited-member" data-name="PointLight#isNode"><a href="PointLight.html#isNode">isNode</a></li>
@@ -3039,6 +3051,8 @@
                 <li  data-name="SpotLight#quadraticAttenuation"><a href="SpotLight.html#quadraticAttenuation">quadraticAttenuation</a></li>
             
                 <li  data-name="SpotLight#direction"><a href="SpotLight.html#direction">direction</a></li>
+            
+                <li class="inherited-member" data-name="SpotLight#amount"><a href="SpotLight.html#amount">amount</a></li>
             
                 <li class="inherited-member" data-name="SpotLight#color"><a href="SpotLight.html#color">color</a></li>
             
@@ -3761,7 +3775,7 @@
             
                 <li  data-name="PBRMaterial#occlusionMap"><a href="PBRMaterial.html#occlusionMap">occlusionMap</a></li>
             
-                <li  data-name="PBRMaterial#occlusionInMetallicRoughnessMap"><a href="PBRMaterial.html#occlusionInMetallicRoughnessMap">occlusionInMetallicRoughnessMap</a></li>
+                <li  data-name="PBRMaterial#isOcclusionInMetallicRoughnessMap"><a href="PBRMaterial.html#isOcclusionInMetallicRoughnessMap">isOcclusionInMetallicRoughnessMap</a></li>
             
                 <li  data-name="PBRMaterial#diffuseEnvMap"><a href="PBRMaterial.html#diffuseEnvMap">diffuseEnvMap</a></li>
             
@@ -5629,6 +5643,8 @@
             
                 <li  data-name="LazyTexture#src"><a href="LazyTexture.html#src">src</a></li>
             
+                <li  data-name="LazyTexture#resType"><a href="LazyTexture.html#resType">resType</a></li>
+            
                 <li class="inherited-member" data-name="LazyTexture#isTexture"><a href="LazyTexture.html#isTexture">isTexture</a></li>
             
                 <li class="inherited-member" data-name="LazyTexture#image"><a href="LazyTexture.html#image">image</a></li>
@@ -5877,7 +5893,7 @@
         
             
             <div class="tag-source">
-                renderer/WebGLRenderer.js, line 38
+                renderer/WebGLRenderer.js, line 42
             </div>
             
         </div>
@@ -7098,7 +7114,7 @@
         
             
             <div class="tag-source">
-                renderer/WebGLRenderer.js, line 253
+                renderer/WebGLRenderer.js, line 257
             </div>
             
         </div>
@@ -7292,7 +7308,7 @@
         
             
             <div class="tag-source">
-                renderer/WebGLRenderer.js, line 272
+                renderer/WebGLRenderer.js, line 276
             </div>
             
         </div>
@@ -7430,7 +7446,7 @@
         
             
             <div class="tag-source">
-                renderer/WebGLRenderer.js, line 286
+                renderer/WebGLRenderer.js, line 290
             </div>
             
         </div>
@@ -7668,7 +7684,7 @@
         
             
             <div class="tag-source">
-                renderer/WebGLRenderer.js, line 330
+                renderer/WebGLRenderer.js, line 334
             </div>
             
         </div>
@@ -7738,7 +7754,7 @@
         
             
             <div class="tag-source">
-                renderer/WebGLRenderer.js, line 404
+                renderer/WebGLRenderer.js, line 414
             </div>
             
         </div>
@@ -7876,7 +7892,7 @@
         
             
             <div class="tag-source">
-                renderer/WebGLRenderer.js, line 420
+                renderer/WebGLRenderer.js, line 430
             </div>
             
         </div>
@@ -8014,7 +8030,7 @@
         
             
             <div class="tag-source">
-                renderer/WebGLRenderer.js, line 434
+                renderer/WebGLRenderer.js, line 444
             </div>
             
         </div>
@@ -8152,7 +8168,7 @@
         
             
             <div class="tag-source">
-                renderer/WebGLRenderer.js, line 458
+                renderer/WebGLRenderer.js, line 468
             </div>
             
         </div>
@@ -8346,7 +8362,7 @@
         
             
             <div class="tag-source">
-                renderer/WebGLRenderer.js, line 479
+                renderer/WebGLRenderer.js, line 489
             </div>
             
         </div>
@@ -8507,7 +8523,7 @@
         
             
             <div class="tag-source">
-                renderer/WebGLRenderer.js, line 513
+                renderer/WebGLRenderer.js, line 523
             </div>
             
         </div>
@@ -8645,7 +8661,7 @@
         
             
             <div class="tag-source">
-                renderer/WebGLRenderer.js, line 536
+                renderer/WebGLRenderer.js, line 546
             </div>
             
         </div>
@@ -8862,7 +8878,7 @@
         
             
             <div class="tag-source">
-                renderer/WebGLRenderer.js, line 572
+                renderer/WebGLRenderer.js, line 582
             </div>
             
         </div>
@@ -9000,7 +9016,7 @@
         
             
             <div class="tag-source">
-                renderer/WebGLRenderer.js, line 581
+                renderer/WebGLRenderer.js, line 591
             </div>
             
         </div>
@@ -9115,7 +9131,7 @@
         
             
             <div class="tag-source">
-                renderer/WebGLRenderer.js, line 597
+                renderer/WebGLRenderer.js, line 607
             </div>
             
         </div>
@@ -9309,7 +9325,7 @@
         
             
             <div class="tag-source">
-                renderer/WebGLRenderer.js, line 666
+                renderer/WebGLRenderer.js, line 676
             </div>
             
         </div>
@@ -9379,7 +9395,7 @@
         
             
             <div class="tag-source">
-                renderer/WebGLRenderer.js, line 676
+                renderer/WebGLRenderer.js, line 686
             </div>
             
         </div>
@@ -9509,7 +9525,7 @@
         
             
             <div class="tag-source">
-                renderer/WebGLRenderer.js, line 693
+                renderer/WebGLRenderer.js, line 703
             </div>
             
         </div>
@@ -9579,7 +9595,7 @@
         
             
             <div class="tag-source">
-                renderer/WebGLRenderer.js, line 705
+                renderer/WebGLRenderer.js, line 715
             </div>
             
         </div>
@@ -9694,7 +9710,7 @@
         
             
             <div class="tag-source">
-                renderer/WebGLRenderer.js, line 713
+                renderer/WebGLRenderer.js, line 723
             </div>
             
         </div>
@@ -9809,7 +9825,7 @@
         
             
             <div class="tag-source">
-                renderer/WebGLRenderer.js, line 724
+                renderer/WebGLRenderer.js, line 734
             </div>
             
         </div>
@@ -9970,7 +9986,7 @@
         
             
             <div class="tag-source">
-                renderer/WebGLRenderer.js, line 748
+                renderer/WebGLRenderer.js, line 758
             </div>
             
         </div>
@@ -10093,7 +10109,7 @@
         
             
             <div class="tag-source">
-                renderer/WebGLRenderer.js, line 638
+                renderer/WebGLRenderer.js, line 648
             </div>
             
         </div>
@@ -10163,7 +10179,7 @@
         
             
             <div class="tag-source">
-                renderer/WebGLRenderer.js, line 656
+                renderer/WebGLRenderer.js, line 666
             </div>
             
         </div>

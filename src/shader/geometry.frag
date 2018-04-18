@@ -9,6 +9,10 @@
     uniform float u_cameraFar;
     uniform float u_cameraNear;
     uniform float u_cameraType;
+#elif defined(HILO_VERTEX_TYPE_DISTANCE)
+    uniform float u_cameraFar;
+    uniform float u_cameraNear;
+    varying vec3 v_fragPos;
 #endif
 
 vec4 transformDataToColor(vec3 data){
@@ -26,16 +30,27 @@ void main(void) {
         gl_FragColor = transformDataToColor(v_normal);
     #elif defined(HILO_VERTEX_TYPE_DEPTH)
         float z;
-        
-        // OrthographicCamera
-        if(u_cameraType < 1.0){
+        #ifdef HILO_WRITE_ORIGIN_DATA
             z = gl_FragCoord.z;
-        }
-        // PerspectiveCamera
-        else{
-            z = gl_FragCoord.z * 2.0 - 1.0;
-            z = (2.0 * u_cameraNear * u_cameraFar) / (u_cameraFar + u_cameraNear - z * (u_cameraFar - u_cameraNear));
-        }
+        #else
+            // OrthographicCamera
+            if(u_cameraType < 1.0){
+                z = gl_FragCoord.z;
+            }
+            // PerspectiveCamera
+            else{
+                z = gl_FragCoord.z * 2.0 - 1.0;
+                z = (2.0 * u_cameraNear * u_cameraFar) / (u_cameraFar + u_cameraNear - z * (u_cameraFar - u_cameraNear));
+            }
+        #endif
         gl_FragColor = vec4(z, z, z, 1.0);
+    #elif defined(HILO_VERTEX_TYPE_DISTANCE)
+        float distance;
+        #ifdef HILO_WRITE_ORIGIN_DATA
+            distance = length(v_fragPos);
+        #else
+            distance = length(v_fragPos);
+        #endif
+        gl_FragColor = vec4(distance, distance, distance, 1.0);
     #endif
 }

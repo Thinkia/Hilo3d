@@ -84,5 +84,5 @@
     });
 
     Hilo3d.SMDLoader = SMDLoader;
-    Hilo3d.LoadQueue.addLoader('smd', SMDLoader);
+    Hilo3d.Loader.addLoader('smd', SMDLoader);
 })();

@@ -165,7 +165,7 @@
     });
 
     Hilo3d.DracoLoader = DracoLoader;
-    Hilo3d.LoadQueue.addLoader('drc', DracoLoader);
+    Hilo3d.Loader.addLoader('drc', DracoLoader);
 
     window.totalTime = 0;
     Hilo3d.GLTFParser.extensionHandlers.KHR_draco_mesh_compression = {

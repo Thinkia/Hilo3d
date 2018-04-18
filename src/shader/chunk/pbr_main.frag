@@ -1,6 +1,6 @@
 vec4 baseColor = u_baseColor;
 #ifdef HILO_BASE_COLOR_MAP
-    baseColor *= hiloTexture2D(u_baseColorMap);
+    baseColor *= HILO_TEXTURE_2D(u_baseColorMap);
 #endif
 
 #if defined(HILO_HAS_COLOR)
@@ -17,7 +17,7 @@ color.a = baseColor.a;
     vec3 V = normalize(viewPos - v_fragPos);
 
     #ifdef HILO_OCCLUSION_MAP
-        float ao  = hiloTexture2D(u_occlusionMap).r;
+        float ao  = HILO_TEXTURE_2D(u_occlusionMap).r;
     #else
         float ao = 1.0;
     #endif
@@ -26,7 +26,7 @@ color.a = baseColor.a;
         vec3 specular = u_specular.rgb;
         float glossiness = u_glossiness;
         #ifdef HILO_SPECULAR_GLOSSINESS_MAP
-            vec4 specularGlossiness = hiloTexture2D(u_specularGlossinessMap);
+            vec4 specularGlossiness = HILO_TEXTURE_2D(u_specularGlossinessMap);
             specular = specularGlossiness.rgb * specular;
             glossiness = specularGlossiness.a * glossiness;
         #endif
@@ -38,14 +38,14 @@ color.a = baseColor.a;
         float metallic = u_metallic;
         float roughness = u_roughness;
         #ifdef HILO_METALLIC_MAP
-            metallic = hiloTexture2D(u_metallicMap).r * u_metallic;
+            metallic = HILO_TEXTURE_2D(u_metallicMap).r * u_metallic;
         #endif
         #ifdef HILO_ROUGHNESS_MAP
-            roughness  = hiloTexture2D(u_roughnessMap).r * u_roughness;
+            roughness  = HILO_TEXTURE_2D(u_roughnessMap).r * u_roughness;
         #endif
         #ifdef HILO_METALLIC_ROUGHNESS_MAP
-            vec4 metallicRoughnessMap = hiloTexture2D(u_metallicRoughnessMap);
-            #ifdef HILO_OCCLUSION_MAP_IN_METALLIC_ROUGHNESS_MAP
+            vec4 metallicRoughnessMap = HILO_TEXTURE_2D(u_metallicRoughnessMap);
+            #ifdef HILO_IS_OCCLUSION_MAP_IN_METALLIC_ROUGHNESS_MAP
                 ao = metallicRoughnessMap.r;
             #endif
             roughness = metallicRoughnessMap.g * u_roughness;
@@ -110,11 +110,23 @@ color.a = baseColor.a;
             vec3 distanceVec = u_pointLightsPos[i] - v_fragPos;
             vec3 lightDir = normalize(distanceVec);
 
+            float shadow = 1.0;
+            #ifdef HILO_POINT_LIGHTS_SMC
+                if (i < HILO_POINT_LIGHTS_SMC) {
+                    float bias = max(u_pointLightsShadowBias[i][1] * (1.0 - dot(normal, lightDir)), u_pointLightsShadowBias[i][0]);
+                    shadow = getShadow(u_pointLightsShadowMap[i], bias, distanceVec, u_pointLightSpaceMatrix[i]);
+                }
+            #endif
+
             float attenuation = getPointAttenuation(distanceVec, u_pointLightsInfo[i]);
             vec3 radiance = attenuation * u_pointLightsColor[i];
 
-            Lo += radiance * calculateLo(N, V, lightDir, metallic, roughness, diffuseColor, specularEnvironmentR0, specularEnvironmentR90);
+            Lo += shadow * radiance * calculateLo(N, V, lightDir, metallic, roughness, diffuseColor, specularEnvironmentR0, specularEnvironmentR90);
         }
+    #endif
+
+    #ifdef HILO_LIGHT_MAP
+        Lo += baseColor.rgb * HILO_TEXTURE_2D(u_lightMap).rgb;
     #endif
 
     #ifdef HILO_DIFFUSE_ENV_MAP
@@ -135,10 +147,10 @@ color.a = baseColor.a;
     #endif
 
     #ifdef HILO_EMISSION_MAP
-        color.rgb += hiloTexture2D(u_emission).rgb;
+        color.rgb += HILO_TEXTURE_2D(u_emission).rgb;
     #endif
 
-    color.rgb += Lo;
+    color.rgb += Lo * ao;
 #else
     color = baseColor;
 #endif

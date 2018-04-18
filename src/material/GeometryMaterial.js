@@ -4,6 +4,7 @@ import {
     POSITION,
     NORMAL,
     DEPTH,
+    DISTANCE,
     NONE
 } from '../constants/';
 
@@ -29,7 +30,7 @@ const GeometryMaterial = Class.create( /** @lends GeometryMaterial.prototype */ 
      */
     className: 'GeometryMaterial',
     /**
-     * 顶点类型 POSITION, NORMAL
+     * 顶点类型 POSITION, NORMAL, DEPTH, DISTANCE
      * @type {String}
      */
     vertexType: POSITION,
@@ -63,6 +64,9 @@ const GeometryMaterial = Class.create( /** @lends GeometryMaterial.prototype */ 
                 option.HAS_NORMAL = 1;
                 break;
             case DEPTH:
+                break;
+            case DISTANCE:
+                option.HAS_FRAG_POS = 1;
                 break;
             default:
                 break;

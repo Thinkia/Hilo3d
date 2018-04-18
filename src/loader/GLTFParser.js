@@ -423,18 +423,27 @@ const GLTFParser = Class.create( /** @lends GLTFParser.prototype */ {
         } else {
             material.side = FRONT_AND_BACK;
         }
-        if (values.normalTexture) {
-            material.normalMap = this.getTexture(values.normalTexture);
-        }
-        if (values.occlusionTexture) {
-            material.occlusionMap = this.getTexture(values.occlusionTexture);
-        }
-        if (values.emissiveTexture) {
-            material.emission = this.getTexture(values.emissiveTexture);
-        }
+        
         if (values.transparencyTexture) {
             material.transparency = this.getTexture(values.transparencyTexture);
         }
+
+        const needLight = !(values.extensions && values.extensions.KHR_materials_unlit);
+
+        if (needLight) {
+            if (values.normalTexture) {
+                material.normalMap = this.getTexture(values.normalTexture);
+            }
+            if (values.occlusionTexture) {
+                material.occlusionMap = this.getTexture(values.occlusionTexture);
+            }
+            if (values.emissiveTexture) {
+                material.emission = this.getTexture(values.emissiveTexture);
+            }
+        } else {
+            material.lightType = 'NONE';
+        }
+
         if (values.extensions && values.extensions.KHR_materials_pbrSpecularGlossiness) {
             const subValues = values.extensions.KHR_materials_pbrSpecularGlossiness;
             if (subValues.diffuseFactor) {
@@ -443,15 +452,18 @@ const GLTFParser = Class.create( /** @lends GLTFParser.prototype */ {
             if (subValues.diffuseTexture) {
                 material.baseColorMap = this.getTexture(subValues.diffuseTexture);
             }
-            if (subValues.specularFactor) {
-                material.specular.fromArray(subValues.specularFactor);
-                material.specular.a = 1;
-            }
-            if ('glossinessFactor' in subValues) {
-                material.glossiness = subValues.glossinessFactor;
-            }
-            if (subValues.specularGlossinessTexture) {
-                material.specularGlossinessMap = this.getTexture(subValues.specularGlossinessTexture);
+            
+            if (needLight) {
+                if (subValues.specularFactor) {
+                    material.specular.fromArray(subValues.specularFactor);
+                    material.specular.a = 1;
+                }
+                if ('glossinessFactor' in subValues) {
+                    material.glossiness = subValues.glossinessFactor;
+                }
+                if (subValues.specularGlossinessTexture) {
+                    material.specularGlossinessMap = this.getTexture(subValues.specularGlossinessTexture);
+                }
             }
             material.isSpecularGlossiness = true;
         } else if (values.pbrMetallicRoughness) {
@@ -462,20 +474,25 @@ const GLTFParser = Class.create( /** @lends GLTFParser.prototype */ {
             if (subValues.baseColorTexture) {
                 material.baseColorMap = this.getTexture(subValues.baseColorTexture);
             }
-            if (subValues.metallicRoughnessTexture) {
-                material.metallicRoughnessMap = this.getTexture(subValues.metallicRoughnessTexture);
-                if (material.occlusionMap === material.metallicRoughnessMap) {
-                    material.occlusionMap = null;
-                    material.occlusionInMetallicRoughnessMap = true;
+
+            if (needLight) {  
+                if (subValues.metallicRoughnessTexture) {
+                    material.metallicRoughnessMap = this.getTexture(subValues.metallicRoughnessTexture);
+                    if (material.occlusionMap === material.metallicRoughnessMap) {
+                        material.occlusionMap = null;
+                        material.isOcclusionInMetallicRoughnessMap = true;
+                    }
+                }
+                if ('roughnessFactor' in subValues) {
+                    material.roughness = subValues.roughnessFactor;
+                }
+                if ('metallicFactor' in subValues) {
+                    material.metallic = subValues.metallicFactor;
                 }
             }
-            if ('roughnessFactor' in subValues) {
-                material.roughness = subValues.roughnessFactor;
-            }
-            if ('metallicFactor' in subValues) {
-                material.metallic = subValues.metallicFactor;
-            }
         }
+
+        
         return material;
     },
     createKMCMaterial(materialData, kmc) {
@@ -809,6 +826,8 @@ const GLTFParser = Class.create( /** @lends GLTFParser.prototype */ {
                 if (result.then) {
                     return result.then(geometry => {
                         this.fixProgressiveGeometry(primitive, geometry);
+                    }, err => {
+                        console.warn('geometry parse error', err);
                     });
                 }
                 this.fixProgressiveGeometry(primitive, result);

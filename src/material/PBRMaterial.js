@@ -81,7 +81,7 @@ const PBRMaterial = Class.create( /** @lends PBRMaterial.prototype */ {
      * @default false
      * @type {boolean}
      */
-    occlusionInMetallicRoughnessMap: false,
+    isOcclusionInMetallicRoughnessMap: false,
 
     /**
      * 漫反射辐照(Diffuse IBL)贴图
@@ -162,7 +162,8 @@ const PBRMaterial = Class.create( /** @lends PBRMaterial.prototype */ {
             u_roughnessMap: 'ROUGHNESSMAP',
             u_metallicRoughnessMap: 'METALLICROUGHNESSMAP',
             u_occlusionMap: 'OCCLUSIONMAP',
-            u_specularGlossinessMap: 'SPECULARGLOSSINESSMAP'
+            u_specularGlossinessMap: 'SPECULARGLOSSINESSMAP',
+            u_lightMap: 'LIGHTMAP'
         });
     },
     getRenderOption(option = {}) {
@@ -173,8 +174,9 @@ const PBRMaterial = Class.create( /** @lends PBRMaterial.prototype */ {
         textureOption.add(this.metallicMap, 'METALLIC_MAP');
         textureOption.add(this.roughnessMap, 'ROUGHNESS_MAP');
         textureOption.add(this.metallicRoughnessMap, 'METALLIC_ROUGHNESS_MAP');
-        textureOption.add(this.occlusionInMetallicRoughnessMap, 'OCCLUSION_MAP_IN_METALLIC_ROUGHNESS_MAP');
         textureOption.add(this.diffuseEnvMap, 'DIFFUSE_ENV_MAP');
+        textureOption.add(this.occlusionMap, 'OCCLUSION_MAP');
+        textureOption.add(this.lightMap, 'LIGHT_MAP');
 
         if (this.brdfLUT) {
             textureOption.add(this.specularEnvMap, 'SPECULAR_ENV_MAP');
@@ -183,6 +185,10 @@ const PBRMaterial = Class.create( /** @lends PBRMaterial.prototype */ {
         if (this.isSpecularGlossiness) {
             option.PBR_SPECULAR_GLOSSINESS = 1;
             textureOption.add(this.specularGlossinessMap, 'SPECULAR_GLOSSINESS_MAP');
+        }
+
+        if (this.isOcclusionInMetallicRoughnessMap) {
+            option.IS_OCCLUSION_MAP_IN_METALLIC_ROUGHNESS_MAP = 1;
         }
 
         textureOption.update();

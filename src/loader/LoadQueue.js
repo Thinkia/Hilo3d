@@ -1,21 +1,6 @@
 import Class from '../core/Class';
 import EventMixin from '../core/EventMixin';
-import BasicLoader from './BasicLoader';
-import GLTFLoader from './GLTFLoader';
-import TextureLoader from './TextureLoader';
-import HDRLoader from './HDRLoader';
-import CubeTextureLoader from './CubeTextureLoader';
-import {
-    getExtension
-} from '../utils/util';
-
-const LoaderClassMap = {
-    Texture: TextureLoader,
-    CubeTexture: CubeTextureLoader,
-    glb: GLTFLoader,
-    gltf: GLTFLoader,
-    hdr: HDRLoader
-};
+import Loader from './Loader';
 
 /**
  * 队列加载器，用于批量加载
@@ -84,7 +69,8 @@ const LoadQueue = Class.create( /** @lends LoadQueue.prototype */ {
          * @param {BasicLoader} LoaderClass 用于加载的类，需要继承BasicLoader
          */
         addLoader(ext, LoaderClass) {
-            LoaderClassMap[ext] = LoaderClass;
+            console.warn('LoadQueue.addLoader is duplicated, please use Loader.addLoader');
+            Loader.addLoader(ext, LoaderClass);
         }
     },
     /**
@@ -158,6 +144,9 @@ const LoadQueue = Class.create( /** @lends LoadQueue.prototype */ {
      * @return {LoadQueue} 返回this
      */
     start() {
+        if (!this._loader) {
+            this._loader = new Loader();
+        }
         this._loadNext();
         return this;
     },
@@ -175,30 +164,14 @@ const LoadQueue = Class.create( /** @lends LoadQueue.prototype */ {
         if (this._currentIndex < len - 1 && this._connections < this.maxConnections) {
             let index = ++this._currentIndex;
             let item = source[index];
-            let loader = this._getLoader(item);
 
-            if (loader) {
-                this._connections++;
-
-                loader.load(item).then(data => {
-                    this._onItemLoad(index, data);
-                }, err => {
-                    this._onItemError(index, err);
-                });
-            }
-
-            this._loadNext();
+            this._connections++;
+            this._loader.load(item).then(data => {
+                this._onItemLoad(index, data);
+            }, err => {
+                this._onItemError(index, err);
+            });
         }
-    },
-
-    _getLoader(item) {
-        let loader = item.loader;
-        if (loader) return loader;
-
-        const type = item.type || getExtension(item.src);
-
-        let Loader = LoaderClassMap[type] || BasicLoader;
-        return new Loader();
     },
 
     _onItemLoad(index, content) {

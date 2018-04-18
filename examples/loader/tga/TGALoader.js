@@ -115,5 +115,5 @@
     });
 
     Hilo3d.TGALoader = TGALoader;
-    Hilo3d.LoadQueue.addLoader('tga', TGALoader);
+    Hilo3d.Loader.addLoader('tga', TGALoader);
 })();
