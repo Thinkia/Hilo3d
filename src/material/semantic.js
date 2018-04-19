@@ -88,6 +88,7 @@ const semantic = {
         } else {
             tempFloat32Array[0] = tempFloat32Array[1] = tempFloat32Array[2] = 0.5;
         }
+
         return tempFloat32Array;
     },
 
@@ -100,9 +101,13 @@ const semantic = {
     },
 
     handlerGLTexture(target, texture, textureIndex) {
-        state.activeTexture(gl.TEXTURE0 + textureIndex);
-        state.bindTexture(target, texture);
-        return textureIndex;
+        if (texture) {
+            state.activeTexture(gl.TEXTURE0 + textureIndex);
+            state.bindTexture(target, texture);
+            return textureIndex;
+        }
+
+        return undefined;
     },
 
     handlerUV(texture) {

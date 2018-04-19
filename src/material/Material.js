@@ -57,6 +57,12 @@ const Material = Class.create( /** @lends Material.prototype */ {
      */
     depthTest: true,
     /**
+     * SAMPLE_ALPHA_TO_COVERAGE
+     * @default false
+     * @type {Boolean}
+     */
+    sampleAlphaToCoverage: false,
+    /**
      * 是否开启depthMask
      * @default true
      * @type {boolean}

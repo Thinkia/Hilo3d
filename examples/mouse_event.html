@@ -44,6 +44,10 @@
             var eventTarget = e.eventTarget;
             if(eventTarget.isMesh){
                 eventTarget.material.transparency = 0.5;
+                console.log('mesh', e.hitPoint.elements);
+            }
+            else{
+                // console.log('stage', e.hitPoint.elements);
             }
         });
 

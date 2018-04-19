@@ -79,6 +79,9 @@ const BasicLoader = Class.create( /** @lends BasicLoader.prototype */ {
             if (/^(?:png|jpe?g|gif|webp|bmp)$/i.test(ext)) {
                 type = 'img';
             }
+            if (!type) {
+                type = data.defaultType;
+            }
         }
         if (type === 'img') {
             return this.loadImg(src, data.crossOrigin);

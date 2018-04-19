@@ -71,13 +71,6 @@ const LazyTexture = Class.create( /** @lends LazyTexture.prototype */ {
     },
 
     /**
-     * 加载类型
-     * @default img
-     * @type {String}
-     */
-    resType: 'img',
-
-    /**
      * @constructs
      * @param {object} params 初始化参数，所有params都会复制到实例上
      * @param {boolean} [params.crossOrigin=false] 是否跨域
@@ -86,7 +79,6 @@ const LazyTexture = Class.create( /** @lends LazyTexture.prototype */ {
      * @param {string} [params.src] 图片地址
      */
     constructor(params) {
-
         if (params) {
             // 必须在src设置前赋值
             if ('crossOrigin' in params) {
@@ -109,11 +101,12 @@ const LazyTexture = Class.create( /** @lends LazyTexture.prototype */ {
         return LazyTexture.loader.load({
             src: this.src,
             crossOrigin: this.crossOrigin,
-            type: this.resType
+            defaultType: 'img'
         }).then(img => {
             if (img.isTexture) {
                 Object.assign(this, img);
                 this.needUpdate = true;
+                this.needDestory = true;
                 this.fire('load');
             } else {
                 this.image = img;

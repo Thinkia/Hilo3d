@@ -166,9 +166,9 @@ uniform vec4 u_baseColor;
         float G = geometricOcclusionSmithGGX(pbrInputs);
         float D = GGX(pbrInputs);
         #ifdef HILO_LIGHT_MAP
-            vec3 diffuseContrib = (1.0 - F) * lambertianDiffuse(pbrInputs);
-        #else
             vec3 diffuseContrib = vec3(.0, .0, .0);
+        #else
+            vec3 diffuseContrib = (1.0 - F) * lambertianDiffuse(pbrInputs);
         #endif
         vec3 specContrib = F * G * D / (4.0 * NdotL * NdotV);
         return NdotL * (diffuseContrib + specContrib);

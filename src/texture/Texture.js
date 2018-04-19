@@ -183,6 +183,12 @@ const Texture = Class.create( /** @lends Texture.prototype */ {
      * @type {boolean}
      */
     needUpdate: true,
+    /**
+     * 是否需要销毁之前的Texture，Texture参数变更之后需要销毁
+     * @default false
+     * @type {boolean}
+     */
+    needDestory: false,
 
     /**
      * 是否每次都更新Texture
@@ -268,6 +274,10 @@ const Texture = Class.create( /** @lends Texture.prototype */ {
     },
     getGLTexture(state) {
         const gl = state.gl;
+        if (this.needDestory) {
+            this.destroy(gl);
+            this.needDestory = false;
+        }
         if (this.tex) {
             this.updateTexture(state);
             return this.tex;
