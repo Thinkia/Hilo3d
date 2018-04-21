@@ -9,7 +9,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/hiloteam/Hilo3d.git"
+    "url": "https://github.com/hiloteam/Hilo3d.git"
   },
   "keywords": [
     "WebGL",
@@ -23,7 +23,7 @@
   "homepage": "https://github.com/hiloteam/Hilo3d#readme",
   "devDependencies": {
     "del": "^3.0.0",
-    "git-contributor": "^1.0.5",
+    "git-contributor": "^1.0.7",
     "gulp": "^3.9.1"
   }
 }
