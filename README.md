@@ -75,11 +75,11 @@ Hilo3d, a WebGL Rendering Engine developed by Alibaba Group.It could help develo
 
 ## Contributors
 
-|[<img src="https://avatars1.githubusercontent.com/u/800043?v=4" width="100px;"/><br/><sub><b>06wj</b></sub>](https://github.com/06wj)<br/>|[<img src="https://avatars1.githubusercontent.com/u/949518?v=4" width="100px;"/><br/><sub><b>picacure</b></sub>](https://github.com/picacure)<br/>
-| :---: | :---: |
+|[<img src="https://avatars1.githubusercontent.com/u/800043?v=4" width="100px;"/><br/><sub><b>06wj</b></sub>](https://github.com/06wj)<br/>|[<img src="https://avatars1.githubusercontent.com/u/1011681?v=4" width="100px;"/><br/><sub><b>xudafeng</b></sub>](https://github.com/xudafeng)<br/>|[<img src="https://avatars1.githubusercontent.com/u/949518?v=4" width="100px;"/><br/><sub><b>picacure</b></sub>](https://github.com/picacure)<br/>
+| :---: | :---: | :---: |
 
 
-This project follows the git-contributor [spec](https://github.com/xudafeng/git-contributor), auto upated at `Sat Apr 21 2018 11:58:09 GMT+0800`.
+This project follows the git-contributor [spec](https://github.com/xudafeng/git-contributor), auto upated at `Sat Apr 21 2018 16:52:44 GMT+0800`.
 
 <!-- GITCONTRIBUTOR_END -->
 
