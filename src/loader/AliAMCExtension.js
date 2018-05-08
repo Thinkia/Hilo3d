@@ -1,8 +1,6 @@
 import AMDecompression from '@ali/amc/AMDecompression';
-import GLTFParser from './GLTFParser';
 import Geometry from '../geometry/Geometry';
 import GeometryData from '../geometry/GeometryData';
-
 
 const mockHilo3d = { Geometry, GeometryData };
 
@@ -48,7 +46,5 @@ const AliAMCExtension = {
         return done(amcGeometry);
     }
 };
-
-GLTFParser.extensionHandlers.ALI_amc_mesh_compression = AliAMCExtension;
 
 export default AliAMCExtension;

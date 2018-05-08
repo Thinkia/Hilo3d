@@ -4,6 +4,9 @@ Hilo3d, a WebGL Rendering Engine developed by Alibaba Group.It could help develo
 
 > 本站点暂时不公开Hilo3d源码，仅提供压缩版本 （正式开源时间参考 [开源计划](https://github.com/hiloteam/Hilo3d/issues/4)）
 
+### 静态CDN
+[https://g.alicdn.com/hilo/Hilo3d/1.5.54/Hilo3d.js](https://g.alicdn.com/hilo/Hilo3d/1.5.54/Hilo3d.js)
+
 ### API 文档
 
 参见 [docs/index.html](https://hiloteam.github.io/Hilo3d/docs/index.html)
@@ -70,18 +73,6 @@ Hilo3d, a WebGL Rendering Engine developed by Alibaba Group.It could help develo
 
   * [![gitter.im][gitter-image]][gitter-url]
   * QQ群:372765886
-
-<!-- GITCONTRIBUTOR_START -->
-
-## Contributors
-
-|[<img src="https://avatars1.githubusercontent.com/u/800043?v=4" width="100px;"/><br/><sub><b>06wj</b></sub>](https://github.com/06wj)<br/>|[<img src="https://avatars1.githubusercontent.com/u/1011681?v=4" width="100px;"/><br/><sub><b>xudafeng</b></sub>](https://github.com/xudafeng)<br/>|[<img src="https://avatars1.githubusercontent.com/u/949518?v=4" width="100px;"/><br/><sub><b>picacure</b></sub>](https://github.com/picacure)<br/>
-| :---: | :---: | :---: |
-
-
-This project follows the git-contributor [spec](https://github.com/xudafeng/git-contributor), auto upated at `Sat Apr 21 2018 16:52:44 GMT+0800`.
-
-<!-- GITCONTRIBUTOR_END -->
 
 ### License
 

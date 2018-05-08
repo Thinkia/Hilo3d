@@ -1566,7 +1566,7 @@
             
                 <li  data-name="Stage#enableDOMEvent"><a href="Stage.html#enableDOMEvent">enableDOMEvent</a></li>
             
-                <li  data-name="Stage#getMeshAtPoint"><a href="Stage.html#getMeshAtPoint">getMeshAtPoint</a></li>
+                <li  data-name="Stage#getMeshResultAtPoint"><a href="Stage.html#getMeshResultAtPoint">getMeshResultAtPoint</a></li>
             
                 <li class="inherited-method" data-name="Stage#clone"><a href="Stage.html#clone">clone</a></li>
             
@@ -3474,6 +3474,8 @@
             
                 <li class="inherited-member" data-name="BasicMaterial#depthTest"><a href="BasicMaterial.html#depthTest">depthTest</a></li>
             
+                <li class="inherited-member" data-name="BasicMaterial#sampleAlphaToCoverage"><a href="BasicMaterial.html#sampleAlphaToCoverage">sampleAlphaToCoverage</a></li>
+            
                 <li class="inherited-member" data-name="BasicMaterial#depthMask"><a href="BasicMaterial.html#depthMask">depthMask</a></li>
             
                 <li class="inherited-member" data-name="BasicMaterial#depthRange"><a href="BasicMaterial.html#depthRange">depthRange</a></li>
@@ -3589,6 +3591,8 @@
             
                 <li class="inherited-member" data-name="GeometryMaterial#depthTest"><a href="GeometryMaterial.html#depthTest">depthTest</a></li>
             
+                <li class="inherited-member" data-name="GeometryMaterial#sampleAlphaToCoverage"><a href="GeometryMaterial.html#sampleAlphaToCoverage">sampleAlphaToCoverage</a></li>
+            
                 <li class="inherited-member" data-name="GeometryMaterial#depthMask"><a href="GeometryMaterial.html#depthMask">depthMask</a></li>
             
                 <li class="inherited-member" data-name="GeometryMaterial#depthRange"><a href="GeometryMaterial.html#depthRange">depthRange</a></li>
@@ -3675,6 +3679,8 @@
                 <li  data-name="Material#wireframe"><a href="Material.html#wireframe">wireframe</a></li>
             
                 <li  data-name="Material#depthTest"><a href="Material.html#depthTest">depthTest</a></li>
+            
+                <li  data-name="Material#sampleAlphaToCoverage"><a href="Material.html#sampleAlphaToCoverage">sampleAlphaToCoverage</a></li>
             
                 <li  data-name="Material#depthMask"><a href="Material.html#depthMask">depthMask</a></li>
             
@@ -3799,6 +3805,8 @@
             
                 <li class="inherited-member" data-name="PBRMaterial#depthTest"><a href="PBRMaterial.html#depthTest">depthTest</a></li>
             
+                <li class="inherited-member" data-name="PBRMaterial#sampleAlphaToCoverage"><a href="PBRMaterial.html#sampleAlphaToCoverage">sampleAlphaToCoverage</a></li>
+            
                 <li class="inherited-member" data-name="PBRMaterial#depthMask"><a href="PBRMaterial.html#depthMask">depthMask</a></li>
             
                 <li class="inherited-member" data-name="PBRMaterial#depthRange"><a href="PBRMaterial.html#depthRange">depthRange</a></li>
@@ -3893,6 +3901,8 @@
                 <li class="inherited-member" data-name="ShaderMaterial#wireframe"><a href="ShaderMaterial.html#wireframe">wireframe</a></li>
             
                 <li class="inherited-member" data-name="ShaderMaterial#depthTest"><a href="ShaderMaterial.html#depthTest">depthTest</a></li>
+            
+                <li class="inherited-member" data-name="ShaderMaterial#sampleAlphaToCoverage"><a href="ShaderMaterial.html#sampleAlphaToCoverage">sampleAlphaToCoverage</a></li>
             
                 <li class="inherited-member" data-name="ShaderMaterial#depthMask"><a href="ShaderMaterial.html#depthMask">depthMask</a></li>
             
@@ -4399,6 +4409,8 @@
                 <li  data-name="Plane#normalize"><a href="Plane.html#normalize">normalize</a></li>
             
                 <li  data-name="Plane#distanceToPoint"><a href="Plane.html#distanceToPoint">distanceToPoint</a></li>
+            
+                <li  data-name="Plane#projectPoint"><a href="Plane.html#projectPoint">projectPoint</a></li>
             
             </ul>
             <ul class="events itemMembers">
@@ -5298,6 +5310,8 @@
             
                 <li  data-name="WebGLRenderer#setupDepthTest"><a href="WebGLRenderer.html#setupDepthTest">setupDepthTest</a></li>
             
+                <li  data-name="WebGLRenderer#setupSampleAlphaToCoverage"><a href="WebGLRenderer.html#setupSampleAlphaToCoverage">setupSampleAlphaToCoverage</a></li>
+            
                 <li  data-name="WebGLRenderer#setupCullFace"><a href="WebGLRenderer.html#setupCullFace">setupCullFace</a></li>
             
                 <li  data-name="WebGLRenderer#setupBlend"><a href="WebGLRenderer.html#setupBlend">setupBlend</a></li>
@@ -5531,6 +5545,8 @@
             
                 <li class="inherited-member" data-name="CubeTexture#needUpdate"><a href="CubeTexture.html#needUpdate">needUpdate</a></li>
             
+                <li class="inherited-member" data-name="CubeTexture#needDestory"><a href="CubeTexture.html#needDestory">needDestory</a></li>
+            
                 <li class="inherited-member" data-name="CubeTexture#autoUpdate"><a href="CubeTexture.html#autoUpdate">autoUpdate</a></li>
             
                 <li class="inherited-member" data-name="CubeTexture#uv"><a href="CubeTexture.html#uv">uv</a></li>
@@ -5604,6 +5620,8 @@
             
                 <li class="inherited-member" data-name="DataTexture#needUpdate"><a href="DataTexture.html#needUpdate">needUpdate</a></li>
             
+                <li class="inherited-member" data-name="DataTexture#needDestory"><a href="DataTexture.html#needDestory">needDestory</a></li>
+            
                 <li class="inherited-member" data-name="DataTexture#autoUpdate"><a href="DataTexture.html#autoUpdate">autoUpdate</a></li>
             
                 <li class="inherited-member" data-name="DataTexture#uv"><a href="DataTexture.html#uv">uv</a></li>
@@ -5643,8 +5661,6 @@
             
                 <li  data-name="LazyTexture#src"><a href="LazyTexture.html#src">src</a></li>
             
-                <li  data-name="LazyTexture#resType"><a href="LazyTexture.html#resType">resType</a></li>
-            
                 <li class="inherited-member" data-name="LazyTexture#isTexture"><a href="LazyTexture.html#isTexture">isTexture</a></li>
             
                 <li class="inherited-member" data-name="LazyTexture#image"><a href="LazyTexture.html#image">image</a></li>
@@ -5682,6 +5698,8 @@
                 <li class="inherited-member" data-name="LazyTexture#compressed"><a href="LazyTexture.html#compressed">compressed</a></li>
             
                 <li class="inherited-member" data-name="LazyTexture#needUpdate"><a href="LazyTexture.html#needUpdate">needUpdate</a></li>
+            
+                <li class="inherited-member" data-name="LazyTexture#needDestory"><a href="LazyTexture.html#needDestory">needDestory</a></li>
             
                 <li class="inherited-member" data-name="LazyTexture#autoUpdate"><a href="LazyTexture.html#autoUpdate">autoUpdate</a></li>
             
@@ -5753,6 +5771,8 @@
                 <li  data-name="Texture#compressed"><a href="Texture.html#compressed">compressed</a></li>
             
                 <li  data-name="Texture#needUpdate"><a href="Texture.html#needUpdate">needUpdate</a></li>
+            
+                <li  data-name="Texture#needDestory"><a href="Texture.html#needDestory">needDestory</a></li>
             
                 <li  data-name="Texture#autoUpdate"><a href="Texture.html#autoUpdate">autoUpdate</a></li>
             
@@ -5893,7 +5913,7 @@
         
             
             <div class="tag-source">
-                renderer/WebGLRenderer.js, line 42
+                renderer/WebGLRenderer.js, line 43
             </div>
             
         </div>
@@ -7114,7 +7134,7 @@
         
             
             <div class="tag-source">
-                renderer/WebGLRenderer.js, line 257
+                renderer/WebGLRenderer.js, line 258
             </div>
             
         </div>
@@ -7308,7 +7328,7 @@
         
             
             <div class="tag-source">
-                renderer/WebGLRenderer.js, line 276
+                renderer/WebGLRenderer.js, line 277
             </div>
             
         </div>
@@ -7446,7 +7466,7 @@
         
             
             <div class="tag-source">
-                renderer/WebGLRenderer.js, line 290
+                renderer/WebGLRenderer.js, line 291
             </div>
             
         </div>
@@ -7684,7 +7704,7 @@
         
             
             <div class="tag-source">
-                renderer/WebGLRenderer.js, line 334
+                renderer/WebGLRenderer.js, line 335
             </div>
             
         </div>
@@ -7749,7 +7769,7 @@
         <div class="nameContainer">
             <h4 class="name" id="setupDepthTest">
                 
-                setupDepthTest<span class="signature">(gl, material)</span>
+                setupDepthTest<span class="signature">(material)</span>
             </h4>
         
             
@@ -7794,13 +7814,13 @@
 	
         <tr>
             
-                <td class="name"><code>gl</code></td>
+                <td class="name"><code>material</code></td>
             
             
             <td class="type">
             
                 
-<span class="param-type">WebGLRenderingContext</span>
+<span class="param-type"><a href="Material.html">Material</a></span>
 
 
             
@@ -7813,6 +7833,98 @@
                 </td>
         </tr>
 	
+	
+	</tbody>
+</table>
+        
+        
+        
+<dl class="details">
+    
+        
+    
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+</dl>
+
+        
+        
+
+        
+
+        
+        
+        
+        
+        
+        
+        
+    </dd>
+</dl>
+        
+            
+<dl >
+    <dt>
+        <div class="nameContainer">
+            <h4 class="name" id="setupSampleAlphaToCoverage">
+                
+                setupSampleAlphaToCoverage<span class="signature">(material)</span>
+            </h4>
+        
+            
+            <div class="tag-source">
+                renderer/WebGLRenderer.js, line 429
+            </div>
+            
+        </div>
+    </dt>
+    <dd>
+        
+        
+        <div class="description">
+            <p>设置alphaToCoverage</p>
+        </div>
+        
+
+        
+        
+        
+        
+        
+            
+
+<table class="params">
+    <thead>
+	<tr>
+		
+		<th>Name</th>
+		
+		
+		<th>Type</th>
+		
+		
+		
+		<th class="last">Description</th>
+	</tr>
+	</thead>
+	
+	<tbody>
 	
 	
         <tr>
@@ -7887,12 +7999,12 @@
         <div class="nameContainer">
             <h4 class="name" id="setupCullFace">
                 
-                setupCullFace<span class="signature">(gl, material)</span>
+                setupCullFace<span class="signature">(material)</span>
             </h4>
         
             
             <div class="tag-source">
-                renderer/WebGLRenderer.js, line 430
+                renderer/WebGLRenderer.js, line 441
             </div>
             
         </div>
@@ -7928,29 +8040,6 @@
 	</thead>
 	
 	<tbody>
-	
-	
-        <tr>
-            
-                <td class="name"><code>gl</code></td>
-            
-            
-            <td class="type">
-            
-                
-<span class="param-type">WebGLRenderingContext</span>
-
-
-            
-            </td>
-            
-            
-            
-            <td class="description last">
-                
-                </td>
-        </tr>
-	
 	
 	
         <tr>
@@ -8025,12 +8114,12 @@
         <div class="nameContainer">
             <h4 class="name" id="setupBlend">
                 
-                setupBlend<span class="signature">(gl, material)</span>
+                setupBlend<span class="signature">(material)</span>
             </h4>
         
             
             <div class="tag-source">
-                renderer/WebGLRenderer.js, line 444
+                renderer/WebGLRenderer.js, line 454
             </div>
             
         </div>
@@ -8066,29 +8155,6 @@
 	</thead>
 	
 	<tbody>
-	
-	
-        <tr>
-            
-                <td class="name"><code>gl</code></td>
-            
-            
-            <td class="type">
-            
-                
-<span class="param-type">WebGLRenderingContext</span>
-
-
-            
-            </td>
-            
-            
-            
-            <td class="description last">
-                
-                </td>
-        </tr>
-	
 	
 	
         <tr>
@@ -8168,7 +8234,7 @@
         
             
             <div class="tag-source">
-                renderer/WebGLRenderer.js, line 468
+                renderer/WebGLRenderer.js, line 478
             </div>
             
         </div>
@@ -8362,7 +8428,7 @@
         
             
             <div class="tag-source">
-                renderer/WebGLRenderer.js, line 489
+                renderer/WebGLRenderer.js, line 499
             </div>
             
         </div>
@@ -8523,7 +8589,7 @@
         
             
             <div class="tag-source">
-                renderer/WebGLRenderer.js, line 523
+                renderer/WebGLRenderer.js, line 533
             </div>
             
         </div>
@@ -8661,7 +8727,7 @@
         
             
             <div class="tag-source">
-                renderer/WebGLRenderer.js, line 546
+                renderer/WebGLRenderer.js, line 556
             </div>
             
         </div>
@@ -8878,7 +8944,7 @@
         
             
             <div class="tag-source">
-                renderer/WebGLRenderer.js, line 582
+                renderer/WebGLRenderer.js, line 592
             </div>
             
         </div>
@@ -9016,7 +9082,7 @@
         
             
             <div class="tag-source">
-                renderer/WebGLRenderer.js, line 591
+                renderer/WebGLRenderer.js, line 601
             </div>
             
         </div>
@@ -9131,7 +9197,7 @@
         
             
             <div class="tag-source">
-                renderer/WebGLRenderer.js, line 607
+                renderer/WebGLRenderer.js, line 617
             </div>
             
         </div>
@@ -9325,7 +9391,7 @@
         
             
             <div class="tag-source">
-                renderer/WebGLRenderer.js, line 676
+                renderer/WebGLRenderer.js, line 686
             </div>
             
         </div>
@@ -9395,7 +9461,7 @@
         
             
             <div class="tag-source">
-                renderer/WebGLRenderer.js, line 686
+                renderer/WebGLRenderer.js, line 696
             </div>
             
         </div>
@@ -9525,7 +9591,7 @@
         
             
             <div class="tag-source">
-                renderer/WebGLRenderer.js, line 703
+                renderer/WebGLRenderer.js, line 713
             </div>
             
         </div>
@@ -9595,7 +9661,7 @@
         
             
             <div class="tag-source">
-                renderer/WebGLRenderer.js, line 715
+                renderer/WebGLRenderer.js, line 725
             </div>
             
         </div>
@@ -9710,7 +9776,7 @@
         
             
             <div class="tag-source">
-                renderer/WebGLRenderer.js, line 723
+                renderer/WebGLRenderer.js, line 733
             </div>
             
         </div>
@@ -9825,7 +9891,7 @@
         
             
             <div class="tag-source">
-                renderer/WebGLRenderer.js, line 734
+                renderer/WebGLRenderer.js, line 744
             </div>
             
         </div>
@@ -9986,7 +10052,7 @@
         
             
             <div class="tag-source">
-                renderer/WebGLRenderer.js, line 758
+                renderer/WebGLRenderer.js, line 768
             </div>
             
         </div>
@@ -10109,7 +10175,7 @@
         
             
             <div class="tag-source">
-                renderer/WebGLRenderer.js, line 648
+                renderer/WebGLRenderer.js, line 658
             </div>
             
         </div>
@@ -10179,7 +10245,7 @@
         
             
             <div class="tag-source">
-                renderer/WebGLRenderer.js, line 666
+                renderer/WebGLRenderer.js, line 676
             </div>
             
         </div>

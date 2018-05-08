@@ -111,6 +111,10 @@ const Material = Class.create( /** @lends Material.prototype */ {
      */
     ignoreTranparent: false,
 
+    gammaOutput: false,
+    gammaInput: false,
+    gammaFactor: 2.2,
+
     /**
      * 是否开启 CullFace
      * @default true
@@ -333,6 +337,7 @@ const Material = Class.create( /** @lends Material.prototype */ {
             u_fogInfo: 'FOGINFO',
             u_alphaCutoff: 'ALPHACUTOFF',
             u_exposure: 'EXPOSURE',
+            u_gammaFactor: 'GAMMAFACTOR',
 
             // Quantization
             u_positionDecodeMat: 'POSITIONDECODEMAT',
@@ -418,6 +423,14 @@ const Material = Class.create( /** @lends Material.prototype */ {
 
         if (this.useHDR) {
             option.USE_HDR = 1;
+        }
+
+        if (this.gammaInput) {
+            option.GAMMA_INPUT = true;
+        }
+
+        if (this.gammaOutput) {
+            option.GAMMA_OUTPUT = true;
         }
 
         textureOption.update();

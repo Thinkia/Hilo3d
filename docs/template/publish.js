@@ -15,6 +15,8 @@ var template = require('jsdoc/template'),
     view,
     outdir = env.opts.destination;
 
+var hiloVersion = require('../../package.json').version;
+
 function find(spec) {
     return helper.find(data, spec);
 }
@@ -510,7 +512,7 @@ exports.publish = function(taffyData, opts, tutorials) {
 
     generate('Hilo3d',
         packages.concat(
-            [{kind: 'mainpage', readme: opts.readme, longname: (opts.mainpagetitle) ? opts.mainpagetitle : 'Main Page'}]
+            [{kind: 'mainpage', hiloVersion:hiloVersion,readme: opts.readme, longname: (opts.mainpagetitle) ? opts.mainpagetitle : 'Main Page'}]
         ).concat(files),
     indexUrl);
 

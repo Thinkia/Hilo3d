@@ -15,6 +15,7 @@ import AnimationStates from '../animation/AnimationStates';
 import Animation from '../animation/Animation';
 import PerspectiveCamera from '../camera/PerspectiveCamera';
 import * as util from '../utils/util';
+import * as extensionHandlers from './GLTFExtenstions';
 
 import {
     BLEND,
@@ -81,6 +82,7 @@ const glTFAttrToGeometry = {
     }
 };
 
+
 /**
  * @class
  */
@@ -97,7 +99,7 @@ const GLTFParser = Class.create( /** @lends GLTFParser.prototype */ {
     className: 'GLTFParser',
     Statics: {
         MAGIC: 'glTF',
-        extensionHandlers: {}
+        extensionHandlers
     },
     isProgressive: false,
     isUnQuantizeInShader: true,
@@ -152,15 +154,18 @@ const GLTFParser = Class.create( /** @lends GLTFParser.prototype */ {
     getExtensionHandler(name) {
         return this.extensionHandlers && this.extensionHandlers[name] || GLTFParser.extensionHandlers[name];
     },
-    parseExtensions(extensions, result) {
+    parseExtensions(extensions, result, options) {
         util.each(extensions, (info, name) => {
             const extension = this.getExtensionHandler(name);
             if (extension && extension.parse) {
-                result = extension.parse(info, this, result);
+                result = extension.parse(info, this, result, options);
             }
         });
 
         return result;
+    },
+    isUseExtension(data, extensionName) {
+        return !!(data.extensions && data.extensions[extensionName]);
     },
     parseBinary(buffer) {
         this.isBinary = true;
@@ -241,7 +246,7 @@ const GLTFParser = Class.create( /** @lends GLTFParser.prototype */ {
     getImageUri(imageName) {
         const imgData = this.json.images[imageName];
         let uri = imgData.uri;
-        if (imgData.extensions && imgData.extensions.KHR_binary_glTF) {
+        if (this.isUseExtension(imgData, 'KHR_binary_glTF')) {
             const binaryInfo = imgData.extensions.KHR_binary_glTF;
             const bufferView = this.bufferViews[binaryInfo.bufferView];
             const data = new Uint8Array(bufferView.buffer, bufferView.byteOffset, bufferView.byteLength);
@@ -259,7 +264,7 @@ const GLTFParser = Class.create( /** @lends GLTFParser.prototype */ {
         util.each(this.json.materials, material => {
             let values = material;
             let isKMC = false;
-            if (material.extensions && material.extensions.KHR_materials_common) {
+            if (this.isUseExtension(material, 'KHR_materials_common')) {
                 isKMC = true;
                 values = material.extensions.KHR_materials_common.values;
             }
@@ -277,7 +282,7 @@ const GLTFParser = Class.create( /** @lends GLTFParser.prototype */ {
                 if (values.transparencyTexture) {
                     map[values.transparencyTexture.index] = true;
                 }
-                if (values.extensions && values.extensions.KHR_materials_pbrSpecularGlossiness) {
+                if (this.isUseExtension(values, 'KHR_materials_pbrSpecularGlossiness')) {
                     const subValues = values.extensions.KHR_materials_pbrSpecularGlossiness;
                     if (subValues.diffuseTexture) {
                         map[subValues.diffuseTexture.index] = true;
@@ -428,7 +433,7 @@ const GLTFParser = Class.create( /** @lends GLTFParser.prototype */ {
             material.transparency = this.getTexture(values.transparencyTexture);
         }
 
-        const needLight = !(values.extensions && values.extensions.KHR_materials_unlit);
+        const needLight = !this.isUseExtension(values, 'KHR_materials_unlit');
 
         if (needLight) {
             if (values.normalTexture) {
@@ -444,28 +449,8 @@ const GLTFParser = Class.create( /** @lends GLTFParser.prototype */ {
             material.lightType = 'NONE';
         }
 
-        if (values.extensions && values.extensions.KHR_materials_pbrSpecularGlossiness) {
-            const subValues = values.extensions.KHR_materials_pbrSpecularGlossiness;
-            if (subValues.diffuseFactor) {
-                material.baseColor.fromArray(subValues.diffuseFactor);
-            }
-            if (subValues.diffuseTexture) {
-                material.baseColorMap = this.getTexture(subValues.diffuseTexture);
-            }
-            
-            if (needLight) {
-                if (subValues.specularFactor) {
-                    material.specular.fromArray(subValues.specularFactor);
-                    material.specular.a = 1;
-                }
-                if ('glossinessFactor' in subValues) {
-                    material.glossiness = subValues.glossinessFactor;
-                }
-                if (subValues.specularGlossinessTexture) {
-                    material.specularGlossinessMap = this.getTexture(subValues.specularGlossinessTexture);
-                }
-            }
-            material.isSpecularGlossiness = true;
+        if (this.isUseExtension(values, 'KHR_materials_pbrSpecularGlossiness')) {
+            this.parseExtensions(values.extensions, material);
         } else if (values.pbrMetallicRoughness) {
             const subValues = values.pbrMetallicRoughness;
             if (subValues.baseColorFactor) {
@@ -542,7 +527,7 @@ const GLTFParser = Class.create( /** @lends GLTFParser.prototype */ {
             }
 
             let kmc = null;
-            if (materialData.extensions && materialData.extensions.KHR_materials_common) {
+            if (this.isUseExtension(materialData, 'KHR_materials_common')) {
                 kmc = materialData.extensions.KHR_materials_common;
             }
 
@@ -558,35 +543,6 @@ const GLTFParser = Class.create( /** @lends GLTFParser.prototype */ {
 
             this.parseTechnique(materialData, material);
         });
-    },
-    unQuantizeData(data, decodeMat) {
-        if (!decodeMat) {
-            return data;
-        }
-
-        const matSize = Math.sqrt(decodeMat.length);
-        const itemLen = matSize - 1;
-        const result = new Float32Array(data.length);
-        const tempArr = [];
-        data.traverse((d, i) => {
-            if (d.toArray) {
-                d.toArray(tempArr);
-            } else {
-                tempArr[0] = d;
-            }
-            const idx = i * itemLen;
-            for (let j = 0; j < matSize; j++) {
-                result[idx + j] = 0;
-                for (let k = 0; k < matSize; k++) {
-                    let v = k === itemLen ? 1 : tempArr[k];
-                    result[idx + j] += decodeMat[k * matSize + j] * v;
-                }
-            }
-        });
-        data.data = result;
-        data.stride = 0;
-        data.offset = 0;
-        return data;
     },
     sparseAccessorHandler(data, sparse) {
         if (!sparse) {
@@ -646,14 +602,8 @@ const GLTFParser = Class.create( /** @lends GLTFParser.prototype */ {
             result = this.sparseAccessorHandler(result, accessor.sparse);
         }
 
-        if (accessor.extensions && accessor.extensions.WEB3D_quantized_attributes) {
-            let decodeMat = accessor.extensions.WEB3D_quantized_attributes.decodeMatrix;
-            if (isDecode) {
-                result = this.unQuantizeData(result, decodeMat);
-            } else {
-                result.decodeMat = decodeMat;
-            }
-        }
+        result = this.parseExtensions(accessor.extensions, result, isDecode);
+
         accessor.data = result;
         if (accessor.normalized) {
             result.normalized = true;
@@ -975,20 +925,7 @@ const GLTFParser = Class.create( /** @lends GLTFParser.prototype */ {
             animStatesList
         });
 
-        this.parseAnimationClipsExtension(anim);
-
         return anim;
-    },
-    parseAnimationClipsExtension(anim) {
-        const extensions = this.json.extensions;
-        const animationClips = extensions && extensions.HILO_animation_clips;
-        if (!animationClips) {
-            return;
-        }
-        for (let name in animationClips) {
-            let clip = animationClips[name];
-            anim.addClip(name, clip[0], clip[1]);
-        }
     },
     parseScene() {
         this.parseMaterials();
@@ -1025,7 +962,7 @@ const GLTFParser = Class.create( /** @lends GLTFParser.prototype */ {
             anim.play();
         }
 
-        return {
+        const model = {
             node: this.node,
             scene: this.node,
             meshes: this.meshes,
@@ -1036,6 +973,10 @@ const GLTFParser = Class.create( /** @lends GLTFParser.prototype */ {
             textures: Object.values(this.textures),
             materials: Object.values(this.materials)
         };
+
+        this.parseExtensions(this.json.extensions, model);
+
+        return model;
     },
     getDefaultSceneName() {
         if (this.defaultScene !== undefined) {

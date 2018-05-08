@@ -48,7 +48,60 @@
             isDown: false
         };
 
-        this.bindEvent();
+        this.onWheel = this.onWheel.bind(this);
+        this.onMouseDown = this.onMouseDown.bind(this);
+        this.onMouseMove = this.onMouseMove.bind(this);
+        this.onMouseUp = this.onMouseUp.bind(this);
+
+        this.isEnabled = false;
+        this.enable();
+    }
+
+    OrbitControls.prototype.enable = function(){
+        if(!this.isEnabled){
+            this.isEnabled = true;
+            var canvas = this.canvas;
+            canvas.addEventListener('wheel', this.onWheel, false);
+
+            if ('ontouchmove' in window) {
+                canvas.addEventListener('touchstart', this.onMouseDown, false);
+                canvas.addEventListener('touchmove', this.onMouseMove, false);
+                canvas.addEventListener('touchend', this.onMouseUp, false);
+            } else {
+                document.addEventListener('contextmenu', function (evt) {
+                    //禁掉鼠标右键菜单
+                    evt.preventDefault()
+                });
+                canvas.addEventListener('mousedown', this.onMouseDown, false);
+                canvas.addEventListener('mousemove', this.onMouseMove, false);
+                canvas.addEventListener('mouseup', this.onMouseUp, false);
+            }
+        }
+    };
+
+    OrbitControls.prototype.disable = function(){
+        if(this.isEnabled){
+            this.isEnabled = false;
+            this.mouseInfo.isDown = false;
+            this.mouseInfo.state = STATE.NONE;
+
+            var canvas = this.canvas;
+            canvas.removeEventListener('wheel', this.onWheel, false);
+
+            if ('ontouchmove' in window) {
+                canvas.removeEventListener('touchstart', this.onMouseDown, false);
+                canvas.removeEventListener('touchmove', this.onMouseMove, false);
+                canvas.removeEventListener('touchend', this.onMouseUp, false);
+            } else {
+                document.removeEventListener('contextmenu', function (evt) {
+                    //禁掉鼠标右键菜单
+                    evt.preventDefault()
+                });
+                canvas.removeEventListener('mousedown', this.onMouseDown, false);
+                canvas.removeEventListener('mousemove', this.onMouseMove, false);
+                canvas.removeEventListener('mouseup', this.onMouseUp, false);
+            }
+        }
     }
 
     OrbitControls.prototype.rotate = function(distanceX, distanceY) {
@@ -226,23 +279,7 @@
     }
 
     OrbitControls.prototype.bindEvent = function () {
-        var canvas = this.canvas;
-
-        canvas.addEventListener('wheel', this.onWheel.bind(this), false);
-
-        if ('ontouchmove' in window) {
-            canvas.addEventListener('touchstart', this.onMouseDown.bind(this), false);
-            canvas.addEventListener('touchmove', this.onMouseMove.bind(this), false);
-            canvas.addEventListener('touchend', this.onMouseUp.bind(this), false);
-        } else {
-            document.addEventListener('contextmenu', function (evt) {
-                //禁掉鼠标右键菜单
-                evt.preventDefault()
-            });
-            canvas.addEventListener('mousedown', this.onMouseDown.bind(this), false);
-            canvas.addEventListener('mousemove', this.onMouseMove.bind(this), false);
-            canvas.addEventListener('mouseup', this.onMouseUp.bind(this), false);
-        }
+        
     }
 
     if(typeof module !== 'undefined'){

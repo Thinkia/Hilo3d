@@ -845,6 +845,11 @@ const semantic = {
             return material.exposure;
         }
     },
+    GAMMAFACTOR: {
+        get(mesh, material, programInfo) {
+            return material.gammaFactor;
+        }
+    },
 
     // Morph Animation Uniforms
     MORPHWEIGHTS: {
