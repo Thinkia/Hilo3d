@@ -111,9 +111,52 @@ const Material = Class.create( /** @lends Material.prototype */ {
      */
     ignoreTranparent: false,
 
+    /**
+     * gammaOutput
+     * @type {Boolean}
+     * @default false
+     */
     gammaOutput: false,
+
+    /**
+     * gammaInput
+     * @type {Boolean}
+     * @default false
+     */
     gammaInput: false,
+
+    /**
+     * gamma值
+     * @type {Number}
+     * @default 2.2
+     */
     gammaFactor: 2.2,
+
+    /**
+     * 是否投射阴影
+     * @type {Boolean}
+     * @default true
+     */
+    castShadows: true,
+
+    /**
+     * 是否接受阴影
+     * @type {Boolean}
+     * @default true
+     */
+    receiveShadows: true,
+
+    /**
+     * uv transform
+     * @type {Matrix3}
+     */
+    uvMatrix: null,
+
+    /**
+     * uv1 transform
+     * @type {Matrix3}
+     */
+    uvMatrix1: null,
 
     /**
      * 是否开启 CullFace
@@ -349,7 +392,10 @@ const Material = Class.create( /** @lends Material.prototype */ {
             u_morphWeights: 'MORPHWEIGHTS',
             u_normalMapScale: 'NORMALMAPSCALE',
             u_emission: 'EMISSION',
-            u_transparency: 'TRANSPARENCY'
+            u_transparency: 'TRANSPARENCY',
+
+            u_uvMatrix: 'UVMATRIX_0',
+            u_uvMatrix1: 'UVMATRIX_1'
         };
 
         this.addTextureUniforms({
@@ -426,11 +472,27 @@ const Material = Class.create( /** @lends Material.prototype */ {
         }
 
         if (this.gammaInput) {
-            option.GAMMA_INPUT = true;
+            option.GAMMA_INPUT = 1;
         }
 
         if (this.gammaOutput) {
-            option.GAMMA_OUTPUT = true;
+            option.GAMMA_OUTPUT = 1;
+        }
+
+        if (this.receiveShadows) {
+            option.RECEIVE_SHADOWS = 1;
+        }
+
+        if (this.castShadows) {
+            option.CAST_SHADOWS = 1;
+        }
+
+        if (this.uvMatrix) {
+            option.UV_MATRIX = 1;
+        }
+
+        if (this.uvMatrix1) {
+            option.UV_MATRIX1 = 1;
         }
 
         textureOption.update();

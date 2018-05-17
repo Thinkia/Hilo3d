@@ -169,6 +169,12 @@ const Shader = Class.create( /** @lends Shader.prototype */ {
                     headers.HAS_TANGENT = 1;
                 }
 
+                if (!headers.RECEIVE_SHADOWS) {
+                    delete headers.DIRECTIONAL_LIGHTS_SMC;
+                    delete headers.SPOT_LIGHTS_SMC;
+                    delete headers.POINT_LIGHTS_SMC;
+                }
+
                 header = Object.keys(headers).map(name => {
                     return `#define HILO_${name} ${headers[name]}`;
                 }).join('\n') + '\n';

@@ -5,7 +5,7 @@ Hilo3d, a WebGL Rendering Engine developed by Alibaba Group.It could help develo
 > 本站点暂时不公开Hilo3d源码，仅提供压缩版本 （正式开源时间参考 [开源计划](https://github.com/hiloteam/Hilo3d/issues/4)）
 
 ### 静态CDN
-[https://g.alicdn.com/hilo/Hilo3d/1.5.54/Hilo3d.js](https://g.alicdn.com/hilo/Hilo3d/1.5.54/Hilo3d.js)
+[https://g.alicdn.com/hilo/Hilo3d/1.5.58/Hilo3d.js](https://g.alicdn.com/hilo/Hilo3d/1.5.58/Hilo3d.js)
 
 ### API 文档
 
@@ -23,6 +23,7 @@ Hilo3d, a WebGL Rendering Engine developed by Alibaba Group.It could help develo
   * [geometry_dynamic2](https://hiloteam.github.io/Hilo3d/examples/geometry_dynamic2.html)
   * [geometry_instanced](https://hiloteam.github.io/Hilo3d/examples/geometry_instanced.html)
   * [geometry_line](https://hiloteam.github.io/Hilo3d/examples/geometry_line.html)
+  * [geometry_merge](https://hiloteam.github.io/Hilo3d/examples/geometry_merge.html)
   * [geometry_morph](https://hiloteam.github.io/Hilo3d/examples/geometry_morph.html)
   * [geometry_plane](https://hiloteam.github.io/Hilo3d/examples/geometry_plane.html)
   * [geometry_sphere](https://hiloteam.github.io/Hilo3d/examples/geometry_sphere.html)

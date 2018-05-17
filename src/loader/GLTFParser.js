@@ -10,6 +10,7 @@ import SkinedMesh from '../core/SkinedMesh';
 import LazyTexture from '../texture/LazyTexture';
 import math from '../math/math';
 import Matrix4 from '../math/Matrix4';
+import Matrix3 from '../math/Matrix3';
 import Color from '../math/Color';
 import AnimationStates from '../animation/AnimationStates';
 import Animation from '../animation/Animation';
@@ -393,6 +394,7 @@ const GLTFParser = Class.create( /** @lends GLTFParser.prototype */ {
             this.textures[key] = texture;
         }
         texture.uv = texCoord;
+        texture.__gltfTextureInfo = textureInfo;
         return texture;
     },
     getColorOrTexture(value) {
@@ -428,7 +430,7 @@ const GLTFParser = Class.create( /** @lends GLTFParser.prototype */ {
         } else {
             material.side = FRONT_AND_BACK;
         }
-        
+
         if (values.transparencyTexture) {
             material.transparency = this.getTexture(values.transparencyTexture);
         }
@@ -460,7 +462,7 @@ const GLTFParser = Class.create( /** @lends GLTFParser.prototype */ {
                 material.baseColorMap = this.getTexture(subValues.baseColorTexture);
             }
 
-            if (needLight) {  
+            if (needLight) {
                 if (subValues.metallicRoughnessTexture) {
                     material.metallicRoughnessMap = this.getTexture(subValues.metallicRoughnessTexture);
                     if (material.occlusionMap === material.metallicRoughnessMap) {
@@ -477,8 +479,32 @@ const GLTFParser = Class.create( /** @lends GLTFParser.prototype */ {
             }
         }
 
-        
+        if (material.baseColorMap) {
+            this._parseTextureTransform(material, material.baseColorMap);
+        }
         return material;
+    },
+    _parseTextureTransform(material, texture) {
+        const textureInfo = texture.__gltfTextureInfo;
+        if (this.isUseExtension(textureInfo, 'KHR_texture_transform')) {
+            const transformInfo = textureInfo.extensions.KHR_texture_transform;
+
+            if (transformInfo.texCoord !== undefined) {
+                texture.uv = transformInfo.texCoord;
+            }
+            if (transformInfo.offset || transformInfo.rotation || transformInfo.scale) {
+                const offset = transformInfo.offset || [0, 0];
+                const rotation = transformInfo.rotation || 0;
+                const scale = transformInfo.scale || [1, 1];
+
+                const uvMatrix = new Matrix3().fromRotationTranslationScale(offset[0], offset[1], scale[0], scale[1], rotation);
+                if (texture.uv === 0) {
+                    material.uvMatrix = uvMatrix;
+                } else if (texture.uv === 1) {
+                    material.uvMatrix1 = uvMatrix;
+                }
+            }
+        }
     },
     createKMCMaterial(materialData, kmc) {
         const material = new BasicMaterial();
@@ -516,6 +542,8 @@ const GLTFParser = Class.create( /** @lends GLTFParser.prototype */ {
         if ('shininess' in values) {
             material.shininess = values.shininess;
         }
+
+        this._parseTextureTransform(material, material.diffuse);
         return material;
     },
     parseMaterials() {

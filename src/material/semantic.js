@@ -182,6 +182,30 @@ const semantic = {
     /**
      * @type {semanticObject}
      */
+    UVMATRIX_0: {
+        get(mesh, material, programInfo) {
+            if (!material.uvMatrix) {
+                return undefined;
+            }
+            return material.uvMatrix.elements;
+        }
+    },
+
+    /**
+     * @type {semanticObject}
+     */
+    UVMATRIX_1: {
+        get(mesh, material, programInfo) {
+            if (!material.uvMatrix1) {
+                return undefined;
+            }
+            return material.uvMatrix1.elements;
+        }
+    },
+
+    /**
+     * @type {semanticObject}
+     */
     CAMERAFAR: {
         get(mesh, material, programInfo) {
             if (camera.isPerspectiveCamera) {
