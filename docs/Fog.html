@@ -1064,13 +1064,17 @@
             
                 <li  data-name="Fog#className"><a href="Fog.html#className">className</a></li>
             
+                <li  data-name="Fog#mode"><a href="Fog.html#mode">mode</a></li>
+            
+                <li  data-name="Fog#start"><a href="Fog.html#start">start</a></li>
+            
+                <li  data-name="Fog#end"><a href="Fog.html#end">end</a></li>
+            
+                <li  data-name="Fog#density"><a href="Fog.html#density">density</a></li>
+            
                 <li  data-name="Fog#id"><a href="Fog.html#id">id</a></li>
             
                 <li  data-name="Fog#color"><a href="Fog.html#color">color</a></li>
-            
-                <li  data-name="Fog#near"><a href="Fog.html#near">near</a></li>
-            
-                <li  data-name="Fog#far"><a href="Fog.html#far">far</a></li>
             
             </ul>
             <ul class="typedefs itemMembers">
@@ -6332,6 +6336,154 @@
         <tr >
             
                 <td class="name">
+                    <a name="mode"></a>
+                    <code>mode</code>
+                </td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+            
+            
+            
+            
+                <td class="default">
+                
+                    LINEAR
+                
+                </td>
+            
+            
+            <td class="description last">
+                
+                <p>雾模式, 可选 LINEAR, EXP, EXP2</p>
+                
+    
+                
+            </td>
+        </tr>
+	
+	
+        <tr >
+            
+                <td class="name">
+                    <a name="start"></a>
+                    <code>start</code>
+                </td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">Number</span>
+
+
+            
+            </td>
+            
+            
+            
+            
+                <td class="default">
+                
+                    5
+                
+                </td>
+            
+            
+            <td class="description last">
+                
+                <p>雾影响起始值, 只在 mode 为 LINEAR 时生效</p>
+                
+    
+                
+            </td>
+        </tr>
+	
+	
+        <tr >
+            
+                <td class="name">
+                    <a name="end"></a>
+                    <code>end</code>
+                </td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">Number</span>
+
+
+            
+            </td>
+            
+            
+            
+            
+                <td class="default">
+                
+                    10
+                
+                </td>
+            
+            
+            <td class="description last">
+                
+                <p>雾影响终点值, 只在 mode 为 LINEAR 时生效</p>
+                
+    
+                
+            </td>
+        </tr>
+	
+	
+        <tr >
+            
+                <td class="name">
+                    <a name="density"></a>
+                    <code>density</code>
+                </td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">Number</span>
+
+
+            
+            </td>
+            
+            
+            
+            
+                <td class="default">
+                
+                    0.1
+                
+                </td>
+            
+            
+            <td class="description last">
+                
+                <p>雾密度, 只在 mode 为 EXP, EXP2 时生效</p>
+                
+    
+                
+            </td>
+        </tr>
+	
+	
+        <tr >
+            
+                <td class="name">
                     <a name="id"></a>
                     <code>id</code>
                 </td>
@@ -6403,80 +6555,6 @@
         </tr>
 	
 	
-        <tr >
-            
-                <td class="name">
-                    <a name="near"></a>
-                    <code>near</code>
-                </td>
-            
-            
-            <td class="type">
-            
-                
-<span class="param-type">Number</span>
-
-
-            
-            </td>
-            
-            
-            
-            
-                <td class="default">
-                
-                    0
-                
-                </td>
-            
-            
-            <td class="description last">
-                
-                <p>雾影响起始值</p>
-                
-    
-                
-            </td>
-        </tr>
-	
-	
-        <tr >
-            
-                <td class="name">
-                    <a name="far"></a>
-                    <code>far</code>
-                </td>
-            
-            
-            <td class="type">
-            
-                
-<span class="param-type">Number</span>
-
-
-            
-            </td>
-            
-            
-            
-            
-                <td class="default">
-                
-                    10
-                
-                </td>
-            
-            
-            <td class="description last">
-                
-                <p>雾影响终点值</p>
-                
-    
-                
-            </td>
-        </tr>
-	
-	
 	</tbody>
 </table>
 </dd>
@@ -6502,7 +6580,7 @@
         
             
             <div class="tag-source">
-                core/Fog.js, line 60
+                core/Fog.js, line 76
             </div>
             
         </div>

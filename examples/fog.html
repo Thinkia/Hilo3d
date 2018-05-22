@@ -26,8 +26,10 @@
             width: innerWidth,
             height: innerHeight,
             fog:new Hilo3d.Fog({
-                near:5,
-                far:10
+                mode:'EXP2', // LINEAR, EXP, EXP2
+                start:5,
+                end:10,
+                density:0.1
             }),
             useInstanced:true,
             useVao:true

@@ -1,11 +1,11 @@
-# Hilo3d [![npm][npm-image]][npm-url] [![size][size-image]][size-url] [![gitter.im][gitter-image]][gitter-url]
+# Hilo3d [![npm][npm-image]][npm-url] [![size][size-image]][cdn-url] [![gitter.im][gitter-image]][gitter-url]
 
 Hilo3d, a WebGL Rendering Engine developed by Alibaba Group.It could help developers build 3D games conveniently in minutes.
 
 > 本站点暂时不公开Hilo3d源码，仅提供压缩版本 （正式开源时间参考 [开源计划](https://github.com/hiloteam/Hilo3d/issues/4)）
 
 ### 静态CDN
-[https://g.alicdn.com/hilo/Hilo3d/1.5.58/Hilo3d.js](https://g.alicdn.com/hilo/Hilo3d/1.5.58/Hilo3d.js)
+[https://g.alicdn.com/hilo/Hilo3d/1.5.59/Hilo3d.js][cdn-url]
 
 ### API 文档
 
@@ -84,4 +84,4 @@ Hilo3d, a WebGL Rendering Engine developed by Alibaba Group.It could help develo
 [npm-image]: https://img.shields.io/npm/v/hilo3d.svg?style=flat-square
 [npm-url]: https://www.npmjs.com/package/hilo3d
 [size-image]:http://img.badgesize.io/hiloteam/hilo3d/master/build/Hilo3d.js.svg?compression=gzip&style=flat-square
-[size-url]: https://cdn.rawgit.com/hiloteam/Hilo3d/master/build/Hilo3d.js
+[cdn-url]: https://g.alicdn.com/hilo/Hilo3d/1.5.59/Hilo3d.js

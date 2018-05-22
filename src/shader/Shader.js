@@ -134,7 +134,7 @@ const Shader = Class.create( /** @lends Shader.prototype */ {
                 headerKey += '_joint' + mesh.jointNames.length;
             }
             if (fog) {
-                headerKey += '_fog';
+                headerKey += '_fog_' + fog.mode;
             }
             if (mesh.geometry.isMorphGeometry) {
                 headerKey += '_' + mesh.geometry.id;
@@ -163,6 +163,7 @@ const Shader = Class.create( /** @lends Shader.prototype */ {
 
                 if (fog) {
                     headers.HAS_FOG = 1;
+                    fog.getRenderOption(headers);
                 }
 
                 if (headers.HAS_NORMAL && headers.NORMAL_MAP) {
