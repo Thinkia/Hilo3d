@@ -46,8 +46,9 @@ const Texture = Class.create( /** @lends Texture.prototype */ {
          * @param  {WebGLRenderingContext} gl
          */
         reset(gl) {
-            cache.each(texture => {
-                texture.releaseGLTexture(gl);
+            cache.each((glTexture, id) => {
+                gl.deleteTexture(glTexture);
+                cache.remove(id);
             });
         }
     },
@@ -210,8 +211,6 @@ const Texture = Class.create( /** @lends Texture.prototype */ {
     constructor(params) {
         this.id = math.generateUUID(this.className);
         Object.assign(this, params);
-
-        cache.add(this.id, this);
     },
     isImgPowerOfTwo(img) {
         return math.isPowerOfTwo(img.width) && math.isPowerOfTwo(img.height);
@@ -247,7 +246,7 @@ const Texture = Class.create( /** @lends Texture.prototype */ {
     _uploadTexture(state) {
         this._glUploadTexture(state, this.target, this.image);
     },
-    updateTexture(state) {
+    updateTexture(state, glTexture) {
         const gl = state.gl;
         if (this.needUpdate || this.autoUpdate) {
             if (this._originImage && this.image === this._canvasImage) {
@@ -260,7 +259,7 @@ const Texture = Class.create( /** @lends Texture.prototype */ {
                 this.image = this.resizeImgToPowerOfTwo(this.image);
             }
             state.activeTexture(gl.TEXTURE0 + capabilities.MAX_TEXTURE_INDEX);
-            state.bindTexture(this.target, this.tex);
+            state.bindTexture(this.target, glTexture);
             state.pixelStorei(gl.UNPACK_PREMULTIPLY_ALPHA_WEBGL, this.premultiplyAlpha);
             state.pixelStorei(gl.UNPACK_FLIP_Y_WEBGL, !!this.flipY);
 
@@ -274,36 +273,40 @@ const Texture = Class.create( /** @lends Texture.prototype */ {
     },
     getGLTexture(state) {
         const gl = state.gl;
+        const id = this.id;
+
         if (this.needDestory) {
             this.destroy(gl);
             this.needDestory = false;
         }
-        if (this.tex) {
-            this.updateTexture(state);
-            return this.tex;
+
+        let glTexture = cache.get(id);
+        if (glTexture) {
+            this.updateTexture(state, glTexture);
+        } else {
+            glTexture = gl.createTexture();
+            cache.add(id, glTexture);
+            this.needUpdate = true;
+            this.updateTexture(state, glTexture);
+            gl.texParameterf(this.target, gl.TEXTURE_MAG_FILTER, this.magFilter);
+            gl.texParameterf(this.target, gl.TEXTURE_MIN_FILTER, this.minFilter);
+            gl.texParameterf(this.target, gl.TEXTURE_WRAP_S, this.wrapS);
+            gl.texParameterf(this.target, gl.TEXTURE_WRAP_T, this.wrapT);
         }
-        this.tex = gl.createTexture();
-        this.needUpdate = true;
-        this.updateTexture(state);
-        gl.texParameterf(this.target, gl.TEXTURE_MAG_FILTER, this.magFilter);
-        gl.texParameterf(this.target, gl.TEXTURE_MIN_FILTER, this.minFilter);
-        gl.texParameterf(this.target, gl.TEXTURE_WRAP_S, this.wrapS);
-        gl.texParameterf(this.target, gl.TEXTURE_WRAP_T, this.wrapT);
-        return this.tex;
-    },
-    releaseGLTexture(gl) {
-        if (this.tex) {
-            gl.deleteTexture(this.tex);
-            delete this.tex;
-        }
+
+        return glTexture;
     },
     /**
      * 销毁当前Texture
      * @param {WebGL2RenderingContext} gl gl
      */
     destroy(gl) {
-        this.releaseGLTexture(gl);
-        cache.removeObject(this);
+        const id = this.id;
+        const glTexture = cache.get(id);
+        if (glTexture) {
+            gl.deleteTexture(glTexture);
+            cache.remove(id);
+        }
     },
     clone() {
         const option = Object.assign({}, this);

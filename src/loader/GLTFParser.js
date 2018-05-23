@@ -166,7 +166,7 @@ const GLTFParser = Class.create( /** @lends GLTFParser.prototype */ {
         return result;
     },
     isUseExtension(data, extensionName) {
-        return !!(data.extensions && data.extensions[extensionName]);
+        return !!(data && data.extensions && data.extensions[extensionName]);
     },
     parseBinary(buffer) {
         this.isBinary = true;
@@ -395,6 +395,7 @@ const GLTFParser = Class.create( /** @lends GLTFParser.prototype */ {
         }
         texture.uv = texCoord;
         texture.__gltfTextureInfo = textureInfo;
+
         return texture;
     },
     getColorOrTexture(value) {
