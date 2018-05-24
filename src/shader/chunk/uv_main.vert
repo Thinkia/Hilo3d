@@ -7,9 +7,9 @@
 #endif
 #ifdef HILO_HAS_TEXCOORD1
     #ifdef HILO_UV_MATRIX
-        v_texcoord0 = (u_uvMatrix1 * vec3(uv1, 1.0)).xy;
+        v_texcoord1 = (u_uvMatrix1 * vec3(uv1, 1.0)).xy;
     #else
-        v_texcoord0 = uv1;
+        v_texcoord1 = uv1;
     #endif
 #endif
 #ifdef HILO_DIFFUSE_CUBE_MAP
