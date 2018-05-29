@@ -8,7 +8,7 @@ const pkg = require('./package.json');
 const gitlabPkg = require(`${gitlabPath}/package.json`);
 
 gulp.task('del', (done) => {
-    del(['build', 'exmaples', 'docs', 'src'], {
+    del(['build', 'examples', 'docs', 'src'], {
         force:true
     }).then(()=>{
         done();
