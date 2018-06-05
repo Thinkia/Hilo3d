@@ -102,6 +102,7 @@ const GLTFParser = Class.create( /** @lends GLTFParser.prototype */ {
         MAGIC: 'glTF',
         extensionHandlers
     },
+    isMultiAnim: true,
     isProgressive: false,
     isUnQuantizeInShader: true,
     preHandlerImageURI: null,
@@ -109,8 +110,8 @@ const GLTFParser = Class.create( /** @lends GLTFParser.prototype */ {
     src: '',
     /**
      * @constructs
-     * @param  {ArrayBuffer|String} content 
-     * @param  {Object} params 
+     * @param  {ArrayBuffer|String} content
+     * @param  {Object} params
      */
     constructor(content, params) {
         Object.assign(this, params);
@@ -802,7 +803,7 @@ const GLTFParser = Class.create( /** @lends GLTFParser.prototype */ {
                 }
                 primitive._geometry = geometry;
                 let result = this.handlerGeometry(geometry, primitive);
-                if (result.then) {
+                if (result && result.then) {
                     return result.then(geometry => {
                         this.fixProgressiveGeometry(primitive, geometry);
                     }, err => {
@@ -919,8 +920,9 @@ const GLTFParser = Class.create( /** @lends GLTFParser.prototype */ {
         if (!this.json.animations) {
             return null;
         }
-        const animStatesList = [];
+        const clips = {};
         util.each(this.json.animations, (info) => {
+            const animStatesList = [];
             info.channels.forEach(channel => {
                 let path = channel.target.path;
                 let nodeId = channel.target.id;
@@ -945,16 +947,20 @@ const GLTFParser = Class.create( /** @lends GLTFParser.prototype */ {
                 });
                 animStatesList.push(animStates);
             });
+            if (animStatesList.length) {
+                clips[info.name] = {
+                    animStatesList
+                };
+            }
         });
-        if (!animStatesList.length) {
-            return null;
+        if (Object.keys(clips).length > 0) {
+            return new Animation({
+                rootNode: this.node,
+                animStatesList: Object.values(clips)[0].animStatesList,
+                clips
+            });
         }
-        const anim = new Animation({
-            rootNode: this.node,
-            animStatesList
-        });
-
-        return anim;
+        return null;
     },
     parseScene() {
         this.parseMaterials();
@@ -985,25 +991,27 @@ const GLTFParser = Class.create( /** @lends GLTFParser.prototype */ {
 
         this.node.resetSkinedMeshRootNode();
 
-        const anim = this.parseAnimations();
-        if (anim) {
-            this.node.setAnim(anim);
-            anim.play();
-        }
-
         const model = {
             node: this.node,
             scene: this.node,
             meshes: this.meshes,
             json: this.json,
-            anim,
             cameras: Object.values(this.cameras),
             lights: [],
             textures: Object.values(this.textures),
             materials: Object.values(this.materials)
         };
 
-        this.parseExtensions(this.json.extensions, model);
+        const anim = this.parseAnimations();
+        if (anim) {
+            this.node.setAnim(anim);
+            anim.play();
+            model.anim = anim;
+        }
+
+        if (!this.isMultiAnim) {
+            this.parseExtensions(this.json.extensions, model);
+        }
 
         return model;
     },

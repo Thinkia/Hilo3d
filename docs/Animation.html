@@ -441,6 +441,8 @@
             
                 <li  data-name="Animation#endTime"><a href="Animation.html#endTime">endTime</a></li>
             
+                <li  data-name="Animation#baseTime"><a href="Animation.html#baseTime">baseTime</a></li>
+            
                 <li  data-name="Animation#totalTime"><a href="Animation.html#totalTime">totalTime</a></li>
             
                 <li  data-name="Animation#rootNode"><a href="Animation.html#rootNode">rootNode</a></li>
@@ -4326,6 +4328,10 @@
             
             <span class="subtitle"><a href="#methods" class="subtitle-name">Methods</a><a class="toggle-inherited" href="javascript:void(0);" type="method">Show Inherited</a></span>
             
+                <li  data-name="Euler#clone"><a href="Euler.html#clone">clone</a></li>
+            
+                <li  data-name="Euler#copy"><a href="Euler.html#copy">copy</a></li>
+            
                 <li  data-name="Euler#set"><a href="Euler.html#set">set</a></li>
             
                 <li  data-name="Euler#fromArray"><a href="Euler.html#fromArray">fromArray</a></li>
@@ -4362,6 +4368,10 @@
             <ul class="methods itemMembers">
             
             <span class="subtitle"><a href="#methods" class="subtitle-name">Methods</a><a class="toggle-inherited" href="javascript:void(0);" type="method">Show Inherited</a></span>
+            
+                <li  data-name="Frustum#copy"><a href="Frustum.html#copy">copy</a></li>
+            
+                <li  data-name="Frustum#clone"><a href="Frustum.html#clone">clone</a></li>
             
                 <li  data-name="Frustum#fromMatrix"><a href="Frustum.html#fromMatrix">fromMatrix</a></li>
             
@@ -4601,6 +4611,10 @@
             <ul class="methods itemMembers">
             
             <span class="subtitle"><a href="#methods" class="subtitle-name">Methods</a><a class="toggle-inherited" href="javascript:void(0);" type="method">Show Inherited</a></span>
+            
+                <li  data-name="Plane#copy"><a href="Plane.html#copy">copy</a></li>
+            
+                <li  data-name="Plane#clone"><a href="Plane.html#clone">clone</a></li>
             
                 <li  data-name="Plane#set"><a href="Plane.html#set">set</a></li>
             
@@ -6107,7 +6121,7 @@
         
             
             <div class="tag-source">
-                animation/Animation.js, line 8
+                animation/Animation.js, line 9
             </div>
             
         </div>
@@ -6588,6 +6602,43 @@
         <tr >
             
                 <td class="name">
+                    <a name="baseTime"></a>
+                    <code>baseTime</code>
+                </td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+            
+            
+            
+            
+                <td class="default">
+                
+                    0
+                
+                </td>
+            
+            
+            <td class="description last">
+                
+                <p>动画整体的最小时间，初始化后会根据 AnimationStates 来自动获取</p>
+                
+    
+                
+            </td>
+        </tr>
+	
+	
+        <tr >
+            
+                <td class="name">
                     <a name="totalTime"></a>
                     <code>totalTime</code>
                 </td>
@@ -6793,7 +6844,7 @@
         
             
             <div class="tag-source">
-                animation/Animation.js, line 17
+                animation/Animation.js, line 18
             </div>
             
         </div>
@@ -6903,12 +6954,12 @@
         <div class="nameContainer">
             <h4 class="name" id="addClip">
                 
-                addClip<span class="signature">(name, start, end)</span>
+                addClip<span class="signature">(name, start, end, animStatesList)</span>
             </h4>
         
             
             <div class="tag-source">
-                animation/Animation.js, line 125
+                animation/Animation.js, line 134
             </div>
             
         </div>
@@ -7014,6 +7065,29 @@
         </tr>
 	
 	
+	
+        <tr>
+            
+                <td class="name"><code>animStatesList</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">Array.&lt;AnimationState></span>
+
+
+            
+            </td>
+            
+            
+            
+            <td class="description last">
+                
+                <p>动画帧列表</p></td>
+        </tr>
+	
+	
 	</tbody>
 </table>
         
@@ -7069,7 +7143,7 @@
         
             
             <div class="tag-source">
-                animation/Animation.js, line 135
+                animation/Animation.js, line 145
             </div>
             
         </div>
@@ -7184,7 +7258,7 @@
         
             
             <div class="tag-source">
-                animation/Animation.js, line 172
+                animation/Animation.js, line 186
             </div>
             
         </div>
@@ -7353,7 +7427,7 @@
         
             
             <div class="tag-source">
-                animation/Animation.js, line 206
+                animation/Animation.js, line 224
             </div>
             
         </div>
@@ -7423,7 +7497,7 @@
         
             
             <div class="tag-source">
-                animation/Animation.js, line 217
+                animation/Animation.js, line 235
             </div>
             
         </div>
@@ -7493,7 +7567,7 @@
         
             
             <div class="tag-source">
-                animation/Animation.js, line 223
+                animation/Animation.js, line 241
             </div>
             
         </div>
@@ -7563,7 +7637,7 @@
         
             
             <div class="tag-source">
-                animation/Animation.js, line 231
+                animation/Animation.js, line 249
             </div>
             
         </div>

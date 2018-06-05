@@ -77,7 +77,7 @@ export const KHR_materials_pbrSpecularGlossiness = {
         if (info.diffuseTexture) {
             material.baseColorMap = parser.getTexture(info.diffuseTexture);
         }
-        
+
         if (info.specularFactor) {
             material.specular.fromArray(info.specularFactor);
             material.specular.a = 1;

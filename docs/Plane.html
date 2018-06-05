@@ -441,6 +441,8 @@
             
                 <li  data-name="Animation#endTime"><a href="Animation.html#endTime">endTime</a></li>
             
+                <li  data-name="Animation#baseTime"><a href="Animation.html#baseTime">baseTime</a></li>
+            
                 <li  data-name="Animation#totalTime"><a href="Animation.html#totalTime">totalTime</a></li>
             
                 <li  data-name="Animation#rootNode"><a href="Animation.html#rootNode">rootNode</a></li>
@@ -4326,6 +4328,10 @@
             
             <span class="subtitle"><a href="#methods" class="subtitle-name">Methods</a><a class="toggle-inherited" href="javascript:void(0);" type="method">Show Inherited</a></span>
             
+                <li  data-name="Euler#clone"><a href="Euler.html#clone">clone</a></li>
+            
+                <li  data-name="Euler#copy"><a href="Euler.html#copy">copy</a></li>
+            
                 <li  data-name="Euler#set"><a href="Euler.html#set">set</a></li>
             
                 <li  data-name="Euler#fromArray"><a href="Euler.html#fromArray">fromArray</a></li>
@@ -4362,6 +4368,10 @@
             <ul class="methods itemMembers">
             
             <span class="subtitle"><a href="#methods" class="subtitle-name">Methods</a><a class="toggle-inherited" href="javascript:void(0);" type="method">Show Inherited</a></span>
+            
+                <li  data-name="Frustum#copy"><a href="Frustum.html#copy">copy</a></li>
+            
+                <li  data-name="Frustum#clone"><a href="Frustum.html#clone">clone</a></li>
             
                 <li  data-name="Frustum#fromMatrix"><a href="Frustum.html#fromMatrix">fromMatrix</a></li>
             
@@ -4601,6 +4611,10 @@
             <ul class="methods itemMembers">
             
             <span class="subtitle"><a href="#methods" class="subtitle-name">Methods</a><a class="toggle-inherited" href="javascript:void(0);" type="method">Show Inherited</a></span>
+            
+                <li  data-name="Plane#copy"><a href="Plane.html#copy">copy</a></li>
+            
+                <li  data-name="Plane#clone"><a href="Plane.html#clone">clone</a></li>
             
                 <li  data-name="Plane#set"><a href="Plane.html#set">set</a></li>
             
@@ -6395,6 +6409,249 @@
 <dl >
     <dt>
         <div class="nameContainer">
+            <h4 class="name" id="copy">
+                
+                copy<span class="signature">(m)</span><span class="glyphicon glyphicon-circle-arrow-right"></span><span class="type-signature returnType">{<a href="Plane.html">Plane</a>}</span>
+            </h4>
+        
+            
+            <div class="tag-source">
+                math/Plane.js, line 34
+            </div>
+            
+        </div>
+    </dt>
+    <dd>
+        
+        
+        <div class="description">
+            <p>Copy the values from one plane to this</p>
+        </div>
+        
+
+        
+        
+        
+        
+        
+            
+
+<table class="params">
+    <thead>
+	<tr>
+		
+		<th>Name</th>
+		
+		
+		<th>Type</th>
+		
+		
+		
+		<th class="last">Description</th>
+	</tr>
+	</thead>
+	
+	<tbody>
+	
+	
+        <tr>
+            
+                <td class="name"><code>m</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type"><a href="Plane.html">Plane</a></span>
+
+
+            
+            </td>
+            
+            
+            
+            <td class="description last">
+                
+                <p>the source plane</p></td>
+        </tr>
+	
+	
+	</tbody>
+</table>
+        
+        
+        
+<dl class="details">
+    
+        
+    
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+</dl>
+
+        
+        
+
+        
+
+        
+        
+        
+        
+        
+        <h5>Returns:</h5>
+        
+
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Type</th>
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+    <tbody>
+    
+        <tr>
+            
+            <td class="type">
+            
+                        <a href="Plane.html">Plane</a>
+                        
+                    
+            </td>
+            <td class="description last">this</td>
+        </tr>
+    
+    </tbody>
+</table>
+
+        
+        
+        
+    </dd>
+</dl>
+        
+            
+<dl >
+    <dt>
+        <div class="nameContainer">
+            <h4 class="name" id="clone">
+                
+                clone<span class="signature">()</span><span class="glyphicon glyphicon-circle-arrow-right"></span><span class="type-signature returnType">{<a href="Plane.html">Plane</a>}</span>
+            </h4>
+        
+            
+            <div class="tag-source">
+                math/Plane.js, line 43
+            </div>
+            
+        </div>
+    </dt>
+    <dd>
+        
+        
+        <div class="description">
+            <p>Creates a new plane initialized with values from this plane</p>
+        </div>
+        
+
+        
+        
+        
+        
+        
+        
+        
+<dl class="details">
+    
+        
+    
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+</dl>
+
+        
+        
+
+        
+
+        
+        
+        
+        
+        
+        <h5>Returns:</h5>
+        
+
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Type</th>
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+    <tbody>
+    
+        <tr>
+            
+            <td class="type">
+            
+                        <a href="Plane.html">Plane</a>
+                        
+                    
+            </td>
+            <td class="description last">a new Plane</td>
+        </tr>
+    
+    </tbody>
+</table>
+
+        
+        
+        
+    </dd>
+</dl>
+        
+            
+<dl >
+    <dt>
+        <div class="nameContainer">
             <h4 class="name" id="set">
                 
                 set<span class="signature">(x, y, z, w)</span><span class="glyphicon glyphicon-circle-arrow-right"></span><span class="type-signature returnType">{<a href="Plane.html">Plane</a>}</span>
@@ -6402,7 +6659,7 @@
         
             
             <div class="tag-source">
-                math/Plane.js, line 37
+                math/Plane.js, line 54
             </div>
             
         </div>
@@ -6615,7 +6872,7 @@
         
             
             <div class="tag-source">
-                math/Plane.js, line 47
+                math/Plane.js, line 64
             </div>
             
         </div>
@@ -6714,7 +6971,7 @@
         
             
             <div class="tag-source">
-                math/Plane.js, line 59
+                math/Plane.js, line 76
             </div>
             
         </div>
@@ -6858,7 +7115,7 @@
         
             
             <div class="tag-source">
-                math/Plane.js, line 67
+                math/Plane.js, line 84
             </div>
             
         </div>
