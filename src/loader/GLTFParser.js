@@ -921,6 +921,8 @@ const GLTFParser = Class.create( /** @lends GLTFParser.prototype */ {
             return null;
         }
         const clips = {};
+        const allAnimStatesList = [];
+        const isMultiAnim = this.isMultiAnim;
         util.each(this.json.animations, (info) => {
             const animStatesList = [];
             info.channels.forEach(channel => {
@@ -945,21 +947,36 @@ const GLTFParser = Class.create( /** @lends GLTFParser.prototype */ {
                     states,
                     type: AnimationStates.getType(path)
                 });
-                animStatesList.push(animStates);
+
+                if (isMultiAnim) {
+                    animStatesList.push(animStates);
+                } else {
+                    allAnimStatesList.push(animStates);
+                }
             });
-            if (animStatesList.length) {
+
+            if (isMultiAnim && animStatesList.length) {
                 clips[info.name] = {
                     animStatesList
                 };
             }
         });
-        if (Object.keys(clips).length > 0) {
+
+        if (isMultiAnim) {
+            if (Object.keys(clips).length > 0) {
+                return new Animation({
+                    rootNode: this.node,
+                    animStatesList: Object.values(clips)[0].animStatesList,
+                    clips
+                });
+            }
+        } else if (allAnimStatesList.length) {
             return new Animation({
                 rootNode: this.node,
-                animStatesList: Object.values(clips)[0].animStatesList,
-                clips
+                animStatesList: allAnimStatesList
             });
         }
+
         return null;
     },
     parseScene() {
