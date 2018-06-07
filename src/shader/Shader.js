@@ -176,7 +176,8 @@ const Shader = Class.create( /** @lends Shader.prototype */ {
                     delete headers.POINT_LIGHTS_SMC;
                 }
 
-                header = Object.keys(headers).map(name => {
+                header = `#define SHADER_NAME ${material.className}\n`;
+                header += Object.keys(headers).map(name => {
                     return `#define HILO_${name} ${headers[name]}`;
                 }).join('\n') + '\n';
 
