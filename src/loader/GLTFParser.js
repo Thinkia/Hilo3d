@@ -920,11 +920,10 @@ const GLTFParser = Class.create( /** @lends GLTFParser.prototype */ {
         if (!this.json.animations) {
             return null;
         }
-        const clips = {};
-        const allAnimStatesList = [];
         const isMultiAnim = this.isMultiAnim;
+        const clips = {};
+        let animStatesList = [];
         util.each(this.json.animations, (info) => {
-            const animStatesList = [];
             info.channels.forEach(channel => {
                 let path = channel.target.path;
                 let nodeId = channel.target.id;
@@ -941,39 +940,30 @@ const GLTFParser = Class.create( /** @lends GLTFParser.prototype */ {
                     path = 'quaternion';
                 }
                 const animStates = new AnimationStates({
-                    interpolationType: sampler.interpolation,
+                    interpolationType: sampler.interpolation || 'LINEAR',
                     nodeName: nodeId,
                     keyTime,
                     states,
                     type: AnimationStates.getType(path)
                 });
-
-                if (isMultiAnim) {
-                    animStatesList.push(animStates);
-                } else {
-                    allAnimStatesList.push(animStates);
-                }
+                animStatesList.push(animStates);
             });
 
             if (isMultiAnim && animStatesList.length) {
                 clips[info.name] = {
                     animStatesList
                 };
+                animStatesList = [];
             }
         });
-
-        if (isMultiAnim) {
-            if (Object.keys(clips).length > 0) {
-                return new Animation({
-                    rootNode: this.node,
-                    animStatesList: Object.values(clips)[0].animStatesList,
-                    clips
-                });
-            }
-        } else if (allAnimStatesList.length) {
+        if (isMultiAnim && Object.keys(clips).length > 0) {
+            animStatesList = Object.values(clips)[0].animStatesList;
+        }
+        if (animStatesList.length) {
             return new Animation({
                 rootNode: this.node,
-                animStatesList: allAnimStatesList
+                animStatesList,
+                clips
             });
         }
 

@@ -43,7 +43,8 @@
 
         var glTFLoader = new Hilo3d.GLTFLoader();
         glTFLoader.load({
-            src: '//ossgw.alicdn.com/tmall-c3/tmx/a9bedc04da498b95c57057d6a5d29fe7.gltf'
+            src: '//ossgw.alicdn.com/tmall-c3/tmx/a9bedc04da498b95c57057d6a5d29fe7.gltf',
+            isMultiAnim:false
         }).then(function (model) {
             window.xx = model;
             stage.addChild(model.node);
@@ -108,7 +109,10 @@
         }).addTo(stage);
 
         var stats = new Stats(ticker, stage.renderer.renderInfo);
-        var orbitControls = new OrbitControls(stage);
+        var orbitControls = new OrbitControls(stage, {
+            isLockMove:true,
+            isLockZ:true
+        });
         ticker.start();
     </script>
 </body>

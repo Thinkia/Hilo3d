@@ -10,6 +10,8 @@
     uniform float u_cameraNear;
     uniform float u_cameraType;
 #elif defined(HILO_VERTEX_TYPE_DISTANCE)
+    #pragma glslify: import('./method/packFloat.glsl');
+
     uniform float u_cameraFar;
     uniform float u_cameraNear;
     varying vec3 v_fragPos;
@@ -45,12 +47,11 @@ void main(void) {
         #endif
         gl_FragColor = vec4(z, z, z, 1.0);
     #elif defined(HILO_VERTEX_TYPE_DISTANCE)
-        float distance;
+        float distance = length(v_fragPos);
         #ifdef HILO_WRITE_ORIGIN_DATA
-            distance = length(v_fragPos);
+            gl_FragColor = vec4(distance, distance, distance, 1.0);
         #else
-            distance = length(v_fragPos);
+            gl_FragColor = packFloat(distance);
         #endif
-        gl_FragColor = vec4(distance, distance, distance, 1.0);
     #endif
 }

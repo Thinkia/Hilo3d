@@ -43,7 +43,7 @@ float getShadow(samplerCube shadowMap, float bias, vec3 distanceVec, mat4 lightS
         {
             for(float z = -offset; z < offset; z +=step)
             {
-                float closestDistance = textureCube(shadowMap, direction + vec3(x, y, z)).r;
+                float closestDistance = unpackFloat(textureCube(shadowMap, direction + vec3(x, y, z)));
                 if(currentDistance - bias > closestDistance)
                     shadow += 1.0;
             }

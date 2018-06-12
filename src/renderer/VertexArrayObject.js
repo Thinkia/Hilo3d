@@ -64,6 +64,8 @@ const VertexArrayObject = Class.create( /** @lends VertexArrayObject.prototype *
             if (extensions.vao) {
                 extensions.vao.bindVertexArrayOES(null);
             }
+
+            currentVao = null;
         }
     },
 
