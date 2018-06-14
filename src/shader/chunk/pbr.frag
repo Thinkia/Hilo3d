@@ -53,124 +53,102 @@ uniform vec4 u_baseColor;
         uniform hiloSampler2D u_lightMap;
     #endif
 
+    #define M_PI 3.141592653589793
+
     // PBR Based on https://github.com/KhronosGroup/glTF-WebGL-PBR
 
+    // Encapsulate the various inputs used by the various functions in the shading equation
+    // We store values in this struct to simplify the integration of alternative implementations
+    // of the shading terms, outlined in the Readme.MD Appendix.
     struct PBRInfo
     {
-        float NdotL;
-        float NdotV;
-        float NdotH;
-        float LdotH;
-        float VdotH;
-        float roughness;
-        float metalness;
-        vec3 baseColor;
-        vec3 reflectance0;
-        vec3 reflectance90;
+        float NdotL;                  // cos angle between normal and light direction
+        float NdotV;                  // cos angle between normal and view direction
+        float NdotH;                  // cos angle between normal and half vector
+        float LdotH;                  // cos angle between light direction and half vector
+        float VdotH;                  // cos angle between view direction and half vector
+        float perceptualRoughness;    // roughness value, as authored by the model creator (input to shader)
+        float metalness;              // metallic value at the surface
+        vec3 reflectance0;            // full reflectance color (normal incidence angle)
+        vec3 reflectance90;           // reflectance color at grazing angle
+        float alphaRoughness;         // roughness mapped to a more linear change in the roughness (proposed by [2])
+        vec3 diffuseColor;            // color contribution from diffuse lighting
+        vec3 specularColor;           // color contribution from specular lighting
     };
 
-    const float c_MinRoughness = 0.04;
-
-    // The following equations model the diffuse term of the lighting equation
-    // Implementation of diffuse from "Physically-Based Shading at Disney" by Brent Burley
-    vec3 disneyDiffuse(PBRInfo pbrInputs) {
-        float f90 = 2.*pbrInputs.LdotH*pbrInputs.LdotH*pbrInputs.roughness - 0.5;
-
-        return (pbrInputs.baseColor/HILO_PI)*(1.0+f90*pow((1.0-pbrInputs.NdotL),5.0))*(1.0+f90*pow((1.0-pbrInputs.NdotV),5.0));
+    // Basic Lambertian diffuse
+    // Implementation from Lambert's Photometria https://archive.org/details/lambertsphotome00lambgoog
+    // See also [1], Equation 1
+    vec3 diffuse(PBRInfo pbrInputs) {
+        return pbrInputs.diffuseColor / M_PI;
     }
 
-    // basic Lambertian diffuse, implementation from Lambert's Photometria https://archive.org/details/lambertsphotome00lambgoog
-    vec3 lambertianDiffuse(PBRInfo pbrInputs) {
-        return pbrInputs.baseColor / HILO_PI;
-    }
-
-    // The following equations model the Fresnel reflectance term of the spec equation (aka F())
-    // implementation of fresnel from “An Inexpensive BRDF Model for Physically based Rendering” by Christophe Schlick
-    vec3 fresnelSchlick2(PBRInfo pbrInputs) {
+    // The following equation models the Fresnel reflectance term of the spec equation (aka F())
+    // Implementation of fresnel from [4], Equation 15
+    vec3 specularReflection(PBRInfo pbrInputs) {
         return pbrInputs.reflectance0 + (pbrInputs.reflectance90 - pbrInputs.reflectance0) * pow(clamp(1.0 - pbrInputs.VdotH, 0.0, 1.0), 5.0);
     }
 
-    // Simplified implementation of fresnel from “An Inexpensive BRDF Model for Physically based Rendering” by Christophe Schlick
-    vec3 fresnelSchlick(PBRInfo pbrInputs) {
-        return pbrInputs.metalness + (vec3(1.0) - pbrInputs.metalness) * pow(1.0 - pbrInputs.VdotH, 5.0);
-    }
+    // This calculates the specular geometric attenuation (aka G()),
+    // where rougher material will reflect less light back to the viewer.
+    // This implementation is based on [1] Equation 4, and we adopt their modifications to
+    // alphaRoughness as input as originally proposed in [2].
+    float geometricOcclusion(PBRInfo pbrInputs) {
+        float NdotL = pbrInputs.NdotL;
+        float NdotV = pbrInputs.NdotV;
+        float r = pbrInputs.alphaRoughness;
 
-    // The following equations model the geometric occlusion term of the spec equation  (aka G())
-    // Implementation from “A Reflectance Model for Computer Graphics” by Robert Cook and Kenneth Torrance,
-    float geometricOcclusionCookTorrance(PBRInfo pbrInputs) {
-        return min(min(2.*pbrInputs.NdotV*pbrInputs.NdotH/pbrInputs.VdotH, 2.*pbrInputs.NdotL*pbrInputs.NdotH/pbrInputs.VdotH),1.0);
-    }
-
-    // implementation of microfacet occlusion from “An Inexpensive BRDF Model for Physically based Rendering” by Christophe Schlick
-    float geometricOcclusionSchlick(PBRInfo pbrInputs) {
-        float k = pbrInputs.roughness * 0.79788; // 0.79788 = sqrt(2.0/3.1415);
-        // alternately, k can be defined with
-        // float k = (pbrInputs.roughness + 1)*(pbrInputs.roughness + 1)/8;
-
-        float l = pbrInputs.LdotH / (pbrInputs.LdotH * (1.0 - k) + k);
-        float n = pbrInputs.NdotH / (pbrInputs.NdotH * (1.0 - k) + k);
-        return l * n;
-    }
-
-    // the following Smith implementations are from “Geometrical Shadowing of a Random Rough Surface” by Bruce G. Smith
-    float geometricOcclusionSmith(PBRInfo pbrInputs) {
-        float NdotL2 = pbrInputs.NdotL * pbrInputs.NdotL;
-        float NdotV2 = pbrInputs.NdotV * pbrInputs.NdotV;
-        float v = ( -1. + sqrt ( pbrInputs.roughness * (1. - NdotL2 ) / NdotL2 + 1.)) * 0.5;
-        float l = ( -1. + sqrt ( pbrInputs.roughness * (1. - NdotV2 ) / NdotV2 + 1.)) * 0.5;
-        return (1. / max((1. + v + l ),0.000001));
-    }
-
-    float SmithG1_var2(float NdotV, float r) {
-        float tanSquared = (1.0 - NdotV * NdotV) / max((NdotV * NdotV),0.00001);
-        return 2.0 / (1.0 + sqrt(1.0 + r * r * tanSquared));
-    }
-
-    float SmithG1(float NdotV, float r) {
-        return 2.0 * NdotV / (NdotV + sqrt(r*r+(1.0-r*r)*(NdotV*NdotV)));
-    }
-
-    float geometricOcclusionSmithGGX(PBRInfo pbrInputs) {
-        return SmithG1_var2(pbrInputs.NdotL, pbrInputs.roughness) * SmithG1_var2(pbrInputs.NdotV, pbrInputs.roughness);
+        float attenuationL = 2.0 * NdotL / (NdotL + sqrt(r * r + (1.0 - r * r) * (NdotL * NdotL)));
+        float attenuationV = 2.0 * NdotV / (NdotV + sqrt(r * r + (1.0 - r * r) * (NdotV * NdotV)));
+        return attenuationL * attenuationV;
     }
 
     // The following equation(s) model the distribution of microfacet normals across the area being drawn (aka D())
-    // implementation from “Average Irregularity Representation of a Roughened Surface for Ray Reflection” by T. S. Trowbridge, and K. P. Reitz
-    float GGX(PBRInfo pbrInputs) {
-        float roughnessSq = pbrInputs.roughness*pbrInputs.roughness;
+    // Implementation from "Average Irregularity Representation of a Roughened Surface for Ray Reflection" by T. S. Trowbridge, and K. P. Reitz
+    // Follows the distribution function recommended in the SIGGRAPH 2013 course notes from EPIC Games [1], Equation 3.
+    float microfacetDistribution(PBRInfo pbrInputs) {
+        float roughnessSq = pbrInputs.alphaRoughness * pbrInputs.alphaRoughness;
         float f = (pbrInputs.NdotH * roughnessSq - pbrInputs.NdotH) * pbrInputs.NdotH + 1.0;
-        return roughnessSq / (HILO_PI * f * f);
+        return roughnessSq / (M_PI * f * f);
     }
 
-
-    vec3 calculateLo(vec3 N, vec3 V, vec3 L, float metallic, float roughness, vec3 diffuseColor, vec3 R0, vec3 R90) {
-        vec3 H = normalize(L + V);
-        float NdotL = clamp(dot(N, L), 0.001, 1.0);
-        float NdotV = abs(dot(N, V)) + 0.001;
-        float NdotH = clamp(dot(N, H), 0.0, 1.0);
-        float LdotH = clamp(dot(L, H), 0.0, 1.0);
-        float VdotH = clamp(dot(V, H), 0.0, 1.0);
-        PBRInfo pbrInputs = PBRInfo(
-            NdotL,
-            NdotV,
-            NdotH,
-            LdotH,
-            VdotH,
-            roughness,
-            metallic,
-            diffuseColor,
-            R0,
-            R90
-        );
-        vec3 F = fresnelSchlick2(pbrInputs);
-        float G = geometricOcclusionSmithGGX(pbrInputs);
-        float D = GGX(pbrInputs);
-        #ifdef HILO_LIGHT_MAP
-            vec3 diffuseContrib = vec3(.0, .0, .0);
-        #else
-            vec3 diffuseContrib = (1.0 - F) * lambertianDiffuse(pbrInputs);
+    vec3 getIBLContribution(PBRInfo pbrInputs, vec3 N, vec3 V) {
+        vec3 color = vec3(.0, .0, .0);
+        #ifdef HILO_DIFFUSE_ENV_MAP
+            vec3 diffuseLight = textureEnvMap(u_diffuseEnvMap, N).rgb;
+            color.rgb += diffuseLight * pbrInputs.diffuseColor;
         #endif
-        vec3 specContrib = F * G * D / (4.0 * NdotL * NdotV);
-        return NdotL * (diffuseContrib + specContrib);
+
+        #ifdef HILO_SPECULAR_ENV_MAP
+            vec3 R = -normalize(reflect(V, N));
+            float NdotV = pbrInputs.NdotV;
+            vec3 brdf = texture2D(u_brdfLUT, vec2(NdotV, 1.0 - pbrInputs.perceptualRoughness)).rgb;
+            #ifdef HILO_USE_TEX_LOD
+                float mipCount = 10.0; // resolution of 1024*1024
+                float lod = pbrInputs.perceptualRoughness * mipCount;
+                vec3 specularLight = textureCubeLodEXT(u_specularEnvMap, R, lod).rgb;
+            #else
+                vec3 specularLight = textureEnvMap(u_specularEnvMap, R).rgb;
+            #endif
+            color.rgb += specularLight * (pbrInputs.specularColor * brdf.x + brdf.y);
+        #endif
+        return color;
+    }
+
+    vec3 calculateLo(PBRInfo pbrInputs, vec3 N, vec3 V, vec3 L) {
+        vec3 H = normalize(L + V);
+        pbrInputs.NdotL = clamp(dot(N, L), 0.001, 1.0);
+        pbrInputs.NdotH = clamp(dot(N, H), 0.0, 1.0);
+        pbrInputs.LdotH = clamp(dot(L, H), 0.0, 1.0);
+        pbrInputs.VdotH = clamp(dot(V, H), 0.0, 1.0);
+        // Calculate the shading terms for the microfacet specular shading model
+        vec3 F = specularReflection(pbrInputs);
+        float G = geometricOcclusion(pbrInputs);
+        float D = microfacetDistribution(pbrInputs);
+
+        vec3 diffuseContrib = (1.0 - F) * diffuse(pbrInputs);
+        vec3 specContrib = F * G * D / (4.0 * pbrInputs.NdotL * pbrInputs.NdotV);
+        // Obtain final intensity as reflectance (BRDF) scaled by the energy of the light (cosine law)
+        return pbrInputs.NdotL * (diffuseContrib + specContrib);
     }
 #endif

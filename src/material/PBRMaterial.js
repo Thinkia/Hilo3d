@@ -1,6 +1,7 @@
 import Class from '../core/Class';
 import Color from '../math/Color';
 import Material from './Material';
+import capabilities from '../renderer/capabilities';
 
 /**
  * PBR材质
@@ -189,6 +190,10 @@ const PBRMaterial = Class.create( /** @lends PBRMaterial.prototype */ {
 
         if (this.isOcclusionInMetallicRoughnessMap) {
             option.IS_OCCLUSION_MAP_IN_METALLIC_ROUGHNESS_MAP = 1;
+        }
+
+        if (capabilities.SHADER_TEXTURE_LOD) {
+            option.USE_TEX_LOD = 1;
         }
 
         textureOption.update();

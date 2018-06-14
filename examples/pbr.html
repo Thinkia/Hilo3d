@@ -39,8 +39,12 @@
             bottom: './image/ny.jpg',
             front: './image/pz.jpg',
             back: './image/nz.jpg',
+            magFilter: Hilo3d.constants.LINEAR,
+            minFilter: Hilo3d.constants.LINEAR_MIPMAP_LINEAR
         },{
             src: './image/brdfLUT.png',
+            wrapS: Hilo3d.constants.CLAMP_TO_EDGE,
+            wrapT: Hilo3d.constants.CLAMP_TO_EDGE,
             type:'Texture'
         },{
             src:gltfURL
@@ -55,8 +59,6 @@
                 material.brdfLUT = brdfTexture;
                 material.diffuseEnvMap = diffuseEnvMap;
                 material.specularEnvMap = specularEnvMap;
-                material.gammaOutput = true;
-                material.gammaInput = true;
             });
 
             model.node.rotationY = 160;

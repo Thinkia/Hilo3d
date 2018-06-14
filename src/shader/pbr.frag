@@ -1,3 +1,7 @@
+#ifdef HILO_USE_TEX_LOD
+#extension GL_EXT_shader_texture_lod: enable
+#endif
+
 #pragma glslify: import('./chunk/baseDefine.glsl');
 #pragma glslify: import('./chunk/precision.frag');
 

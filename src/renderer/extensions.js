@@ -94,5 +94,6 @@ extensions.use('OES_vertex_array_object', 'vao');
 extensions.use('OES_texture_float', 'texFloat');
 extensions.use('WEBGL_lose_context', 'loseContext');
 extensions.use('OES_element_index_uint', 'uintIndices');
+extensions.use('EXT_shader_texture_lod', 'shaderTextureLod');
 
 export default extensions;

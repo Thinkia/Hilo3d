@@ -54,7 +54,8 @@ color.a = baseColor.a;
         roughness = clamp(roughness, 0.04, 1.0);
         metallic = clamp(metallic, 0.0, 1.0);
         vec3 f0 = vec3(0.04);
-        vec3 diffuseColor = mix(baseColor.rgb * (1.0 - f0), vec3(0., 0., 0.), metallic);
+        vec3 diffuseColor = baseColor.rgb * (vec3(1.0) - f0);
+        diffuseColor *= 1.0 - metallic;
         vec3 specularColor = mix(f0, baseColor.rgb, metallic);
     #endif
 
@@ -66,7 +67,21 @@ color.a = baseColor.a;
     vec3 specularEnvironmentR0 = specularColor.rgb;
     vec3 specularEnvironmentR90 = vec3(1.0, 1.0, 1.0) * reflectance90;
 
-    vec3 Lo = vec3(0.0);
+    PBRInfo pbrInputs = PBRInfo(
+        .0,
+        clamp(abs(dot(N, V)), 0.001, 1.0),
+        .0,
+        .0,
+        .0,
+        roughness,
+        metallic,
+        specularEnvironmentR0,
+        specularEnvironmentR90,
+        roughness * roughness,
+        diffuseColor,
+        specularColor
+    );
+
     #ifdef HILO_DIRECTIONAL_LIGHTS
         for(int i = 0;i < HILO_DIRECTIONAL_LIGHTS;i++){
             vec3 L = normalize(-u_directionalLightsInfo[i]);
@@ -78,8 +93,7 @@ color.a = baseColor.a;
                     shadow = getShadow(u_directionalLightsShadowMap[i], u_directionalLightsShadowMapSize[i], bias, v_fragPos, u_directionalLightSpaceMatrix[i]);
                 }
             #endif
-
-            Lo += shadow * radiance * calculateLo(N, V, L, metallic, roughness, diffuseColor, specularEnvironmentR0, specularEnvironmentR90);
+            color.rgb += ao * shadow * radiance * calculateLo(pbrInputs, N, V, L);
         }
     #endif
 
@@ -101,7 +115,7 @@ color.a = baseColor.a;
                     shadow = getShadow(u_spotLightsShadowMap[i], u_spotLightsShadowMapSize[i], bias, v_fragPos, u_spotLightSpaceMatrix[i]);
                 }
             #endif
-            Lo += shadow * radiance * calculateLo(N, V, lightDir, metallic, roughness, diffuseColor, specularEnvironmentR0, specularEnvironmentR90);
+            color.rgb += ao * shadow * radiance * calculateLo(pbrInputs, N, V, lightDir);
         }
     #endif
 
@@ -121,7 +135,7 @@ color.a = baseColor.a;
             float attenuation = getPointAttenuation(distanceVec, u_pointLightsInfo[i]);
             vec3 radiance = attenuation * u_pointLightsColor[i];
 
-            Lo += shadow * radiance * calculateLo(N, V, lightDir, metallic, roughness, diffuseColor, specularEnvironmentR0, specularEnvironmentR90);
+            color.rgb += ao * shadow * radiance * calculateLo(pbrInputs, N, V, lightDir);
         }
     #endif
 
@@ -129,18 +143,8 @@ color.a = baseColor.a;
         Lo += baseColor.rgb * HILO_TEXTURE_2D(u_lightMap).rgb;
     #endif
 
-    #ifdef HILO_DIFFUSE_ENV_MAP
-        vec3 diffuseLight = textureEnvMap(u_diffuseEnvMap, N).rgb;
-        color.rgb += ao * diffuseLight * diffuseColor;
-    #endif
-
-    #ifdef HILO_SPECULAR_ENV_MAP
-        vec3 R = -normalize(reflect(V, N));
-        float NdotV = abs(dot(N, V)) + 0.001;
-        vec3 brdf = texture2D(u_brdfLUT, vec2(NdotV, 1.0 - roughness)).rgb;
-        vec3 specularLight = textureEnvMap(u_specularEnvMap, R).rgb;
-        color.rgb += ao * specularLight * specularColor * (brdf.x + brdf.y);
-    #endif
+    // IBL
+    color.rgb += ao * getIBLContribution(pbrInputs, N, V);
 
     #if defined(HILO_AMBIENT_LIGHTS) && !defined(HILO_DIFFUSE_ENV_MAP)
         color.rgb += u_ambientLightsColor * baseColor.rgb * ao;
@@ -149,8 +153,6 @@ color.a = baseColor.a;
     #ifdef HILO_EMISSION_MAP
         color.rgb += HILO_TEXTURE_2D(u_emission).rgb;
     #endif
-
-    color.rgb += Lo * ao;
 #else
     color = baseColor;
 #endif

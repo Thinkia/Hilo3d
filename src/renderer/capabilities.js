@@ -73,6 +73,8 @@ const capabilities = {
 
         this.VERTEX_TEXTURE_FLOAT = !!extensions.texFloat && this.MAX_VERTEX_TEXTURE_IMAGE_UNITS > 0;
         this.FRAGMENT_TEXTURE_FLOAT = !!extensions.texFloat;
+
+        this.SHADER_TEXTURE_LOD = !!extensions.shaderTextureLod;
     },
     /**
      * 获取 WebGL 能力
@@ -118,9 +120,9 @@ const capabilities = {
     },
     /**
      * 获取最大支持精度
-     * @param  {String} a 
-     * @param  {String} b 
-     * @return {String}   
+     * @param  {String} a
+     * @param  {String} b
+     * @return {String}
      */
     getMaxPrecision(a, b) {
         if (a === 'highp' || (a === 'mediump' && b === 'lowp')) {
