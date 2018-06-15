@@ -11,6 +11,9 @@ Hilo3d, a WebGL Rendering Engine developed by Alibaba Group.It could help develo
 
 参见 [docs/index.html](https://hiloteam.github.io/Hilo3d/docs/index.html)
 
+### glTF 特性测试
+[glTF Feature Test](https://cx20.github.io/gltf-test/?engines=Hilo3d)
+
 ### API 样例
 
   * [Index.html](https://hiloteam.github.io/Hilo3d/docs/index.html)
