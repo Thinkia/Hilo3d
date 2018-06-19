@@ -193,7 +193,7 @@ const PBRMaterial = Class.create( /** @lends PBRMaterial.prototype */ {
         }
 
         if (capabilities.SHADER_TEXTURE_LOD) {
-            option.USE_TEX_LOD = 1;
+            option.USE_SHADER_TEXTURE_LOD = 1;
         }
 
         textureOption.update();

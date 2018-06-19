@@ -140,7 +140,7 @@ color.a = baseColor.a;
     #endif
 
     #ifdef HILO_LIGHT_MAP
-        Lo += baseColor.rgb * HILO_TEXTURE_2D(u_lightMap).rgb;
+        color.rgb += baseColor.rgb * HILO_TEXTURE_2D(u_lightMap).rgb;
     #endif
 
     // IBL

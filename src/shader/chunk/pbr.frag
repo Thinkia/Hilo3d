@@ -53,7 +53,6 @@ uniform vec4 u_baseColor;
         uniform hiloSampler2D u_lightMap;
     #endif
 
-    #define M_PI 3.141592653589793
 
     // PBR Based on https://github.com/KhronosGroup/glTF-WebGL-PBR
 
@@ -80,7 +79,7 @@ uniform vec4 u_baseColor;
     // Implementation from Lambert's Photometria https://archive.org/details/lambertsphotome00lambgoog
     // See also [1], Equation 1
     vec3 diffuse(PBRInfo pbrInputs) {
-        return pbrInputs.diffuseColor / M_PI;
+        return pbrInputs.diffuseColor * HILO_INVERSE_PI;
     }
 
     // The following equation models the Fresnel reflectance term of the spec equation (aka F())
@@ -109,7 +108,7 @@ uniform vec4 u_baseColor;
     float microfacetDistribution(PBRInfo pbrInputs) {
         float roughnessSq = pbrInputs.alphaRoughness * pbrInputs.alphaRoughness;
         float f = (pbrInputs.NdotH * roughnessSq - pbrInputs.NdotH) * pbrInputs.NdotH + 1.0;
-        return roughnessSq / (M_PI * f * f);
+        return roughnessSq * HILO_INVERSE_PI / (f * f);
     }
 
     vec3 getIBLContribution(PBRInfo pbrInputs, vec3 N, vec3 V) {
@@ -123,10 +122,10 @@ uniform vec4 u_baseColor;
             vec3 R = -normalize(reflect(V, N));
             float NdotV = pbrInputs.NdotV;
             vec3 brdf = texture2D(u_brdfLUT, vec2(NdotV, 1.0 - pbrInputs.perceptualRoughness)).rgb;
-            #ifdef HILO_USE_TEX_LOD
+            #ifdef HILO_USE_SHADER_TEXTURE_LOD
                 float mipCount = 10.0; // resolution of 1024*1024
                 float lod = pbrInputs.perceptualRoughness * mipCount;
-                vec3 specularLight = textureCubeLodEXT(u_specularEnvMap, R, lod).rgb;
+                vec3 specularLight = textureEnvMapLod(u_specularEnvMap, R, lod).rgb;
             #else
                 vec3 specularLight = textureEnvMap(u_specularEnvMap, R).rgb;
             #endif

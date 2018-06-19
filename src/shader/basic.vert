@@ -1,3 +1,4 @@
+#pragma glslify: import('./chunk/extensions.vert');
 #pragma glslify: import('./chunk/baseDefine.glsl');
 #pragma glslify: import('./chunk/precision.vert');
 

@@ -1,3 +1,4 @@
+#pragma glslify: import('./chunk/extensions.frag');
 #pragma glslify: import('./chunk/baseDefine.glsl');
 #pragma glslify: import('./chunk/precision.frag');
 
