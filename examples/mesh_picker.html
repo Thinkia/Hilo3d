@@ -8,7 +8,6 @@
 </head>
 <body>
     <div id="container"></div>
-    <!-- <script src="//g.alicdn.com/tmapp/animation-data/4.1.37/jc/tools/vconsole.min.js"></script>  -->
     <script src="../build/Hilo3d.js"></script>
     <script src="./js/stats.js"></script>
     <script src="./js/OrbitControls.js"></script>
@@ -54,12 +53,12 @@
                 
                 // render edge
                 postProcess.backBuffer.bind();
-                renderer.setupBlend(gl, transparentMaterial);
+                renderer.setupBlend(transparentMaterial);
                 postProcess.draw(postProcess.frontBuffer.texture, edgePass);
                 
                 // render screen
                 renderer.state.bindSystemFramebuffer();
-                renderer.setupBlend(gl, transparentMaterial);
+                renderer.setupBlend(transparentMaterial);
                 postProcess.backBuffer.render(0, 0, 1, 1);
             }
         });

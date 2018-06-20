@@ -27,9 +27,9 @@
 
         var loader = new Hilo3d.GLTFLoader();
         loader.load({
-            src: '//ossgw.alicdn.com/tmall-c3/tmx/a9bedc04da498b95c57057d6a5d29fe7.gltf'
+            src: '//ossgw.alicdn.com/tmall-c3/tmx/a9bedc04da498b95c57057d6a5d29fe7.gltf',
+            isMultiAnim:false
         }).then(function (model) {
-            window.xx = model;
             var box = new Hilo3d.Mesh({
                 geometry: new Hilo3d.BoxGeometry(),
                 material: new Hilo3d.BasicMaterial()

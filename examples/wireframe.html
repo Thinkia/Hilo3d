@@ -27,7 +27,8 @@
     <script>
         var loader = new Hilo3d.GLTFLoader();
         loader.load({
-            src: '//ossgw.alicdn.com/tmall-c3/tmx/f3159fe279655ea93a4447448cdcd1fd.gltf'
+            src: '//ossgw.alicdn.com/tmall-c3/tmx/f3159fe279655ea93a4447448cdcd1fd.gltf',
+            isMultiAnim:false
         }).then(function(model) {
             window.xx = model;
             model.node.setScale(0.003);
