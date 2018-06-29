@@ -145,7 +145,13 @@ uniform vec4 u_baseColor;
         float G = geometricOcclusion(pbrInputs);
         float D = microfacetDistribution(pbrInputs);
 
-        vec3 diffuseContrib = (1.0 - F) * diffuse(pbrInputs);
+        vec3 diffuseContrib;
+
+        #ifdef HILO_LIGHT_MAP
+            diffuseContrib = vec3(0.0);
+        #else
+            diffuseContrib = (1.0 - F) * diffuse(pbrInputs);
+        #endif
         vec3 specContrib = F * G * D / (4.0 * pbrInputs.NdotL * pbrInputs.NdotV);
         // Obtain final intensity as reflectance (BRDF) scaled by the energy of the light (cosine law)
         return pbrInputs.NdotL * (diffuseContrib + specContrib);

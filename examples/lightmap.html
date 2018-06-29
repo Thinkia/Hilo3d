@@ -48,6 +48,7 @@
             const lightMap = result[2];
 
             model.node.setScale(3);
+            model.node.rotationX = -60;
             model.materials.forEach(function (m) {
                 m.occlusionMap = aoMap;
                 m.lightMap = lightMap;

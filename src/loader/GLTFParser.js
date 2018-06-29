@@ -887,8 +887,8 @@ const GLTFParser = Class.create( /** @lends GLTFParser.prototype */ {
         let data = this.json.nodes[nodeName];
 
         node = new Node({
-            name: nodeName,
-            _originName: data.name
+            name: data.name,
+            animationId: nodeName
         });
 
         if ('camera' in data && this.cameras[data.camera]) {
