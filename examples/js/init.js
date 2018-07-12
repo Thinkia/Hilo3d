@@ -45,3 +45,5 @@ setTimeout(function(){
     ticker.start(true);
     gl = renderer.gl;
 }, 10);
+
+console.log('Hilo3d.version: ' + Hilo3d.version);
