@@ -1,4 +1,9 @@
 /* eslint camelcase: "off" */
+import PointLight from '../light/PointLight';
+import DirectionalLight from '../light/DirectionalLight';
+import SpotLight from '../light/SpotLight';
+import Color from '../math/Color';
+import math from '../math/math';
 
 export { default as ALI_amc_mesh_compression } from './AliAMCExtension';
 
@@ -32,9 +37,9 @@ export const WEB3D_quantized_attributes = {
         data.offset = 0;
         return data;
     },
-    parse(quantizeInfo, parser, result, isDecode) {
+    parse(quantizeInfo, parser, result, options) {
         let decodeMat = quantizeInfo.decodeMatrix;
-        if (isDecode) {
+        if (options.isDecode) {
             result = WEB3D_quantized_attributes.unQuantizeData(result, decodeMat);
         } else {
             result.decodeMat = decodeMat;
@@ -45,7 +50,7 @@ export const WEB3D_quantized_attributes = {
 
 export const HILO_animation_clips = {
     parse(animClips, parser, model) {
-        if (!model.anim) {
+        if (!model.anim || parser.isMultiAnim) {
             return model;
         }
         for (let name in animClips) {
@@ -91,5 +96,71 @@ export const KHR_materials_pbrSpecularGlossiness = {
         material.isSpecularGlossiness = true;
 
         return material;
+    }
+};
+
+export const KHR_lights_punctual = {
+    parse(info, parser, node, options) {
+        if (options.isGlobalExtension) {
+            return;
+        }
+
+        if (!parser.isUseExtension(parser.json, 'KHR_lights_punctual') || !parser.json.extensions.KHR_lights_punctual.lights) {
+            return;
+        }
+
+        const lightInfo = parser.json.extensions.KHR_lights_punctual.lights[info.light];
+
+        if (!lightInfo) {
+            return;
+        }
+
+        let light;
+        const color = new Color(1, 1, 1, 1);
+        if (lightInfo.color) {
+            color.r = lightInfo.color[0];
+            color.g = lightInfo.color[1];
+            color.b = lightInfo.color[2];
+        }
+
+        const amount = lightInfo.intensity !== undefined ? lightInfo.intensity : 1;
+        const name = lightInfo.name || '';
+        
+        // spot light
+        const spotInfo = lightInfo.spot || {};
+        const cutoff = spotInfo.innerConeAngle !== undefined ? math.radToDeg(spotInfo.innerConeAngle) : 0;
+        const outerCutoff = spotInfo.outerConeAngle !== undefined ? math.radToDeg(spotInfo.outerConeAngle) : 45;
+        
+        switch (lightInfo.type) {
+            case 'directional':
+                light = new DirectionalLight({
+                    color,
+                    amount,
+                    name
+                });
+                break;
+            case 'point':
+                light = new PointLight({
+                    color,
+                    amount,
+                    name
+                });
+                break;
+            case 'spot':
+                light = new SpotLight({
+                    color,
+                    amount,
+                    name,
+                    cutoff,
+                    outerCutoff
+                });
+                break;
+            default:
+                return;
+        }  
+
+        if (light) {
+            node.addChild(light);
+        }
     }
 };

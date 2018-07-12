@@ -156,7 +156,7 @@ const GLTFParser = Class.create( /** @lends GLTFParser.prototype */ {
     getExtensionHandler(name) {
         return this.extensionHandlers && this.extensionHandlers[name] || GLTFParser.extensionHandlers[name];
     },
-    parseExtensions(extensions, result, options) {
+    parseExtensions(extensions, result, options = {}) {
         util.each(extensions, (info, name) => {
             const extension = this.getExtensionHandler(name);
             if (extension && extension.parse) {
@@ -235,7 +235,7 @@ const GLTFParser = Class.create( /** @lends GLTFParser.prototype */ {
             return Promise.resolve();
         }
 
-        return Promise.all(Object.keys(this.json.buffers).map(key => {
+        return Promise.all(Object.keys(this.json.buffers || []).map(key => {
             let uri = util.getRelativePath(this.src, this.json.buffers[key].uri);
             return loader.loadRes(uri, 'buffer')
                 .then(buffer => {
@@ -632,7 +632,9 @@ const GLTFParser = Class.create( /** @lends GLTFParser.prototype */ {
             result = this.sparseAccessorHandler(result, accessor.sparse);
         }
 
-        result = this.parseExtensions(accessor.extensions, result, isDecode);
+        result = this.parseExtensions(accessor.extensions, result, {
+            isDecode
+        });
 
         accessor.data = result;
         if (accessor.normalized) {
@@ -886,10 +888,13 @@ const GLTFParser = Class.create( /** @lends GLTFParser.prototype */ {
         let node;
         let data = this.json.nodes[nodeName];
 
+
         node = new Node({
             name: data.name,
             animationId: nodeName
         });
+        
+        this.parseExtensions(data.extensions, node);
 
         if ('camera' in data && this.cameras[data.camera]) {
             node.addChild(this.cameras[data.camera]);
@@ -1015,10 +1020,10 @@ const GLTFParser = Class.create( /** @lends GLTFParser.prototype */ {
             anim.play();
             model.anim = anim;
         }
-
-        if (!this.isMultiAnim) {
-            this.parseExtensions(this.json.extensions, model);
-        }
+        
+        this.parseExtensions(this.json.extensions, model, {
+            isGlobalExtension: true
+        });
 
         return model;
     },
