@@ -147,13 +147,13 @@ const Material = Class.create( /** @lends Material.prototype */ {
     receiveShadows: true,
 
     /**
-     * uv transform
+     * uv transform eg:new Matrix3().fromRotationTranslationScale(Math.PI/2, 0, 0, 2, 2)
      * @type {Matrix3}
      */
     uvMatrix: null,
 
     /**
-     * uv1 transform
+     * uv1 transform eg:new Matrix3().fromRotationTranslationScale(Math.PI/2, 0, 0, 2, 2)
      * @type {Matrix3}
      */
     uvMatrix1: null,

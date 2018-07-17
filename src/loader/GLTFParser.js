@@ -499,7 +499,7 @@ const GLTFParser = Class.create( /** @lends GLTFParser.prototype */ {
                 const rotation = transformInfo.rotation || 0;
                 const scale = transformInfo.scale || [1, 1];
 
-                const uvMatrix = new Matrix3().fromRotationTranslationScale(offset[0], offset[1], scale[0], scale[1], rotation);
+                const uvMatrix = new Matrix3().fromRotationTranslationScale(rotation, offset[0], offset[1], scale[0], scale[1]);
                 if (texture.uv === 0) {
                     material.uvMatrix = uvMatrix;
                 } else if (texture.uv === 1) {
