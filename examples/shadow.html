@@ -70,7 +70,7 @@
             stage.addChild(wall);
         });
 
-        var light = new Hilo3d.SpotLight({
+        var spotLight = new Hilo3d.SpotLight({
             y: 1,
             cutoff: 20,
             outerCutoff: 24,
@@ -78,14 +78,28 @@
             direction:new Hilo3d.Vector3(0, -1, 0),
             shadow: {
                 debug: false,
+                // cameraInfo:{
+                //     fov:180,
+                //     aspect:1,
+                //     near:-2,
+                //     far:2
+                // },
                 minBias: 0.0001
             },
         }).addTo(stage);
 
-        var light = new Hilo3d.DirectionalLight({
+        var directionalLight = new Hilo3d.DirectionalLight({
             color:new Hilo3d.Color(1, 1, 1),
             direction:new Hilo3d.Vector3(-1, -1, 0),
             shadow: {
+                // cameraInfo:{
+                //     left:-2,
+                //     right:2,
+                //     near:-2,
+                //     far:2,
+                //     top:-2,
+                //     bottom:2
+                // },
                 debug: true
             },
         }).addTo(stage);
