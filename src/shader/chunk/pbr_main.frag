@@ -105,7 +105,7 @@ color.a = baseColor.a;
             float theta = dot(normalize(distanceVec), lightDir);
             float epsilon = u_spotLightsCutoffs[i][0] - u_spotLightsCutoffs[i][1];
             float intensity = clamp((theta - u_spotLightsCutoffs[i][1]) / epsilon, 0.0, 1.0);
-            float attenuation = getPointAttenuation(distanceVec, u_spotLightsInfo[i]);
+            float attenuation = getLightAttenuation(distanceVec, u_spotLightsInfo[i]);
             vec3 radiance = intensity * attenuation * u_spotLightsColor[i];
 
             float shadow = 1.0;
@@ -132,7 +132,7 @@ color.a = baseColor.a;
                 }
             #endif
 
-            float attenuation = getPointAttenuation(distanceVec, u_pointLightsInfo[i]);
+            float attenuation = getLightAttenuation(distanceVec, u_pointLightsInfo[i]);
             vec3 radiance = attenuation * u_pointLightsColor[i];
 
             color.rgb += ao * shadow * radiance * calculateLo(pbrInputs, N, V, lightDir);

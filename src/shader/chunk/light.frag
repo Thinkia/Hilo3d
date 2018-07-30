@@ -40,6 +40,6 @@
 
 #pragma glslify: import('../method/getDiffuse.glsl');
 #pragma glslify: import('../method/getSpecular.glsl');
-#pragma glslify: import('../method/getPointAttenuation.glsl');
+#pragma glslify: import('../method/getLightAttenuation.glsl');
 #pragma glslify: import('../method/unpackFloat.glsl');
 #pragma glslify: import('../method/getShadow.glsl');

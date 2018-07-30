@@ -272,7 +272,7 @@ const Texture = Class.create( /** @lends Texture.prototype */ {
         }
     },
     getGLTexture(state) {
-        const gl = state.gl;
+        const gl = this.gl = state.gl;
         const id = this.id;
 
         if (this.needDestory) {
@@ -298,13 +298,12 @@ const Texture = Class.create( /** @lends Texture.prototype */ {
     },
     /**
      * 销毁当前Texture
-     * @param {WebGL2RenderingContext} gl gl
      */
-    destroy(gl) {
+    destroy() {
         const id = this.id;
         const glTexture = cache.get(id);
-        if (glTexture) {
-            gl.deleteTexture(glTexture);
+        if (glTexture && this.gl) {
+            this.gl.deleteTexture(glTexture);
             cache.remove(id);
         }
     },

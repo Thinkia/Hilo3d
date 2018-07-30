@@ -577,7 +577,12 @@ const WebGLRenderer = Class.create( /** @lends WebGLRenderer.prototype */ {
             useVao: this.useVao,
             mode: geometry.mode
         });
+
         this.setupVao(vao, program, mesh);
+
+        mesh.useVaoResource(vao);
+        mesh.useShaderResource(shader);
+        mesh.useProgramResource(program);
 
         return {
             vao,

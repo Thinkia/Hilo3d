@@ -50,6 +50,7 @@ const Buffer = Class.create( /** @lends Buffer.prototype */ {
             }
             buffer = new Buffer(gl, target, geometryData.data, usage);
             cache.add(id, buffer);
+            geometryData.glBuffer = buffer;
             return buffer;
         },
 

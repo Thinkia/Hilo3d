@@ -57,7 +57,8 @@
                 name: 'VC',
                 notOSS: true,
                 isProgressive: false,
-                src: '../models/VC/VC.gltf'
+                src: '../models/VC/VC.gltf',
+                isMultiAnim:false
             },
             BlackDragon: {
                 name: 'BlackDragon',
@@ -153,8 +154,8 @@
         showModel(modelInfo);
         modelSelect.addEventListener('change', function () {
             location.search = '?' + modelSelect.value;
-            // showModel(glTFModels[modelSelect.value]);
         });
+
         cameraSelect.addEventListener('change', function() {
             var value = Number(cameraSelect.value);
             if (!currentModel.cameras[value]) {
@@ -166,33 +167,7 @@
 
         stage.addChild(new Hilo3d.AxisHelper({ size: 1 }));
 
-        var pointLight = new Hilo3d.PointLight({
-            color:new Hilo3d.Color(.3, .3, .3),
-            x:5,
-            y:2,
-            z:15,
-            linearAttenuation:0.03,
-            quadraticAttenuation:0.0017
-        });
-        stage.addChild(pointLight);
-
-        var blueBox = new Hilo3d.Mesh({
-            geometry: new Hilo3d.BoxGeometry(),
-            material: new Hilo3d.BasicMaterial({
-                diffuse: new Hilo3d.Color(0, 0, 1),
-                lightType:'NONE'
-            })
-        });
-        blueBox.setScale(0.1);
-        pointLight.addChild(blueBox);
-
-        Hilo3d.Tween.to(pointLight, {
-            x:-5
-        }, {
-            duration:2000,
-            loop:true,
-            reverse:true
-        });
+        ambientLight.amount = 0.8;
     </script>
 </body>
 </html>

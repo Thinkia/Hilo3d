@@ -130,20 +130,22 @@ export const KHR_lights_punctual = {
         const spotInfo = lightInfo.spot || {};
         const cutoff = spotInfo.innerConeAngle !== undefined ? math.radToDeg(spotInfo.innerConeAngle) : 0;
         const outerCutoff = spotInfo.outerConeAngle !== undefined ? math.radToDeg(spotInfo.outerConeAngle) : 45;
-        
+        const range = lightInfo.range || 0;
         switch (lightInfo.type) {
             case 'directional':
                 light = new DirectionalLight({
                     color,
                     amount,
-                    name
+                    name,
+                    range
                 });
                 break;
             case 'point':
                 light = new PointLight({
                     color,
                     amount,
-                    name
+                    name,
+                    range
                 });
                 break;
             case 'spot':
@@ -151,6 +153,7 @@ export const KHR_lights_punctual = {
                     color,
                     amount,
                     name,
+                    range,
                     cutoff,
                     outerCutoff
                 });

@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <title>Hilo3d PBR Demo</title>
+    <title>Hilo3d SphereEnvMap Demo</title>
     <link rel="stylesheet" type="text/css" href="./example.css">
 </head>
 <body>
@@ -16,7 +16,6 @@
 <script src="./js/postProcess.js"></script>
 <script>
     initModel();
-    initLight();
 
     function initModel(){
         var gltfURL = './models/BoomBox/BoomBox.gltf';
@@ -113,27 +112,6 @@
         });
     }
 
-    function initLight(){
-        ambientLight.amount = 0.03;
-
-        var pointLight = new Hilo3d.PointLight({
-            color:new Hilo3d.Color(.3, .3, .3),
-            x:5,
-            y:0,
-            z:10,
-            linearAttenuation:0.03,
-            quadraticAttenuation:0.0017
-        });
-        stage.addChild(pointLight);
-
-        Hilo3d.Tween.to(pointLight, {
-            x:-5
-        }, {
-            duration:2000,
-            loop:true,
-            reverse:true
-        });
-    }
 </script>
 </body>
 </html>

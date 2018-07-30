@@ -80,7 +80,7 @@ const Shader = Class.create( /** @lends Shader.prototype */ {
             'chunk/uv_main.vert': require('./chunk/uv_main.vert'),
 
             'method/getDiffuse.glsl': require('./method/getDiffuse.glsl'),
-            'method/getPointAttenuation.glsl': require('./method/getPointAttenuation.glsl'),
+            'method/getLightAttenuation.glsl': require('./method/getLightAttenuation.glsl'),
             'method/getShadow.glsl': require('./method/getShadow.glsl'),
             'method/getSpecular.glsl': require('./method/getSpecular.glsl'),
             'method/textureEnvMap.glsl': require('./method/textureEnvMap.glsl'),
@@ -263,8 +263,12 @@ const Shader = Class.create( /** @lends Shader.prototype */ {
          * @return {Shader}
          */
         getCustomShader(vs, fs, header, cacheKey) {
-            let shader = cache.get(cacheKey);
             const commonHeader = this.commonHeader;
+            let shader;
+            if (cacheKey !== undefined) {
+                shader = cache.get(cacheKey);
+            }
+            
             if (!shader) {
                 shader = new Shader({
                     vs: commonHeader + header + vs,
@@ -272,6 +276,7 @@ const Shader = Class.create( /** @lends Shader.prototype */ {
                 });
 
                 if (cacheKey) {
+                    shader.id = cacheKey;
                     cache.add(cacheKey, shader);
                 }
             }
@@ -287,6 +292,9 @@ const Shader = Class.create( /** @lends Shader.prototype */ {
     constructor(params) {
         this.id = math.generateUUID(this.className);
         Object.assign(this, params);
+    },
+    destroy() {
+        cache.removeObject(this);
     }
 });
 

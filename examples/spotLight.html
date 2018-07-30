@@ -3,12 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <title>Hilo3d Shadow example</title>
+    <title>Hilo3d SpotLight example</title>
     <link rel="stylesheet" type="text/css" href="./example.css">
 </head>
 <body>
     <div id="container"></div>
-    <!-- <script src="//g.alicdn.com/tmapp/animation-data/4.1.37/jc/tools/vconsole.min.js"></script> -->
     <script src="../build/Hilo3d.js"></script>
     <script src="./js/stats.js"></script>
     <script src="./js/OrbitControls.js"></script>
@@ -79,10 +78,8 @@
             color: new Hilo3d.Color(1, 0, 0),
             direction: new Hilo3d.Vector3(0.4, -1, 0),
             cutoff: 1,
-            outerCutoff: 1,
-            constantAttenuation: 0.01,
-            linearAttenuation: 0.01,
-            quadraticAttenuation: 0.01,
+            outerCutoff: 4,
+            range:100,
             onUpdate: function () {
                 light.direction.rotateY(new Hilo3d.Vector3(), 0.01)
                 light.lightShadow && light.lightShadow.updateLightCamera(stage.camera);
@@ -90,7 +87,7 @@
             shadow: {}
         }).addTo(stage);
 
-        new Hilo3d.SpotLight({
+        spotlight=new Hilo3d.SpotLight({
             x: -0,
             y: 1,
             z: 0,
@@ -98,6 +95,7 @@
             direction:new Hilo3d.Vector3(0, -1, 0),
             cutoff: 20,
             outerCutoff: 24,
+            range:20,
             shadow: {
                 // debug: true
             }

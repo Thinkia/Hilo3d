@@ -30,9 +30,18 @@
                 crossOrigin: true,
                 src: '//gw.alicdn.com/tfs/TB1Q8dQSVXXXXciXVXXXXXXXXXX-512-512.jpg'
             }),
+            mixTexture:new Hilo3d.LazyTexture({
+                crossOrigin: true,
+                src: '//ossgw.alicdn.com/tmall-c3/tmx/71c8098c62c7b9615d375b710583183f.png'
+            }),
             uniforms:{
                 u_diffuse:'DIFFUSE',
                 u_modelViewProjectionMatrix:'MODELVIEWPROJECTION',
+                u_mixTexture:{
+                    get(mesh, material, programInfo) {
+                        return Hilo3d.semantic.handlerTexture(material.mixTexture, programInfo.textureIndex);
+                    }
+                },
                 u_time:{
                     get:function(mesh, material, programInfo){
                         return mesh.time;
@@ -52,6 +61,7 @@
                 precision HILO_MAX_FRAGMENT_PRECISION float;
                 varying vec2 v_texcoord0;
                 uniform sampler2D u_diffuse;
+                uniform sampler2D u_mixTexture;
                 uniform float u_time;
                 
                 struct color{
@@ -69,7 +79,8 @@
                     float uOffset = sin(u_time * 0.0005);
                     float vOffset = cos(u_time * 0.0003);
                     vec4 diffuse = texture2D(u_diffuse, vec2(v_texcoord0.x + uOffset, v_texcoord0.y + vOffset));    
-                    gl_FragColor = vec4(diffuse.r, diffuse.g, u_light.color.b, 1);
+                    vec4 mixTexture = texture2D(u_mixTexture, v_texcoord0);    
+                    gl_FragColor = mix(vec4(diffuse.r, diffuse.g, u_light.color.b, 1), mixTexture, 0.05);
                 }
             `,
             vs:`
