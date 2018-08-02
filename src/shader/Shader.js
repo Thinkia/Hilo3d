@@ -293,8 +293,29 @@ const Shader = Class.create( /** @lends Shader.prototype */ {
         this.id = math.generateUUID(this.className);
         Object.assign(this, params);
     },
+    /**
+     * 没有被引用时销毁资源
+     * @param  {WebGLRenderer} renderer
+     * @return {Shader} this
+     */
+    destroyIfNoRef(renderer) {
+        const resourceManager = renderer.resourceManager;
+        resourceManager.destroyIfNoRef(this);
+        
+        return this;
+    },
+    /**
+     * 销毁资源
+     * @return {Shader} this
+     */
     destroy() {
+        if (this._isDestroyed) {
+            return this;
+        }
         cache.removeObject(this);
+
+        this._isDestroyed = true;
+        return this;
     }
 });
 

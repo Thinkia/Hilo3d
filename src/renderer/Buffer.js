@@ -1,5 +1,6 @@
 import Class from '../core/Class';
 import Cache from '../utils/Cache';
+import math from '../math/math';
 
 import {
     ARRAY_BUFFER,
@@ -50,7 +51,6 @@ const Buffer = Class.create( /** @lends Buffer.prototype */ {
             }
             buffer = new Buffer(gl, target, geometryData.data, usage);
             cache.add(id, buffer);
-            geometryData.glBuffer = buffer;
             return buffer;
         },
 
@@ -86,6 +86,12 @@ const Buffer = Class.create( /** @lends Buffer.prototype */ {
      * @param  {GLenum} [usage = STATIC_DRAW]  
      */
     constructor(gl, target = ARRAY_BUFFER, data, usage = STATIC_DRAW) {
+        /**
+         * id
+         * @type {String}
+         */
+        this.id = math.generateUUID(this.className);
+        
         this.gl = gl;
         /**
          * target
@@ -111,14 +117,17 @@ const Buffer = Class.create( /** @lends Buffer.prototype */ {
     },
     /**
      * 绑定
+     * @return {Buffer} this
      */
     bind() {
         this.gl.bindBuffer(this.target, this.buffer);
+        return this;
     },
     /**
      * 上传数据
      * @param  {TypedArray} data   
      * @param  {Number} [offset=0] 偏移值
+     * @return {Buffer} this
      */
     upload(data, offset = 0) {
         const {
@@ -134,14 +143,33 @@ const Buffer = Class.create( /** @lends Buffer.prototype */ {
             gl.bufferSubData(target, offset, data);
         }
         this.data = data;
+        return this;
     },
     /**
-     * 销毁
+     * 没有被引用时销毁资源
+     * @param  {WebGLRenderer} renderer
+     * @return {Buffer} this
+     */
+    destroyIfNoRef(renderer) {
+        const resourceManager = renderer.resourceManager;
+        resourceManager.destroyIfNoRef(this);
+        return this;
+    },
+    /**
+     * 销毁资源
+     * @return {Buffer} this
      */
     destroy() {
+        if (this._isDestroyed) {
+            return this;
+        }
+
         this.gl.deleteBuffer(this.buffer);
         this.data = null;
         cache.removeObject(this);
+
+        this._isDestroyed = true;
+        return this;
     }
 });
 

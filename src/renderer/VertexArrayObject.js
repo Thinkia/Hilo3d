@@ -266,6 +266,7 @@ const VertexArrayObject = Class.create( /** @lends VertexArrayObject.prototype *
      * addIndexBuffer
      * @param {GeometryData} data
      * @param {GLenum} usage gl.STATIC_DRAW|gl.DYNAMIC_DRAW
+     * @return {Buffer} Buffer
      */
     addIndexBuffer(geometryData, usage) {
         this.bind();
@@ -283,6 +284,8 @@ const VertexArrayObject = Class.create( /** @lends VertexArrayObject.prototype *
             buffer.upload(geometryData.data);
             this.vertexCount = geometryData.length;
         }
+
+        return buffer;
     },
     /**
      * addAttribute
@@ -326,7 +329,8 @@ const VertexArrayObject = Class.create( /** @lends VertexArrayObject.prototype *
      * addInstancedAttribute
      * @param {Object} attribute
      * @param {Array} meshes   
-     * @param {function} getData  
+     * @param {function} getData
+     * @return {AttributeObject} attributeObject  
      */
     addInstancedAttribute(attribute, meshes, getData) {
         this.bind();
@@ -355,12 +359,48 @@ const VertexArrayObject = Class.create( /** @lends VertexArrayObject.prototype *
             geometryData = new GeometryData(instancedData);
         }
 
-        this.addAttribute(geometryData, attribute, gl.DYNAMIC_DRAW, (attributeObject) => {
+        return this.addAttribute(geometryData, attribute, gl.DYNAMIC_DRAW, (attributeObject) => {
             attribute.divisor(1);
             attributeObject.useInstanced = true;
         });
     },
+    /**
+     * 使用了资源
+     * @param  {WebGLResourceManager} resourceManager 
+     * @param  {Mesh} mesh            
+     * @return {VertexArrayObject}                 
+     */
+    useResource(resourceManager, mesh) {
+        this.attributes.forEach((attributeObject) => {
+            resourceManager.useResource(attributeObject.buffer, mesh);
+        });
+
+        if (this.indexBuffer) {
+            resourceManager.useResource(this.indexBuffer, mesh);
+        }
+
+        return this;
+    },
+    /**
+     * 没有被引用时销毁资源
+     * @param  {WebGLRenderer} renderer
+     * @return {VertexArrayObject} this
+     */
+    destroyIfNoRef(renderer) {
+        const resourceManager = renderer.resourceManager;
+        resourceManager.destroyIfNoRef(this);
+
+        return this;
+    },
+    /**
+     * 销毁资源
+     * @return {VertexArrayObject} this
+     */
     destroy() {
+        if (this._isDestroyed) {
+            return this;
+        }
+
         if (this.useVao) {
             this.vaoExtension.deleteVertexArrayOES(this.vao);
         }
@@ -373,6 +413,9 @@ const VertexArrayObject = Class.create( /** @lends VertexArrayObject.prototype *
         this.attributes = null;
         this.activeStates = null;
         cache.removeObject(this);
+
+        this._isDestroyed = true;
+        return this;
     }
 });
 

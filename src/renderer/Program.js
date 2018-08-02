@@ -362,7 +362,26 @@ const Program = Class.create( /** @lends Program.prototype */ {
             });
         }
     },
+    /**
+     * 没有被引用时销毁资源
+     * @param  {WebGLRenderer} renderer
+     * @return {Program} this
+     */
+    destroyIfNoRef(renderer) {
+        const resourceManager = renderer.resourceManager;
+        resourceManager.destroyIfNoRef(this);
+
+        return this;
+    },
+    /**
+     * 销毁资源
+     * @return {Program} this
+     */
     destroy() {
+        if (this._isDestroyed) {
+            return this;
+        }
+
         this.gl.deleteProgram(this.program);
         this.uniforms = null;
         this.attributes = null;
@@ -371,6 +390,9 @@ const Program = Class.create( /** @lends Program.prototype */ {
         this.state = null;
         this._dict = null;
         cache.removeObject(this);
+
+        this._isDestroyed = true;
+        return this;
     }
 });
 

@@ -16,6 +16,7 @@ import extensions from './extensions';
 import capabilities from './capabilities';
 import glType from './glType';
 import WebGLState from './WebGLState';
+import WebGLResourceManager from './WebGLResourceManager';
 import LightManager from '../light/LightManager';
 import EventMixin from '../core/EventMixin';
 import Texture from '../texture/Texture';
@@ -248,6 +249,13 @@ const WebGLRenderer = Class.create( /** @lends WebGLRenderer.prototype */ {
          * @default new LightManager
          */
         this.lightManager = new LightManager();
+
+        /**
+         * 资源管理器
+         * @type {WebGLResourceManager}
+         * @default new WebGLResourceManager
+         */
+        this.resourceManager = new WebGLResourceManager();
         Object.assign(this, params);
     },
     /**
@@ -558,6 +566,7 @@ const WebGLRenderer = Class.create( /** @lends WebGLRenderer.prototype */ {
         const gl = this.gl;
         const state = this.state;
         const lightManager = this.lightManager;
+        const resourceManager = this.resourceManager;
         const geometry = mesh.geometry;
         const material = this.forceMaterial || mesh.material;
         const shader = Shader.getShader(mesh, material, useInstanced, lightManager, this.fog);
@@ -580,9 +589,7 @@ const WebGLRenderer = Class.create( /** @lends WebGLRenderer.prototype */ {
 
         this.setupVao(vao, program, mesh);
 
-        mesh.useVaoResource(vao);
-        mesh.useShaderResource(shader);
-        mesh.useProgramResource(program);
+        resourceManager.useResource(vao, mesh).useResource(shader, mesh).useResource(program, mesh);
 
         return {
             vao,
@@ -631,6 +638,7 @@ const WebGLRenderer = Class.create( /** @lends WebGLRenderer.prototype */ {
             renderList,
             renderInfo,
             lightManager,
+            resourceManager,
             state
         } = this;
 
@@ -638,6 +646,7 @@ const WebGLRenderer = Class.create( /** @lends WebGLRenderer.prototype */ {
         lightManager.reset();
         renderInfo.reset();
         renderList.reset();
+        resourceManager.reset();
 
         semantic.init(state, camera, lightManager, this.fog);
         stage.updateMatrixWorld();
@@ -683,6 +692,8 @@ const WebGLRenderer = Class.create( /** @lends WebGLRenderer.prototype */ {
         if (fireEvent) {
             this.fire('afterRender');
         }
+
+        resourceManager.destroyUnsuedResource();
     },
     /**
      * 渲染场景
