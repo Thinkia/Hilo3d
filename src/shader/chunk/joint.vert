@@ -18,18 +18,23 @@
             mat4 mat = mat4(v1, v2, v3, v4);
             return mat;
         }
+
+        mat4 getJointMat(vec4 weights, vec4 indices) {
+            mat4 mat = weights.x * getJointMat(indices.x);
+            mat += weights.y * getJointMat(indices.y);
+            mat += weights.z * getJointMat(indices.z);
+            mat += weights.w * getJointMat(indices.w);
+            return mat;
+        }
     #else
         uniform mat4 u_jointMat[HILO_JOINT_COUNT];
-        mat4 getJointMat(float index) {
-            return u_jointMat[int(index)];
+       
+        mat4 getJointMat(vec4 weights, vec4 indices) {
+            mat4 mat = weights.x * u_jointMat[int(indices.x)];
+            mat += weights.y * u_jointMat[int(indices.y)];
+            mat += weights.z * u_jointMat[int(indices.z)];
+            mat += weights.w * u_jointMat[int(indices.w)];
+            return mat;
         }
     #endif
-
-    mat4 getJointMat(vec4 weights, vec4 indices) {
-        mat4 mat = weights.x * getJointMat(indices.x);
-        mat += weights.y * getJointMat(indices.y);
-        mat += weights.z * getJointMat(indices.z);
-        mat += weights.w * getJointMat(indices.w);
-        return mat;
-    }
 #endif

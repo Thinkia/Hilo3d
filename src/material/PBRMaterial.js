@@ -181,6 +181,10 @@ const PBRMaterial = Class.create( /** @lends PBRMaterial.prototype */ {
 
         if (this.brdfLUT) {
             textureOption.add(this.specularEnvMap, 'SPECULAR_ENV_MAP');
+
+            if (capabilities.SHADER_TEXTURE_LOD && this.specularEnvMap) {
+                option.USE_SHADER_TEXTURE_LOD = 1;
+            }
         }
 
         if (this.isSpecularGlossiness) {
@@ -190,10 +194,6 @@ const PBRMaterial = Class.create( /** @lends PBRMaterial.prototype */ {
 
         if (this.isOcclusionInMetallicRoughnessMap) {
             option.IS_OCCLUSION_MAP_IN_METALLIC_ROUGHNESS_MAP = 1;
-        }
-
-        if (capabilities.SHADER_TEXTURE_LOD) {
-            option.USE_SHADER_TEXTURE_LOD = 1;
         }
 
         textureOption.update();

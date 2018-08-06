@@ -2305,6 +2305,12 @@ declare namespace hilo3d {
     getChildrenByClassName(className: string): Node[];
 
     /**
+     * 销毁 Mesh 资源
+     * @param renderer WebGLRenderer
+     */
+    destroy(renderer: WebGLRenderer): Mesh;
+    
+    /**
      * 设置元素的缩放比例
      * @param x X缩放比例
      * @param y Y缩放比例
@@ -3140,6 +3146,7 @@ declare namespace hilo3d {
      * @param params.canvas 指定canvas。
      * @param params.pixelRatio 像素密度。
      * @param params.clearColor 背景色。
+     * @param params.useLogDepth 是否使用对数深度，处理深度冲突。
      * @param params.useFramebuffer 是否使用Framebuffer，有后处理需求时需要。
      * @param params.framebufferOption framebufferOption Framebuffer的配置，useFramebuffer为true时生效。
      * @param params.alpha 是否背景透明。
@@ -3157,16 +3164,53 @@ declare namespace hilo3d {
         canvas?: HTMLCanvasElement;
         width?: number;
         height?: number;
+        /**
+         * 像素密度。
+         */
         pixelRatio?: number;
+        /**
+         * 背景色。
+         */
         clearColor?: Color;
+        /**
+         * 是否使用Framebuffer，有后处理需求时需要。
+         */
         useFramebuffer?: boolean;
-        framebufferOption?: any;
+        /**
+         * framebufferOption Framebuffer的配置，useFramebuffer为true时生效。
+         */
+        framebufferOption?: Object;
+        /**
+         * 是否使用对数深度，处理深度冲突
+         */
+        useLogDepth?: boolean;
+        /**
+         * 是否背景透明。
+         */
         alpha?: boolean;
+        /**
+         * 是否需要深度缓冲区。
+         */
         depth?: boolean;
+        /**
+         * 是否需要模版缓冲区。
+         */
         stencil?: boolean;
+        /**
+         * 是否抗锯齿。
+         */
         antialias?: boolean;
+        /**
+         * 是否需要 premultipliedAlpha。
+         */
         premultipliedAlpha?: boolean;
+        /**
+         * 是否需要 preserveDrawingBuffer。
+         */
         preserveDrawingBuffer?: boolean;
+        /**
+         * 是否需要 failIfMajorPerformanceCaveat。
+         */
         failIfMajorPerformanceCaveat?: boolean;
         fragmentPrecision?: 'highp' | 'mediump' | 'lowp';
       },
@@ -3182,6 +3226,16 @@ declare namespace hilo3d {
      * 摄像机
      */
     camera: Camera;
+
+    /**
+     * 容器
+     */
+    container: HTMLElement;
+
+    /**
+     * Canvas
+     */
+    canvas: HTMLCanvasElement;
 
     /**
      * 像素密度
@@ -3563,53 +3617,6 @@ declare namespace hilo3d {
 
   }
 
-  interface undefined_container {
-    /**
-     * 像素密度。
-     */
-    pixelRatio: number;
-    /**
-     * 背景色。
-     */
-    clearColor: Color;
-    /**
-     * 是否使用Framebuffer，有后处理需求时需要。
-     */
-    useFramebuffer: boolean;
-    /**
-     * framebufferOption Framebuffer的配置，useFramebuffer为true时生效。
-     */
-    framebufferOption: Object;
-    /**
-     * 是否背景透明。
-     */
-    alpha: boolean;
-    /**
-     * 是否需要深度缓冲区。
-     */
-    depth: boolean;
-    /**
-     * 是否需要模版缓冲区。
-     */
-    stencil: boolean;
-    /**
-     * 是否抗锯齿。
-     */
-    antialias: boolean;
-    /**
-     * 是否需要 premultipliedAlpha。
-     */
-    premultipliedAlpha: boolean;
-    /**
-     * 是否需要 preserveDrawingBuffer。
-     */
-    preserveDrawingBuffer: boolean;
-    /**
-     * 是否需要 failIfMajorPerformanceCaveat。
-     */
-    failIfMajorPerformanceCaveat: boolean;
-  }
-
   interface EaseTimeFunctions {
     EaseIn: (time: number) => number;
     EaseOut: (time: number) => number;
@@ -3618,7 +3625,7 @@ declare namespace hilo3d {
   /**
    * Ease类包含为Tween类提供各种缓动功能的函数。
    */
-  class Ease {
+  interface Ease {
 
     /**
      * 向后缓动函数。包含EaseIn、EaseOut、EaseInOut三个函数。
@@ -6942,8 +6949,12 @@ declare namespace hilo3d {
     /**
      * Node 的名字，可以通过 getChildByName 查找
      */
-    name: string;
+    name?: string;
 
+    /**
+     * 光照范围, PointLight 和 SpotLight 时生效, 0 时代表光照范围无限大。
+     */
+    range?: number;
 
     /**
      * 光常量衰减值
@@ -6990,6 +7001,11 @@ declare namespace hilo3d {
      * 光二次衰减值
      */
     quadraticAttenuation: number;
+
+    /**
+     * 光照范围, PointLight 和 SpotLight 时生效, 0 时代表光照范围无限大。
+     */
+    range: number;
 
     /**
      * 获取光信息
@@ -7332,6 +7348,11 @@ declare namespace hilo3d {
     outerCutoff?: number;
 
     /**
+     * 光照范围, PointLight 和 SpotLight 时生效, 0 时代表光照范围无限大。
+     */
+    range?: number;
+
+    /**
      * 光常量衰减值
      */
     constantAttenuation?: number;
@@ -7411,6 +7432,11 @@ declare namespace hilo3d {
      * 光二次衰减值
      */
     quadraticAttenuation: number;
+
+    /**
+     * 光照范围, PointLight 和 SpotLight 时生效, 0 时代表光照范围无限大。
+     */
+    range: number;
 
     /**
      * 光方向
@@ -9683,6 +9709,8 @@ declare namespace hilo3d {
      */
     order: string;
 
+    elements: number[];
+
     /**
      * 克隆
      */
@@ -10443,6 +10471,8 @@ declare namespace hilo3d {
     className: string;
 
     isQuaternion: boolean;
+
+    elements: number[];
 
     /**
      * Copy the values from one quat to this

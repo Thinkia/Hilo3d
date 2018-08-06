@@ -126,9 +126,10 @@ const Shader = Class.create( /** @lends Shader.prototype */ {
          * @param {Material} material 材质
          * @param {LightManager} lightManager lightManager
          * @param {Fog} fog fog
+         * @param {Boolean} useLogDepth 是否使用对数深度
          * @return {string}
          */
-        getHeaderKey(mesh, material, lightManager, fog) {
+        getHeaderKey(mesh, material, lightManager, fog, useLogDepth) {
             let headerKey = 'header_' + material.id + '_' + lightManager.lightInfo.uid;
             if (mesh.isSkinedMesh) {
                 headerKey += '_joint' + mesh.jointNames.length;
@@ -138,6 +139,10 @@ const Shader = Class.create( /** @lends Shader.prototype */ {
             }
             if (mesh.geometry.isMorphGeometry) {
                 headerKey += '_' + mesh.geometry.id;
+            }
+
+            if (useLogDepth) {
+                headerKey += '_fogDepth';
             }
             return headerKey;
         },
@@ -149,7 +154,7 @@ const Shader = Class.create( /** @lends Shader.prototype */ {
          * @param {Fog} fog
          * @return {String}
          */
-        getHeader(mesh, material, lightManager, fog) {
+        getHeader(mesh, material, lightManager, fog, useLogDepth) {
             const headerKey = this.getHeaderKey(mesh, material, lightManager, fog);
             let header = cache.get(headerKey);
             if (!header || material.isDirty) {
@@ -164,6 +169,10 @@ const Shader = Class.create( /** @lends Shader.prototype */ {
                 if (fog) {
                     headers.HAS_FOG = 1;
                     fog.getRenderOption(headers);
+                }
+
+                if (useLogDepth) {
+                    headers.USE_LOG_DEPTH = 1;
                 }
 
                 if (headers.HAS_NORMAL && headers.NORMAL_MAP) {
@@ -202,10 +211,11 @@ const Shader = Class.create( /** @lends Shader.prototype */ {
          * @param {Boolean} isUseInstance 
          * @param {LightManager} lightManager  
          * @param {Fog} fog
+         * @param {Boolean} useLogDepth
          * @return {Shader}
          */
-        getShader(mesh, material, isUseInstance, lightManager, fog) {
-            const header = this.getHeader(mesh, material, lightManager, fog);
+        getShader(mesh, material, isUseInstance, lightManager, fog, useLogDepth) {
+            const header = this.getHeader(mesh, material, lightManager, fog, useLogDepth);
 
             if (material.isBasicMaterial || material.isPBRMaterial) {
                 return this.getBasicShader(material, isUseInstance, header);

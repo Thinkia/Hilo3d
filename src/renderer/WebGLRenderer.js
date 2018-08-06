@@ -159,12 +159,20 @@ const WebGLRenderer = Class.create( /** @lends WebGLRenderer.prototype */ {
      * @default false
      */
     useFramebuffer: false,
+
     /**
      * framebuffer配置
      * @type {Object}
      * @default {}
      */
     framebufferOption: {},
+
+    /**
+     * 是否使用对数深度
+     * @type {Boolean}
+     * @default false
+     */
+    useLogDepth: false,
 
     /**
      * 顶点着色器精度, 可以是以下值：highp, mediump, lowp
@@ -569,7 +577,7 @@ const WebGLRenderer = Class.create( /** @lends WebGLRenderer.prototype */ {
         const resourceManager = this.resourceManager;
         const geometry = mesh.geometry;
         const material = this.forceMaterial || mesh.material;
-        const shader = Shader.getShader(mesh, material, useInstanced, lightManager, this.fog);
+        const shader = Shader.getShader(mesh, material, useInstanced, lightManager, this.fog, this.useLogDepth);
         const program = Program.getProgram(shader, state);
 
         program.useProgram();

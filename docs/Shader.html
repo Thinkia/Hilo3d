@@ -5582,6 +5582,8 @@
             
                 <li  data-name="WebGLRenderer#framebufferOption"><a href="WebGLRenderer.html#framebufferOption">framebufferOption</a></li>
             
+                <li  data-name="WebGLRenderer#useLogDepth"><a href="WebGLRenderer.html#useLogDepth">useLogDepth</a></li>
+            
                 <li  data-name="WebGLRenderer#vertexPrecision"><a href="WebGLRenderer.html#vertexPrecision">vertexPrecision</a></li>
             
                 <li  data-name="WebGLRenderer#fragmentPrecision"><a href="WebGLRenderer.html#fragmentPrecision">fragmentPrecision</a></li>
@@ -6856,12 +6858,12 @@
         <div class="nameContainer">
             <h4 class="name" id=".getHeaderKey">
                 
-                <span class="type-signature static">static</span>Shader.getHeaderKey<span class="signature">(mesh, material, lightManager, fog)</span><span class="glyphicon glyphicon-circle-arrow-right"></span><span class="type-signature returnType">{string}</span>
+                <span class="type-signature static">static</span>Shader.getHeaderKey<span class="signature">(mesh, material, lightManager, fog, useLogDepth)</span><span class="glyphicon glyphicon-circle-arrow-right"></span><span class="type-signature returnType">{string}</span>
             </h4>
         
             
             <div class="tag-source">
-                shader/Shader.js, line 131
+                shader/Shader.js, line 132
             </div>
             
         </div>
@@ -6990,6 +6992,29 @@
         </tr>
 	
 	
+	
+        <tr>
+            
+                <td class="name"><code>useLogDepth</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">Boolean</span>
+
+
+            
+            </td>
+            
+            
+            
+            <td class="description last">
+                
+                <p>是否使用对数深度</p></td>
+        </tr>
+	
+	
 	</tbody>
 </table>
         
@@ -7074,7 +7099,7 @@
         
             
             <div class="tag-source">
-                shader/Shader.js, line 152
+                shader/Shader.js, line 157
             </div>
             
         </div>
@@ -7282,12 +7307,12 @@
         <div class="nameContainer">
             <h4 class="name" id=".getShader">
                 
-                <span class="type-signature static">static</span>Shader.getShader<span class="signature">(mesh, material, isUseInstance, lightManager, fog)</span><span class="glyphicon glyphicon-circle-arrow-right"></span><span class="type-signature returnType">{<a href="Shader.html">Shader</a>}</span>
+                <span class="type-signature static">static</span>Shader.getShader<span class="signature">(mesh, material, isUseInstance, lightManager, fog, useLogDepth)</span><span class="glyphicon glyphicon-circle-arrow-right"></span><span class="type-signature returnType">{<a href="Shader.html">Shader</a>}</span>
             </h4>
         
             
             <div class="tag-source">
-                shader/Shader.js, line 207
+                shader/Shader.js, line 217
             </div>
             
         </div>
@@ -7439,6 +7464,29 @@
         </tr>
 	
 	
+	
+        <tr>
+            
+                <td class="name"><code>useLogDepth</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">Boolean</span>
+
+
+            
+            </td>
+            
+            
+            
+            <td class="description last">
+                
+                </td>
+        </tr>
+	
+	
 	</tbody>
 </table>
         
@@ -7523,7 +7571,7 @@
         
             
             <div class="tag-source">
-                shader/Shader.js, line 226
+                shader/Shader.js, line 236
             </div>
             
         </div>
@@ -7736,7 +7784,7 @@
         
             
             <div class="tag-source">
-                shader/Shader.js, line 265
+                shader/Shader.js, line 275
             </div>
             
         </div>
@@ -7943,7 +7991,7 @@
         
             
             <div class="tag-source">
-                shader/Shader.js, line 301
+                shader/Shader.js, line 311
             </div>
             
         </div>
@@ -8087,7 +8135,7 @@
         
             
             <div class="tag-source">
-                shader/Shader.js, line 311
+                shader/Shader.js, line 321
             </div>
             
         </div>

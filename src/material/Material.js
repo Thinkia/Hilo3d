@@ -349,6 +349,7 @@ const Material = Class.create( /** @lends Material.prototype */ {
             u_normalMatrix: 'MODELVIEWINVERSETRANSPOSE',
             u_modelViewMatrix: 'MODELVIEW',
             u_modelViewProjectionMatrix: 'MODELVIEWPROJECTION',
+            u_logDepth: 'LOGDEPTH',
 
             // light
             u_ambientLightsColor: 'AMBIENTLIGHTSCOLOR',

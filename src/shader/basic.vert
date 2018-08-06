@@ -12,7 +12,7 @@ uniform mat4 u_modelViewProjectionMatrix;
 #pragma glslify: import('./chunk/lightFog.vert');
 #pragma glslify: import('./chunk/morph.vert');
 #pragma glslify: import('./chunk/color.vert');
-
+#pragma glslify: import('./chunk/log_depth.vert');
 void main(void) {
     vec4 pos = vec4(a_position, 1.0);
     #ifdef HILO_HAS_TEXCOORD0
@@ -38,4 +38,6 @@ void main(void) {
     #pragma glslify: import('./chunk/lightFog_main.vert');
 
     gl_Position = u_modelViewProjectionMatrix * pos;
+
+    #pragma glslify: import('./chunk/log_depth_main.vert');
 }

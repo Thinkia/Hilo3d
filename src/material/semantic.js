@@ -525,6 +525,12 @@ const semantic = {
         }
     },
 
+    LOGDEPTH: {
+        get(mesh, material, programInfo) {
+            return 2.0 / ( Math.log( camera.far + 1.0 ) / Math.LN2 );
+        }
+    },
+
     // light
 
     /**
