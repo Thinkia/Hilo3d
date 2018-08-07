@@ -33,892 +33,892 @@ Canvas.getContext = function (id) {
 };
 var imgsMap = {
     "anim/anim_brand_1_baili.png":{
-        url: "http://gw.alicdn.com/tfscom/TB171l_KXXXXXb9XXXXyZI3JVXX-146-159.png",
+        url: "//gw.alicdn.com/tfscom/TB171l_KXXXXXb9XXXXyZI3JVXX-146-159.png",
         width: 146,
         height: 159
     },
     "anim/anim_brand_1_baojie.png":{
-        url: "http://gw.alicdn.com/tfscom/TB1wVycKXXXXXXWXXXX9FwrFXXX-140-60.png",
+        url: "//gw.alicdn.com/tfscom/TB1wVycKXXXXXXWXXXX9FwrFXXX-140-60.png",
         width: 140,
         height: 60
     },
     "anim/anim_brand_1_haier.png":{
-        url: "http://gw.alicdn.com/tfscom/TB16IdYKXXXXXXXXFXXeQ_2IXXX-143-108.png",
+        url: "//gw.alicdn.com/tfscom/TB16IdYKXXXXXXXXFXXeQ_2IXXX-143-108.png",
         width: 143,
         height: 108
     },
     "anim/anim_brand_1_huawei.png":{
-        url: "http://gw.alicdn.com/tfscom/TB1sPlLKXXXXXa0XVXXw82UVpXX-204-189.png",
+        url: "//gw.alicdn.com/tfscom/TB1sPlLKXXXXXa0XVXXw82UVpXX-204-189.png",
         width: 204,
         height: 189
     },
     "anim/anim_brand_1_jieke.png":{
-        url: "http://gw.alicdn.com/tfscom/TB1mkJ8KXXXXXc7XXXX5i00LVXX-152-195.png",
+        url: "//gw.alicdn.com/tfscom/TB1mkJ8KXXXXXc7XXXX5i00LVXX-152-195.png",
         width: 152,
         height: 195
     },
     "anim/anim_brand_1_lining.png":{
-        url: "http://gw.alicdn.com/tfscom/TB1Mz08KXXXXXaXXpXX4bG28VXX-83-189.png",
+        url: "//gw.alicdn.com/tfscom/TB1Mz08KXXXXXaXXpXX4bG28VXX-83-189.png",
         width: 83,
         height: 189
     },
     "anim/anim_brand_1_linshimuye.png":{
-        url: "http://gw.alicdn.com/tfscom/TB1xMxSKXXXXXaLXFXXjYqp1VXX-216-162.png",
+        url: "//gw.alicdn.com/tfscom/TB1xMxSKXXXXXaLXFXXjYqp1VXX-216-162.png",
         width: 216,
         height: 162
     },
     "anim/anim_brand_1_luolaijiafang.png":{
-        url: "http://gw.alicdn.com/tfscom/TB1HVp9KXXXXXbDXXXXcKs9GpXX-158-78.png",
+        url: "//gw.alicdn.com/tfscom/TB1HVp9KXXXXXbDXXXXcKs9GpXX-158-78.png",
         width: 158,
         height: 78
     },
     "anim/anim_brand_1_meidi.png":{
-        url: "http://gw.alicdn.com/tfscom/TB1NCSXKXXXXXaVXXXXJR4RZFXX-105-106.png",
+        url: "//gw.alicdn.com/tfscom/TB1NCSXKXXXXXaVXXXXJR4RZFXX-105-106.png",
         width: 105,
         height: 106
     },
     "anim/anim_brand_1_suning.png":{
-        url: "http://gw.alicdn.com/tfscom/TB1G.OtJVXXXXcOXpXXawpwSVXX-378-347.png",
+        url: "//gw.alicdn.com/tfscom/TB1G.OtJVXXXXcOXpXXawpwSVXX-378-347.png",
         width: 378,
         height: 347
     },
     "anim/anim_brand_1_yashilandai.png":{
-        url: "http://gw.alicdn.com/tfscom/TB1upx4KXXXXXXGXpXXu6y9FXXX-136-80.png",
+        url: "//gw.alicdn.com/tfscom/TB1upx4KXXXXXXGXpXXu6y9FXXX-136-80.png",
         width: 136,
         height: 80
     },
     "anim/anim_brand_1_zara.png":{
-        url: "http://gw.alicdn.com/tfscom/TB12HxRKXXXXXbDXFXXRrptMpXX-257-178.png",
+        url: "//gw.alicdn.com/tfscom/TB12HxRKXXXXXbDXFXXRrptMpXX-257-178.png",
         width: 257,
         height: 178
     },
     "anim/anim_brand_2_anta.png":{
-        url: "http://gw.alicdn.com/tfscom/TB1nUibKXXXXXX3XXXXfq_S9XXX-130-129.png",
+        url: "//gw.alicdn.com/tfscom/TB1nUibKXXXXXX3XXXXfq_S9XXX-130-129.png",
         width: 130,
         height: 129
     },
     "anim/anim_brand_2_changanqiche.png":{
-        url: "http://gw.alicdn.com/tfscom/TB1J5CdKXXXXXaxXXXXP6NRLVXX-152-152.png",
+        url: "//gw.alicdn.com/tfscom/TB1J5CdKXXXXXaxXXXXP6NRLVXX-152-152.png",
         width: 152,
         height: 152
     },
     "anim/anim_brand_2_costco.png":{
-        url: "http://gw.alicdn.com/tfscom/TB14D0.KXXXXXbrXXXX.eDyJFXX-89-79.png",
+        url: "//gw.alicdn.com/tfscom/TB14D0.KXXXXXbrXXXX.eDyJFXX-89-79.png",
         width: 89,
         height: 79
     },
     "anim/anim_brand_2_dafuni.png":{
-        url: "http://gw.alicdn.com/tfscom/TB1RP8TKXXXXXauXFXXIIrMHpXX-54-64.png",
+        url: "//gw.alicdn.com/tfscom/TB1RP8TKXXXXXauXFXXIIrMHpXX-54-64.png",
         width: 54,
         height: 64
     },
     "anim/anim_brand_2_defu.png":{
-        url: "http://gw.alicdn.com/tfscom/TB1k1p3KXXXXXamXpXXTTuH.pXX-124-59.png",
+        url: "//gw.alicdn.com/tfscom/TB1k1p3KXXXXXamXpXXTTuH.pXX-124-59.png",
         width: 124,
         height: 59
     },
     "anim/anim_brand_2_delsey.png":{
-        url: "http://gw.alicdn.com/tfscom/TB1.Mt3KXXXXXajXpXXYZNBIpXX-70-94.png",
+        url: "//gw.alicdn.com/tfscom/TB1.Mt3KXXXXXajXpXXYZNBIpXX-70-94.png",
         width: 70,
         height: 94
     },
     "anim/anim_brand_2_feilipu.png":{
-        url: "http://gw.alicdn.com/tfscom/TB1CmlGKXXXXXcEXVXX4lnv7FXX-78-103.png",
+        url: "//gw.alicdn.com/tfscom/TB1CmlGKXXXXXcEXVXX4lnv7FXX-78-103.png",
         width: 78,
         height: 103
     },
     "anim/anim_brand_2_fiveplus.png":{
-        url: "http://gw.alicdn.com/tfscom/TB10aBPKXXXXXXgXVXXMGaaJVXX-94-35.png",
+        url: "//gw.alicdn.com/tfscom/TB10aBPKXXXXXXgXVXXMGaaJVXX-94-35.png",
         width: 94,
         height: 35
     },
     "anim/anim_brand_2_gap.png":{
-        url: "http://gw.alicdn.com/tfscom/TB15ix2KXXXXXbXXpXXEBl8JFXX-91-55.png",
+        url: "//gw.alicdn.com/tfscom/TB15ix2KXXXXXbXXpXXEBl8JFXX-91-55.png",
         width: 91,
         height: 55
     },
     "anim/anim_brand_2_gujiajiajv.png":{
-        url: "http://gw.alicdn.com/tfscom/TB1rcVZKXXXXXXjXFXXP6NRLVXX-152-152.png",
+        url: "//gw.alicdn.com/tfscom/TB1rcVZKXXXXXXjXFXXP6NRLVXX-152-152.png",
         width: 152,
         height: 152
     },
     "anim/anim_brand_2_hailanzhijia.png":{
-        url: "http://gw.alicdn.com/tfscom/TB1OudPKXXXXXc_XFXXl3_uJFXX-89-61.png",
+        url: "//gw.alicdn.com/tfscom/TB1OudPKXXXXXc_XFXXl3_uJFXX-89-61.png",
         width: 89,
         height: 61
     },
     "anim/anim_brand_2_haixin.png":{
-        url: "http://gw.alicdn.com/tfscom/TB1a40FKXXXXXXxXpXXnxJtIpXX-67-52.png",
+        url: "//gw.alicdn.com/tfscom/TB1a40FKXXXXXXxXpXXnxJtIpXX-67-52.png",
         width: 67,
         height: 52
     },
     "anim/anim_brand_2_handuyishe.png":{
-        url: "http://gw.alicdn.com/tfscom/TB1empnKXXXXXcPXFXX2gGnHpXX-53-58.png",
+        url: "//gw.alicdn.com/tfscom/TB1empnKXXXXXcPXFXX2gGnHpXX-53-58.png",
         width: 53,
         height: 58
     },
     "anim/anim_brand_2_haoqi.png":{
-        url: "http://gw.alicdn.com/tfscom/TB1GHN9KXXXXXcsXXXXcgZpFXXX-137-48.png",
+        url: "//gw.alicdn.com/tfscom/TB1GHN9KXXXXXcsXXXXcgZpFXXX-137-48.png",
         width: 137,
         height: 48
     },
     "anim/anim_brand_2_laxiabeier.png":{
-        url: "http://gw.alicdn.com/tfscom/TB16BRUKXXXXXadXFXXXRnN9XXX-127-106.png",
+        url: "//gw.alicdn.com/tfscom/TB16BRUKXXXXXadXFXXXRnN9XXX-127-106.png",
         width: 127,
         height: 106
     },
     "anim/anim_brand_2_lianhelihua.png":{
-        url: "http://gw.alicdn.com/tfscom/TB1DHydKXXXXXXtXXXX2KYBJVXX-95-54.png",
+        url: "//gw.alicdn.com/tfscom/TB1DHydKXXXXXXtXXXX2KYBJVXX-95-54.png",
         width: 95,
         height: 54
     },
     "anim/anim_brand_2_lianxiang.png":{
-        url: "http://gw.alicdn.com/tfscom/TB1PGBYKXXXXXc6XpXXZQ9AHFXX-56-88.png",
+        url: "//gw.alicdn.com/tfscom/TB1PGBYKXXXXXc6XpXXZQ9AHFXX-56-88.png",
         width: 56,
         height: 88
     },
     "anim/anim_brand_2_mannifen.png":{
-        url: "http://gw.alicdn.com/tfscom/TB1_Bh3KXXXXXaNXpXXWb47_XXX-103-61.png",
+        url: "//gw.alicdn.com/tfscom/TB1_Bh3KXXXXXaNXpXXWb47_XXX-103-61.png",
         width: 103,
         height: 61
     },
     "anim/anim_brand_2_meizu.png":{
-        url: "http://gw.alicdn.com/tfscom/TB1YRBHKXXXXXXnXFXXksXbHVXX-61-36.png",
+        url: "//gw.alicdn.com/tfscom/TB1YRBHKXXXXXXnXFXXksXbHVXX-61-36.png",
         width: 61,
         height: 36
     },
     "anim/anim_brand_2_oulaiya.png":{
-        url: "http://gw.alicdn.com/tfscom/TB1Ts8WKXXXXXXiXFXXPd34HXXX-49-71.png",
+        url: "//gw.alicdn.com/tfscom/TB1Ts8WKXXXXXXiXFXXPd34HXXX-49-71.png",
         width: 49,
         height: 71
     },
     "anim/anim_brand_2_oupuzhaoming.png":{
-        url: "http://gw.alicdn.com/tfscom/TB1EnJZKXXXXXcVXpXX97.QFVXX-152-71.png",
+        url: "//gw.alicdn.com/tfscom/TB1EnJZKXXXXXcVXpXX97.QFVXX-152-71.png",
         width: 152,
         height: 71
     },
     "anim/anim_brand_2_qianbi.png":{
-        url: "http://gw.alicdn.com/tfscom/TB11gXJKXXXXXcXXXXXhhgoGXXX-34-17.png",
+        url: "//gw.alicdn.com/tfscom/TB11gXJKXXXXXcXXXXXhhgoGXXX-34-17.png",
         width: 34,
         height: 17
     },
     "anim/anim_brand_2_quanyoujiajv.png":{
-        url: "http://gw.alicdn.com/tfscom/TB1JmBNKXXXXXbmXpXXGtgUJFXX-93-68.png",
+        url: "//gw.alicdn.com/tfscom/TB1JmBNKXXXXXbmXpXXGtgUJFXX-93-68.png",
         width: 93,
         height: 68
     },
     "anim/anim_brand_2_shihuakou.png":{
-        url: "http://gw.alicdn.com/tfscom/TB17Fh2KXXXXXbCXpXXdFzKKXXX-98-60.png",
+        url: "//gw.alicdn.com/tfscom/TB17Fh2KXXXXXbCXpXXdFzKKXXX-98-60.png",
         width: 98,
         height: 60
     },
     "anim/anim_brand_2_shuixingjiafang.png":{
-        url: "http://gw.alicdn.com/tfscom/TB1xEpNKXXXXXcLXFXXP6NRLVXX-152-152.png",
+        url: "//gw.alicdn.com/tfscom/TB1xEpNKXXXXXcLXFXXP6NRLVXX-152-152.png",
         width: 152,
         height: 152
     },
     "anim/anim_brand_2_tcl.png":{
-        url: "http://gw.alicdn.com/tfscom/TB1SNBWKXXXXXaPXFXXP6NRLVXX-152-152.png",
+        url: "//gw.alicdn.com/tfscom/TB1SNBWKXXXXXaPXFXXP6NRLVXX-152-152.png",
         width: 152,
         height: 152
     },
     "anim/anim_brand_2_xiaomi.png":{
-        url: "http://gw.alicdn.com/tfscom/TB1yH0DKXXXXXbpXFXXKEF.GVXX-44-66.png",
+        url: "//gw.alicdn.com/tfscom/TB1yH0DKXXXXXbpXFXXKEF.GVXX-44-66.png",
         width: 44,
         height: 66
     },
     "anim/anim_brand_2_zhoudafu.png":{
-        url: "http://gw.alicdn.com/tfscom/TB1M8lSKXXXXXbJXFXXrDKYIpXX-68-86.png",
+        url: "//gw.alicdn.com/tfscom/TB1M8lSKXXXXXbJXFXXrDKYIpXX-68-86.png",
         width: 68,
         height: 86
     },
     "anim/anim_country_aodaliya.png":{
-        url: "http://gw.alicdn.com/tfscom/TB1xf4yKXXXXXXiXFXXppEgIpXX-69-65.png",
+        url: "//gw.alicdn.com/tfscom/TB1xf4yKXXXXXXiXFXXppEgIpXX-69-65.png",
         width: 69,
         height: 65
     },
     "anim/anim_country_deguo.png":{
-        url: "http://gw.alicdn.com/tfscom/TB1HgB5KXXXXXasXpXXJSE5HXXX-52-77.png",
+        url: "//gw.alicdn.com/tfscom/TB1HgB5KXXXXXasXpXXJSE5HXXX-52-77.png",
         width: 52,
         height: 77
     },
     "anim/anim_country_faguo.png":{
-        url: "http://gw.alicdn.com/tfscom/TB1fHFZKXXXXXcSXpXXXpMd.FXX-128-70.png",
+        url: "//gw.alicdn.com/tfscom/TB1fHFZKXXXXXcSXpXXXpMd.FXX-128-70.png",
         width: 128,
         height: 70
     },
     "anim/anim_country_hanguo.png":{
-        url: "http://gw.alicdn.com/tfscom/TB18Zd1KXXXXXbeXpXXVtF2GFXX-38-56.png",
+        url: "//gw.alicdn.com/tfscom/TB18Zd1KXXXXXbeXpXXVtF2GFXX-38-56.png",
         width: 38,
         height: 56
     },
     "anim/anim_country_meiguo.png":{
-        url: "http://gw.alicdn.com/tfscom/TB1x6pQKXXXXXcXXFXXnIBmHVXX-58-97.png",
+        url: "//gw.alicdn.com/tfscom/TB1x6pQKXXXXXcXXFXXnIBmHVXX-58-97.png",
         width: 58,
         height: 97
     },
     "anim/anim_country_riben.png":{
-        url: "http://gw.alicdn.com/tfscom/TB1VdNNKXXXXXb9XFXXBMVBIpXX-67-95.png",
+        url: "//gw.alicdn.com/tfscom/TB1VdNNKXXXXXb9XFXXBMVBIpXX-67-95.png",
         width: 67,
         height: 95
     },
     "anim/anim_country_taiguo.png":{
-        url: "http://gw.alicdn.com/tfscom/TB14jFjKXXXXXbMXVXX0ljnGFXX-39-61.png",
+        url: "//gw.alicdn.com/tfscom/TB14jFjKXXXXXbMXVXX0ljnGFXX-39-61.png",
         width: 39,
         height: 61
     },
     "anim/anim_country_taiwan.png":{
-        url: "http://gw.alicdn.com/tfscom/TB1ed8SKXXXXXbsXFXXx57jIpXX-72-85.png",
+        url: "//gw.alicdn.com/tfscom/TB1ed8SKXXXXXbsXFXXx57jIpXX-72-85.png",
         width: 72,
         height: 85
     },
     "anim/anim_country_xinxilan.png":{
-        url: "http://gw.alicdn.com/tfscom/TB1cb83KXXXXXbhXpXXyQZBFpXX-143-74.png",
+        url: "//gw.alicdn.com/tfscom/TB1cb83KXXXXXbhXpXXyQZBFpXX-143-74.png",
         width: 143,
         height: 74
     },
     "anim/anim_country_yidali.png":{
-        url: "http://gw.alicdn.com/tfscom/TB1CXObKXXXXXajXXXXIIeZ.VXX-133-64.png",
+        url: "//gw.alicdn.com/tfscom/TB1CXObKXXXXXajXXXXIIeZ.VXX-133-64.png",
         width: 133,
         height: 64
     },
     "anim/anim_country_yingguo.png":{
-        url: "http://gw.alicdn.com/tfscom/TB1xU41KXXXXXbyXpXXJJBtIpXX-67-51.png",
+        url: "//gw.alicdn.com/tfscom/TB1xU41KXXXXXbyXpXXJJBtIpXX-67-51.png",
         width: 67,
         height: 51
     },
     "anim/anim_entry_baihuo.png":{
-        url: "http://gw.alicdn.com/tfscom/TB1EKVQKXXXXXaTXFXX9FwrFXXX-137-57.png",
+        url: "//gw.alicdn.com/tfscom/TB1EKVQKXXXXXaTXFXX9FwrFXXX-137-57.png",
         width: 137,
         height: 57
     },
     "anim/anim_entry_center.png":{
-        url: "http://gw.alicdn.com/tfscom/TB15ToqKXXXXXaFXXXX5q5AKFXX-150-141.png",
+        url: "//gw.alicdn.com/tfscom/TB15ToqKXXXXXaFXXXX5q5AKFXX-150-141.png",
         width: 150,
         height: 141
     },
     "anim/anim_entry_chaoshi.png":{
-        url: "http://gw.alicdn.com/tfscom/TB1UyJ5KXXXXXajXpXXLCaQ.FXX-127-66.png",
+        url: "//gw.alicdn.com/tfscom/TB1UyJ5KXXXXXajXpXXLCaQ.FXX-127-66.png",
         width: 127,
         height: 66
     },
     "anim/anim_entry_dianqi.png":{
-        url: "http://gw.alicdn.com/tfscom/TB1.RxQKXXXXXb9XFXX6MrY.XXX-122-60.png",
+        url: "//gw.alicdn.com/tfscom/TB1.RxQKXXXXXb9XFXX6MrY.XXX-122-60.png",
         width: 122,
         height: 60
     },
     "anim/anim_entry_fushi.png":{
-        url: "http://gw.alicdn.com/tfscom/TB1l.B1KXXXXXbJXpXXCn3L_VXX-133-145.png",
+        url: "//gw.alicdn.com/tfscom/TB1l.B1KXXXXXbJXpXXCn3L_VXX-133-145.png",
         width: 133,
         height: 145
     },
     "anim/anim_entry_guoji.png":{
-        url: "http://gw.alicdn.com/tfscom/TB1CdRWKXXXXXXhXFXXxiJ19VXX-100-73.png",
+        url: "//gw.alicdn.com/tfscom/TB1CdRWKXXXXXXhXFXXxiJ19VXX-100-73.png",
         width: 100,
         height: 73
     },
     "anim/anim_entry_huabei.png":{
-        url: "http://gw.alicdn.com/tfscom/TB1Rb4ZKXXXXXc4XpXXlOLoJFXX-92-26.png",
+        url: "//gw.alicdn.com/tfscom/TB1Rb4ZKXXXXXc4XpXXlOLoJFXX-92-26.png",
         width: 92,
         height: 26
     },
     "anim/anim_entry_jiazhuang.png":{
-        url: "http://gw.alicdn.com/tfscom/TB1HHJ0KXXXXXbHXpXXVEecJFXX-91-95.png",
+        url: "//gw.alicdn.com/tfscom/TB1HHJ0KXXXXXbHXpXXVEecJFXX-91-95.png",
         width: 91,
         height: 95
     },
     "anim/anim_entry_qiche.png":{
-        url: "http://gw.alicdn.com/tfscom/TB1zlt1KXXXXXbdXpXXw8WwGVXX-165-51.png",
+        url: "//gw.alicdn.com/tfscom/TB1zlt1KXXXXXbdXpXXw8WwGVXX-165-51.png",
         width: 165,
         height: 51
     },
     "anim/anim_entry_qingdan.png":{
-        url: "http://gw.alicdn.com/tfscom/TB1fBNEKXXXXXXVXpXXPd34HXXX-52-68.png",
+        url: "//gw.alicdn.com/tfscom/TB1fBNEKXXXXXXVXpXXPd34HXXX-52-68.png",
         width: 52,
         height: 68
     },
     "anim/anim_entry_qua.png":{
-        url: "http://gw.alicdn.com/tfscom/TB1szRNKXXXXXazXXXXYpNwIFXX-73-19.png",
+        url: "//gw.alicdn.com/tfscom/TB1szRNKXXXXXazXXXXYpNwIFXX-73-19.png",
         width: 73,
         height: 19
     },
     "anim/anim_entry_shishang.png":{
-        url: "http://gw.alicdn.com/tfscom/TB1dktHKXXXXXciXVXXszjdGpXX-137-137.png",
+        url: "//gw.alicdn.com/tfscom/TB1dktHKXXXXXciXVXXszjdGpXX-137-137.png",
         width: 137,
         height: 137
     },
     "anim/anim_entry_yiyao.png":{
-        url: "http://gw.alicdn.com/tfscom/TB10qFmKXXXXXXWXVXXQtyQIXXX-65-90.png",
+        url: "//gw.alicdn.com/tfscom/TB10qFmKXXXXXXWXVXXQtyQIXXX-65-90.png",
         width: 65,
         height: 90
     },
     "brand/brand_2_anta.png":{
-        url: "http://gw.alicdn.com/tfscom/TB1QjpVKXXXXXXMXFXXmEgRYXXX-210-254.png",
+        url: "//gw.alicdn.com/tfscom/TB1QjpVKXXXXXXMXFXXmEgRYXXX-210-254.png",
         width: 210,
         height: 254
     },
     "brand/brand_2_changanqiche.png":{
-        url: "http://gw.alicdn.com/tfscom/TB1Px0RKXXXXXcTXFXXpbZRYXXX-210-251.png",
+        url: "//gw.alicdn.com/tfscom/TB1Px0RKXXXXXcTXFXXpbZRYXXX-210-251.png",
         width: 210,
         height: 251
     },
     "brand/brand_2_costco.png":{
-        url: "http://gw.alicdn.com/tfscom/TB1MYacKXXXXXXZXXXXF3sSYXXX-210-256.png",
+        url: "//gw.alicdn.com/tfscom/TB1MYacKXXXXXXZXXXXF3sSYXXX-210-256.png",
         width: 210,
         height: 256
     },
     "brand/brand_2_dafuni.png":{
-        url: "http://gw.alicdn.com/tfscom/TB1yS0NKXXXXXaWXVXX8PIQYXXX-210-246.png",
+        url: "//gw.alicdn.com/tfscom/TB1yS0NKXXXXXaWXVXX8PIQYXXX-210-246.png",
         width: 210,
         height: 246
     },
     "brand/brand_2_defu.png":{
-        url: "http://gw.alicdn.com/tfscom/TB1rYkPJVXXXXaRXpXXF3sSYXXX-210-256.png",
+        url: "//gw.alicdn.com/tfscom/TB1rYkPJVXXXXaRXpXXF3sSYXXX-210-256.png",
         width: 210,
         height: 256
     },
     "brand/brand_2_delsey.png":{
-        url: "http://gw.alicdn.com/tfscom/TB1UIx_KXXXXXcjXXXXuPkPYXXX-210-242.png",
+        url: "//gw.alicdn.com/tfscom/TB1UIx_KXXXXXcjXXXXuPkPYXXX-210-242.png",
         width: 210,
         height: 242
     },
     "brand/brand_2_feilipu.png":{
-        url: "http://gw.alicdn.com/tfscom/TB1tUoPJVXXXXanXpXX523RYXXX-210-252.png",
+        url: "//gw.alicdn.com/tfscom/TB1tUoPJVXXXXanXpXX523RYXXX-210-252.png",
         width: 210,
         height: 252
     },
     "brand/brand_2_fiveplus.png":{
-        url: "http://gw.alicdn.com/tfscom/TB1PUdVKXXXXXXwXFXXLDQQYXXX-210-247.png",
+        url: "//gw.alicdn.com/tfscom/TB1PUdVKXXXXXXwXFXXLDQQYXXX-210-247.png",
         width: 210,
         height: 247
     },
     "brand/brand_2_gap.png":{
-        url: "http://gw.alicdn.com/tfscom/TB1zCFCKpXXXXXSXFXXxC3OYXXX-210-236.png",
+        url: "//gw.alicdn.com/tfscom/TB1zCFCKpXXXXXSXFXXxC3OYXXX-210-236.png",
         width: 210,
         height: 236
     },
     "brand/brand_2_gujiajiajv.png":{
-        url: "http://gw.alicdn.com/tfscom/TB1WHEyJVXXXXalXVXXxC3OYXXX-210-236.png",
+        url: "//gw.alicdn.com/tfscom/TB1WHEyJVXXXXalXVXXxC3OYXXX-210-236.png",
         width: 210,
         height: 236
     },
     "brand/brand_2_hailanzhijia.png":{
-        url: "http://gw.alicdn.com/tfscom/TB1P10VKXXXXXX9XFXX523RYXXX-210-252.png",
+        url: "//gw.alicdn.com/tfscom/TB1P10VKXXXXXX9XFXX523RYXXX-210-252.png",
         width: 210,
         height: 252
     },
     "brand/brand_2_haixin.png":{
-        url: "http://gw.alicdn.com/tfscom/TB1Io1bKXXXXXXUXXXXF3sSYXXX-210-256.png",
+        url: "//gw.alicdn.com/tfscom/TB1Io1bKXXXXXXUXXXXF3sSYXXX-210-256.png",
         width: 210,
         height: 256
     },
     "brand/brand_2_handuyishe.png":{
-        url: "http://gw.alicdn.com/tfscom/TB1XPIYJVXXXXboXXXXuPkPYXXX-210-242.png",
+        url: "//gw.alicdn.com/tfscom/TB1XPIYJVXXXXboXXXXuPkPYXXX-210-242.png",
         width: 210,
         height: 242
     },
     "brand/brand_2_haoqi.png":{
-        url: "http://gw.alicdn.com/tfscom/TB1xiVPKXXXXXcDXFXXC1oNYXXX-210-230.png",
+        url: "//gw.alicdn.com/tfscom/TB1xiVPKXXXXXcDXFXXC1oNYXXX-210-230.png",
         width: 210,
         height: 230
     },
     "brand/brand_2_laxiabeier.png":{
-        url: "http://gw.alicdn.com/tfscom/TB1JD0OKXXXXXcXXFXXpbZRYXXX-210-248.png",
+        url: "//gw.alicdn.com/tfscom/TB1JD0OKXXXXXcXXFXXpbZRYXXX-210-248.png",
         width: 210,
         height: 248
     },
     "brand/brand_2_lianhelihua.png":{
-        url: "http://gw.alicdn.com/tfscom/TB1O.t7KXXXXXXvXpXXIP.RYXXX-210-253.png",
+        url: "//gw.alicdn.com/tfscom/TB1O.t7KXXXXXXvXpXXIP.RYXXX-210-253.png",
         width: 210,
         height: 253
     },
     "brand/brand_2_lianxiang.png":{
-        url: "http://gw.alicdn.com/tfscom/TB1VGEDJVXXXXb8XFXXpbZRYXXX-210-251.png",
+        url: "//gw.alicdn.com/tfscom/TB1VGEDJVXXXXb8XFXXpbZRYXXX-210-251.png",
         width: 210,
         height: 251
     },
     "brand/brand_2_mannifen.png":{
-        url: "http://gw.alicdn.com/tfscom/TB1Pdd9KXXXXXcIXXXXIP.RYXXX-210-253.png",
+        url: "//gw.alicdn.com/tfscom/TB1Pdd9KXXXXXcIXXXXIP.RYXXX-210-253.png",
         width: 210,
         height: 253
     },
     "brand/brand_2_meizu.png":{
-        url: "http://gw.alicdn.com/tfscom/TB1.GsFKXXXXXaWXFXXd1QOYXXX-210-234.png",
+        url: "//gw.alicdn.com/tfscom/TB1.GsFKXXXXXaWXFXXd1QOYXXX-210-234.png",
         width: 210,
         height: 234
     },
     "brand/brand_2_oulaiya.png":{
-        url: "http://gw.alicdn.com/tfscom/TB1d.cPJVXXXXarXpXXF3sSYXXX-210-256.png",
+        url: "//gw.alicdn.com/tfscom/TB1d.cPJVXXXXarXpXXF3sSYXXX-210-256.png",
         width: 210,
         height: 256
     },
     "brand/brand_2_oupuzhaoming.png":{
-        url: "http://gw.alicdn.com/tfscom/TB11W8IKpXXXXboXpXXF3sSYXXX-210-256.png",
+        url: "//gw.alicdn.com/tfscom/TB11W8IKpXXXXboXpXXF3sSYXXX-210-256.png",
         width: 210,
         height: 256
     },
     "brand/brand_2_qianbi.png":{
-        url: "http://gw.alicdn.com/tfscom/TB1WoNAKpXXXXaXXFXXIP.RYXXX-210-253.png",
+        url: "//gw.alicdn.com/tfscom/TB1WoNAKpXXXXaXXFXXIP.RYXXX-210-253.png",
         width: 210,
         height: 253
     },
     "brand/brand_2_quanyoujiajv.png":{
-        url: "http://gw.alicdn.com/tfscom/TB1r1tOKXXXXXXvXVXXTOUOYXXX-210-235.png",
+        url: "//gw.alicdn.com/tfscom/TB1r1tOKXXXXXXvXVXXTOUOYXXX-210-235.png",
         width: 210,
         height: 235
     },
     "brand/brand_2_shihuakou.png":{
-        url: "http://gw.alicdn.com/tfscom/TB1Nm8NKXXXXXXvXVXXF3sSYXXX-210-256.png",
+        url: "//gw.alicdn.com/tfscom/TB1Nm8NKXXXXXXvXVXXF3sSYXXX-210-256.png",
         width: 210,
         height: 256
     },
     "brand/brand_2_shuixingjiafang.png":{
-        url: "http://gw.alicdn.com/tfscom/TB1cX0LKXXXXXX5XVXX3ckSYXXX-210-255.png",
+        url: "//gw.alicdn.com/tfscom/TB1cX0LKXXXXXX5XVXX3ckSYXXX-210-255.png",
         width: 210,
         height: 255
     },
     "brand/brand_2_tcl.png":{
-        url: "http://gw.alicdn.com/tfscom/TB1AmstJVXXXXbBXVXXr2EQYXXX-210-245.png",
+        url: "//gw.alicdn.com/tfscom/TB1AmstJVXXXXbBXVXXr2EQYXXX-210-245.png",
         width: 210,
         height: 245
     },
     "brand/brand_2_xiaomi.png":{
-        url: "http://gw.alicdn.com/tfscom/TB1ORl_KXXXXXbLXXXXg3UTYXXX-210-263.png",
+        url: "//gw.alicdn.com/tfscom/TB1ORl_KXXXXXbLXXXXg3UTYXXX-210-263.png",
         width: 210,
         height: 263
     },
     "brand/brand_2_zhoudafu.png":{
-        url: "http://gw.alicdn.com/tfscom/TB1QLUFJVXXXXbaXFXXF3sSYXXX-210-256.png",
+        url: "//gw.alicdn.com/tfscom/TB1QLUFJVXXXXbaXFXXF3sSYXXX-210-256.png",
         width: 210,
         height: 256
     },
     "map/101.png":{
-        url: "http://gw.alicdn.com/tfscom/TB1rMWDJVXXXXckXXXXBScZ7XXX-231-148.png",
+        url: "//gw.alicdn.com/tfscom/TB1rMWDJVXXXXckXXXXBScZ7XXX-231-148.png",
         width: 231,
         height: 148
     },
     "map/102.png":{
-        url: "http://gw.alicdn.com/tfscom/TB1UNOhJVXXXXbBXVXXryUEYXXX-210-148.png",
+        url: "//gw.alicdn.com/tfscom/TB1UNOhJVXXXXbBXVXXryUEYXXX-210-148.png",
         width: 210,
         height: 148
     },
     "map/brand_1_baili.png":{
-        url: "http://gw.alicdn.com/tfscom/TB1kCp3KXXXXXbNXpXXQ2cPYXXX-210-241.png",
+        url: "//gw.alicdn.com/tfscom/TB1kCp3KXXXXXbNXpXXQ2cPYXXX-210-241.png",
         width: 210,
         height: 241
     },
     "map/brand_1_baojie.png":{
-        url: "http://gw.alicdn.com/tfscom/TB1X73PKXXXXXXmaXXXWCANYXXX-210-229.png",
+        url: "//gw.alicdn.com/tfscom/TB1X73PKXXXXXXmaXXXWCANYXXX-210-229.png",
         width: 210,
         height: 229
     },
     "map/brand_1_haier.png":{
-        url: "http://gw.alicdn.com/tfscom/TB18uN7KXXXXXXAXpXXF3sSYXXX-210-256.png",
+        url: "//gw.alicdn.com/tfscom/TB18uN7KXXXXXXAXpXXF3sSYXXX-210-256.png",
         width: 210,
         height: 256
     },
     "map/brand_1_huawei.png":{
-        url: "http://gw.alicdn.com/tfscom/TB1dQk2JVXXXXXJXXXXpbZRYXXX-210-248.png",
+        url: "//gw.alicdn.com/tfscom/TB1dQk2JVXXXXXJXXXXpbZRYXXX-210-248.png",
         width: 210,
         height: 248
     },
     "map/brand_1_jieke.png":{
-        url: "http://gw.alicdn.com/tfscom/TB1cjcGJVXXXXbcXFXXIP.RYXXX-210-253.png",
+        url: "//gw.alicdn.com/tfscom/TB1cjcGJVXXXXbcXFXXIP.RYXXX-210-253.png",
         width: 210,
         height: 253
     },
     "map/brand_1_lining.png":{
-        url: "http://gw.alicdn.com/tfscom/TB12QwSKXXXXXX5aXXXmEgRYXXX-210-254.png",
+        url: "//gw.alicdn.com/tfscom/TB12QwSKXXXXXX5aXXXmEgRYXXX-210-254.png",
         width: 210,
         height: 254
     },
     "map/brand_1_linshimuye.png":{
-        url: "http://gw.alicdn.com/tfscom/TB113FQKXXXXXcjXFXXObwQYXXX-210-244.png",
+        url: "//gw.alicdn.com/tfscom/TB113FQKXXXXXcjXFXXObwQYXXX-210-244.png",
         width: 210,
         height: 244
     },
     "map/brand_1_luolai.png":{
-        url: "http://gw.alicdn.com/tfscom/TB16oQzJVXXXXXdXVXXF3sSYXXX-210-256.png",
+        url: "//gw.alicdn.com/tfscom/TB16oQzJVXXXXXdXVXXF3sSYXXX-210-256.png",
         width: 210,
         height: 256
     },
     "map/brand_1_luolaijiafang.png":{
-        url: "http://gw.alicdn.com/tfscom/TB1de46KXXXXXbcXpXXF3sSYXXX-210-256.png",
+        url: "//gw.alicdn.com/tfscom/TB1de46KXXXXXbcXpXXF3sSYXXX-210-256.png",
         width: 210,
         height: 256
     },
     "map/brand_1_meidi.png":{
-        url: "http://gw.alicdn.com/tfscom/TB1lDoKJVXXXXcVXpXX523RYXXX-210-249.png",
+        url: "//gw.alicdn.com/tfscom/TB1lDoKJVXXXXcVXpXX523RYXXX-210-249.png",
         width: 210,
         height: 249
     },
     "map/brand_1_suning.png":{
-        url: "http://gw.alicdn.com/tfscom/TB1ghMHJVXXXXakXFXXVcunUVXX-203-255.png",
+        url: "//gw.alicdn.com/tfscom/TB1ghMHJVXXXXakXFXXVcunUVXX-203-255.png",
         width: 203,
         height: 255
     },
     "map/brand_1_yashilandai.png":{
-        url: "http://gw.alicdn.com/tfscom/TB1VD7zJVXXXXXxXVXXLDQQYXXX-210-247.png",
+        url: "//gw.alicdn.com/tfscom/TB1VD7zJVXXXXXxXVXXLDQQYXXX-210-247.png",
         width: 210,
         height: 247
     },
     "map/brand_1_zara.png":{
-        url: "http://gw.alicdn.com/tfscom/TB1vlMAJVXXXXc.XFXXLDQQYXXX-210-247.png",
+        url: "//gw.alicdn.com/tfscom/TB1vlMAJVXXXXc.XFXXLDQQYXXX-210-247.png",
         width: 210,
         height: 247
     },
     "map/brand_2_0.png":{
-        url: "http://gw.alicdn.com/tfscom/TB1WaFLKXXXXXbfXVXXObwQYXXX-210-244.png",
+        url: "//gw.alicdn.com/tfscom/TB1WaFLKXXXXXbfXVXXObwQYXXX-210-244.png",
         width: 210,
         height: 244
     },
     "map/brand_3_1.png":{
-        url: "http://gw.alicdn.com/tfscom/TB1YPWXKXXXXXchXXXXo0ALYXXX-210-186.png",
+        url: "//gw.alicdn.com/tfscom/TB1YPWXKXXXXXchXXXXo0ALYXXX-210-186.png",
         width: 210,
         height: 186
     },
     "map/brand_3_2.png":{
-        url: "http://gw.alicdn.com/tfscom/TB1tAlKKXXXXXcvXVXXo0ALYXXX-210-186.png",
+        url: "//gw.alicdn.com/tfscom/TB1tAlKKXXXXXcvXVXXo0ALYXXX-210-186.png",
         width: 210,
         height: 186
     },
     "map/brand_3_3.png":{
-        url: "http://gw.alicdn.com/tfscom/TB1TvUZJVXXXXcpXXXXLXsLYXXX-210-185.png",
+        url: "//gw.alicdn.com/tfscom/TB1TvUZJVXXXXcpXXXXLXsLYXXX-210-185.png",
         width: 210,
         height: 185
     },
     "map/brand_4_1.png":{
-        url: "http://gw.alicdn.com/tfscom/TB1AcKbKXXXXXaqXXXXo0ALYXXX-210-186.png",
+        url: "//gw.alicdn.com/tfscom/TB1AcKbKXXXXXaqXXXXo0ALYXXX-210-186.png",
         width: 210,
         height: 186
     },
     "map/brand_4_2.png":{
-        url: "http://gw.alicdn.com/tfscom/TB1g8ZMJVXXXXbNXpXXo0ALYXXX-210-186.png",
+        url: "//gw.alicdn.com/tfscom/TB1g8ZMJVXXXXbNXpXXo0ALYXXX-210-186.png",
         width: 210,
         height: 186
     },
     "map/country_aodaliya.png":{
-        url: "http://gw.alicdn.com/tfscom/TB1iKX4KXXXXXaKXpXXNZ.KYXXX-210-209.png",
+        url: "//gw.alicdn.com/tfscom/TB1iKX4KXXXXXaKXpXXNZ.KYXXX-210-209.png",
         width: 210,
         height: 209
     },
     "map/country_deguo.png":{
-        url: "http://gw.alicdn.com/tfscom/TB1zCd9KXXXXXckXXXX5NELYXXX-210-220.png",
+        url: "//gw.alicdn.com/tfscom/TB1zCd9KXXXXXckXXXX5NELYXXX-210-220.png",
         width: 210,
         height: 220
     },
     "map/country_faguo.png":{
-        url: "http://gw.alicdn.com/tfscom/TB1psX0KXXXXXciXpXX5NELYXXX-210-217.png",
+        url: "//gw.alicdn.com/tfscom/TB1psX0KXXXXXciXpXX5NELYXXX-210-217.png",
         width: 210,
         height: 217
     },
     "map/country_hanguo.png":{
-        url: "http://gw.alicdn.com/tfscom/TB1NR01KXXXXXbGXpXX5NELYXXX-210-217.png",
+        url: "//gw.alicdn.com/tfscom/TB1NR01KXXXXXbGXpXX5NELYXXX-210-217.png",
         width: 210,
         height: 217
     },
     "map/country_meiguo.png":{
-        url: "http://gw.alicdn.com/tfscom/TB114XUKXXXXXXWXFXXTOUOYXXX-210-235.png",
+        url: "//gw.alicdn.com/tfscom/TB114XUKXXXXXXWXFXXTOUOYXXX-210-235.png",
         width: 210,
         height: 235
     },
     "map/country_riben.png":{
-        url: "http://gw.alicdn.com/tfscom/TB125l2KXXXXXbbXpXXFN7MYXXX-210-224.png",
+        url: "//gw.alicdn.com/tfscom/TB125l2KXXXXXbbXpXXFN7MYXXX-210-224.png",
         width: 210,
         height: 224
     },
     "map/country_taiguo.png":{
-        url: "http://gw.alicdn.com/tfscom/TB1dv0SKXXXXXbnXFXXIBMLYXXX-210-221.png",
+        url: "//gw.alicdn.com/tfscom/TB1dv0SKXXXXXbnXFXXIBMLYXXX-210-221.png",
         width: 210,
         height: 221
     },
     "map/country_taiwan.png":{
-        url: "http://gw.alicdn.com/tfscom/TB1RVR1KXXXXXb3XpXX5NELYXXX-210-220.png",
+        url: "//gw.alicdn.com/tfscom/TB1RVR1KXXXXXb3XpXX5NELYXXX-210-220.png",
         width: 210,
         height: 220
     },
     "map/country_xinxilan.png":{
-        url: "http://gw.alicdn.com/tfscom/TB1DlF6KXXXXXc8XXXX20ZMYXXX-210-223.png",
+        url: "//gw.alicdn.com/tfscom/TB1DlF6KXXXXXc8XXXX20ZMYXXX-210-223.png",
         width: 210,
         height: 223
     },
     "map/country_yidali.png":{
-        url: "http://gw.alicdn.com/tfscom/TB1RMtCKXXXXXbkaXXXFN7MYXXX-210-224.png",
+        url: "//gw.alicdn.com/tfscom/TB1RMtCKXXXXXbkaXXXFN7MYXXX-210-224.png",
         width: 210,
         height: 224
     },
     "map/country_yingguo.png":{
-        url: "http://gw.alicdn.com/tfscom/TB1GaRPKXXXXXcrXFXXFN7MYXXX-210-224.png",
+        url: "//gw.alicdn.com/tfscom/TB1GaRPKXXXXXcrXFXXFN7MYXXX-210-224.png",
         width: 210,
         height: 224
     },
     "map/entry_baihuo.png":{
-        url: "http://gw.alicdn.com/tfscom/TB15g4qKpXXXXbYXVXXQrm6WpXX-420-253.png",
+        url: "//gw.alicdn.com/tfscom/TB15g4qKpXXXXbYXVXXQrm6WpXX-420-253.png",
         width: 420,
         height: 253
     },
     "map/entry_center.png":{
-        url: "http://gw.alicdn.com/tfscom/TB1.MZoKXXXXXb1XXXXKQYsGXXX-351-343.png",
+        url: "//gw.alicdn.com/tfscom/TB1.MZoKXXXXXb1XXXXKQYsGXXX-351-343.png",
         width: 351,
         height: 343
     },
     "map/entry_chaoshi.png":{
-        url: "http://gw.alicdn.com/tfscom/TB1ti7DJVXXXXbPXFXXNTG6WpXX-420-256.png",
+        url: "//gw.alicdn.com/tfscom/TB1ti7DJVXXXXbPXFXXNTG6WpXX-420-256.png",
         width: 420,
         height: 256
     },
     "map/entry_dianqi.png":{
-        url: "http://gw.alicdn.com/tfscom/TB1hGUJJVXXXXX3XFXXNTG6WpXX-420-256.png",
+        url: "//gw.alicdn.com/tfscom/TB1hGUJJVXXXXX3XFXXNTG6WpXX-420-256.png",
         width: 420,
         height: 256
     },
     "map/entry_fushi.png":{
-        url: "http://gw.alicdn.com/tfscom/TB1MEA2JVXXXXXGXXXXNTG6WpXX-420-256.png",
+        url: "//gw.alicdn.com/tfscom/TB1MEA2JVXXXXXGXXXXNTG6WpXX-420-256.png",
         width: 420,
         height: 256
     },
     "map/entry_guoji.png":{
-        url: "http://gw.alicdn.com/tfscom/TB1A871JVXXXXadXXXXV5K4WpXX-420-244.png",
+        url: "//gw.alicdn.com/tfscom/TB1A871JVXXXXadXXXXV5K4WpXX-420-244.png",
         width: 420,
         height: 244
     },
     "map/entry_huabei.png":{
-        url: "http://gw.alicdn.com/tfscom/TB1wzEqJVXXXXaiaXXXss7yHpXX-246-196.png",
+        url: "//gw.alicdn.com/tfscom/TB1wzEqJVXXXXaiaXXXss7yHpXX-246-196.png",
         width: 246,
         height: 196
     },
     "map/entry_jiazhuang.png":{
-        url: "http://gw.alicdn.com/tfscom/TB1pQ3HJVXXXXavXFXXTe55WpXX-420-250.png",
+        url: "//gw.alicdn.com/tfscom/TB1pQ3HJVXXXXavXFXXTe55WpXX-420-250.png",
         width: 420,
         height: 250
     },
     "map/entry_meizhuang.png":{
-        url: "http://gw.alicdn.com/tfscom/TB1imF.KXXXXXcAXXXXNTG6WpXX-420-256.png",
+        url: "//gw.alicdn.com/tfscom/TB1imF.KXXXXXcAXXXXNTG6WpXX-420-256.png",
         width: 420,
         height: 256
     },
     "map/entry_qiche.png":{
-        url: "http://gw.alicdn.com/tfscom/TB1IUsIJVXXXXXVXFXXw6a5WpXX-420-248.png",
+        url: "//gw.alicdn.com/tfscom/TB1IUsIJVXXXXXVXFXXw6a5WpXX-420-248.png",
         width: 420,
         height: 248
     },
     "map/entry_qingdan.png":{
-        url: "http://gw.alicdn.com/tfscom/TB17No3JVXXXXXoXXXXNTG6WpXX-420-256.png",
+        url: "//gw.alicdn.com/tfscom/TB17No3JVXXXXXoXXXXNTG6WpXX-420-256.png",
         width: 420,
         height: 256
     },
     "map/entry_qua.png":{
-        url: "http://gw.alicdn.com/tfscom/TB1ATseJVXXXXakXVXXQMQJYXXX-210-176.png",
+        url: "//gw.alicdn.com/tfscom/TB1ATseJVXXXXakXVXXQMQJYXXX-210-176.png",
         width: 210,
         height: 176
     },
     "map/entry_shishang.png":{
-        url: "http://gw.alicdn.com/tfscom/TB1M.RPKpXXXXaqXXXXNTG6WpXX-420-256.png",
+        url: "//gw.alicdn.com/tfscom/TB1M.RPKpXXXXaqXXXXNTG6WpXX-420-256.png",
         width: 420,
         height: 256
     },
     "map/entry_wangting.png":{
-        url: "http://gw.alicdn.com/tfscom/TB1VLt_KXXXXXXcXpXXt390WpXX-420-222.png",
+        url: "//gw.alicdn.com/tfscom/TB1VLt_KXXXXXXcXpXXt390WpXX-420-222.png",
         width: 420,
         height: 222
     },
     "map/entry_yiyao.png":{
-        url: "http://gw.alicdn.com/tfscom/TB1kkZGJVXXXXcwXpXXNTG6WpXX-420-256.png",
+        url: "//gw.alicdn.com/tfscom/TB1kkZGJVXXXXcwXpXXNTG6WpXX-420-256.png",
         width: 420,
         height: 256
     },
     "map/map_LV3_YELLOW.png":{
-        url: "http://gw.alicdn.com/tfscom/TB1HeILJVXXXXckXpXX_WEEYXXX-210-146.png",
+        url: "//gw.alicdn.com/tfscom/TB1HeILJVXXXXckXpXX_WEEYXXX-210-146.png",
         width: 210,
         height: 146
     },
     "map/map_LV4_5.png":{
-        url: "http://gw.alicdn.com/tfscom/TB1pRo0JVXXXXaIXXXX_WEEYXXX-210-146.png",
+        url: "//gw.alicdn.com/tfscom/TB1pRo0JVXXXXaIXXXX_WEEYXXX-210-146.png",
         width: 210,
         height: 146
     },
     "map/map_LV4_C.png":{
-        url: "http://gw.alicdn.com/tfscom/TB1kHANJVXXXXbBXpXXo0ALYXXX-210-186.png",
+        url: "//gw.alicdn.com/tfscom/TB1kHANJVXXXXbBXpXXo0ALYXXX-210-186.png",
         width: 210,
         height: 186
     },
     "map/map_Lv1_A.png":{
-        url: "http://gw.alicdn.com/tfscom/TB1Pp7NJVXXXXbHXpXXrNgKYXXX-210-183.png",
+        url: "//gw.alicdn.com/tfscom/TB1Pp7NJVXXXXbHXpXXrNgKYXXX-210-183.png",
         width: 210,
         height: 183
     },
     "map/map_Lv1_B.png":{
-        url: "http://gw.alicdn.com/tfscom/TB1p1QZJVXXXXbkXXXXrNgKYXXX-210-183.png",
+        url: "//gw.alicdn.com/tfscom/TB1p1QZJVXXXXbkXXXXrNgKYXXX-210-183.png",
         width: 210,
         height: 183
     },
     "map/map_Lv1_C.png":{
-        url: "http://gw.alicdn.com/tfscom/TB1VB3wJVXXXXa0XVXXrNgKYXXX-210-183.png",
+        url: "//gw.alicdn.com/tfscom/TB1VB3wJVXXXXa0XVXXrNgKYXXX-210-183.png",
         width: 210,
         height: 183
     },
     "map/map_Lv1_D.png":{
-        url: "http://gw.alicdn.com/tfscom/TB13xASJVXXXXXcXpXXrNgKYXXX-210-183.png",
+        url: "//gw.alicdn.com/tfscom/TB13xASJVXXXXXcXpXXrNgKYXXX-210-183.png",
         width: 210,
         height: 183
     },
     "map/map_Lv1_E.png":{
-        url: "http://gw.alicdn.com/tfscom/TB1FXP0KXXXXXX8aXXXNZ.KYXXX-210-209.png",
+        url: "//gw.alicdn.com/tfscom/TB1FXP0KXXXXXX8aXXXNZ.KYXXX-210-209.png",
         width: 210,
         height: 209
     },
     "map/map_Lv1_F.png":{
-        url: "http://gw.alicdn.com/tfscom/TB1hgEAJVXXXXXkXVXX5zgFYXXX-210-155.png",
+        url: "//gw.alicdn.com/tfscom/TB1hgEAJVXXXXXkXVXX5zgFYXXX-210-155.png",
         width: 210,
         height: 155
     },
     "map/map_Lv1_PC.png":{
-        url: "http://gw.alicdn.com/tfscom/TB1G8sGJVXXXXXMXpXXTAwIYXXX-210-203.png",
+        url: "//gw.alicdn.com/tfscom/TB1G8sGJVXXXXXMXpXXTAwIYXXX-210-203.png",
         width: 210,
         height: 203
     },
     "map/map_Lv1_floor.png":{
-        url: "http://gw.alicdn.com/tfscom/TB1k9M3JVXXXXaoXXXXrNgKYXXX-210-183.png",
+        url: "//gw.alicdn.com/tfscom/TB1k9M3JVXXXXaoXXXXrNgKYXXX-210-183.png",
         width: 210,
         height: 183
     },
     "map/map_Lv2.png":{
-        url: "http://gw.alicdn.com/tfscom/TB1iVkLJVXXXXcbXpXX_WEEYXXX-210-146.png",
+        url: "//gw.alicdn.com/tfscom/TB1iVkLJVXXXXcbXpXX_WEEYXXX-210-146.png",
         width: 210,
         height: 146
     },
     "map/map_Lv2_A.png":{
-        url: "http://gw.alicdn.com/tfscom/TB1fBwNJVXXXXbwXpXX20ZMYXXX-210-193.png",
+        url: "//gw.alicdn.com/tfscom/TB1fBwNJVXXXXbwXpXX20ZMYXXX-210-193.png",
         width: 210,
         height: 193
     },
     "map/map_Lv2_B.png":{
-        url: "http://gw.alicdn.com/tfscom/TB16egxJVXXXXacXVXXTAwIYXXX-210-173.png",
+        url: "//gw.alicdn.com/tfscom/TB16egxJVXXXXacXVXXTAwIYXXX-210-173.png",
         width: 210,
         height: 173
     },
     "map/map_Lv2_C.png":{
-        url: "http://gw.alicdn.com/tfscom/TB1WPAJJVXXXXbKXpXXNZ.KYXXX-210-179.png",
+        url: "//gw.alicdn.com/tfscom/TB1WPAJJVXXXXbKXpXXNZ.KYXXX-210-179.png",
         width: 210,
         height: 179
     },
     "map/map_Lv2_D.png":{
-        url: "http://gw.alicdn.com/tfscom/TB1RbZDJVXXXXbIXFXX5NELYXXX-210-187.png",
+        url: "//gw.alicdn.com/tfscom/TB1RbZDJVXXXXbIXFXX5NELYXXX-210-187.png",
         width: 210,
         height: 187
     },
     "map/map_Lv2_F.png":{
-        url: "http://gw.alicdn.com/tfscom/TB1DZMNJVXXXXbrXpXXoLcFYXXX-210-154.png",
+        url: "//gw.alicdn.com/tfscom/TB1DZMNJVXXXXbrXpXXoLcFYXXX-210-154.png",
         width: 210,
         height: 154
     },
     "map/map_Lv2_G_PC.png":{
-        url: "http://gw.alicdn.com/tfscom/TB1pBUDJVXXXXb9XFXXzZkIYXXX-210-171.png",
+        url: "//gw.alicdn.com/tfscom/TB1pBUDJVXXXXb9XFXXzZkIYXXX-210-171.png",
         width: 210,
         height: 171
     },
     "map/map_Lv2_J.png":{
-        url: "http://gw.alicdn.com/tfscom/TB1z2ZIJVXXXXajXFXXLXsLYXXX-210-185.png",
+        url: "//gw.alicdn.com/tfscom/TB1z2ZIJVXXXXajXFXXLXsLYXXX-210-185.png",
         width: 210,
         height: 185
     },
     "map/map_Lv2_K_PC.png":{
-        url: "http://gw.alicdn.com/tfscom/TB1sTEKJVXXXXblXpXXNKMEYXXX-210-150.png",
+        url: "//gw.alicdn.com/tfscom/TB1sTEKJVXXXXblXpXXNKMEYXXX-210-150.png",
         width: 210,
         height: 150
     },
     "map/map_Lv2_L.png":{
-        url: "http://gw.alicdn.com/tfscom/TB19IcyJVXXXXc7XFXXaZMJYXXX-210-175.png",
+        url: "//gw.alicdn.com/tfscom/TB19IcyJVXXXXc7XFXXaZMJYXXX-210-175.png",
         width: 210,
         height: 175
     },
     "map/map_Lv2_M.png":{
-        url: "http://gw.alicdn.com/tfscom/TB1StUGJVXXXXa0XFXXTAwIYXXX-210-173.png",
+        url: "//gw.alicdn.com/tfscom/TB1StUGJVXXXXa0XFXXTAwIYXXX-210-173.png",
         width: 210,
         height: 173
     },
     "map/map_Lv2_N.png":{
-        url: "http://gw.alicdn.com/tfscom/TB1VhwMJVXXXXb6XpXXuAZJYXXX-210-180.png",
+        url: "//gw.alicdn.com/tfscom/TB1VhwMJVXXXXb6XpXXuAZJYXXX-210-180.png",
         width: 210,
         height: 180
     },
     "map/map_Lv2_O_PC.png":{
-        url: "http://gw.alicdn.com/tfscom/TB1SX.vJVXXXXaaXVXXWocHYXXX-210-200.png",
+        url: "//gw.alicdn.com/tfscom/TB1SX.vJVXXXXaaXVXXWocHYXXX-210-200.png",
         width: 210,
         height: 200
     },
     "map/map_Lv2_P_PC.png":{
-        url: "http://gw.alicdn.com/tfscom/TB1j8ZZJVXXXXatXXXXWocHYXXX-210-200.png",
+        url: "//gw.alicdn.com/tfscom/TB1j8ZZJVXXXXatXXXXWocHYXXX-210-200.png",
         width: 210,
         height: 200
     },
     "map/map_Lv3_A.png":{
-        url: "http://gw.alicdn.com/tfscom/TB18v3RJVXXXXXYXpXXrNgKYXXX-210-183.png",
+        url: "//gw.alicdn.com/tfscom/TB18v3RJVXXXXXYXpXXrNgKYXXX-210-183.png",
         width: 210,
         height: 183
     },
     "map/map_Lv3_B.png":{
-        url: "http://gw.alicdn.com/tfscom/TB1KW.zJVXXXXXOXVXXlYwGYXXX-210-157.png",
+        url: "//gw.alicdn.com/tfscom/TB1KW.zJVXXXXXOXVXXlYwGYXXX-210-157.png",
         width: 210,
         height: 157
     },
     "map/map_Lv3_E.png":{
-        url: "http://gw.alicdn.com/tfscom/TB15bENJVXXXXbFXpXX.o3JYXXX-210-181.png",
+        url: "//gw.alicdn.com/tfscom/TB15bENJVXXXXbFXpXX.o3JYXXX-210-181.png",
         width: 210,
         height: 181
     },
     "map/map_Lv3_F.png":{
-        url: "http://gw.alicdn.com/tfscom/TB1mPUBJVXXXXcAXFXXTAwIYXXX-210-203.png",
+        url: "//gw.alicdn.com/tfscom/TB1mPUBJVXXXXcAXFXXTAwIYXXX-210-203.png",
         width: 210,
         height: 203
     },
     "map/map_Lv3_G.png":{
-        url: "http://gw.alicdn.com/tfscom/TB10TsBJVXXXXc4XFXXumADYXXX-210-145.png",
+        url: "//gw.alicdn.com/tfscom/TB10TsBJVXXXXc4XFXXumADYXXX-210-145.png",
         width: 210,
         height: 145
     },
     "map/map_Lv3_H.png":{
-        url: "http://gw.alicdn.com/tfscom/TB1t5EyJVXXXXaoXVXXTAwIYXXX-210-173.png",
+        url: "//gw.alicdn.com/tfscom/TB1t5EyJVXXXXaoXVXXTAwIYXXX-210-173.png",
         width: 210,
         height: 173
     },
     "map/map_Lv3_K.png":{
-        url: "http://gw.alicdn.com/tfscom/TB1o4AIJVXXXXX9XFXX5zgFYXXX-210-155.png",
+        url: "//gw.alicdn.com/tfscom/TB1o4AIJVXXXXX9XFXX5zgFYXXX-210-155.png",
         width: 210,
         height: 155
     },
     "map/map_Lv3_L.png":{
-        url: "http://gw.alicdn.com/tfscom/TB1pasvJVXXXXclXVXXlYwGYXXX-210-160.png",
+        url: "//gw.alicdn.com/tfscom/TB1pasvJVXXXXclXVXXlYwGYXXX-210-160.png",
         width: 210,
         height: 160
     },
     "map/map_Lv4_A.png":{
-        url: "http://gw.alicdn.com/tfscom/TB1KX73JVXXXXXFXXXX5NELYXXX-210-220.png",
+        url: "//gw.alicdn.com/tfscom/TB1KX73JVXXXXXFXXXX5NELYXXX-210-220.png",
         width: 210,
         height: 220
     },
     "map/map_Lv4_B.png":{
-        url: "http://gw.alicdn.com/tfscom/TB1ulESJVXXXXcfXXXXjnQGYXXX-210-163.png",
+        url: "//gw.alicdn.com/tfscom/TB1ulESJVXXXXcfXXXXjnQGYXXX-210-163.png",
         width: 210,
         height: 163
     },
     "map/map_Lv4_D.png":{
-        url: "http://gw.alicdn.com/tfscom/TB1IVkPJVXXXXanXpXXdMsIYXXX-210-169.png",
+        url: "//gw.alicdn.com/tfscom/TB1IVkPJVXXXXanXpXXdMsIYXXX-210-169.png",
         width: 210,
         height: 169
     },
     "map/map_Lv4_F.png":{
-        url: "http://gw.alicdn.com/tfscom/TB1GtMFJVXXXXbGXFXXWocHYXXX-210-200.png",
+        url: "//gw.alicdn.com/tfscom/TB1GtMFJVXXXXbGXFXXWocHYXXX-210-200.png",
         width: 210,
         height: 200
     },
     "map/map_Lv4_G.png":{
-        url: "http://gw.alicdn.com/tfscom/TB1aagTJVXXXXceXXXXoLcFYXXX-210-154.png",
+        url: "//gw.alicdn.com/tfscom/TB1aagTJVXXXXceXXXXoLcFYXXX-210-154.png",
         width: 210,
         height: 154
     },
     "map/map_Lv4_H.png":{
-        url: "http://gw.alicdn.com/tfscom/TB1p2kEJVXXXXbFXFXX.o3JYXXX-210-181.png",
+        url: "//gw.alicdn.com/tfscom/TB1p2kEJVXXXXbFXFXX.o3JYXXX-210-181.png",
         width: 210,
         height: 181
     }
@@ -1568,7 +1568,7 @@ var app = {
         var maxY = mapData.length * this.tileHeight;
         for (var i = 0; i < maxY; i += seaHeight) {
             items.push({
-                url: 'http://gw.alicdn.com/tfscom/TB1oJsAJVXXXXbFXpXXkhHjUFXX-840-164.png',
+                url: '//gw.alicdn.com/tfscom/TB1oJsAJVXXXXbFXpXXkhHjUFXX-840-164.png',
                 width: 840 * self.globalScale,
                 height: seaHeight,
                 x: 0,
