@@ -29,6 +29,7 @@ const extensions = {
     loseContext: undefined,
 
     _usedExtensions: {},
+    _disabledExtensions: {},
 
     /**
      * 初始化
@@ -72,6 +73,10 @@ const extensions = {
      * @return {ExtensionObject|null}
      */
     get(name, alias = name) {
+        if (this._disabledExtensions[name]) {
+            return null;
+        }
+
         let ext = this[alias];
         if (ext === undefined) {
             ext = this._getExtension(name);
@@ -79,10 +84,19 @@ const extensions = {
         }
         return ext;
     },
+
+    disable(name) {
+        this._disabledExtensions[name] = true;
+    },
+
+    enable(name) {
+        this._disabledExtensions[name] = false;
+    },
+
     _getExtension(name) {
         const gl = this.gl;
 
-        if (gl.getExtension) {
+        if (gl && gl.getExtension) {
             return gl.getExtension(name) || gl.getExtension('WEBKIT_' + name) || gl.getExtension('MOZ_' + name) || null;
         }
         return null;

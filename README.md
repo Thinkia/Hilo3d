@@ -5,7 +5,7 @@ Hilo3d, a WebGL Rendering Engine developed by Alibaba Group.It could help develo
 > 本站点暂时不公开Hilo3d源码，仅提供压缩版本 （正式开源时间参考 [开源计划](https://github.com/hiloteam/Hilo3d/issues/4)）
 
 ### 静态CDN
-[https://g.alicdn.com/hilo/Hilo3d/1.5.91/Hilo3d.js][cdn-url]
+[https://g.alicdn.com/hilo/Hilo3d/1.5.92/Hilo3d.js][cdn-url]
 
 ### API 文档
 
@@ -26,6 +26,7 @@ Hilo3d, a WebGL Rendering Engine developed by Alibaba Group.It could help develo
     * [khc](https://hiloteam.github.io/Hilo3d/examples/loader/khc/khc.html)
     * [shader](https://hiloteam.github.io/Hilo3d/examples/loader/shader/shader_loader.html)
     * [draco](https://hiloteam.github.io/Hilo3d/examples/loader/draco/draco_loader.html)
+  * [compressed_texture](https://hiloteam.github.io/Hilo3d/examples/compressed_texture.html)
   * [fog](https://hiloteam.github.io/Hilo3d/examples/fog.html)
   * [mesh_picker](https://hiloteam.github.io/Hilo3d/examples/mesh_picker.html)
   * [mouse_event](https://hiloteam.github.io/Hilo3d/examples/mouse_event.html)
@@ -87,4 +88,4 @@ Hilo3d, a WebGL Rendering Engine developed by Alibaba Group.It could help develo
 [npm-image]: https://img.shields.io/npm/v/hilo3d.svg?style=flat-square
 [npm-url]: https://www.npmjs.com/package/hilo3d
 [size-image]:http://img.badgesize.io/hiloteam/hilo3d/master/build/Hilo3d.js.svg?compression=gzip&style=flat-square
-[cdn-url]: https://g.alicdn.com/hilo/Hilo3d/1.5.91/Hilo3d.js
+[cdn-url]: https://g.alicdn.com/hilo/Hilo3d/1.5.92/Hilo3d.js

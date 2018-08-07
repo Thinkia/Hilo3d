@@ -3524,6 +3524,25 @@
             </ul>
         </li>
     
+        <li class="item" data-name="loader/KTXLoader">
+            <span class="title">
+                <span class="title-name">loader/<a href="KTXLoader.html">KTXLoader</a></span>
+                
+            </span>
+            <ul class="members itemMembers">
+            
+            </ul>
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            <ul class="methods itemMembers">
+            
+            </ul>
+            <ul class="events itemMembers">
+            
+            </ul>
+        </li>
+    
         <li class="item" data-name="loader/LoadQueue">
             <span class="title">
                 <span class="title-name">loader/<a href="LoadQueue.html">LoadQueue</a></span>
@@ -5620,6 +5639,8 @@
             
                 <li  data-name="WebGLRenderer#viewport"><a href="WebGLRenderer.html#viewport">viewport</a></li>
             
+                <li  data-name="WebGLRenderer#onInit"><a href="WebGLRenderer.html#onInit">onInit</a></li>
+            
                 <li  data-name="WebGLRenderer#initContext"><a href="WebGLRenderer.html#initContext">initContext</a></li>
             
                 <li  data-name="WebGLRenderer#setupDepthTest"><a href="WebGLRenderer.html#setupDepthTest">setupDepthTest</a></li>
@@ -6438,6 +6459,80 @@
         <tr >
             
                 <td class="name">
+                    <a name="isKTXLoader"></a>
+                    <code>isKTXLoader</code>
+                </td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">boolean</span>
+
+
+            
+            </td>
+            
+            
+            
+            
+                <td class="default">
+                
+                    true
+                
+                </td>
+            
+            
+            <td class="description last">
+                
+                
+                
+    
+                
+            </td>
+        </tr>
+	
+	
+        <tr >
+            
+                <td class="name">
+                    <a name="className"></a>
+                    <code>className</code>
+                </td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+            
+            
+            
+            
+                <td class="default">
+                
+                    KTXLoader
+                
+                </td>
+            
+            
+            <td class="description last">
+                
+                <p>类名</p>
+                
+    
+                
+            </td>
+        </tr>
+	
+	
+        <tr >
+            
+                <td class="name">
                     <a name="isLoader"></a>
                     <code>isLoader</code>
                 </td>
@@ -6591,6 +6686,321 @@
         </dl>
     
     
+    
+        <h3 class="subsection-title" id="methods">Methods
+            <a class="toggle-inherited" href="javascript:void(0);" type="method">Show Inherited</a>
+        </h3>
+        
+        <dl>
+            
+<dl >
+    <dt>
+        <div class="nameContainer">
+            <h4 class="name" id="constructor">
+                
+                constructor<span class="signature">(arrayBuffer-, facesExpected-)</span>
+            </h4>
+        
+            
+            <div class="tag-source">
+                loader/KTXLoader.js, line 32
+            </div>
+            
+        </div>
+    </dt>
+    <dd>
+        
+        
+
+        
+        
+        
+        
+        
+            
+
+<table class="params">
+    <thead>
+	<tr>
+		
+		<th>Name</th>
+		
+		
+		<th>Type</th>
+		
+		
+		
+		<th class="last">Description</th>
+	</tr>
+	</thead>
+	
+	<tbody>
+	
+	
+        <tr>
+            
+                <td class="name"><code>arrayBuffer-</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">ArrayBuffer</span>
+
+
+            
+            </td>
+            
+            
+            
+            <td class="description last">
+                
+                <p>contents of the KTX container file</p></td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>facesExpected-</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+            
+            
+            
+            <td class="description last">
+                
+                <p>should be either 1 or 6, based whether a cube texture or or</p></td>
+        </tr>
+	
+	
+	</tbody>
+</table>
+        
+        
+        
+<dl class="details">
+    
+        
+    
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+</dl>
+
+        
+        
+
+        
+
+        
+        
+        
+        
+        
+        
+        
+    </dd>
+</dl>
+        
+            
+<dl >
+    <dt>
+        <div class="nameContainer">
+            <h4 class="name" id="load">
+                
+                load<span class="signature">(params)</span>
+            </h4>
+        
+            
+            <div class="tag-source">
+                loader/KTXLoader.js, line 191
+            </div>
+            
+        </div>
+    </dt>
+    <dd>
+        
+        
+        <div class="description">
+            <p>load</p>
+        </div>
+        
+
+        
+        
+        
+        
+        
+            
+
+<table class="params">
+    <thead>
+	<tr>
+		
+		<th>Name</th>
+		
+		
+		<th>Type</th>
+		
+		
+		
+		<th class="last">Description</th>
+	</tr>
+	</thead>
+	
+	<tbody>
+	
+	
+        <tr>
+            
+                <td class="name"><code>params</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+            
+            </td>
+            
+            
+            
+            <td class="description last">
+                
+                
+                
+
+<table class="params">
+    <thead>
+	<tr>
+		
+		<th>Name</th>
+		
+		
+		<th>Type</th>
+		
+		
+		<th>Default</th>
+		
+		
+		<th class="last">Description</th>
+	</tr>
+	</thead>
+	
+	<tbody>
+	
+	
+        <tr>
+            
+                <td class="name"><code>loadMipmaps</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">Boolean</span>
+
+
+            
+            </td>
+            
+            
+                <td class="default">
+                
+                    false
+                
+                </td>
+            
+            
+            <td class="description last">
+                
+                    
+                        <span class="optional">optional</span>
+                    
+                    
+                        
+                    
+                
+                </td>
+        </tr>
+	
+	
+	</tbody>
+</table>
+            </td>
+        </tr>
+	
+	
+	</tbody>
+</table>
+        
+        
+        
+<dl class="details">
+    
+        
+    
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+</dl>
+
+        
+        
+
+        
+
+        
+        
+        
+        
+        
+        
+        
+    </dd>
+</dl>
+        </dl>
     
     
     

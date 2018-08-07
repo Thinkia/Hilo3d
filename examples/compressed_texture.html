@@ -12,41 +12,50 @@
     <script src="./js/stats.js"></script>
     <script src="./js/OrbitControls.js"></script>
     <script src="./js/init.js"></script>
-    <script src="./js/parse-dds.js"></script>
     <script>
-        var boxGeometry = new Hilo3d.BoxGeometry();
-        boxGeometry.setAllRectUV([[0, 1], [1, 1], [1, 0], [0, 0]]);
-
-        Hilo3d.extensions.use('WEBGL_compressed_texture_s3tc');
+        orbitControls.disable();
         
-        var loader = new Hilo3d.BasicLoader();
-        loader.load({
-            src:'./image/test-dxt1.dds',
-            type:'buffer'
-        }).then(function(arrayBuffer){
-            var headers = ddsParseHeaders(arrayBuffer);
-            console.log(headers);
-            var images = headers.images;
-            var image = images[0];
-            var textureBox = new Hilo3d.Mesh({
-                geometry:boxGeometry,
-                material: new Hilo3d.BasicMaterial({
-                    diffuse:new Hilo3d.Texture({
-                        compressed:true,
-                        internalFormat:Hilo3d.constants.COMPRESSED_RGB_S3TC_DXT1_EXT,
-                        image:new Uint8Array(arrayBuffer, image.offset, image.length),
-                        width:image.shape[0],
-                        height:image.shape[1]
-                    })
-                }),
-                onUpdate: function() {
-                    this.rotationX += .5;
-                    this.rotationZ += .5;
-                }
-            });
-            stage.addChild(textureBox);
-        });
+        renderer.onInit(function(renderer){
+            var planeGeometry = new Hilo3d.PlaneGeometry();
 
+            var images = {
+                astc: ['astc'],
+                etc: ['etc_etc2'],
+                etc1: ['etc_etc1'],
+                pvrtc: ['pvrtc'],
+                s3tc: ['s3tc_dxt1', 's3tc_dxt3', 's3tc_dxt5']
+            };
+
+            var i = 0;
+            for(var extType in images){
+                var res = images[extType];
+                if(Hilo3d.extensions.get(Hilo3d.KTXLoader[extType])){
+                    res.forEach(function(src){
+                        var loader = new Hilo3d.Loader();
+                        loader.load({
+                            src:'./image/compressed/logo_' + src + '.ktx'
+                        }).then(function(texture){
+                            var textureBox = new Hilo3d.Mesh({
+                                geometry:planeGeometry,
+                                material: new Hilo3d.BasicMaterial({
+                                    lightType:'NONE',
+                                    diffuse:texture,
+                                    side:Hilo3d.constants.FRONT_AND_BACK
+                                }),
+                                rotationX:180,
+                                x:0.8 * ( i % 2 - 0.5),
+                                y:0.8 * ( 0.5 - Math.floor(i/2) ),
+                                scaleX:0.66,
+                                scaleY:0.66
+                            });
+                            i ++;
+                            console.log(textureBox.x, textureBox.y)
+                            stage.addChild(textureBox);
+                        });
+                    })
+                }
+            }
+        });
     </script>
 </body>
 </html>

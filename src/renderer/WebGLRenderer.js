@@ -347,6 +347,19 @@ const WebGLRenderer = Class.create( /** @lends WebGLRenderer.prototype */ {
         }
     },
     /**
+     * 初始化回调
+     * @return {WebGLRenderer} this
+     */
+    onInit(callback) {
+        if (this._isInit) {
+            callback(this);
+        } else {
+            this.on('init', () => {
+                callback(this);
+            }, true);
+        }
+    },
+    /**
      * 初始化 context
      */
     initContext() {
