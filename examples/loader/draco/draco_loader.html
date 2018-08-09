@@ -15,14 +15,12 @@
     <script src="../../js/OrbitControls.js"></script>
     <script src="../../js/init.js"></script>
     <script>
-        renderer.clearColor = new Hilo3d.Color(1, 1, 1);
         var glTFLoader = new Hilo3d.GLTFLoader();
         glTFLoader.load({
-            src: '//ossgw.alicdn.com/tmall-c3/tmx/6a21e4092a90e37db21302aeb8f2cf9c.gltf'
+            src: './res/duck.gltf'
         }).then(model => {
             stage.addChild(model.node);
-            window.model = model;
-        });
+        })
     </script>
 </body>
 </html>
