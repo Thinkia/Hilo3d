@@ -44,7 +44,7 @@
     var textureBox = new Hilo3d.Mesh({
         geometry:boxGeometry,
         material: new Hilo3d.BasicMaterial({
-            diffuse:texture
+            diffuse:texture.clone()
         }),
         x: 1,
         rotationX:45,
@@ -69,9 +69,8 @@
     renderer.on('afterRender', () => {
         framebuffer.bind();
 
-
         renderer.clear(clearColor);
-        textureBox.material.diffuse = texture
+        textureBox.material.diffuse.setGLTexture(texture.getGLTexture(renderer.state));
         renderer.renderList.traverse((arr) => {
             arr.forEach(mesh => {
                 renderer.renderMesh(mesh);
@@ -79,9 +78,8 @@
         });
         framebuffer.unbind()
 
-
         framebuffer.render(0, 0.7, 0.3, 0.3);
-        textureBox.material.diffuse = framebuffer.texture
+        textureBox.material.diffuse.setGLTexture(framebuffer.texture);
 
     });
 

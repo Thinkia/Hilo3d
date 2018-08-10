@@ -5,7 +5,7 @@ color.a = 1.0;
 color.rgb *= color.a;
 
 #ifdef HILO_GAMMA_OUTPUT
-    color.rgb = pow(color.rgb, vec3(u_gammaFactor));
+    color.rgb = pow(color.rgb, vec3(1.0 / u_gammaFactor));
 #endif
 
 #ifdef HILO_USE_HDR

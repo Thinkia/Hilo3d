@@ -119,13 +119,6 @@ const Material = Class.create( /** @lends Material.prototype */ {
     gammaOutput: false,
 
     /**
-     * gammaInput
-     * @type {Boolean}
-     * @default false
-     */
-    gammaInput: false,
-
-    /**
      * gamma值
      * @type {Number}
      * @default 2.2
@@ -470,10 +463,6 @@ const Material = Class.create( /** @lends Material.prototype */ {
 
         if (this.useHDR) {
             option.USE_HDR = 1;
-        }
-
-        if (this.gammaInput) {
-            option.GAMMA_INPUT = 1;
         }
 
         if (this.gammaOutput) {

@@ -1,4 +1,5 @@
 #pragma glslify: import('../method/textureEnvMap.glsl');
+#pragma glslify: import('../method/encoding.glsl');
 
 uniform vec4 u_baseColor;
 #ifdef HILO_BASE_COLOR_MAP
@@ -73,6 +74,7 @@ uniform vec4 u_baseColor;
         float alphaRoughness;         // roughness mapped to a more linear change in the roughness (proposed by [2])
         vec3 diffuseColor;            // color contribution from diffuse lighting
         vec3 specularColor;           // color contribution from specular lighting
+        float ao;                      // ao
     };
 
     // Basic Lambertian diffuse
@@ -115,7 +117,7 @@ uniform vec4 u_baseColor;
         vec3 color = vec3(.0, .0, .0);
         #ifdef HILO_DIFFUSE_ENV_MAP
             vec3 diffuseLight = textureEnvMap(u_diffuseEnvMap, N).rgb;
-            color.rgb += diffuseLight * pbrInputs.diffuseColor;
+            color.rgb += diffuseLight * pbrInputs.diffuseColor * pbrInputs.ao;
         #endif
 
         #ifdef HILO_SPECULAR_ENV_MAP

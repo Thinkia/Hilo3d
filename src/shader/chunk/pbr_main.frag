@@ -1,6 +1,10 @@
 vec4 baseColor = u_baseColor;
 #ifdef HILO_BASE_COLOR_MAP
-    baseColor *= HILO_TEXTURE_2D(u_baseColorMap);
+    #ifdef HILO_GAMMA_OUTPUT
+        baseColor *= sRGBToLinear(HILO_TEXTURE_2D(u_baseColorMap));
+    #else
+        baseColor *= HILO_TEXTURE_2D(u_baseColorMap);
+    #endif
 #endif
 
 #if defined(HILO_HAS_COLOR)
@@ -79,7 +83,8 @@ color.a = baseColor.a;
         specularEnvironmentR90,
         roughness * roughness,
         diffuseColor,
-        specularColor
+        specularColor,
+        ao
     );
 
     #ifdef HILO_DIRECTIONAL_LIGHTS
@@ -93,7 +98,7 @@ color.a = baseColor.a;
                     shadow = getShadow(u_directionalLightsShadowMap[i], u_directionalLightsShadowMapSize[i], bias, v_fragPos, u_directionalLightSpaceMatrix[i]);
                 }
             #endif
-            color.rgb += ao * shadow * radiance * calculateLo(pbrInputs, N, V, L);
+            color.rgb += shadow * radiance * calculateLo(pbrInputs, N, V, L);
         }
     #endif
 
@@ -115,7 +120,7 @@ color.a = baseColor.a;
                     shadow = getShadow(u_spotLightsShadowMap[i], u_spotLightsShadowMapSize[i], bias, v_fragPos, u_spotLightSpaceMatrix[i]);
                 }
             #endif
-            color.rgb += ao * shadow * radiance * calculateLo(pbrInputs, N, V, lightDir);
+            color.rgb += shadow * radiance * calculateLo(pbrInputs, N, V, lightDir);
         }
     #endif
 
@@ -135,7 +140,7 @@ color.a = baseColor.a;
             float attenuation = getLightAttenuation(distanceVec, u_pointLightsInfo[i]);
             vec3 radiance = attenuation * u_pointLightsColor[i];
 
-            color.rgb += ao * shadow * radiance * calculateLo(pbrInputs, N, V, lightDir);
+            color.rgb += shadow * radiance * calculateLo(pbrInputs, N, V, lightDir);
         }
     #endif
 
@@ -144,14 +149,18 @@ color.a = baseColor.a;
     #endif
 
     // IBL
-    color.rgb += ao * getIBLContribution(pbrInputs, N, V);
+    color.rgb += getIBLContribution(pbrInputs, N, V);
 
     #if defined(HILO_AMBIENT_LIGHTS) && !defined(HILO_DIFFUSE_ENV_MAP)
         color.rgb += u_ambientLightsColor * baseColor.rgb * ao;
     #endif
 
     #ifdef HILO_EMISSION_MAP
-        color.rgb += HILO_TEXTURE_2D(u_emission).rgb;
+        #ifdef HILO_GAMMA_OUTPUT
+            color.rgb += sRGBToLinear(HILO_TEXTURE_2D(u_emission)).rgb;
+        #else
+            color.rgb += HILO_TEXTURE_2D(u_emission).rgb;
+        #endif
     #endif
 #else
     color = baseColor;

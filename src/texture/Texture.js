@@ -212,9 +212,19 @@ const Texture = Class.create( /** @lends Texture.prototype */ {
         this.id = math.generateUUID(this.className);
         Object.assign(this, params);
     },
+    /**
+     * 是否是 2 的 n 次方
+     * @param  {Image}  img
+     * @return {Boolean}
+     */
     isImgPowerOfTwo(img) {
         return math.isPowerOfTwo(img.width) && math.isPowerOfTwo(img.height);
     },
+    /**
+     * 更新图片大小成为 2 的 n 次方
+     * @param  {Image} img
+     * @return {Canvas}
+     */
     resizeImgToPowerOfTwo(img) {
         if (this.isImgPowerOfTwo(img)) {
             return img;
@@ -233,6 +243,14 @@ const Texture = Class.create( /** @lends Texture.prototype */ {
         log.warnOnce('resizeImgToPowerOfTwo' + this.id, `image is not power of two (${img.width}x${img.height}). Resized to ${canvas.width}x${canvas.height}`, img.src);
         return canvas;
     },
+    /**
+     * GL上传贴图
+     * @private
+     * @param  {WebGLState} state  
+     * @param  {GLEnum} target 
+     * @param  {Image|TypedArray} image  
+     * @return {Texture}  this
+     */
     _glUploadTexture(state, target, image) {
         const gl = state.gl;
         if (this.compressed) {
@@ -242,10 +260,26 @@ const Texture = Class.create( /** @lends Texture.prototype */ {
         } else {
             gl.texImage2D(target, this.level, this.internalFormat, this.width, this.height, this.border, this.format, this.type, image);
         }
+
+        return this;
     },
+    /**
+     * 上传贴图，子类可重写
+     * @private
+     * @param  {WebGLState} state 
+     * @return {Texture} this       
+     */
     _uploadTexture(state) {
         this._glUploadTexture(state, this.target, this.image);
+
+        return this;
     },
+    /**
+     * 更新 Texture
+     * @param  {WebGLState} state     
+     * @param  {WebGLTexture} glTexture 
+     * @return {Texture} this          
+     */
     updateTexture(state, glTexture) {
         const gl = state.gl;
         if (this.needUpdate || this.autoUpdate) {
@@ -270,13 +304,20 @@ const Texture = Class.create( /** @lends Texture.prototype */ {
             }
             this.needUpdate = false;
         }
+
+        return this;
     },
+    /**
+     * 获取 GLTexture
+     * @param  {WebGLState} state
+     * @return {WebGLTexture}      
+     */
     getGLTexture(state) {
         const gl = this.gl = state.gl;
         const id = this.id;
 
         if (this.needDestory) {
-            this.destroy(gl);
+            this.destroy();
             this.needDestory = false;
         }
 
@@ -297,7 +338,22 @@ const Texture = Class.create( /** @lends Texture.prototype */ {
         return glTexture;
     },
     /**
+     * 设置 GLTexture
+     * @param {WebGLTexture}  texture
+     * @param {Boolean} [needDestroy=false] 是否销毁之前的 GLTexture
+     * @return {Texture} this
+     */
+    setGLTexture(texture, needDestroy = false) {
+        if (needDestroy) {
+            this.destroy();
+        }
+        cache.add(this.id, texture);
+
+        return this;
+    },
+    /**
      * 销毁当前Texture
+     * @return {Texture} this
      */
     destroy() {
         const id = this.id;
@@ -306,7 +362,13 @@ const Texture = Class.create( /** @lends Texture.prototype */ {
             this.gl.deleteTexture(glTexture);
             cache.remove(id);
         }
+
+        return this;
     },
+    /**
+     * clone
+     * @return {Texture}
+     */
     clone() {
         const option = Object.assign({}, this);
         delete option.id;
