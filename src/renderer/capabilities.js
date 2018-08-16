@@ -73,6 +73,7 @@ const capabilities = {
 
         this.VERTEX_TEXTURE_FLOAT = !!extensions.texFloat && this.MAX_VERTEX_TEXTURE_IMAGE_UNITS > 0;
         this.FRAGMENT_TEXTURE_FLOAT = !!extensions.texFloat;
+        this.EXT_FRAG_DEPTH = extensions.get('EXT_frag_depth');
 
         this.SHADER_TEXTURE_LOD = !!extensions.shaderTextureLod;
     },

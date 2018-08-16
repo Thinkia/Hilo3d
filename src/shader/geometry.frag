@@ -26,6 +26,8 @@ vec4 transformDataToColor(vec3 data){
     #endif
 }
 
+#pragma glslify: import('./chunk/logDepth.frag');
+
 void main(void) {
     #if defined(HILO_VERTEX_TYPE_POSITION)
         gl_FragColor = transformDataToColor(v_fragPos);
@@ -55,4 +57,5 @@ void main(void) {
             gl_FragColor = packFloat(distance);
         #endif
     #endif
+    #pragma glslify: import('./chunk/logDepth_main.frag');
 }

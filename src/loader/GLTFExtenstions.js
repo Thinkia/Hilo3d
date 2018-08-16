@@ -164,6 +164,7 @@ export const KHR_lights_punctual = {
 
         if (light) {
             node.addChild(light);
+            parser.lights.push(light);
         }
     }
 };

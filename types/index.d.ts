@@ -139,7 +139,21 @@ declare namespace hilo3d {
      * @param rootNode 目标动画根节点
      */
     clone(rootNode: Node): Animation;
+      
+    /**
+     * 增加一个事件监听。
+     * @param type 事件类型，目前仅有`end`
+     * @param listener 回调
+     * @param once 是否只触发一次
+     */
+    on(type: string, listener: Function, once: Boolean): void;
 
+    /**
+     * 删除一个事件监听。如果不传入任何参数，则删除所有的事件监听；如果不传入第二个参数，则删除指定类型的所有事件监听。
+     * @param type 事件类型，目前仅有`end`
+     * @param listener 回调
+     */
+    off(type: string, listener: Function): void;
   }
 
   enum AnimationStatesTypes {
@@ -3630,57 +3644,57 @@ declare namespace hilo3d {
     /**
      * 向后缓动函数。包含EaseIn、EaseOut、EaseInOut三个函数。
      */
-    static Back: EaseTimeFunctions;
+    Back: EaseTimeFunctions;
 
     /**
      * 弹跳缓动函数。包含EaseIn、EaseOut、EaseInOut三个函数。
      */
-    static Bounce: EaseTimeFunctions;
+    Bounce: EaseTimeFunctions;
 
     /**
      * 圆形缓动函数。包含EaseIn、EaseOut、EaseInOut三个函数。
      */
-    static Circ: EaseTimeFunctions;
+    Circ: EaseTimeFunctions;
 
     /**
      * 三次缓动函数。包含EaseIn、EaseOut、EaseInOut三个函数。
      */
-    static Cubic: EaseTimeFunctions;
+    Cubic: EaseTimeFunctions;
 
     /**
      * 弹性缓动函数。包含EaseIn、EaseOut、EaseInOut三个函数。
      */
-    static Elastic: EaseTimeFunctions;
+    Elastic: EaseTimeFunctions;
 
     /**
      * 指数缓动函数。包含EaseIn、EaseOut、EaseInOut三个函数。
      */
-    static Expo: EaseTimeFunctions;
+    Expo: EaseTimeFunctions;
 
     /**
      * 线性匀速缓动函数。包含EaseNone函数。
      */
-    static Linear: EaseTimeFunctions;
+    Linear: EaseTimeFunctions;
 
     /**
      * 二次缓动函数。包含EaseIn、EaseOut、EaseInOut三个函数。
      */
-    static Quad: EaseTimeFunctions;
+    Quad: EaseTimeFunctions;
 
     /**
      * 四次缓动函数。包含EaseIn、EaseOut、EaseInOut三个函数。
      */
-    static Quart: EaseTimeFunctions;
+    Quart: EaseTimeFunctions;
 
     /**
      * 五次缓动函数。包含EaseIn、EaseOut、EaseInOut三个函数。
      */
-    static Quint: EaseTimeFunctions;
+    Quint: EaseTimeFunctions;
 
     /**
      * 正弦缓动函数。包含EaseIn、EaseOut、EaseInOut三个函数。
      */
-    static Sine: EaseTimeFunctions;
+    Sine: EaseTimeFunctions;
 
   }
 

@@ -978,6 +978,7 @@ const GLTFParser = Class.create( /** @lends GLTFParser.prototype */ {
         this.parseMaterials();
         this.jointMap = {};
         this.meshes = [];
+        this.lights = [];
 
         this.node = new Node({
             needCallChildUpdate: false
@@ -1009,7 +1010,7 @@ const GLTFParser = Class.create( /** @lends GLTFParser.prototype */ {
             meshes: this.meshes,
             json: this.json,
             cameras: Object.values(this.cameras),
-            lights: [],
+            lights: this.lights,
             textures: Object.values(this.textures),
             materials: Object.values(this.materials)
         };

@@ -11,6 +11,7 @@
 #pragma glslify: import('./chunk/phong.frag');
 #pragma glslify: import('./chunk/transparency.frag');
 #pragma glslify: import('./chunk/fog.frag');
+#pragma glslify: import('./chunk/logDepth.frag');
 
 void main(void) {
     vec4 diffuse = vec4(0., 0., 0., 1.);
@@ -23,4 +24,5 @@ void main(void) {
     #pragma glslify: import('./chunk/transparency_main.frag');
     #pragma glslify: import('./chunk/fog_main.frag');
     #pragma glslify: import('./chunk/frag_color.frag');
+    #pragma glslify: import('./chunk/logDepth_main.frag');
 }

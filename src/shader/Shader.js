@@ -49,6 +49,8 @@ const Shader = Class.create( /** @lends Shader.prototype */ {
             'chunk/color_main.vert': require('./chunk/color_main.vert'),
             'chunk/diffuse.frag': require('./chunk/diffuse.frag'),
             'chunk/diffuse_main.frag': require('./chunk/diffuse_main.frag'),
+            'chunk/extensions.frag': require('./chunk/extensions.frag'),
+            'chunk/extensions.vert': require('./chunk/extensions.vert'),
             'chunk/fog.frag': require('./chunk/fog.frag'),
             'chunk/fog_main.frag': require('./chunk/fog_main.frag'),
             'chunk/frag_color.frag': require('./chunk/frag_color.frag'),
@@ -59,6 +61,10 @@ const Shader = Class.create( /** @lends Shader.prototype */ {
             'chunk/lightFog.vert': require('./chunk/lightFog.vert'),
             'chunk/lightFog_main.frag': require('./chunk/lightFog_main.frag'),
             'chunk/lightFog_main.vert': require('./chunk/lightFog_main.vert'),
+            'chunk/logDepth.frag': require('./chunk/logDepth.frag'),
+            'chunk/logDepth_main.frag': require('./chunk/logDepth_main.frag'),
+            'chunk/logDepth.vert': require('./chunk/logDepth.vert'),
+            'chunk/logDepth_main.vert': require('./chunk/logDepth_main.vert'),
             'chunk/morph.vert': require('./chunk/morph.vert'),
             'chunk/morph_main.vert': require('./chunk/morph_main.vert'),
             'chunk/normal.frag': require('./chunk/normal.frag'),
@@ -79,12 +85,15 @@ const Shader = Class.create( /** @lends Shader.prototype */ {
             'chunk/uv.vert': require('./chunk/uv.vert'),
             'chunk/uv_main.vert': require('./chunk/uv_main.vert'),
 
+            'method/encoding.glsl': require('./method/encoding.glsl'),
             'method/getDiffuse.glsl': require('./method/getDiffuse.glsl'),
             'method/getLightAttenuation.glsl': require('./method/getLightAttenuation.glsl'),
             'method/getShadow.glsl': require('./method/getShadow.glsl'),
             'method/getSpecular.glsl': require('./method/getSpecular.glsl'),
+            'method/packFloat.glsl': require('./method/packFloat.glsl'),
             'method/textureEnvMap.glsl': require('./method/textureEnvMap.glsl'),
             'method/transpose.glsl': require('./method/transpose.glsl'),
+            'method/unpackFloat.glsl': require('./method/unpackFloat.glsl'),
 
             'basic.frag': require('./basic.frag'),
             'basic.vert': require('./basic.vert'),
@@ -173,6 +182,9 @@ const Shader = Class.create( /** @lends Shader.prototype */ {
 
                 if (useLogDepth) {
                     headers.USE_LOG_DEPTH = 1;
+                    if (capabilities.EXT_FRAG_DEPTH) {
+                        headers.USE_EXT_FRAG_DEPTH = 1;
+                    }
                 }
 
                 if (headers.HAS_NORMAL && headers.NORMAL_MAP) {
