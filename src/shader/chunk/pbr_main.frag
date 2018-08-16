@@ -81,7 +81,7 @@ color.a = baseColor.a;
             float shadow = 1.0;
             #ifdef HILO_DIRECTIONAL_LIGHTS_SMC
                 if (i < HILO_DIRECTIONAL_LIGHTS_SMC) {
-                    float bias = max(u_directionalLightsShadowBias[i][1] * (1.0 - dot(N, L)), u_directionalLightsShadowBias[i][0]);
+                    float bias = max(u_directionalLightsShadowBias[i][1] * (1.0 - dot(N, lightDir)), u_directionalLightsShadowBias[i][0]);
                     shadow = getShadow(u_directionalLightsShadowMap[i], u_directionalLightsShadowMapSize[i], bias, v_fragPos, u_directionalLightSpaceMatrix[i]);
                 }
             #endif
