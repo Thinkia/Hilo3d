@@ -21,7 +21,8 @@ import {
     DEPTH_STENCIL,
     DEPTH_TEST,
     CULL_FACE,
-    TRIANGLE_STRIP
+    TRIANGLE_STRIP,
+    NEAREST
 } from '../constants/index';
 
 const cache = new Cache();
@@ -152,6 +153,9 @@ const Framebuffer = Class.create( /** @lends Framebuffer.prototype */ {
     framebuffer: null,
 
     _isInit: false,
+
+    minFilter: NEAREST,
+    magFilter: NEAREST,
 
     /**
      * @constructs
@@ -330,8 +334,8 @@ const Framebuffer = Class.create( /** @lends Framebuffer.prototype */ {
         gl.texImage2D(this.target, 0, this.internalFormat, this.width, this.height, 0, this.format, this.type, this.data);
         gl.texParameteri(this.target, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
         gl.texParameteri(this.target, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
-        gl.texParameteri(this.target, gl.TEXTURE_MIN_FILTER, gl.NEAREST);
-        gl.texParameteri(this.target, gl.TEXTURE_MAG_FILTER, gl.NEAREST);
+        gl.texParameteri(this.target, gl.TEXTURE_MIN_FILTER, this.minFilter);
+        gl.texParameteri(this.target, gl.TEXTURE_MAG_FILTER, this.magFilter);
         gl.framebufferTexture2D(gl.FRAMEBUFFER, this.attachment, this.target, texture, 0);
 
         return texture;

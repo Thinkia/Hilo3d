@@ -11,7 +11,10 @@ import {
     FLOAT
 } from '../constants/index';
 
-const HDRLoader = Class.create({
+/**
+ * @class
+ */
+const HDRLoader = Class.create(/** @lends HDRLoader.prototype */{
     Extends: BasicLoader,
     /**
      * @default true
@@ -26,6 +29,11 @@ const HDRLoader = Class.create({
     constructor() {
         HDRLoader.superclass.constructor.call(this);
     },
+    /**
+     * load
+     * @param  {Object} params
+     * @return {Promise}
+     */
     load(params) {
         return this.loadRes(params.src, 'buffer')
             .then((buffer) => {

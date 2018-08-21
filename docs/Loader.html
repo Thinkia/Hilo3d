@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>Class: GeometryData</title>
+    <title>Class: Loader</title>
     
     
     <script src="scripts/prettify/prettify.js"></script>
@@ -6411,7 +6411,7 @@
     </ul>
 </div>
     <div class="main">
-        <h1 class="page-title" data-filename="GeometryData.html">Class: GeometryData</h1>
+        <h1 class="page-title" data-filename="Loader.html">Class: Loader</h1>
         
 
 
@@ -6419,7 +6419,7 @@
 <section>
 <header>
     <h2>
-    GeometryData
+    Loader
     </h2>
     
 </header>  
@@ -6433,14 +6433,14 @@
 <dl >
     <dt>
         <div class="nameContainer">
-            <h4 class="name" id="GeometryData">
+            <h4 class="name" id="Loader">
                 
-                new GeometryData<span class="signature">(data, size, params)</span>
+                new Loader<span class="signature">()</span>
             </h4>
         
             
             <div class="tag-source">
-                geometry/GeometryData.js, line 23
+                loader/Loader.js, line 10
             </div>
             
         </div>
@@ -6448,106 +6448,11 @@
     <dd>
         
         
-        <div class="description">
-            <p>geometry vertex data</p>
-        </div>
-        
 
         
         
         
         
-        
-            
-
-<table class="params">
-    <thead>
-	<tr>
-		
-		<th>Name</th>
-		
-		
-		<th>Type</th>
-		
-		
-		
-		<th class="last">Description</th>
-	</tr>
-	</thead>
-	
-	<tbody>
-	
-	
-        <tr>
-            
-                <td class="name"><code>data</code></td>
-            
-            
-            <td class="type">
-            
-                
-<span class="param-type">TypedArray</span>
-
-
-            
-            </td>
-            
-            
-            
-            <td class="description last">
-                
-                <p>数据</p></td>
-        </tr>
-	
-	
-	
-        <tr>
-            
-                <td class="name"><code>size</code></td>
-            
-            
-            <td class="type">
-            
-                
-<span class="param-type">Number</span>
-
-
-            
-            </td>
-            
-            
-            
-            <td class="description last">
-                
-                <p>The number of components per vertex attribute.Must be 1, 2, 3, or 4.</p></td>
-        </tr>
-	
-	
-	
-        <tr>
-            
-                <td class="name"><code>params</code></td>
-            
-            
-            <td class="type">
-            
-                
-<span class="param-type">Object</span>
-
-
-            
-            </td>
-            
-            
-            
-            <td class="description last">
-                
-                <p>初始化参数，所有params都会复制到实例上</p></td>
-        </tr>
-	
-	
-	</tbody>
-</table>
         
         
         
@@ -6634,15 +6539,15 @@
         <tr >
             
                 <td class="name">
-                    <a name="size"></a>
-                    <code>size</code>
+                    <a name="isLoader"></a>
+                    <code>isLoader</code>
                 </td>
             
             
             <td class="type">
             
                 
-<span class="param-type">Number</span>
+<span class="param-type">boolean</span>
 
 
             
@@ -6653,114 +6558,7 @@
             
                 <td class="default">
                 
-                </td>
-            
-            
-            <td class="description last">
-                
-                <p>The number of components per vertex attribute.Must be 1, 2, 3, or 4.</p>
-                
-    
-                
-            </td>
-        </tr>
-	
-	
-        <tr >
-            
-                <td class="name">
-                    <a name="normalized"></a>
-                    <code>normalized</code>
-                </td>
-            
-            
-            <td class="type">
-            
-                
-<span class="param-type">Boolean</span>
-
-
-            
-            </td>
-            
-            
-            
-            
-                <td class="default">
-                
-                    false
-                
-                </td>
-            
-            
-            <td class="description last">
-                
-                <p>Whether integer data values should be normalized when being casted to a float.</p>
-                
-    
-                
-            </td>
-        </tr>
-	
-	
-        <tr >
-            
-                <td class="name">
-                    <a name="type"></a>
-                    <code>type</code>
-                </td>
-            
-            
-            <td class="type">
-            
-                
-<span class="param-type"><a href="global.html#GLenum">GLenum</a></span>
-
-
-            
-            </td>
-            
-            
-            
-            
-                <td class="default">
-                
-                </td>
-            
-            
-            <td class="description last">
-                
-                <p>The data type of each component in the array.</p>
-                
-    
-                
-            </td>
-        </tr>
-	
-	
-        <tr >
-            
-                <td class="name">
-                    <a name="isDirty"></a>
-                    <code>isDirty</code>
-                </td>
-            
-            
-            <td class="type">
-            
-                
-<span class="param-type">Boolean</span>
-
-
-            
-            </td>
-            
-            
-            
-            
-                <td class="default">
-                
-                    false
+                    true
                 
                 </td>
             
@@ -6778,78 +6576,8 @@
         <tr >
             
                 <td class="name">
-                    <a name="bufferViewId"></a>
-                    <code>bufferViewId</code>
-                </td>
-            
-            
-            <td class="type">
-            
-                
-<span class="param-type">String</span>
-
-
-            
-            </td>
-            
-            
-            
-            
-                <td class="default">
-                
-                </td>
-            
-            
-            <td class="description last">
-                
-                
-                
-    
-                
-            </td>
-        </tr>
-	
-	
-        <tr >
-            
-                <td class="name">
-                    <a name="glBuffer"></a>
-                    <code>glBuffer</code>
-                </td>
-            
-            
-            <td class="type">
-            
-                
-<span class="param-type"><a href="Buffer.html">Buffer</a></span>
-
-
-            
-            </td>
-            
-            
-            
-            
-                <td class="default">
-                
-                </td>
-            
-            
-            <td class="description last">
-                
-                <p>glBuffer</p>
-                
-    
-                
-            </td>
-        </tr>
-	
-	
-        <tr >
-            
-                <td class="name">
-                    <a name="id"></a>
-                    <code>id</code>
+                    <a name="className"></a>
+                    <code>className</code>
                 </td>
             
             
@@ -6867,254 +6595,7 @@
             
                 <td class="default">
                 
-                </td>
-            
-            
-            <td class="description last">
-                
-                <p>id</p>
-                
-    
-                
-            </td>
-        </tr>
-	
-	
-        <tr >
-            
-                <td class="name">
-                    <a name="data"></a>
-                    <code>data</code>
-                </td>
-            
-            
-            <td class="type">
-            
-                
-<span class="param-type">TypedArray</span>
-
-
-            
-            </td>
-            
-            
-            
-            
-                <td class="default">
-                
-                </td>
-            
-            
-            <td class="description last">
-                
-                
-                
-    
-                
-            </td>
-        </tr>
-	
-	
-        <tr >
-            
-                <td class="name">
-                    <a name="stride"></a>
-                    <code>stride</code>
-                </td>
-            
-            
-            <td class="type">
-            
-                
-<span class="param-type">Number</span>
-
-
-            
-            </td>
-            
-            
-            
-            
-                <td class="default">
-                
-                    this.size
-                
-                </td>
-            
-            
-            <td class="description last">
-                
-                <p>The offset in bytes between the beginning of consecutive vertex attributes.</p>
-                
-    
-                
-            </td>
-        </tr>
-	
-	
-        <tr >
-            
-                <td class="name">
-                    <a name="offset"></a>
-                    <code>offset</code>
-                </td>
-            
-            
-            <td class="type">
-            
-                
-<span class="param-type">Number</span>
-
-
-            
-            </td>
-            
-            
-            
-            
-                <td class="default">
-                
-                    0
-                
-                </td>
-            
-            
-            <td class="description last">
-                
-                <p>An offset in bytes of the first component in the vertex attribute array. Must be a multiple of type.</p>
-                
-    
-                
-            </td>
-        </tr>
-	
-	
-        <tr >
-            
-                <td class="name">
-                    <a name="data"></a>
-                    <code>data</code>
-                </td>
-            
-            
-            <td class="type">
-            
-                
-<span class="param-type">TypedArray</span>
-
-
-            
-            </td>
-            
-            
-            
-            
-                <td class="default">
-                
-                </td>
-            
-            
-            <td class="description last">
-                
-                
-                
-    
-                
-            </td>
-        </tr>
-	
-	
-        <tr >
-            
-                <td class="name">
-                    <a name="length"></a>
-                    <code>length</code>
-                </td>
-            
-            
-            <td class="type">
-            
-                
-<span class="param-type">Number</span>
-
-
-            
-            </td>
-            
-            
-            
-            
-                <td class="default">
-                
-                </td>
-            
-            
-            <td class="description last">
-                
-                
-                
-    
-                
-            </td>
-        </tr>
-	
-	
-        <tr >
-            
-                <td class="name">
-                    <a name="realLength"></a>
-                    <code>realLength</code>
-                </td>
-            
-            
-            <td class="type">
-            
-                
-<span class="param-type">Number</span>
-
-
-            
-            </td>
-            
-            
-            
-            
-                <td class="default">
-                
-                </td>
-            
-            
-            <td class="description last">
-                
-                
-                
-    
-                
-            </td>
-        </tr>
-	
-	
-        <tr >
-            
-                <td class="name">
-                    <a name="count"></a>
-                    <code>count</code>
-                </td>
-            
-            
-            <td class="type">
-            
-                
-<span class="param-type">Number</span>
-
-
-            
-            </td>
-            
-            
-            
-            
-                <td class="default">
+                    Loader
                 
                 </td>
             
@@ -7147,14 +6628,14 @@
 <dl >
     <dt>
         <div class="nameContainer">
-            <h4 class="name" id="clone">
+            <h4 class="name" id=".addLoader">
                 
-                clone<span class="signature">()</span><span class="glyphicon glyphicon-circle-arrow-right"></span><span class="type-signature returnType">{<a href="GeometryData.html">GeometryData</a>}</span>
+                <span class="type-signature static">static</span>Loader.addLoader<span class="signature">(ext, LoaderClass)</span>
             </h4>
         
             
             <div class="tag-source">
-                geometry/GeometryData.js, line 182
+                loader/Loader.js, line 32
             </div>
             
         </div>
@@ -7163,106 +6644,7 @@
         
         
         <div class="description">
-            <p>clone</p>
-        </div>
-        
-
-        
-        
-        
-        
-        
-        
-        
-<dl class="details">
-    
-        
-    
-    
-    
-
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-</dl>
-
-        
-        
-
-        
-
-        
-        
-        
-        
-        
-        <h5>Returns:</h5>
-        
-
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Type</th>
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-    <tbody>
-    
-        <tr>
-            
-            <td class="type">
-            
-                        <a href="GeometryData.html">GeometryData</a>
-                        
-                    
-            </td>
-            <td class="description last"></td>
-        </tr>
-    
-    </tbody>
-</table>
-
-        
-        
-        
-    </dd>
-</dl>
-        
-            
-<dl >
-    <dt>
-        <div class="nameContainer">
-            <h4 class="name" id="copy">
-                
-                copy<span class="signature">(geometryData)</span>
-            </h4>
-        
-            
-            <div class="tag-source">
-                geometry/GeometryData.js, line 191
-            </div>
-            
-        </div>
-    </dt>
-    <dd>
-        
-        
-        <div class="description">
-            <p>copy</p>
+            <p>给Loader类添加扩展Loader</p>
         </div>
         
 
@@ -7293,13 +6675,13 @@
 	
         <tr>
             
-                <td class="name"><code>geometryData</code></td>
+                <td class="name"><code>ext</code></td>
             
             
             <td class="type">
             
                 
-<span class="param-type"><a href="GeometryData.html">GeometryData</a></span>
+<span class="param-type">string</span>
 
 
             
@@ -7309,7 +6691,30 @@
             
             <td class="description last">
                 
-                </td>
+                <p>资源扩展，如gltf, png 等</p></td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>LoaderClass</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type"><a href="BasicLoader.html">BasicLoader</a></span>
+
+
+            
+            </td>
+            
+            
+            
+            <td class="description last">
+                
+                <p>用于加载的类，需要继承BasicLoader</p></td>
         </tr>
 	
 	
@@ -7361,14 +6766,14 @@
 <dl >
     <dt>
         <div class="nameContainer">
-            <h4 class="name" id="getOffset">
+            <h4 class="name" id="load">
                 
-                getOffset<span class="signature">(index)</span><span class="glyphicon glyphicon-circle-arrow-right"></span><span class="type-signature returnType">{Number}</span>
+                load<span class="signature">(data)</span><span class="glyphicon glyphicon-circle-arrow-right"></span><span class="type-signature returnType">{Promise}</span>
             </h4>
         
             
             <div class="tag-source">
-                geometry/GeometryData.js, line 205
+                loader/Loader.js, line 48
             </div>
             
         </div>
@@ -7377,7 +6782,7 @@
         
         
         <div class="description">
-            <p>获取偏移值</p>
+            <p>load</p>
         </div>
         
 
@@ -7408,13 +6813,16 @@
 	
         <tr>
             
-                <td class="name"><code>index</code></td>
+                <td class="name"><code>data</code></td>
             
             
             <td class="type">
             
                 
-<span class="param-type">Number</span>
+<span class="param-type">Object</span>
+|
+
+<span class="param-type">Array</span>
 
 
             
@@ -7485,895 +6893,7 @@
             
             <td class="type">
             
-                        Number
-                        
-                    
-            </td>
-            <td class="description last"></td>
-        </tr>
-    
-    </tbody>
-</table>
-
-        
-        
-        
-    </dd>
-</dl>
-        
-            
-<dl >
-    <dt>
-        <div class="nameContainer">
-            <h4 class="name" id="get">
-                
-                get<span class="signature">(index)</span><span class="glyphicon glyphicon-circle-arrow-right"></span><span class="type-signature returnType">{Number|<a href="Vector2.html">Vector2</a>|<a href="Vector3.html">Vector3</a>|<a href="Vector4.html">Vector4</a>}</span>
-            </h4>
-        
-            
-            <div class="tag-source">
-                geometry/GeometryData.js, line 217
-            </div>
-            
-        </div>
-    </dt>
-    <dd>
-        
-        
-        <div class="description">
-            <p>获取值</p>
-        </div>
-        
-
-        
-        
-        
-        
-        
-            
-
-<table class="params">
-    <thead>
-	<tr>
-		
-		<th>Name</th>
-		
-		
-		<th>Type</th>
-		
-		
-		
-		<th class="last">Description</th>
-	</tr>
-	</thead>
-	
-	<tbody>
-	
-	
-        <tr>
-            
-                <td class="name"><code>index</code></td>
-            
-            
-            <td class="type">
-            
-                
-<span class="param-type">Number</span>
-
-
-            
-            </td>
-            
-            
-            
-            <td class="description last">
-                
-                </td>
-        </tr>
-	
-	
-	</tbody>
-</table>
-        
-        
-        
-<dl class="details">
-    
-        
-    
-    
-    
-
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-</dl>
-
-        
-        
-
-        
-
-        
-        
-        
-        
-        
-        <h5>Returns:</h5>
-        
-
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Type</th>
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-    <tbody>
-    
-        <tr>
-            
-            <td class="type">
-            
-                        Number
-                         | 
-                    
-                        <a href="Vector2.html">Vector2</a>
-                         | 
-                    
-                        <a href="Vector3.html">Vector3</a>
-                         | 
-                    
-                        <a href="Vector4.html">Vector4</a>
-                        
-                    
-            </td>
-            <td class="description last"></td>
-        </tr>
-    
-    </tbody>
-</table>
-
-        
-        
-        
-    </dd>
-</dl>
-        
-            
-<dl >
-    <dt>
-        <div class="nameContainer">
-            <h4 class="name" id="set">
-                
-                set<span class="signature">(index, value)</span>
-            </h4>
-        
-            
-            <div class="tag-source">
-                geometry/GeometryData.js, line 226
-            </div>
-            
-        </div>
-    </dt>
-    <dd>
-        
-        
-        <div class="description">
-            <p>设置值</p>
-        </div>
-        
-
-        
-        
-        
-        
-        
-            
-
-<table class="params">
-    <thead>
-	<tr>
-		
-		<th>Name</th>
-		
-		
-		<th>Type</th>
-		
-		
-		
-		<th class="last">Description</th>
-	</tr>
-	</thead>
-	
-	<tbody>
-	
-	
-        <tr>
-            
-                <td class="name"><code>index</code></td>
-            
-            
-            <td class="type">
-            
-                
-<span class="param-type">Number</span>
-
-
-            
-            </td>
-            
-            
-            
-            <td class="description last">
-                
-                </td>
-        </tr>
-	
-	
-	
-        <tr>
-            
-                <td class="name"><code>value</code></td>
-            
-            
-            <td class="type">
-            
-                
-<span class="param-type">Number</span>
-|
-
-<span class="param-type"><a href="Vector2.html">Vector2</a></span>
-|
-
-<span class="param-type"><a href="Vector3.html">Vector3</a></span>
-|
-
-<span class="param-type"><a href="Vector4.html">Vector4</a></span>
-
-
-            
-            </td>
-            
-            
-            
-            <td class="description last">
-                
-                </td>
-        </tr>
-	
-	
-	</tbody>
-</table>
-        
-        
-        
-<dl class="details">
-    
-        
-    
-    
-    
-
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-</dl>
-
-        
-        
-
-        
-
-        
-        
-        
-        
-        
-        
-        
-    </dd>
-</dl>
-        
-            
-<dl >
-    <dt>
-        <div class="nameContainer">
-            <h4 class="name" id="getByOffset">
-                
-                getByOffset<span class="signature">(offset)</span><span class="glyphicon glyphicon-circle-arrow-right"></span><span class="type-signature returnType">{Number|<a href="Vector2.html">Vector2</a>|<a href="Vector3.html">Vector3</a>|<a href="Vector4.html">Vector4</a>}</span>
-            </h4>
-        
-            
-            <div class="tag-source">
-                geometry/GeometryData.js, line 236
-            </div>
-            
-        </div>
-    </dt>
-    <dd>
-        
-        
-        <div class="description">
-            <p>根据 offset 获取值</p>
-        </div>
-        
-
-        
-        
-        
-        
-        
-            
-
-<table class="params">
-    <thead>
-	<tr>
-		
-		<th>Name</th>
-		
-		
-		<th>Type</th>
-		
-		
-		
-		<th class="last">Description</th>
-	</tr>
-	</thead>
-	
-	<tbody>
-	
-	
-        <tr>
-            
-                <td class="name"><code>offset</code></td>
-            
-            
-            <td class="type">
-            
-                
-<span class="param-type">Number</span>
-
-
-            
-            </td>
-            
-            
-            
-            <td class="description last">
-                
-                </td>
-        </tr>
-	
-	
-	</tbody>
-</table>
-        
-        
-        
-<dl class="details">
-    
-        
-    
-    
-    
-
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-</dl>
-
-        
-        
-
-        
-
-        
-        
-        
-        
-        
-        <h5>Returns:</h5>
-        
-
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Type</th>
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-    <tbody>
-    
-        <tr>
-            
-            <td class="type">
-            
-                        Number
-                         | 
-                    
-                        <a href="Vector2.html">Vector2</a>
-                         | 
-                    
-                        <a href="Vector3.html">Vector3</a>
-                         | 
-                    
-                        <a href="Vector4.html">Vector4</a>
-                        
-                    
-            </td>
-            <td class="description last"></td>
-        </tr>
-    
-    </tbody>
-</table>
-
-        
-        
-        
-    </dd>
-</dl>
-        
-            
-<dl >
-    <dt>
-        <div class="nameContainer">
-            <h4 class="name" id="setByOffset">
-                
-                setByOffset<span class="signature">(offset, value)</span>
-            </h4>
-        
-            
-            <div class="tag-source">
-                geometry/GeometryData.js, line 250
-            </div>
-            
-        </div>
-    </dt>
-    <dd>
-        
-        
-        <div class="description">
-            <p>根据 offset 设置值</p>
-        </div>
-        
-
-        
-        
-        
-        
-        
-            
-
-<table class="params">
-    <thead>
-	<tr>
-		
-		<th>Name</th>
-		
-		
-		<th>Type</th>
-		
-		
-		
-		<th class="last">Description</th>
-	</tr>
-	</thead>
-	
-	<tbody>
-	
-	
-        <tr>
-            
-                <td class="name"><code>offset</code></td>
-            
-            
-            <td class="type">
-            
-                
-<span class="param-type">Number</span>
-
-
-            
-            </td>
-            
-            
-            
-            <td class="description last">
-                
-                </td>
-        </tr>
-	
-	
-	
-        <tr>
-            
-                <td class="name"><code>value</code></td>
-            
-            
-            <td class="type">
-            
-                
-<span class="param-type">Number</span>
-|
-
-<span class="param-type"><a href="Vector2.html">Vector2</a></span>
-|
-
-<span class="param-type"><a href="Vector3.html">Vector3</a></span>
-|
-
-<span class="param-type"><a href="Vector4.html">Vector4</a></span>
-
-
-            
-            </td>
-            
-            
-            
-            <td class="description last">
-                
-                </td>
-        </tr>
-	
-	
-	</tbody>
-</table>
-        
-        
-        
-<dl class="details">
-    
-        
-    
-    
-    
-
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-</dl>
-
-        
-        
-
-        
-
-        
-        
-        
-        
-        
-        
-        
-    </dd>
-</dl>
-        
-            
-<dl >
-    <dt>
-        <div class="nameContainer">
-            <h4 class="name" id="traverse">
-                
-                traverse<span class="signature">(callback(attribute,)</span><span class="glyphicon glyphicon-circle-arrow-right"></span><span class="type-signature returnType">{Boolean}</span>
-            </h4>
-        
-            
-            <div class="tag-source">
-                geometry/GeometryData.js, line 265
-            </div>
-            
-        </div>
-    </dt>
-    <dd>
-        
-        
-        <div class="description">
-            <p>按 index 遍历</p>
-        </div>
-        
-
-        
-        
-        
-        
-        
-            
-
-<table class="params">
-    <thead>
-	<tr>
-		
-		<th>Name</th>
-		
-		
-		<th>Type</th>
-		
-		
-		
-		<th class="last">Description</th>
-	</tr>
-	</thead>
-	
-	<tbody>
-	
-	
-        <tr>
-            
-                <td class="name"><code>callback(attribute,</code></td>
-            
-            
-            <td class="type">
-            
-                
-<span class="param-type">function</span>
-
-
-            
-            </td>
-            
-            
-            
-            <td class="description last">
-                
-                <p>index, offset)</p></td>
-        </tr>
-	
-	
-	</tbody>
-</table>
-        
-        
-        
-<dl class="details">
-    
-        
-    
-    
-    
-
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-</dl>
-
-        
-        
-
-        
-
-        
-        
-        
-        
-        
-        <h5>Returns:</h5>
-        
-
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Type</th>
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-    <tbody>
-    
-        <tr>
-            
-            <td class="type">
-            
-                        Boolean
-                        
-                    
-            </td>
-            <td class="description last"></td>
-        </tr>
-    
-    </tbody>
-</table>
-
-        
-        
-        
-    </dd>
-</dl>
-        
-            
-<dl >
-    <dt>
-        <div class="nameContainer">
-            <h4 class="name" id="traverseByComponent">
-                
-                traverseByComponent<span class="signature">(callback(data,)</span><span class="glyphicon glyphicon-circle-arrow-right"></span><span class="type-signature returnType">{Boolean}</span>
-            </h4>
-        
-            
-            <div class="tag-source">
-                geometry/GeometryData.js, line 282
-            </div>
-            
-        </div>
-    </dt>
-    <dd>
-        
-        
-        <div class="description">
-            <p>按 Component 遍历 Component</p>
-        </div>
-        
-
-        
-        
-        
-        
-        
-            
-
-<table class="params">
-    <thead>
-	<tr>
-		
-		<th>Name</th>
-		
-		
-		<th>Type</th>
-		
-		
-		
-		<th class="last">Description</th>
-	</tr>
-	</thead>
-	
-	<tbody>
-	
-	
-        <tr>
-            
-                <td class="name"><code>callback(data,</code></td>
-            
-            
-            <td class="type">
-            
-                
-<span class="param-type">function</span>
-
-
-            
-            </td>
-            
-            
-            
-            <td class="description last">
-                
-                <p>offset)</p></td>
-        </tr>
-	
-	
-	</tbody>
-</table>
-        
-        
-        
-<dl class="details">
-    
-        
-    
-    
-    
-
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-</dl>
-
-        
-        
-
-        
-
-        
-        
-        
-        
-        
-        <h5>Returns:</h5>
-        
-
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Type</th>
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-    <tbody>
-    
-        <tr>
-            
-            <td class="type">
-            
-                        Boolean
+                        Promise
                         
                     
             </td>

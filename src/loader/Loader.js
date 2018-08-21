@@ -4,7 +4,10 @@ import {
     getExtension
 } from '../utils/util';
 
-const Loader = Class.create({
+/**
+ * @class
+ */
+const Loader = Class.create(/** @lends Loader.prototype */{
     /**
      * @default true
      * @type {boolean}
@@ -37,6 +40,11 @@ const Loader = Class.create({
             return Loader._loaders[ext];
         }
     },
+    /**
+     * load
+     * @param  {Object|Array} data
+     * @return {Promise}
+     */
     load(data) {
         if (data instanceof Array) {
             return Promise.all(data.map(d => this.load(d)));

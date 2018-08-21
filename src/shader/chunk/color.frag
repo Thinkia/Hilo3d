@@ -6,6 +6,6 @@
     uniform float u_exposure;
 #endif
 
-#if defined (HILO_GAMMA_INPUT ) || defined(HILO_GAMMA_OUTPUT)
+#ifdef HILO_GAMMA_OUTPUT
     uniform float u_gammaFactor;
 #endif

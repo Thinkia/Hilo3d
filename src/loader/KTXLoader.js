@@ -13,7 +13,7 @@ import extensions from '../renderer/extensions';
  * @class
  * @private
  */
-const KhronosTextureContainer = Class.create({
+const KhronosTextureContainer = Class.create(/** @lends KhronosTextureContainer.prototype */{
     Statics: {
         HEADER_LEN: 12 + (13 * 4), // identifier + header elements (not including key value meta-data pairs)
         // load types
@@ -153,7 +153,7 @@ const KhronosTextureContainer = Class.create({
 /**
  * @class
  */
-const KTXLoader = Class.create({
+const KTXLoader = Class.create(/** @lends KTXLoader.prototype */{
     Extends: BasicLoader,
     Statics: {
         astc: 'WEBGL_compressed_texture_astc',

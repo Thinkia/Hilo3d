@@ -40,7 +40,7 @@ import ShaderMaterial from '../material/ShaderMaterial';
  *     stage.addChild(plane);
  * });
  */
-const ShaderMaterialLoader = Class.create({
+const ShaderMaterialLoader = Class.create(/** @lends  ShaderMaterialLoader.prototype */{
     Extends: BasicLoader,
     /**
      * @default true

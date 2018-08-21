@@ -114,7 +114,7 @@
         }`
     });
 
-    for(var i = 0;i < 20;i ++){
+    for(var i = 0;i < 10;i ++){
         var pass = postProcess.addPass({
             frag:`\n\
             precision HILO_MAX_FRAGMENT_PRECISION float;\n\
@@ -185,10 +185,8 @@
         }`,
         uniforms:{
             u_scene:{
-                get() {
-                    renderer.state.activeTexture(Hilo3d.constants.TEXTURE0 + 1);
-                    renderer.state.bindTexture(Hilo3d.constants.TEXTURE_2D, renderer.framebuffer.texture);
-                    return 1;
+                get(mesh, material, programInfo) {
+                    return Hilo3d.semantic.handlerGLTexture(Hilo3d.constants.TEXTURE_2D, renderer.framebuffer.texture, programInfo.textureIndex);
                 }
             }
         }

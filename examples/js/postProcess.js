@@ -194,7 +194,7 @@
                 var value = uniforms[name];
                 var programInfo = program.uniforms[name];
                 if (value && programInfo) {
-                    program[name] = value.get ? value.get(programInfo) : value;
+                    program[name] = value.get ? value.get(null, null, programInfo) : value;
                 }
             }
             vao.draw();
@@ -203,14 +203,11 @@
             var state = this.state;
             var gl = state.gl;
             return {
-                get:function(programInfo){
+                get:function(mesh, material, programInfo){
                     if(texture.isTexture){
                         texture = texture.getGLTexture(state)
                     }
-                    var textureIndex = programInfo.textureIndex;
-                    state.activeTexture(gl.TEXTURE0 + textureIndex);
-                    state.bindTexture(Hilo3d.constants.TEXTURE_2D, texture);
-                    return textureIndex;
+                    return Hilo3d.semantic.handlerGLTexture(Hilo3d.constants.TEXTURE_2D, texture, programInfo.textureIndex);
                 }
             };
         },
