@@ -468,10 +468,16 @@ const semantic = {
      */
     NORMALMAPSCALE: {
         get(mesh, material, programInfo) {
-            if (!material.normalMapScale) {
-                return undefined;
-            }
-            return material.normalMapScale.elements;
+            return material.normalMapScale;
+        }
+    },
+
+    /**
+     * @type {semanticObject}
+     */
+    OCCLUSIONSTRENGTH: {
+        get(mesh, material, programInfo) {
+            return material.occlusionStrength;
         }
     },
 

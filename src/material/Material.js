@@ -99,10 +99,10 @@ const Material = Class.create( /** @lends Material.prototype */ {
 
     /**
      * 法线贴图scale
-     * @default null
-     * @type {Vector3}
+     * @default 1
+     * @type {float}
      */
-    normalMapScale: null,
+    normalMapScale: 1,
 
     /**
      * 是否忽略透明度
@@ -443,7 +443,7 @@ const Material = Class.create( /** @lends Material.prototype */ {
         if (option.HAS_LIGHT) {
             option.HAS_NORMAL = 1;
             textureOption.add(this.normalMap, 'NORMAL_MAP', () => {
-                if (this.normalMapScale) {
+                if (this.normalMapScale !== 1) {
                     option.NORMAL_MAP_SCALE = 1;
                 }
             });

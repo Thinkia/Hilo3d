@@ -440,14 +440,29 @@ const GLTFParser = Class.create( /** @lends GLTFParser.prototype */ {
         const needLight = !this.isUseExtension(values, 'KHR_materials_unlit');
 
         if (needLight) {
-            if (values.normalTexture) {
-                material.normalMap = this.getTexture(values.normalTexture);
+            const normalTexture = values.normalTexture;
+            if (normalTexture) {
+                material.normalMap = this.getTexture(normalTexture);
+                if (normalTexture.scale !== undefined) {
+                    material.normalMapScale = normalTexture.scale;
+                } else {
+                    material.normalMapScale = 1;
+                }
             }
-            if (values.occlusionTexture) {
-                material.occlusionMap = this.getTexture(values.occlusionTexture);
+
+            const occlusionTexture = values.occlusionTexture;
+            if (occlusionTexture) {
+                material.occlusionMap = this.getTexture(occlusionTexture);
+                if (occlusionTexture.strength !== undefined) {
+                    material.occlusionStrength = occlusionTexture.strength;
+                } else {
+                    material.occlusionStrength = 1;
+                }
             }
-            if (values.emissiveTexture) {
-                material.emission = this.getTexture(values.emissiveTexture);
+
+            const emissiveTexture = values.emissiveTexture;
+            if (emissiveTexture) {
+                material.emission = this.getTexture(emissiveTexture);
             }
         } else {
             material.lightType = 'NONE';

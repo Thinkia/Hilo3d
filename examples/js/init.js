@@ -1,17 +1,12 @@
-// window.onerror = function (err) {
-//     alert(err)
-// }
-function $(id) {
-    return document.getElementById(id);
-}
 var camera = new Hilo3d.PerspectiveCamera({
     aspect: innerWidth / innerHeight,
     far: 100,
     near: 0.1,
     z: 3
 });
+
 var stage = new Hilo3d.Stage({
-    container: $('container'),
+    container: document.getElementById('container'),
     camera: camera,
     clearColor: new Hilo3d.Color(0.4, 0.4, 0.4),
     width: innerWidth,
@@ -47,3 +42,24 @@ setTimeout(function(){
 }, 10);
 
 console.log('Hilo3d.version: ' + Hilo3d.version);
+
+var utils = {
+    keys:{},
+    parseQuery(url) {
+        const reg = /([^?#&=]+)=([^#&]*)/g;
+        const params = {};
+        let result;
+        while ((result = reg.exec(url))) {
+            params[result[1]] = decodeURIComponent(result[2]);
+        }
+        return params;
+    },
+    buildUrl(url = '', params = {}) {
+        const originParams = this.parseQuery(url);
+        const newParams = Object.assign(originParams, params);
+        const qs = Object.keys(newParams).map(key => `${key}=${encodeURIComponent(newParams[key])}`).join('&');
+        return url.replace(/(\?.*)?$/,  `?${qs}`);
+    }
+};
+
+utils.keys = utils.parseQuery(location.href);

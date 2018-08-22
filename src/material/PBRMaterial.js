@@ -95,6 +95,12 @@ const PBRMaterial = Class.create( /** @lends PBRMaterial.prototype */ {
      * @type {Texture}
      */
     occlusionMap: null,
+    /**
+     * 环境光遮蔽强度
+     * @default 1
+     * @type {Number}
+     */
+    occlusionStrength: 1,
 
     /**
      * 环境光遮蔽贴图(occlusionMap)包含在 metallicRoughnessMap 的R通道中
@@ -180,7 +186,8 @@ const PBRMaterial = Class.create( /** @lends PBRMaterial.prototype */ {
             u_glossiness: 'GLOSSINESS',
             u_brdfLUT: 'BRDFLUT',
             u_specularEnvMap: 'SPECULARENVMAP',
-            u_diffuseEnvMap: 'DIFFUSEENVMAP'
+            u_diffuseEnvMap: 'DIFFUSEENVMAP',
+            u_occlusionStrength: 'OCCLUSIONSTRENGTH'
         });
 
         this.addTextureUniforms({
@@ -220,6 +227,10 @@ const PBRMaterial = Class.create( /** @lends PBRMaterial.prototype */ {
 
         if (this.isOcclusionInMetallicRoughnessMap) {
             option.IS_OCCLUSION_MAP_IN_METALLIC_ROUGHNESS_MAP = 1;
+        }
+
+        if (this.occlusionStrength !== 1) {
+            option.OCCLUSION_STRENGTH = 1;
         }
 
         textureOption.update();

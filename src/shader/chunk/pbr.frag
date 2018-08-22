@@ -22,6 +22,10 @@ uniform vec4 u_baseColor;
         uniform hiloSampler2D u_occlusionMap;
     #endif
 
+    #ifdef HILO_OCCLUSION_STRENGTH
+        uniform float u_occlusionStrength;
+    #endif
+
     #ifdef HILO_DIFFUSE_ENV_MAP
         #ifdef HILO_DIFFUSE_ENV_MAP_CUBE
             uniform samplerCube u_diffuseEnvMap;

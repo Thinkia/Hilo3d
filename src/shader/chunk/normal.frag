@@ -5,7 +5,7 @@
         varying mat3 v_TBN;
         
         #ifdef HILO_NORMAL_MAP_SCALE
-        uniform vec3 u_normalMapScale;
+        uniform float u_normalMapScale;
         #endif
     #endif
 #endif
