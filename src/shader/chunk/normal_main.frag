@@ -1,5 +1,5 @@
 #ifdef HILO_NORMAL_MAP
-    vec3 normal = normalize(HILO_TEXTURE_2D(u_normalMap).rgb) * 2.0 - 1.0;
+    vec3 normal = HILO_TEXTURE_2D(u_normalMap).rgb * 2.0 - 1.0;
     #ifdef HILO_NORMAL_MAP_SCALE
         normal.xy *= u_normalMapScale;
     #endif

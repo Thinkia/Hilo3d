@@ -106,6 +106,16 @@
                 stage.addChild(model.node);
                 model.node.setScale(modelInfo.scale);
 
+                // set env map
+                utils.loadEnvMap(function(data) {
+                    model.materials.forEach(function(material) {
+                        material.brdfLUT = data.brdfLUT;
+                        material.diffuseEnvMap = data.diffuseEnvMap;
+                        material.specularEnvMap = data.specularEnvMap;
+                        material.isDirty = true;
+                    });
+                });
+
                 // log decode time
                 if (Hilo3d.AliAMCExtension && Hilo3d.AliAMCExtension._decodeTotalTime) {
                     console.log('AMC total decode time is:', Hilo3d.AliAMCExtension._decodeTotalTime);
