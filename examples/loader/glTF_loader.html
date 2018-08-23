@@ -22,7 +22,6 @@
     <div id="container"></div>
     <select name="modelSelect" id="modelSelect"></select>
     <select name="cameraSelect" id="cameraSelect"></select>
-    <!-- <script src="//g.alicdn.com/tmapp/animation-data/4.1.37/jc/tools/vconsole.min.js"></script> -->
     <script src="../../build/Hilo3d.js"></script>
     <script src="../js/stats.js"></script>
     <script src="../js/OrbitControls.js"></script>
@@ -114,6 +113,16 @@
                         material.specularEnvMap = data.specularEnvMap;
                         material.isDirty = true;
                     });
+
+                    var skyBox = new Hilo3d.Mesh({
+                        geometry: new Hilo3d.BoxGeometry(),
+                        material: new Hilo3d.BasicMaterial({
+                            lightType: 'NONE',
+                            side: Hilo3d.constants.BACK,
+                            diffuse: data.specularEnvMap
+                        })
+                    }).addTo(stage);
+                    skyBox.setScale(20);
                 });
 
                 // log decode time

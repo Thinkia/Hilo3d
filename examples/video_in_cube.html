@@ -28,7 +28,7 @@
     <script src="./js/init.js"></script>
     <script>
         orbitControls.isLockZ = true;
-        var video = $('video');
+        var video = document.getElementById('video');
         video.addEventListener('canplaythrough', function () {
             console.log('canplaythrough');
             video.play();

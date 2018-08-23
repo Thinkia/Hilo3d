@@ -17,7 +17,6 @@
 <body>
     <div id="container"></div>
     <canvas id="xx" class="canvas" width="375" height="667"></canvas>
-    <!-- <script src="//g.alicdn.com/tmapp/animation-data/4.1.37/jc/tools/vconsole.min.js"></script> -->
     <script src="../../../build/Hilo3d.js"></script>
     <script src="../../js/stats.js"></script>
     <script src="../../js/OrbitControls.js"></script>
@@ -50,7 +49,7 @@
                 image: result.filter(function(r){return r instanceof Image})
             });
             var khcTexture = new Hilo3d.Texture({
-                image: $('xx'),
+                image: document.getElementById('xx'),
                 autoUpdate: true,
                 wrapS: 33071,
                 wrapT: 33071
