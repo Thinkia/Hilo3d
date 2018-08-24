@@ -37,12 +37,6 @@
 
         var ossBasePath = '//ossgw.alicdn.com/tmall-c3/tmx/';
         var glTFModels = {
-            Box: {
-                name: 'Box',
-                scale: 0.001,
-                src: 'e9cf7e96d7db52428e935c599eb539bf.gltf',
-                ambient:0.8
-            },
             Rambler: {
                 name: 'Rambler',
                 scale: 0.001,
@@ -55,10 +49,11 @@
                 src: '346a684820fc28bafa6200ac463b71dd.gltf',
                 ambient:0.8
             },
-            JPN: {
-                name: 'JPN',
+            Tmall: {
+                name: 'Tmall',
                 scale: 0.001,
-                src: '9d958a4e0d7f084d6b8f64e487654fdb.gltf',
+                src: '../models/Tmall/Tmall.gltf',
+                notOSS: true,
                 ambient:0.8
             },
             VC: {
@@ -69,17 +64,25 @@
                 isMultiAnim: false,
                 ambient:0.8
             },
-            BlackDragon: {
-                name: 'BlackDragon',
-                src: '../models/BlackDragon/BlackDragon.gltf',
-                scale: 0.003,
+            DamagedHelmet: {
+                name: 'DamagedHelmet',
+                src: '../models/DamagedHelmet/DamagedHelmet.gltf',
+                scale: 0.5,
                 notOSS: true,
                 ambient:0.8
             },
-            Wolf: {
-                name: 'Wolf',
-                scale: 0.001,
-                src: 'f712224766be9e7f62e3a7623c2ca7c2.gltf',
+            MultiUVTest: {
+                name: 'MultiUVTest',
+                scale: 0.5,
+                src: '../models/MultiUVTest/MultiUVTest.gltf',
+                notOSS:true,
+                ambient:0.8
+            },
+            Suzanne: {
+                name: 'Suzanne',
+                scale: 0.5,
+                src: '../models/Suzanne/Suzanne.gltf',
+                notOSS:true,
                 ambient:0.8
             },
             test: {
@@ -160,7 +163,7 @@
         }
 
         function initModels() {
-            var modelInfo = glTFModels.JPN;
+            var modelInfo = glTFModels.Tmall;
             var modelName = utils.keys.model;
             if (modelName) {
                 if (glTFModels[modelName]) {
