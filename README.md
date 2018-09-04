@@ -5,14 +5,15 @@ Hilo3d, a WebGL Rendering Engine developed by Alibaba Group.It could help develo
 > 本站点暂时不公开Hilo3d源码，仅提供压缩版本 （正式开源时间参考 [开源计划](https://github.com/hiloteam/Hilo3d/issues/4)）
 
 ### 静态CDN
-[https://g.alicdn.com/hilo/Hilo3d/1.5.98/Hilo3d.js][cdn-url]
+[https://g.alicdn.com/hilo/Hilo3d/1.5.100/Hilo3d.js][cdn-url]
 
 ### API 文档
 
 参见 [docs/index.html](https://hiloteam.github.io/Hilo3d/docs/index.html)
 
 ### glTF 特性测试
-[glTF Feature Test](https://cx20.github.io/gltf-test/?engines=Hilo3d)
+* [glTF Feature Test](https://cx20.github.io/gltf-test/?engines=Hilo3d)
+* [glTF Viewer](https://hiloteam.github.io/Hilo3d/examples/glTFViewer/index.html)
 
 ### API 样例
 
@@ -88,4 +89,4 @@ Hilo3d, a WebGL Rendering Engine developed by Alibaba Group.It could help develo
 [npm-image]: https://img.shields.io/npm/v/hilo3d.svg?style=flat-square
 [npm-url]: https://www.npmjs.com/package/hilo3d
 [size-image]:http://img.badgesize.io/hiloteam/hilo3d/master/build/Hilo3d.js.svg?compression=gzip&style=flat-square
-[cdn-url]: https://g.alicdn.com/hilo/Hilo3d/1.5.98/Hilo3d.js
+[cdn-url]: https://g.alicdn.com/hilo/Hilo3d/1.5.100/Hilo3d.js

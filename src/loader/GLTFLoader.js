@@ -42,6 +42,7 @@ const GLTFLoader = Class.create(/** @lends GLTFLoader.prototype */{
      * @param {boolean} [params.isProgressive=false] 是否渐进式加载，图片加载完前使用占位图片
      * @param {boolean} [params.isUnQuantizeInShader=true] 是否在shader中进行量化解压数据
      * @param {function} [params.preHandlerImageURI=null] 图片URL预处理函数
+     * @param {function} [params.preHandlerBufferURI=null] Buffer URL预处理函数
      * @param {function} [params.customMaterialCreator=null] 是否使用自定义的Material创建器
      * @async
      * @return {Promise<Model, Error>} 返回加载完的模型对象

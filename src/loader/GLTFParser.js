@@ -106,6 +106,7 @@ const GLTFParser = Class.create( /** @lends GLTFParser.prototype */ {
     isProgressive: false,
     isUnQuantizeInShader: true,
     preHandlerImageURI: null,
+    preHandlerBufferURI: null,
     customMaterialCreator: null,
     src: '',
     /**
@@ -237,6 +238,9 @@ const GLTFParser = Class.create( /** @lends GLTFParser.prototype */ {
 
         return Promise.all(Object.keys(this.json.buffers || []).map(key => {
             let uri = util.getRelativePath(this.src, this.json.buffers[key].uri);
+            if (this.preHandlerBufferURI) {
+                uri = this.preHandlerBufferURI(uri, key, this.json.buffers[key]);
+            }
             return loader.loadRes(uri, 'buffer')
                 .then(buffer => {
                     this.buffers[key] = buffer;
@@ -343,7 +347,7 @@ const GLTFParser = Class.create( /** @lends GLTFParser.prototype */ {
             uri = util.getRelativePath(this.src, uri);
 
             if (this.preHandlerImageURI) {
-                uri = this.preHandlerImageURI(uri, textureName);
+                uri = this.preHandlerImageURI(uri, textureName, this.json.images[textureData.source]);
             }
 
             const texture = new LazyTexture(textureData);

@@ -62,6 +62,14 @@ const BasicLoader = Class.create( /** @lends BasicLoader.prototype */ {
         },
         clearCache() {
             cache.clear();
+        },
+        cache: {
+            get() {
+                return cache;
+            },
+            set() {
+                console.warn('BasicLoader.cache is readonly!');
+            }
         }
     },
     /**
