@@ -96,7 +96,7 @@ dropCtrl.on('drop', function(e){
             window.model = model;
             stage.addChild(model.node);
             var bounds = model.node.getBounds();
-            const scale = 1/Math.max(bounds.width, bounds.height, bounds.depth);
+            const scale = 1.5/Math.max(bounds.width, bounds.height, bounds.depth);
             model.node.setPosition(-bounds.x * scale, -bounds.y * scale, -bounds.z * scale);
             model.node.setScale(scale);
 
