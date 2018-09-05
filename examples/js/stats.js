@@ -13,6 +13,7 @@
             return;
         }
         this.container = document.createElement('div');
+        this.container.className = 'hilo3dStats';
         this.container.style.cssText = 'position: absolute;left: 5px;top:5px;color:#000;font-size: 12px;z-index: 999999;';
         document.body.appendChild(this.container);
     };

@@ -2,12 +2,19 @@ var dropElem = document.body;
 var inputContainerElem = document.querySelector('#inputContainer')
 var inputElem = document.querySelector('#input');
 var stageContainerElem = document.querySelector('#stageContainer');
+var stageContainerElem = document.querySelector('#stageContainer');
+var showLinkBtnElem = document.querySelector('#showLinkBtn');
+var linkInputElem = document.querySelector('#linkInput');
 var dropCtrl = new SimpleDropzone(dropElem, inputElem);
 
 document.querySelector('#uploadIcon').onclick = function(){
     var event = document.createEvent('MouseEvents');//FF的处理 
 　　　　 event.initEvent('click', false, false);  
 　　　　 inputElem.dispatchEvent(event); 
+};
+
+showLinkBtnElem.onclick = function(){
+    location.search = '?url=' + linkInputElem.value;
 };
 
 var glTFUrl, glTFOriginUrl, resDict, files;
@@ -45,6 +52,8 @@ ticker.addTick(Hilo3d.Tween);
 ticker.addTick(Hilo3d.Animation);
 ticker.start();
 
+var stats = new Stats(ticker, stage.renderer.renderInfo);
+
 var orbitControls = new OrbitControls(stage, {
     isLockMove:true,
     isLockZ:true
@@ -59,15 +68,93 @@ var parseUrl = function(url) {
     return url;
 };
 
-dropCtrl.on('drop', function(e){
-    stageContainerElem.style.display = 'block';
-    inputContainerElem.style.display = 'none';
-    files = e.files;
-    resDict = {};
-    glTFUrl = undefined;
-    glTFOriginUrl = undefined;
+var resetAll = function(){
     Hilo3d.BasicLoader.cache.clear();
     stage.destroy();
+    stage.matrix = stage.matrix.identity();
+    
+    glTFUrl = undefined;
+    glTFOriginUrl = undefined;
+    files = undefined;
+    resDict = {};
+};
+
+var showInput = function(){
+    stats.container.style.display = 'none';
+    stageContainerElem.style.display = 'none';
+    inputContainerElem.style.display = 'block';
+};
+
+var showStage = function(){
+    stats.container.style.display = 'block';
+    stageContainerElem.style.display = 'block';
+    inputContainerElem.style.display = 'none';
+};
+
+var initModel = function(model){
+    window.model = model;
+    stage.addChild(model.node);
+    var bounds = model.node.getBounds();
+    const scale = 1.5/Math.max(bounds.width, bounds.height, bounds.depth);
+    model.node.setPosition(-bounds.x * scale, -bounds.y * scale, -bounds.z * scale);
+    model.node.setScale(scale);
+
+    utils.loadEnvMap(function(data) {
+        model.materials.forEach(function(material) {
+            material.brdfLUT = data.brdfLUT;
+            material.diffuseEnvMap = data.diffuseEnvMap;
+            material.specularEnvMap = data.specularEnvMap;
+            material.isDirty = true;
+        });
+
+        var skyBox = new Hilo3d.Mesh({
+            geometry: new Hilo3d.BoxGeometry(),
+            material: new Hilo3d.BasicMaterial({
+                lightType: 'NONE',
+                side: Hilo3d.constants.BACK,
+                diffuse: data.specularEnvMap
+            })
+        }).addTo(stage);
+        skyBox.setScale(20);
+
+        var directionLight = new Hilo3d.DirectionalLight({
+            color:new Hilo3d.Color(1, 1, 1),
+            direction:new Hilo3d.Vector3(0, -1, 0)
+        }).addTo(stage);
+    });
+};
+
+var loadGlTF = function(glTFUrl, isFromFile){
+    var params = {
+        src: glTFUrl,
+        isUnQuantizeInShader:false
+    };
+
+    if (isFromFile) {
+        Object.assign(params, {
+            preHandlerImageURI: preHandlerResURI,
+            preHandlerBufferURI: preHandlerResURI
+        });
+    }
+
+    glTFLoader.load(params).then( function(model) {
+        initModel(model);
+    }).catch(function(error){
+        alert(error);
+        showInput();
+    });
+};
+
+if (utils.keys.url) {
+    resetAll();
+    showStage();
+    loadGlTF(utils.keys.url);
+}
+
+dropCtrl.on('drop', function(e){
+    resetAll();
+    showStage();
+    files = e.files;
 
     files.forEach(function(value, key, map) {
         var ext = Hilo3d.util.getExtension(key);
@@ -78,7 +165,6 @@ dropCtrl.on('drop', function(e){
     });
 
     if (glTFUrl) {
-
         files.forEach(function(value, key, map) {
             var ext = Hilo3d.util.getExtension(key);
             if (ext !== 'gltf' || ext !== 'glb') {
@@ -87,42 +173,9 @@ dropCtrl.on('drop', function(e){
             }
         });
 
-        glTFLoader.load({
-            src: glTFUrl,
-            isUnQuantizeInShader:false,
-            preHandlerImageURI: preHandlerResURI,
-            preHandlerBufferURI: preHandlerResURI
-        }).then( function(model) {
-            window.model = model;
-            stage.addChild(model.node);
-            var bounds = model.node.getBounds();
-            const scale = 1.5/Math.max(bounds.width, bounds.height, bounds.depth);
-            model.node.setPosition(-bounds.x * scale, -bounds.y * scale, -bounds.z * scale);
-            model.node.setScale(scale);
-
-            utils.loadEnvMap(function(data) {
-                model.materials.forEach(function(material) {
-                    material.brdfLUT = data.brdfLUT;
-                    material.diffuseEnvMap = data.diffuseEnvMap;
-                    material.specularEnvMap = data.specularEnvMap;
-                    material.isDirty = true;
-                });
-
-                var skyBox = new Hilo3d.Mesh({
-                    geometry: new Hilo3d.BoxGeometry(),
-                    material: new Hilo3d.BasicMaterial({
-                        lightType: 'NONE',
-                        side: Hilo3d.constants.BACK,
-                        diffuse: data.specularEnvMap
-                    })
-                }).addTo(stage);
-                skyBox.setScale(20);
-
-                var directionLight = new Hilo3d.DirectionalLight({
-                    color:new Hilo3d.Color(1, 1, 1),
-                    direction:new Hilo3d.Vector3(0, -1, 0)
-                }).addTo(stage);
-            });
-        });
+        loadGlTF(glTFUrl, true);
+    } else {
+        alert('Not found gltf file....');
+        showInput();
     }
 });

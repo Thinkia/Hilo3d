@@ -38,7 +38,7 @@ html, body{
     left: 50%;
     top:50%;
     margin-left:-250px;
-    margin-top:-220px;
+    margin-top:-250px;
     text-align: center;
 }
 
@@ -48,10 +48,10 @@ html, body{
 }
 
 #inputContainer .dropArea{
-    border:6px dashed #555;
+    border:4px dashed #666;
     height: 80%;
     padding: 5px;
-    border-radius: 5px;
+    border-radius: 10px;
 }
 
 #inputContainer .dropArea .info{
@@ -60,15 +60,32 @@ html, body{
 }
 
 #inputContainer .dropArea #uploadIcon{
-    width: 300px;
+    width: 160px;
     display: inline-block;
     height: 100px;
     text-align: center;
     font-size: 90px;
     cursor: pointer;
     padding: 15px;
+    color:#111;
 }
 
 #input{
+    display: none;
+}
+
+.linkInputArea {
+    padding-top: 15px;
+}
+
+#linkInput{
+    width: 300px;
+}
+
+#showLinkBtn{
+    cursor: pointer;
+}
+
+.hilo3dStats{
     display: none;
 }
