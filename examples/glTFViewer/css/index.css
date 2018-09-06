@@ -79,11 +79,13 @@ html, body{
 }
 
 #linkInput{
-    width: 300px;
+    width: 380px;
 }
 
 #showLinkBtn{
     cursor: pointer;
+    width: 100px;
+    padding:1px 0px 2px 0px;
 }
 
 .hilo3dStats{

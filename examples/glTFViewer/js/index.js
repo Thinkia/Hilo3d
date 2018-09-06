@@ -79,7 +79,13 @@ var resetAll = function(){
     resDict = {};
 };
 
-var showInput = function(){
+var showInput = function(error){
+    if (error) {
+        alert(error);
+        if (utils.keys.url) {
+            location.search = '';
+        }
+    }
     stats.container.style.display = 'none';
     stageContainerElem.style.display = 'none';
     inputContainerElem.style.display = 'block';
@@ -140,8 +146,7 @@ var loadGlTF = function(glTFUrl, isFromFile){
     glTFLoader.load(params).then( function(model) {
         initModel(model);
     }).catch(function(error){
-        alert(error);
-        showInput();
+        showInput(error);
     });
 };
 
@@ -175,7 +180,6 @@ dropCtrl.on('drop', function(e){
 
         loadGlTF(glTFUrl, true);
     } else {
-        alert('Not found gltf file....');
-        showInput();
+        showInput('Not found gltf file....');
     }
 });
