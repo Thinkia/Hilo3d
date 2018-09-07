@@ -16,7 +16,7 @@ import AnimationStates from '../animation/AnimationStates';
 import Animation from '../animation/Animation';
 import PerspectiveCamera from '../camera/PerspectiveCamera';
 import * as util from '../utils/util';
-import * as extensionHandlers from './GLTFExtenstions';
+import * as extensionHandlers from './GLTFExtensions';
 
 import {
     BLEND,

@@ -30,7 +30,7 @@ color.a = baseColor.a;
         vec3 specular = u_specular.rgb;
         float glossiness = u_glossiness;
         #ifdef HILO_SPECULAR_GLOSSINESS_MAP
-            vec4 specularGlossiness = HILO_TEXTURE_2D(u_specularGlossinessMap);
+            vec4 specularGlossiness = sRGBToLinear(HILO_TEXTURE_2D(u_specularGlossinessMap));
             specular = specularGlossiness.rgb * specular;
             glossiness = specularGlossiness.a * glossiness;
         #endif
