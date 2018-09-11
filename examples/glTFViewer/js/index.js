@@ -101,33 +101,46 @@ var initModel = function(model){
     window.model = model;
     stage.addChild(model.node);
     var bounds = model.node.getBounds();
-    const scale = 1.5/Math.max(bounds.width, bounds.height, bounds.depth);
-    model.node.setPosition(-bounds.x * scale, -bounds.y * scale, -bounds.z * scale);
-    model.node.setScale(scale);
 
-    utils.loadEnvMap(function(data) {
-        model.materials.forEach(function(material) {
-            material.brdfLUT = data.brdfLUT;
-            material.diffuseEnvMap = data.diffuseEnvMap;
-            material.specularEnvMap = data.specularEnvMap;
-            material.isDirty = true;
+    if (!utils.keys.noResize) {
+        const scale = 1.5/Math.max(bounds.width, bounds.height, bounds.depth);
+        model.node.setPosition(-bounds.x * scale, -bounds.y * scale, -bounds.z * scale);
+        model.node.setScale(scale);
+    }
+
+    if (utils.keys.scale) {
+        model.node.setScale(scale);
+    }
+
+    if (utils.keys.camera) {
+        stage.camera = model.cameras[utils.keys.camera];
+    }
+    
+    if (!utils.keys.noDefaultLight) {
+        utils.loadEnvMap(function(data) {
+            model.materials.forEach(function(material) {
+                material.brdfLUT = data.brdfLUT;
+                material.diffuseEnvMap = data.diffuseEnvMap;
+                material.specularEnvMap = data.specularEnvMap;
+                material.isDirty = true;
+            });
+
+            var skyBox = new Hilo3d.Mesh({
+                geometry: new Hilo3d.BoxGeometry(),
+                material: new Hilo3d.BasicMaterial({
+                    lightType: 'NONE',
+                    side: Hilo3d.constants.BACK,
+                    diffuse: data.specularEnvMap
+                })
+            }).addTo(stage);
+            skyBox.setScale(20);
+
+            var directionLight = new Hilo3d.DirectionalLight({
+                color:new Hilo3d.Color(1, 1, 1),
+                direction:new Hilo3d.Vector3(0, -1, 0)
+            }).addTo(stage);
         });
-
-        var skyBox = new Hilo3d.Mesh({
-            geometry: new Hilo3d.BoxGeometry(),
-            material: new Hilo3d.BasicMaterial({
-                lightType: 'NONE',
-                side: Hilo3d.constants.BACK,
-                diffuse: data.specularEnvMap
-            })
-        }).addTo(stage);
-        skyBox.setScale(20);
-
-        var directionLight = new Hilo3d.DirectionalLight({
-            color:new Hilo3d.Color(1, 1, 1),
-            direction:new Hilo3d.Vector3(0, -1, 0)
-        }).addTo(stage);
-    });
+    }
 };
 
 var loadGlTF = function(glTFUrl, isFromFile){
