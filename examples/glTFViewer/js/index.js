@@ -109,7 +109,7 @@ var initModel = function(model){
     }
 
     if (utils.keys.scale) {
-        model.node.setScale(scale);
+        model.node.setScale(utils.keys.scale);
     }
 
     if (utils.keys.camera) {
