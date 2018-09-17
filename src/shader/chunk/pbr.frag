@@ -3,23 +3,23 @@
 
 uniform vec4 u_baseColor;
 #ifdef HILO_BASE_COLOR_MAP
-    uniform hiloSampler2D u_baseColorMap;
+    uniform HILO_SAMPLER_2D u_baseColorMap;
 #endif
 
 #ifdef HILO_HAS_LIGHT
     uniform float u_metallic;
     #ifdef HILO_METALLIC_MAP
-        uniform hiloSampler2D u_metallicMap;
+        uniform HILO_SAMPLER_2D u_metallicMap;
     #endif
         uniform float u_roughness;
     #ifdef HILO_ROUGHNESS_MAP
-        uniform hiloSampler2D u_roughnessMap;
+        uniform HILO_SAMPLER_2D u_roughnessMap;
     #endif
     #ifdef HILO_METALLIC_ROUGHNESS_MAP
-        uniform hiloSampler2D u_metallicRoughnessMap;
+        uniform HILO_SAMPLER_2D u_metallicRoughnessMap;
     #endif
     #ifdef HILO_OCCLUSION_MAP
-        uniform hiloSampler2D u_occlusionMap;
+        uniform HILO_SAMPLER_2D u_occlusionMap;
     #endif
 
     #ifdef HILO_OCCLUSION_STRENGTH
@@ -43,19 +43,19 @@ uniform vec4 u_baseColor;
     #endif
 
     #ifdef HILO_EMISSION_MAP
-        uniform hiloSampler2D u_emission;
+        uniform HILO_SAMPLER_2D u_emission;
     #endif
 
     #ifdef HILO_PBR_SPECULAR_GLOSSINESS
         uniform vec4 u_specular;
         uniform float u_glossiness;
         #ifdef HILO_SPECULAR_GLOSSINESS_MAP
-            uniform hiloSampler2D u_specularGlossinessMap;
+            uniform HILO_SAMPLER_2D u_specularGlossinessMap;
         #endif
     #endif
 
     #ifdef HILO_LIGHT_MAP
-        uniform hiloSampler2D u_lightMap;
+        uniform HILO_SAMPLER_2D u_lightMap;
     #endif
 
 

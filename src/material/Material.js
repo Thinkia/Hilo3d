@@ -426,8 +426,10 @@ const Material = Class.create( /** @lends Material.prototype */ {
     },
     addTextureUniforms(textureUniforms) {
         const uniforms = {};
+
         for (const uniformName in textureUniforms) {
             const semanticName = textureUniforms[uniformName];
+            uniforms[uniformName] = semanticName;
             uniforms[`${uniformName}.texture`] = semanticName;
             uniforms[`${uniformName}.uv`] = `${semanticName}UV`;
         }

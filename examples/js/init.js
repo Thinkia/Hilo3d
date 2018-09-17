@@ -1,5 +1,5 @@
 var camera, stage, renderer, gl, directionLight, ambientLight, ticker, stats, orbitControls;
-if(!window.notInit) {
+if (!window.notInit) {
     camera = new Hilo3d.PerspectiveCamera({
         aspect: innerWidth / innerHeight,
         far: 100,
@@ -19,12 +19,12 @@ if(!window.notInit) {
     gl;
 
     directionLight = new Hilo3d.DirectionalLight({
-        color:new Hilo3d.Color(1, 1, 1),
-        direction:new Hilo3d.Vector3(0, -1, 0)
+        color: new Hilo3d.Color(1, 1, 1),
+        direction: new Hilo3d.Vector3(0, -1, 0)
     }).addTo(stage);
 
     ambientLight = new Hilo3d.AmbientLight({
-        color:new Hilo3d.Color(1, 1, 1),
+        color: new Hilo3d.Color(1, 1, 1),
         amount: .5
     }).addTo(stage);
 
@@ -34,11 +34,11 @@ if(!window.notInit) {
     ticker.addTick(Hilo3d.Animation);
     stats = new Stats(ticker, stage.renderer.renderInfo);
     orbitControls = new OrbitControls(stage, {
-        isLockMove:true,
-        isLockZ:true
+        isLockMove: true,
+        isLockZ: true
     });
 
-    setTimeout(function(){
+    setTimeout(function() {
         ticker.start(true);
         gl = renderer.gl;
     }, 10);
@@ -47,23 +47,33 @@ if(!window.notInit) {
 console.log('Hilo3d.version: ' + Hilo3d.version);
 
 var utils = {
-    keys:{},
+    keys: {},
     parseQuery(url) {
-        const reg = /([^?#&=]+)=([^#&]*)/g;
-        const params = {};
-        let result;
+        var reg = /([^?#&=]+)=([^#&]*)/g;
+        var params = {};
+        var result;
         while ((result = reg.exec(url))) {
             params[result[1]] = decodeURIComponent(result[2]);
         }
         return params;
     },
-    buildUrl(url = '', params = {}) {
-        const originParams = this.parseQuery(url);
-        const newParams = Object.assign(originParams, params);
-        const qs = Object.keys(newParams).map(key => `${key}=${encodeURIComponent(newParams[key])}`).join('&');
-        return url.replace(/(\?.*)?$/,  `?${qs}`);
+    buildUrl(url, params) {
+        if (url === undefined) {
+            url = '';
+        }
+
+        if (params === undefined) {
+            params = {};
+        }
+        
+        var originParams = this.parseQuery(url);
+        var newParams = Object.assign(originParams, params);
+        var qs = Object.keys(newParams).map(function(key) {
+            return key + '=' + encodeURIComponent(newParams[key])
+        }).join('&');
+        return url.replace(/(\?.*)?$/, '?' + qs);
     },
-    loadEnvMap(callback){
+    loadEnvMap(callback) {
         var loadQueue = new Hilo3d.LoadQueue([{
             type: 'CubeTexture',
             images: [
@@ -84,14 +94,14 @@ var utils = {
             back: '//gw.alicdn.com/tfs/TB1z9F2h4tnkeRjSZSgXXXAuXXa-1024-1024.jpg',
             magFilter: Hilo3d.constants.LINEAR,
             minFilter: Hilo3d.constants.LINEAR_MIPMAP_LINEAR
-        },{
+        }, {
             src: '//gw.alicdn.com/tfs/TB1.K0CrYZnBKNjSZFhXXc.oXXa-256-256.png',
             wrapS: Hilo3d.constants.CLAMP_TO_EDGE,
             wrapT: Hilo3d.constants.CLAMP_TO_EDGE,
-            type:'Texture'
-        }]).start().on('complete', function(){
+            type: 'Texture'
+        }]).start().on('complete', function() {
             var result = loadQueue.getAllContent();
-            
+
             callback({
                 diffuseEnvMap: result[0],
                 specularEnvMap: result[1],

@@ -8,13 +8,12 @@
 
 #if defined(HILO_HAS_TEXCOORD0) || defined(HILO_HAS_TEXCOORD1)
     #if defined(HILO_HAS_TEXCOORD0) && defined(HILO_HAS_TEXCOORD1)
-        #define HILO_TEXTURE_2D(hiloSampler2D)  hiloTexture2D(hiloSampler2D.texture, hiloSampler2D.uv)
-        
+        #define HILO_SAMPLER_2D hiloSampler2D
+        #define HILO_TEXTURE_2D(HILO_SAMPLER_2D)  hiloTexture2D(HILO_SAMPLER_2D.texture, HILO_SAMPLER_2D.uv)
         struct hiloSampler2D{
             sampler2D texture;
             int uv; 
         };
-        
         
         vec4 hiloTexture2D(sampler2D texture, int uv){
             if(uv == 0){
@@ -30,15 +29,8 @@
         #else
             #define HILO_V_TEXCOORD v_texcoord0
         #endif
-        #define HILO_TEXTURE_2D(hiloSampler2D)  hiloTexture2D(hiloSampler2D.texture)
-
-        struct hiloSampler2D{
-            sampler2D texture;
-        };
-
-        vec4 hiloTexture2D(sampler2D texture){
-            return texture2D(texture, HILO_V_TEXCOORD);
-        }
+        #define HILO_SAMPLER_2D sampler2D
+        #define HILO_TEXTURE_2D(HILO_SAMPLER_2D)  texture2D(HILO_SAMPLER_2D, HILO_V_TEXCOORD)
     #endif
 #endif
 

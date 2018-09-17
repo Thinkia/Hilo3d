@@ -1,5 +1,5 @@
 #if defined(HILO_DIFFUSE_MAP)
-    uniform hiloSampler2D u_diffuse;
+    uniform HILO_SAMPLER_2D u_diffuse;
 #elif defined(HILO_DIFFUSE_CUBE_MAP)
     uniform samplerCube u_diffuse;
 #else
