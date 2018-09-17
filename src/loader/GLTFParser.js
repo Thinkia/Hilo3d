@@ -135,7 +135,6 @@ const GLTFParser = Class.create( /** @lends GLTFParser.prototype */ {
         if (this.glTFVersion >= 2) {
             this.isGLTF2 = true;
         }
-        console.log('glTFVersion', this.glTFVersion);
 
         this.parseExtensionUsed();
 
