@@ -73,11 +73,11 @@ const ShaderMaterialLoader = Class.create(/** @lends  ShaderMaterialLoader.proto
         ];
 
         const args = Object.assign({}, params);
-        return Promise.all(list).then(result => {
+        return Promise.all(list).then((result) => {
             args.fs = result[0];
             args.vs = result[1];
             return new ShaderMaterial(args);
-        }, err => {
+        }, (err) => {
             console.warn(`ShaderMaterial Loader Failed for ${err}`);
         });
     }

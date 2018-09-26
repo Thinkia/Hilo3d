@@ -21,7 +21,9 @@ import LightManager from '../light/LightManager';
 import EventMixin from '../core/EventMixin';
 import Texture from '../texture/Texture';
 
-import {
+import constants from '../constants';
+
+const {
     DEPTH_TEST,
     SAMPLE_ALPHA_TO_COVERAGE,
     CULL_FACE,
@@ -30,7 +32,7 @@ import {
     LINES,
     STATIC_DRAW,
     DYNAMIC_DRAW
-} from '../constants/index';
+} = constants;
 
 
 /**
@@ -673,7 +675,7 @@ const WebGLRenderer = Class.create( /** @lends WebGLRenderer.prototype */ {
         stage.updateMatrixWorld();
         camera.updateViewProjectionMatrix();
 
-        stage.traverse(node => {
+        stage.traverse((node) => {
             if (!node.visible) {
                 return true;
             }

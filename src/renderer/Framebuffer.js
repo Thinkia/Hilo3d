@@ -13,7 +13,9 @@ import {
     getTypedArrayClass
 } from '../utils/util';
 
-import {
+import constants from '../constants';
+
+const {
     TEXTURE_2D,
     RGBA,
     UNSIGNED_BYTE,
@@ -23,7 +25,7 @@ import {
     CULL_FACE,
     TRIANGLE_STRIP,
     NEAREST
-} from '../constants/index';
+} = constants;
 
 const cache = new Cache();
 
@@ -355,7 +357,6 @@ const Framebuffer = Class.create( /** @lends Framebuffer.prototype */ {
                 this.reset();
             }
         }
-
     },
     /**
      * 读取区域像素

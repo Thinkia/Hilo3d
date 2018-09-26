@@ -1,13 +1,15 @@
 import Class from '../core/Class';
 import Texture from './Texture';
 
-import {
+import constants from '../constants';
+
+const {
     TEXTURE_CUBE_MAP,
     RGB,
     LINEAR,
     CLAMP_TO_EDGE,
     TEXTURE_CUBE_MAP_POSITIVE_X
-} from '../constants/index';
+} = constants;
 
 /**
  * 立方体纹理

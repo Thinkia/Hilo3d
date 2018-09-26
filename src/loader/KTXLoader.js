@@ -36,22 +36,20 @@ const KhronosTextureContainer = Class.create(/** @lends KhronosTextureContainer.
         // '´', 'K', 'T', 'X', ' ', '1', '1', 'ª', '\r', '\n', '\x1A', '\n'
         // 0xAB, 0x4B, 0x54, 0x58, 0x20, 0x31, 0x31, 0xBB, 0x0D, 0x0A, 0x1A, 0x0A
         const identifier = new Uint8Array(this.arrayBuffer, 0, 12);
-        if (identifier[0] !== 0xAB ||
-            identifier[1] !== 0x4B ||
-            identifier[2] !== 0x54 ||
-            identifier[3] !== 0x58 ||
-            identifier[4] !== 0x20 ||
-            identifier[5] !== 0x31 ||
-            identifier[6] !== 0x31 ||
-            identifier[7] !== 0xBB ||
-            identifier[8] !== 0x0D ||
-            identifier[9] !== 0x0A ||
-            identifier[10] !== 0x1A ||
-            identifier[11] !== 0x0A) {
-
+        if (identifier[0] !== 0xAB 
+            || identifier[1] !== 0x4B 
+            || identifier[2] !== 0x54 
+            || identifier[3] !== 0x58 
+            || identifier[4] !== 0x20 
+            || identifier[5] !== 0x31 
+            || identifier[6] !== 0x31 
+            || identifier[7] !== 0xBB 
+            || identifier[8] !== 0x0D 
+            || identifier[9] !== 0x0A 
+            || identifier[10] !== 0x1A 
+            || identifier[11] !== 0x0A) {
             console.error('texture missing KTX identifier');
             return;
-
         }
 
         // load the reset of the header in native 32 bit int
@@ -74,10 +72,8 @@ const KhronosTextureContainer = Class.create(/** @lends KhronosTextureContainer.
 
         // Make sure we have a compressed type.  Not only reduces work, but probably better to let dev know they are not compressing.
         if (this.glType !== 0) {
-
             console.warn('only compressed formats currently supported');
             return;
-
         } 
 
         // value of zero is an indication to generate mipmaps @ runtime.  Not usually allowed for compressed, so disregard.
@@ -85,22 +81,16 @@ const KhronosTextureContainer = Class.create(/** @lends KhronosTextureContainer.
 
         
         if (this.pixelHeight === 0 || this.pixelDepth !== 0) {
-
             console.warn('only 2D textures currently supported');
             return;
-
         }
         if (this.numberOfArrayElements !== 0) {
-
             console.warn('texture arrays not currently supported');
             return;
-
         }
         if (this.numberOfFaces !== facesExpected) {
-
             console.warn('number of faces expected' + facesExpected + ', but found ' + this.numberOfFaces);
             return;
-
         }
         // we now have a completely validated file, so could use existence of loadType as success
         // would need to make this more elaborate & adjust checks above to support more than one load type
@@ -108,14 +98,11 @@ const KhronosTextureContainer = Class.create(/** @lends KhronosTextureContainer.
     },
     // not as fast hardware based, but will probably never need to use
     switchEndainness(val) {
-
         return ((val & 0xFF) << 24) | ((val & 0xFF00) << 8) | ((val >> 8) & 0xFF00) | ((val >> 24) & 0xFF);
-
     },
 
     // return mipmaps for THREE.js
     mipmaps(loadMipmaps) {
-
         let mipmaps = [];
 
         // initialize width & height for level 1
@@ -125,10 +112,8 @@ const KhronosTextureContainer = Class.create(/** @lends KhronosTextureContainer.
         let mipmapCount = loadMipmaps ? this.numberOfMipmapLevels : 1;
 
         for (let level = 0; level < mipmapCount; level++) {
-
             let imageSize = new Int32Array(this.arrayBuffer, dataOffset, 1)[0]; // size per face, since not supporting array cubemaps
             for (let face = 0; face < this.numberOfFaces; face++) {
-
                 let byteArray = new Uint8Array(this.arrayBuffer, dataOffset + 4, imageSize);
 
                 mipmaps.push({
@@ -139,11 +124,9 @@ const KhronosTextureContainer = Class.create(/** @lends KhronosTextureContainer.
 
                 dataOffset += imageSize + 4; // size of the image + 4 for the imageSize field
                 dataOffset += 3 - ((imageSize + 3) % 4); // add padding for odd sized image
-
             }
             width = Math.max(1.0, width * 0.5);
             height = Math.max(1.0, height * 0.5);
-
         }
 
         return mipmaps;

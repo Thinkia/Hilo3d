@@ -5,13 +5,15 @@ import {
     getTypedArrayClass
 } from '../utils/util';
 
-import {
+import constants from '../constants';
+
+const {
     TEXTURE_2D,
     RGBA,
     NEAREST,
     CLAMP_TO_EDGE,
     FLOAT
-} from '../constants/index';
+} = constants;
 
 /**
  * 数据纹理

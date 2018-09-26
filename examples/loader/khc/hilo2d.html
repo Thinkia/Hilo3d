@@ -50,7 +50,7 @@
                 image: result.filter(function(r){return r instanceof Image})
             });
             var khcTexture = new Hilo3d.Texture({
-                image: $('xcanvas'),
+                image: document.getElementById('xcanvas'),
                 autoUpdate: true,
                 wrapS: 33071,
                 wrapT: 33071

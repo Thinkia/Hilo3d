@@ -61,14 +61,17 @@ const LoadCache = Class.create( /** @lends LoadCache.prototype */ {
         if (!file) {
             return Promise.reject();
         }
+
         if (file.state === LoadCache.LOADED) {
             return Promise.resolve(file.data);
-        } else if (file.state === LoadCache.FAILED) {
+        } 
+
+        if (file.state === LoadCache.FAILED) {
             return Promise.reject();
         }
 
         return new Promise((resolve, reject) => {
-            this.on(`update:${file.key}`, evt => {
+            this.on(`update:${file.key}`, (evt) => {
                 let file = evt.detail;
                 if (file.state === LoadCache.LOADED) {
                     resolve(file.data);

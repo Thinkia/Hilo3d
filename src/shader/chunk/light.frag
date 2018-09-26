@@ -34,6 +34,17 @@
     #endif
 #endif
 
+#ifdef HILO_AREA_LIGHTS
+    uniform vec3 u_areaLightsPos[HILO_AREA_LIGHTS];
+    uniform vec3 u_areaLightsColor[HILO_AREA_LIGHTS];
+    uniform vec3 u_areaLightsWidth[HILO_AREA_LIGHTS];
+    uniform vec3 u_areaLightsHeight[HILO_AREA_LIGHTS];
+    uniform sampler2D u_areaLightsLtcTexture1;
+    uniform sampler2D u_areaLightsLtcTexture2;
+
+    #pragma glslify: import('../method/getAreaLight.glsl');
+#endif
+
 #ifdef HILO_AMBIENT_LIGHTS
     uniform vec3 u_ambientLightsColor;
 #endif

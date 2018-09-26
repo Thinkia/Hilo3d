@@ -4,12 +4,14 @@ import BasicLoader from './BasicLoader';
 import Texture from '../texture/Texture';
 import Loader from './Loader';
 
-import {
+import constants from '../constants';
+
+const {
     RGBA,
     NEAREST,
     CLAMP_TO_EDGE,
     FLOAT
-} from '../constants/index';
+} = constants;
 
 /**
  * @class

@@ -102,7 +102,7 @@ const LazyTexture = Class.create( /** @lends LazyTexture.prototype */ {
             src: this.src,
             crossOrigin: this.crossOrigin,
             defaultType: 'img'
-        }).then(img => {
+        }).then((img) => {
             if (img.isTexture) {
                 Object.assign(this, img);
                 this.needUpdate = true;
@@ -113,7 +113,7 @@ const LazyTexture = Class.create( /** @lends LazyTexture.prototype */ {
                 this.needUpdate = true;
                 this.fire('load');
             }
-        }, err => {
+        }, (err) => {
             this.fire('error');
             console.warn(`LazyTexture Failed ${err}`);
         });

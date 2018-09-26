@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>Class: MeshPicker</title>
+    <title>Class: AreaLight</title>
     
     
     <script src="scripts/prettify/prettify.js"></script>
@@ -6502,7 +6502,7 @@
     </ul>
 </div>
     <div class="main">
-        <h1 class="page-title" data-filename="MeshPicker.html">Class: MeshPicker</h1>
+        <h1 class="page-title" data-filename="AreaLight.html">Class: AreaLight</h1>
         
 
 
@@ -6510,7 +6510,7 @@
 <section>
 <header>
     <h2>
-    MeshPicker
+    AreaLight
     </h2>
     
 </header>  
@@ -6524,14 +6524,14 @@
 <dl >
     <dt>
         <div class="nameContainer">
-            <h4 class="name" id="MeshPicker">
+            <h4 class="name" id="AreaLight">
                 
-                new MeshPicker<span class="signature">(params)</span>
+                new AreaLight<span class="signature">(<span class="optional">params</span>)</span>
             </h4>
         
             
             <div class="tag-source">
-                utils/MeshPicker.js, line 24
+                light/AreaLight.js, line 11
             </div>
             
         </div>
@@ -6540,7 +6540,7 @@
         
         
         <div class="description">
-            <p>Mesh 选择工具，可以获取画布中某个区域内的Mesh</p>
+            <p>面光源</p>
         </div>
         
 
@@ -6577,7 +6577,7 @@
             <td class="type">
             
                 
-<span class="param-type">object</span>
+<span class="param-type">Object</span>
 
 
             
@@ -6587,7 +6587,14 @@
             
             <td class="description last">
                 
-                <p>创建对象的属性参数，可包含此类的所有属性。</p></td>
+                    
+                        <span class="optional">optional</span>
+                    
+                    
+                        
+                    
+                
+                <p>创建对象的属性参数。可包含此类的所有属性。</p></td>
         </tr>
 	
 	
@@ -6632,22 +6639,17 @@
         
         
         
-            <h5>Example</h5>
-            
-
-    
-    <pre class="prettyprint"><code>const picker = new Hilo3d.MeshPicker({
-    renderer: stage.renderer
-});
-picker.getSelection(20, 20, 1, 1);</code></pre>
-    
-
-        
     </dd>
 </dl>
     
     </div>
     
+    
+        <h3 class="subsection-title">Extends</h3>
+        
+        <ul>
+            <li><a href="Light.html">Light</a></li>
+        </ul>
     
     
     
@@ -6690,8 +6692,8 @@ picker.getSelection(20, 20, 1, 1);</code></pre>
         <tr >
             
                 <td class="name">
-                    <a name="isMeshPicker"></a>
-                    <code>isMeshPicker</code>
+                    <a name="isAreaLight"></a>
+                    <code>isAreaLight</code>
                 </td>
             
             
@@ -6746,7 +6748,7 @@ picker.getSelection(20, 20, 1, 1);</code></pre>
             
                 <td class="default">
                 
-                    MeshPicker
+                    AreaLight
                 
                 </td>
             
@@ -6764,15 +6766,15 @@ picker.getSelection(20, 20, 1, 1);</code></pre>
         <tr >
             
                 <td class="name">
-                    <a name="debug"></a>
-                    <code>debug</code>
+                    <a name="width"></a>
+                    <code>width</code>
                 </td>
             
             
             <td class="type">
             
                 
-<span class="param-type">boolean</span>
+<span class="param-type">Number</span>
 
 
             
@@ -6783,14 +6785,14 @@ picker.getSelection(20, 20, 1, 1);</code></pre>
             
                 <td class="default">
                 
-                    false
+                    10
                 
                 </td>
             
             
             <td class="description last">
                 
-                <p>是否开启debug，开启后会将mesh以不同的颜色绘制在左下角</p>
+                <p>width</p>
                 
     
                 
@@ -6801,15 +6803,15 @@ picker.getSelection(20, 20, 1, 1);</code></pre>
         <tr >
             
                 <td class="name">
-                    <a name="renderer"></a>
-                    <code>renderer</code>
+                    <a name="height"></a>
+                    <code>height</code>
                 </td>
             
             
             <td class="type">
             
                 
-<span class="param-type"><a href="WebGLRenderer.html">WebGLRenderer</a></span>
+<span class="param-type">Number</span>
 
 
             
@@ -6820,14 +6822,357 @@ picker.getSelection(20, 20, 1, 1);</code></pre>
             
                 <td class="default">
                 
-                    null
+                    10
                 
                 </td>
             
             
             <td class="description last">
                 
-                <p>WebGLRenderer 的实例</p>
+                <p>height</p>
+                
+    
+                
+            </td>
+        </tr>
+	
+	
+        <tr >
+            
+                <td class="name">
+                    <a name="ltcTexture1"></a>
+                    <code>ltcTexture1</code>
+                </td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type"><a href="DataTexture.html">DataTexture</a></span>
+
+
+            
+            </td>
+            
+            
+            
+            
+                <td class="default">
+                
+                </td>
+            
+            
+            <td class="description last">
+                
+                <p>ltcTexture1</p>
+                
+    
+                
+            </td>
+        </tr>
+	
+	
+        <tr >
+            
+                <td class="name">
+                    <a name="ltcTexture2"></a>
+                    <code>ltcTexture2</code>
+                </td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type"><a href="DataTexture.html">DataTexture</a></span>
+
+
+            
+            </td>
+            
+            
+            
+            
+                <td class="default">
+                
+                </td>
+            
+            
+            <td class="description last">
+                
+                <p>ltcTexture1</p>
+                
+    
+                
+            </td>
+        </tr>
+	
+	
+        <tr class="inherited-member">
+            
+                <td class="name">
+                    <a name="amount"></a>
+                    <code>amount</code>
+                </td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">Number</span>
+
+
+            
+            </td>
+            
+            
+            
+            
+                <td class="default">
+                
+                    1
+                
+                </td>
+            
+            
+            <td class="description last">
+                
+                    <span class="inherited optional"><a href="Light.html#amount">inherited</a></span>
+                
+                <p>光强度</p>
+                
+    
+                
+            </td>
+        </tr>
+	
+	
+        <tr class="inherited-member">
+            
+                <td class="name">
+                    <a name="enabled"></a>
+                    <code>enabled</code>
+                </td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">Boolean</span>
+
+
+            
+            </td>
+            
+            
+            
+            
+                <td class="default">
+                
+                    true
+                
+                </td>
+            
+            
+            <td class="description last">
+                
+                    <span class="inherited optional"><a href="Light.html#enabled">inherited</a></span>
+                
+                <p>是否开启灯光</p>
+                
+    
+                
+            </td>
+        </tr>
+	
+	
+        <tr class="inherited-member">
+            
+                <td class="name">
+                    <a name="constantAttenuation"></a>
+                    <code>constantAttenuation</code>
+                </td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">Number</span>
+
+
+            
+            </td>
+            
+            
+            
+            
+                <td class="default">
+                
+                    1
+                
+                </td>
+            
+            
+            <td class="description last">
+                
+                    <span class="inherited optional"><a href="Light.html#constantAttenuation">inherited</a></span>
+                
+                <p>光常量衰减值, PointLight 和 SpotLight 时生效</p>
+                
+    
+                
+            </td>
+        </tr>
+	
+	
+        <tr class="inherited-member">
+            
+                <td class="name">
+                    <a name="linearAttenuation"></a>
+                    <code>linearAttenuation</code>
+                </td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">Number</span>
+
+
+            
+            </td>
+            
+            
+            
+            
+                <td class="default">
+                
+                    0
+                
+                </td>
+            
+            
+            <td class="description last">
+                
+                    <span class="inherited optional"><a href="Light.html#linearAttenuation">inherited</a></span>
+                
+                <p>光线性衰减值, PointLight 和 SpotLight 时生效</p>
+                
+    
+                
+            </td>
+        </tr>
+	
+	
+        <tr class="inherited-member">
+            
+                <td class="name">
+                    <a name="quadraticAttenuation"></a>
+                    <code>quadraticAttenuation</code>
+                </td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">Number</span>
+
+
+            
+            </td>
+            
+            
+            
+            
+                <td class="default">
+                
+                    0
+                
+                </td>
+            
+            
+            <td class="description last">
+                
+                    <span class="inherited optional"><a href="Light.html#quadraticAttenuation">inherited</a></span>
+                
+                <p>光二次衰减值, PointLight 和 SpotLight 时生效</p>
+                
+    
+                
+            </td>
+        </tr>
+	
+	
+        <tr class="inherited-member">
+            
+                <td class="name">
+                    <a name="range"></a>
+                    <code>range</code>
+                </td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">Number</span>
+
+
+            
+            </td>
+            
+            
+            
+            
+                <td class="default">
+                
+                    0
+                
+                </td>
+            
+            
+            <td class="description last">
+                
+                    <span class="inherited optional"><a href="Light.html#range">inherited</a></span>
+                
+                <p>光照范围, PointLight 和 SpotLight 时生效, 0 时代表光照范围无限大。</p>
+                
+    
+                
+            </td>
+        </tr>
+	
+	
+        <tr class="inherited-member">
+            
+                <td class="name">
+                    <a name="color"></a>
+                    <code>color</code>
+                </td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type"><a href="Color.html">Color</a></span>
+
+
+            
+            </td>
+            
+            
+            
+            
+                <td class="default">
+                
+                    new Color(1, 1, 1)
+                
+                </td>
+            
+            
+            <td class="description last">
+                
+                    <span class="inherited optional"><a href="Light.html#color">inherited</a></span>
+                
+                <p>灯光颜色</p>
                 
     
                 
@@ -6850,17 +7195,19 @@ picker.getSelection(20, 20, 1, 1);</code></pre>
         
         <dl>
             
-<dl >
+<dl class="inherited-method">
     <dt>
-        <div class="nameContainer">
-            <h4 class="name" id="getSelection">
+        <div class="nameContainer inherited">
+            <h4 class="name" id="toInfoArray">
                 
-                getSelection<span class="signature">(x, y, <span class="optional">width</span>, <span class="optional">height</span>)</span><span class="glyphicon glyphicon-circle-arrow-right"></span><span class="type-signature returnType">{Array.&lt;<a href="Mesh.html">Mesh</a>>}</span>
+                    <span class="inherited"><a href="Light.html#toInfoArray">inherited</a></span>
+                
+                toInfoArray<span class="signature">(out, offset)</span>
             </h4>
         
             
             <div class="tag-source">
-                utils/MeshPicker.js, line 113
+                light/Light.js, line 94
             </div>
             
         </div>
@@ -6869,7 +7216,7 @@ picker.getSelection(20, 20, 1, 1);</code></pre>
         
         
         <div class="description">
-            <p>获取指定区域内的Mesh，注意无法获取被遮挡的Mesh</p>
+            <p>获取光范围信息, PointLight 和 SpotLight 时生效</p>
         </div>
         
 
@@ -6890,8 +7237,6 @@ picker.getSelection(20, 20, 1, 1);</code></pre>
 		<th>Type</th>
 		
 		
-		<th>Default</th>
-		
 		
 		<th class="last">Description</th>
 	</tr>
@@ -6902,136 +7247,46 @@ picker.getSelection(20, 20, 1, 1);</code></pre>
 	
         <tr>
             
-                <td class="name"><code>x</code></td>
+                <td class="name"><code>out</code></td>
             
             
             <td class="type">
             
                 
-<span class="param-type">number</span>
+<span class="param-type">Array</span>
 
 
             
             </td>
             
             
-                <td class="default">
-                
-                </td>
-            
             
             <td class="description last">
                 
-                    
-                    
-                        
-                    
-                
-                <p>左上角的x坐标</p></td>
+                <p>信息接受数组</p></td>
         </tr>
 	
 	
 	
         <tr>
             
-                <td class="name"><code>y</code></td>
+                <td class="name"><code>offset</code></td>
             
             
             <td class="type">
             
                 
-<span class="param-type">number</span>
+<span class="param-type">Number</span>
 
 
             
             </td>
             
             
-                <td class="default">
-                
-                </td>
-            
             
             <td class="description last">
                 
-                    
-                    
-                        
-                    
-                
-                <p>左上角的y坐标</p></td>
-        </tr>
-	
-	
-	
-        <tr>
-            
-                <td class="name"><code>width</code></td>
-            
-            
-            <td class="type">
-            
-                
-<span class="param-type">number</span>
-
-
-            
-            </td>
-            
-            
-                <td class="default">
-                
-                    1
-                
-                </td>
-            
-            
-            <td class="description last">
-                
-                    
-                        <span class="optional">optional</span>
-                    
-                    
-                        
-                    
-                
-                <p>区域的宽</p></td>
-        </tr>
-	
-	
-	
-        <tr>
-            
-                <td class="name"><code>height</code></td>
-            
-            
-            <td class="type">
-            
-                
-<span class="param-type">number</span>
-
-
-            
-            </td>
-            
-            
-                <td class="default">
-                
-                    1
-                
-                </td>
-            
-            
-            <td class="description last">
-                
-                    
-                        <span class="optional">optional</span>
-                    
-                    
-                        
-                    
-                
-                <p>区域的高</p></td>
+                <p>偏移值</p></td>
         </tr>
 	
 	
@@ -7074,34 +7329,145 @@ picker.getSelection(20, 20, 1, 1);</code></pre>
         
         
         
-        <h5>Returns:</h5>
+        
+        
+    </dd>
+</dl>
+        
+            
+<dl class="inherited-method">
+    <dt>
+        <div class="nameContainer inherited">
+            <h4 class="name" id="createShadowMap">
+                
+                    <span class="inherited"><a href="Light.html#createShadowMap">inherited</a></span>
+                
+                createShadowMap<span class="signature">(renderer, camera)</span>
+            </h4>
+        
+            
+            <div class="tag-source">
+                light/Light.js, line 108
+            </div>
+            
+        </div>
+    </dt>
+    <dd>
+        
+        
+        <div class="description">
+            <p>生成阴影贴图，支持阴影的子类需要重写</p>
+        </div>
         
 
+        
+        
+        
+        
+        
+            
 
 <table class="params">
     <thead>
-    <tr>
-        
-        <th>Type</th>
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-    <tbody>
-    
+	<tr>
+		
+		<th>Name</th>
+		
+		
+		<th>Type</th>
+		
+		
+		
+		<th class="last">Description</th>
+	</tr>
+	</thead>
+	
+	<tbody>
+	
+	
         <tr>
+            
+                <td class="name"><code>renderer</code></td>
+            
             
             <td class="type">
             
-                        Array.&lt;<a href="Mesh.html">Mesh</a>>
-                        
-                    
-            </td>
-            <td class="description last">返回获取的Mesh数组</td>
-        </tr>
-    
-    </tbody>
-</table>
+                
+<span class="param-type"><a href="WebGLRenderer.html">WebGLRenderer</a></span>
 
+
+            
+            </td>
+            
+            
+            
+            <td class="description last">
+                
+                </td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>camera</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type"><a href="Camera.html">Camera</a></span>
+
+
+            
+            </td>
+            
+            
+            
+            <td class="description last">
+                
+                </td>
+        </tr>
+	
+	
+	</tbody>
+</table>
+        
+        
+        
+<dl class="details">
+    
+        
+    
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+</dl>
+
+        
+        
+
+        
+
+        
+        
+        
+        
         
         
         

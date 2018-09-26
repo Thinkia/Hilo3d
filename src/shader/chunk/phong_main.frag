@@ -98,6 +98,16 @@
         }
     #endif
 
+    #ifdef HILO_AREA_LIGHTS
+        #ifndef HILO_HAS_SPECULAR
+            vec4 specular = vec4(0.0, 0.0, 0.0, 0.0);
+        #endif
+        vec3 viewDir = normalize(vec3(0, 0, 0) - v_fragPos);
+        for(int i = 0; i < HILO_AREA_LIGHTS; i++){
+            color.rgb += getAreaLight(diffuse.rgb, specular.rgb, sqrt(2.0/(u_shininess+2.0)), normal, viewDir, v_fragPos, u_areaLightsPos[i], u_areaLightsColor[i], u_areaLightsWidth[i], u_areaLightsHeight[i], u_areaLightsLtcTexture1, u_areaLightsLtcTexture2);
+        }
+    #endif
+
     #ifdef HILO_AMBIENT_LIGHTS
         color.rgb += u_ambientLightsColor * lightAmbient;
     #endif

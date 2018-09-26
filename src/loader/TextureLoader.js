@@ -46,12 +46,12 @@ const TextureLoader = Class.create(/** @lends TextureLoader.prototype */{
      * @return {Promise<Texture, Error>} 返回加载完的Texture对象
      */
     load(params) {
-        return this.loadImg(params.src, params.crossOrigin).then(img => {
+        return this.loadImg(params.src, params.crossOrigin).then((img) => {
             const args = Object.assign({}, params);
             args.image = img;
             delete args.type;
             return new Texture(args);
-        }).catch(err => {
+        }).catch((err) => {
             console.warn('load Texture failed', err.message, err.stack);
             throw err;
         });

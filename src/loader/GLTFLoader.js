@@ -49,10 +49,10 @@ const GLTFLoader = Class.create(/** @lends GLTFLoader.prototype */{
      */
     load(params) {
         return this.loadRes(params.src, 'buffer')
-            .then(buffer => {
+            .then((buffer) => {
                 let parser = new GLTFParser(buffer, params);
                 return parser.parse(this);
-            }).catch(err => {
+            }).catch((err) => {
                 console.warn('load gltf failed', err.message, err.stack);
                 throw err;
             });

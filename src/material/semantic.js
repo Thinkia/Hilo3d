@@ -3,10 +3,12 @@ import DataTexture from '../texture/DataTexture';
 import Vector3 from '../math/Vector3';
 import Matrix3 from '../math/Matrix3';
 import Matrix4 from '../math/Matrix4';
-import {
+import constants from '../constants';
+
+const {
     TEXTURE_2D,
     TEXTURE_CUBE_MAP
-} from '../constants/';
+} = constants;
 
 const tempVector3 = new Vector3();
 const tempMatrix3 = new Matrix3();
@@ -408,13 +410,11 @@ const semantic = {
     },
 
     /**
+     * 还未实现，不要使用
      * @type {semanticObject}
+     * @default undefined
      */
-    VIEWPORT: {
-        get(mesh, material, programInfo) {
-            console.warn('no this semantic:', name);
-        }
-    },
+    VIEWPORT: undefined,
 
     /**
      * @type {semanticObject}
@@ -746,6 +746,60 @@ const semantic = {
         }
     },
 
+    /**
+     * @type {semanticObject}
+     */
+    AREALIGHTSCOLOR: {
+        get(mesh, material, programInfo) {
+            return lightManager.areaInfo.colors;
+        }
+    },
+
+    /**
+     * @type {semanticObject}
+     */
+    AREALIGHTSPOS: {
+        get(mesh, material, programInfo) {
+            return lightManager.areaInfo.poses;
+        }
+    },
+
+    /**
+     * @type {semanticObject}
+     */
+    AREALIGHTSWIDTH: {
+        get(mesh, material, programInfo) {
+            return lightManager.areaInfo.width;
+        }
+    },
+
+    /**
+     * @type {semanticObject}
+     */
+    AREALIGHTSHEIGHT: {
+        get(mesh, material, programInfo) {
+            return lightManager.areaInfo.height;
+        }
+    },
+
+    /**
+     * @type {semanticObject}
+     */
+    AREALIGHTSLTCTEXTURE1: {
+        get(mesh, material, programInfo) {
+            return semantic.handlerTexture(lightManager.areaInfo.ltcTexture1, programInfo.textureIndex);
+        }
+    },
+
+    /**
+     * @type {semanticObject}
+     */
+    AREALIGHTSLTCTEXTURE2: {
+        get(mesh, material, programInfo) {
+            return semantic.handlerTexture(lightManager.areaInfo.ltcTexture2, programInfo.textureIndex);
+        }
+    },
+
     // fog
 
     /**
@@ -907,7 +961,7 @@ const semantic = {
     ['POSITION', 'vertices'],
     ['NORMAL', 'normals'],
     ['TANGENT', 'tangents']
-].forEach(info => {
+].forEach((info) => {
     for (let i = 0; i < 8; i++) {
         semantic['MORPH' + info[0] + i] = {
             get: (function(name, i) {
@@ -937,7 +991,7 @@ const semantic = {
     ['SPECULAR', 'specular'],
     ['EMISSION', 'emission'],
     ['AMBIENT', 'ambient'],
-].forEach(info => {
+].forEach((info) => {
     const [
         semanticName,
         textureName,
@@ -967,7 +1021,7 @@ const semantic = {
     ['OCCLUSIONMAP', 'occlusionMap'],
     ['SPECULARGLOSSINESSMAP', 'specularGlossinessMap'],
     ['LIGHTMAP', 'lightMap']
-].forEach(info => {
+].forEach((info) => {
     const [
         semanticName,
         textureName,
@@ -989,7 +1043,7 @@ const semantic = {
 // TRANSPARENCY
 [
     ['TRANSPARENCY', 'transparency']
-].forEach(info => {
+].forEach((info) => {
     const [
         semanticName,
         textureName,
@@ -1000,7 +1054,9 @@ const semantic = {
             const value = material[textureName];
             if (value && value.isTexture) {
                 return semantic.handlerTexture(value, programInfo.textureIndex);
-            } else if (value !== undefined && value !== null) {
+            }
+            
+            if (value !== undefined && value !== null) {
                 return value;
             }
 

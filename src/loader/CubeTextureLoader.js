@@ -65,9 +65,9 @@ const CubeTextureLoader = Class.create(/** @lends CubeTextureLoader.prototype */
         } else {
             images = [params.right, params.left, params.top, params.bottom, params.front, params.back];
         }
-        return Promise.all(images.map(img => {
+        return Promise.all(images.map((img) => {
             return this.loadImg(img, params.crossOrigin);
-        })).then(images => {
+        })).then((images) => {
             const args = Object.assign({}, params);
             delete args.images;
             delete args.type;
@@ -79,7 +79,7 @@ const CubeTextureLoader = Class.create(/** @lends CubeTextureLoader.prototype */
             delete args.back;
             args.image = images;
             return new CubeTexture(args);
-        }).catch(err => {
+        }).catch((err) => {
             console.warn('load CubeTexture failed', err.message, err.stack);
             throw err;
         });

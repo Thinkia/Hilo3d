@@ -2,11 +2,13 @@ import Class from '../core/Class';
 import Cache from '../utils/Cache';
 import math from '../math/math';
 
-import {
+import constants from '../constants';
+
+const {
     ARRAY_BUFFER,
     ELEMENT_ARRAY_BUFFER,
     STATIC_DRAW
-} from '../constants/';
+} = constants;
 
 const cache = new Cache();
 /**

@@ -134,6 +134,12 @@ color.a = baseColor.a;
         }
     #endif
 
+    #ifdef HILO_AREA_LIGHTS
+        for(int i = 0; i < HILO_AREA_LIGHTS; i++){
+            color.rgb += getAreaLight(diffuseColor, specularColor, roughness, N, V, v_fragPos, u_areaLightsPos[i], u_areaLightsColor[i], u_areaLightsWidth[i], u_areaLightsHeight[i], u_areaLightsLtcTexture1, u_areaLightsLtcTexture2);
+        }
+    #endif
+
     #ifdef HILO_LIGHT_MAP
         color.rgb += baseColor.rgb * HILO_TEXTURE_2D(u_lightMap).rgb;
     #endif

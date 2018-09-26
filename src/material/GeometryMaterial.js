@@ -1,12 +1,14 @@
 import Class from '../core/Class';
 import BasicMaterial from './BasicMaterial';
-import {
+import constants from '../constants';
+
+const {
     POSITION,
     NORMAL,
     DEPTH,
     DISTANCE,
     NONE
-} from '../constants/';
+} = constants;
 
 /**
  * 基础材质

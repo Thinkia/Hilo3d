@@ -5,9 +5,11 @@ import bufferUtil from '../utils/bufferUtil';
 import Cache from '../utils/Cache';
 import GeometryData from '../geometry/GeometryData';
 
-import {
+import constants from '../constants';
+
+const {
     TRIANGLES
-} from '../constants/index';
+} = constants;
 
 let globalStates = [];
 let currentVao = null;

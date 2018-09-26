@@ -3629,6 +3629,10 @@ declare namespace hilo3d {
      */
     getBounds(parent?: Node, currentMatrix?: Matrix4, bounds?: Bounds): Bounds;
 
+    /**
+     * 销毁场景
+     */
+    destroy(): void;
   }
 
   interface EaseTimeFunctions {
@@ -11154,7 +11158,7 @@ declare namespace hilo3d {
      * @param a
      * @param b 如果不传，计算 this 和 a 的结果
      */
-    cross(a: Vector2, b?: Vector2): number;
+    cross(a: Vector2, b?: Vector2): Vector2;
 
     /**
      * Performs a linear interpolation between two vec2's
@@ -11443,7 +11447,7 @@ declare namespace hilo3d {
      * @param a
      * @param b 如果不传，计算 this 和 a 的结果
      */
-    cross(a: Vector2, b?: Vector2): number;
+    cross(a: Vector3, b?: Vector3): Vector3;
 
     /**
      * Performs a linear interpolation between two vec3's

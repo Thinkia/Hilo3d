@@ -4,7 +4,9 @@ import capabilities from '../renderer/capabilities';
 import Cache from '../utils/Cache';
 import log from '../utils/log';
 
-import {
+import constants from '../constants';
+
+const {
     TEXTURE_2D,
     RGBA,
     LINEAR,
@@ -12,7 +14,7 @@ import {
     REPEAT,
     CLAMP_TO_EDGE,
     UNSIGNED_BYTE
-} from '../constants/index';
+} = constants;
 
 const cache = new Cache();
 /**

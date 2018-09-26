@@ -2,8 +2,9 @@ import Class from '../core/Class';
 import math from '../math/math';
 import semantic from './semantic';
 import log from '../utils/log';
+import constants from '../constants';
 
-import {
+const {
     LEQUAL,
     BACK,
     FRONT,
@@ -12,7 +13,7 @@ import {
     ONE,
     FUNC_ADD,
     ONE_MINUS_SRC_ALPHA
-} from '../constants/index';
+} = constants;
 
 const blankInfo = {
     isBlankInfo: true,
@@ -367,16 +368,19 @@ const Material = Class.create( /** @lends Material.prototype */ {
             u_spotLightsShadowMapSize: 'SPOTLIGHTSSHADOWMAPSIZE',
             u_spotLightsShadowBias: 'SPOTLIGHTSSHADOWBIAS',
             u_spotLightSpaceMatrix: 'SPOTLIGHTSPACEMATRIX',
+            u_areaLightsPos: 'AREALIGHTSPOS',
+            u_areaLightsColor: 'AREALIGHTSCOLOR',
+            u_areaLightsWidth: 'AREALIGHTSWIDTH',
+            u_areaLightsHeight: 'AREALIGHTSHEIGHT',
+            u_areaLightsLtcTexture1: 'AREALIGHTSLTCTEXTURE1',
+            u_areaLightsLtcTexture2: 'AREALIGHTSLTCTEXTURE2',
+            
+            // joint
             u_jointMat: 'JOINTMATRIX',
             u_jointMatTexture: 'JOINTMATRIXTEXTURE',
             u_jointMatTextureSize: 'JOINTMATRIXTEXTURESIZE',
-            u_fogColor: 'FOGCOLOR',
-            u_fogInfo: 'FOGINFO',
-            u_alphaCutoff: 'ALPHACUTOFF',
-            u_exposure: 'EXPOSURE',
-            u_gammaFactor: 'GAMMAFACTOR',
 
-            // Quantization
+            // quantization
             u_positionDecodeMat: 'POSITIONDECODEMAT',
             u_normalDecodeMat: 'NORMALDECODEMAT',
             u_uvDecodeMat: 'UVDECODEMAT',
@@ -388,8 +392,16 @@ const Material = Class.create( /** @lends Material.prototype */ {
             u_emission: 'EMISSION',
             u_transparency: 'TRANSPARENCY',
 
+            // uv matrix
             u_uvMatrix: 'UVMATRIX_0',
-            u_uvMatrix1: 'UVMATRIX_1'
+            u_uvMatrix1: 'UVMATRIX_1',
+
+            // other info
+            u_fogColor: 'FOGCOLOR',
+            u_fogInfo: 'FOGINFO',
+            u_alphaCutoff: 'ALPHACUTOFF',
+            u_exposure: 'EXPOSURE',
+            u_gammaFactor: 'GAMMAFACTOR',
         };
 
         this.addTextureUniforms({
@@ -415,7 +427,7 @@ const Material = Class.create( /** @lends Material.prototype */ {
             a_skinWeights: 'SKINWEIGHTS'
         };
 
-        ['POSITION', 'NORMAL', 'TANGENT'].forEach(name => {
+        ['POSITION', 'NORMAL', 'TANGENT'].forEach((name) => {
             const camelName = name.slice(0, 1) + name.slice(1).toLowerCase();
             for (let i = 0; i < 8; i++) {
                 this.attributes['a_morph' + camelName + i] = 'MORPH' + name + i;

@@ -166,9 +166,9 @@ const LoadQueue = Class.create( /** @lends LoadQueue.prototype */ {
             let item = source[index];
 
             this._connections++;
-            this._loader.load(item).then(data => {
+            this._loader.load(item).then((data) => {
                 this._onItemLoad(index, data);
-            }, err => {
+            }, (err) => {
                 this._onItemError(index, err);
             });
         }

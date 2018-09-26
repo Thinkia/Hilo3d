@@ -176,11 +176,11 @@ const BasicLoader = Class.create( /** @lends BasicLoader.prototype */ {
         return this.request({
             url,
             type
-        }).then(data => {
+        }).then((data) => {
             this.fire('loaded');
             cache.update(url, LoadCache.LOADED, data);
             return data;
-        }, err => {
+        }, (err) => {
             this.fire('failed', err);
             cache.update(url, LoadCache.FAILED);
             throw new Error(`Resource load failed for ${url}, ${err}`);
@@ -215,7 +215,7 @@ const BasicLoader = Class.create( /** @lends BasicLoader.prototype */ {
                 }
                 resolve(result);
             };
-            xhr.onprogress = evt => {
+            xhr.onprogress = (evt) => {
                 this.fire('progress', {
                     url: opt.url,
                     loaded: evt.loaded,

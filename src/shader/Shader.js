@@ -1,3 +1,4 @@
+/* eslint global-require: "off" */
 import Class from '../core/Class';
 import math from '../math/math';
 import Cache from '../utils/Cache';
@@ -198,7 +199,7 @@ const Shader = Class.create( /** @lends Shader.prototype */ {
                 }
 
                 header = `#define SHADER_NAME ${material.className}\n`;
-                header += Object.keys(headers).map(name => {
+                header += Object.keys(headers).map((name) => {
                     return `#define HILO_${name} ${headers[name]}`;
                 }).join('\n') + '\n';
 
