@@ -10,7 +10,7 @@ import capabilities from '../renderer/capabilities';
  * @example
  * const material = new Hilo3d.PBRMaterial();
  */
-const PBRMaterial = Class.create( /** @lends PBRMaterial.prototype */ {
+const PBRMaterial = Class.create(/** @lends PBRMaterial.prototype */ {
     Extends: Material,
 
     /**
@@ -39,7 +39,7 @@ const PBRMaterial = Class.create( /** @lends PBRMaterial.prototype */ {
      * @default true
      */
     gammaOutput: true,
-    
+
     /**
      * 基础颜色
      * @default null

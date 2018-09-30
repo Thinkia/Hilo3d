@@ -44,8 +44,6 @@ if (!window.notInit) {
     }, 10);
 }
 
-console.log('Hilo3d.version: ' + Hilo3d.version);
-
 var utils = {
     keys: {},
     parseQuery(url) {

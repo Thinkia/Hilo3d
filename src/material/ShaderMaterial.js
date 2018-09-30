@@ -22,7 +22,7 @@ import Material from './Material';
  *         precision HILO_MAX_VERTEX_PRECISION float;
  *         attribute vec3 a_pos;
  *         uniform mat4 u_mat;
- * 
+ *
  *         void main(void) {
  *             gl_Position = u_mat * vec4(a_pos, 1.0);
  *         }
@@ -30,7 +30,7 @@ import Material from './Material';
  *     fs:`
  *         precision HILO_MAX_FRAGMENT_PRECISION float;
  *         uniform float u_color_b;
- * 
+ *
  *         void main(void) {
  *             gl_FragColor = vec4(0.6, 0.8, u_color_b, 1);
  *         }

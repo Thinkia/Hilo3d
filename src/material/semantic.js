@@ -3,6 +3,7 @@ import DataTexture from '../texture/DataTexture';
 import Vector3 from '../math/Vector3';
 import Matrix3 from '../math/Matrix3';
 import Matrix4 from '../math/Matrix4';
+import log from '../utils/log';
 import constants from '../constants';
 
 const {
@@ -59,10 +60,10 @@ const semantic = {
 
     /**
      * 初始化
-     * @param  {State} _state        
-     * @param  {Camera} _camera       
-     * @param  {LightManager} _lightManager 
-     * @param  {Fog} _fog          
+     * @param  {State} _state
+     * @param  {Camera} _camera
+     * @param  {LightManager} _lightManager
+     * @param  {Fog} _fog
      */
     init(_state, _camera, _lightManager, _fog) {
         state = this.state = _state;
@@ -424,7 +425,7 @@ const semantic = {
             if (mesh.isSkinedMesh) {
                 return mesh.getJointMat();
             }
-            console.warn('Current mesh is not SkinedMesh!', mesh.id);
+            log.warnOnce(`semantic.JOINTMATRIX(${mesh.id})`, 'Current mesh is not SkinedMesh!', mesh.id);
             return undefined;
         },
         isDependMesh: true,
@@ -440,7 +441,7 @@ const semantic = {
                 mesh.updateJointMatTexture();
                 return semantic.handlerTexture(mesh.jointMatTexture, programInfo.textureIndex);
             }
-            console.warn('Current mesh is not SkinedMesh!', mesh.id);
+            log.warnOnce(`semantic.JOINTMATRIXTEXTURE(${mesh.id})`, 'Current mesh is not SkinedMesh!', mesh.id);
             return undefined;
         },
         isDependMesh: true,
@@ -456,7 +457,7 @@ const semantic = {
                 mesh.initJointMatTexture();
                 return [mesh.jointMatTexture.width, mesh.jointMatTexture.height];
             }
-            console.warn('Current mesh is not SkinedMesh!', mesh.id);
+            log.warnOnce(`semantic.JOINTMATRIXTEXTURESIZE(${mesh.id})`, 'Current mesh is not SkinedMesh!', mesh.id);
             return undefined;
         },
         isDependMesh: true,
@@ -533,7 +534,7 @@ const semantic = {
 
     LOGDEPTH: {
         get(mesh, material, programInfo) {
-            return 2.0 / ( Math.log( camera.far + 1.0 ) / Math.LN2 );
+            return 2.0 / (Math.log(camera.far + 1.0) / Math.LN2);
         }
     },
 
@@ -1055,7 +1056,7 @@ const semantic = {
             if (value && value.isTexture) {
                 return semantic.handlerTexture(value, programInfo.textureIndex);
             }
-            
+
             if (value !== undefined && value !== null) {
                 return value;
             }

@@ -11,7 +11,7 @@ import Color from '../math/Color';
  *     diffuse: new Hilo3d.Color(1, 0, 0, 1)
  * });
  */
-const BasicMaterial = Class.create( /** @lends BasicMaterial.prototype */ {
+const BasicMaterial = Class.create(/** @lends BasicMaterial.prototype */ {
     Extends: Material,
     /**
      * @default true

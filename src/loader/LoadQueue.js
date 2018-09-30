@@ -1,6 +1,7 @@
 import Class from '../core/Class';
 import EventMixin from '../core/EventMixin';
 import Loader from './Loader';
+import log from '../utils/log';
 
 /**
  * 队列加载器，用于批量加载
@@ -48,7 +49,7 @@ import Loader from './Loader';
  *     stage.addChild(model.node);
  * }).start();
  */
-const LoadQueue = Class.create( /** @lends LoadQueue.prototype */ {
+const LoadQueue = Class.create(/** @lends LoadQueue.prototype */ {
     Mixes: EventMixin,
     /**
      * @default true
@@ -69,7 +70,7 @@ const LoadQueue = Class.create( /** @lends LoadQueue.prototype */ {
          * @param {BasicLoader} LoaderClass 用于加载的类，需要继承BasicLoader
          */
         addLoader(ext, LoaderClass) {
-            console.warn('LoadQueue.addLoader is duplicated, please use Loader.addLoader');
+            log.warn('LoadQueue.addLoader is duplicated, please use Loader.addLoader');
             Loader.addLoader(ext, LoaderClass);
         }
     },

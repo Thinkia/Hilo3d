@@ -1,6 +1,7 @@
 import Class from '../core/Class';
 import BasicLoader from './BasicLoader';
 import ShaderMaterial from '../material/ShaderMaterial';
+import log from '../utils/log';
 
 /**
  * ShaderMaterial加载类
@@ -78,7 +79,7 @@ const ShaderMaterialLoader = Class.create(/** @lends  ShaderMaterialLoader.proto
             args.vs = result[1];
             return new ShaderMaterial(args);
         }, (err) => {
-            console.warn(`ShaderMaterial Loader Failed for ${err}`);
+            log.warn(`ShaderMaterial Loader Failed for ${err}`);
         });
     }
 });

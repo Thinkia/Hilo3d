@@ -125,7 +125,7 @@ export const KHR_lights_punctual = {
 
         const amount = lightInfo.intensity !== undefined ? lightInfo.intensity : 1;
         const name = lightInfo.name || '';
-        
+
         // spot light
         const spotInfo = lightInfo.spot || {};
         const cutoff = spotInfo.innerConeAngle !== undefined ? math.radToDeg(spotInfo.innerConeAngle) : 0;
@@ -160,7 +160,7 @@ export const KHR_lights_punctual = {
                 break;
             default:
                 return;
-        }  
+        }
 
         if (light) {
             node.addChild(light);

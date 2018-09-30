@@ -8,7 +8,7 @@ import EventMixin from '../core/EventMixin';
  * @fires update 更新事件
  * @ignore
  */
-const LoadCache = Class.create( /** @lends LoadCache.prototype */ {
+const LoadCache = Class.create(/** @lends LoadCache.prototype */ {
     Mixes: EventMixin,
     /**
      * @default true
@@ -64,7 +64,7 @@ const LoadCache = Class.create( /** @lends LoadCache.prototype */ {
 
         if (file.state === LoadCache.LOADED) {
             return Promise.resolve(file.data);
-        } 
+        }
 
         if (file.state === LoadCache.FAILED) {
             return Promise.reject();

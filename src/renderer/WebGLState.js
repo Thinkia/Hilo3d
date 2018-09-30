@@ -4,7 +4,7 @@ import Class from '../core/Class';
  * WebGL 状态管理，减少 api 调用
  * @class
  */
-const WebGLState = Class.create( /** @lends WebGLState.prototype */ {
+const WebGLState = Class.create(/** @lends WebGLState.prototype */ {
     /**
      * @default WebGLState
      * @type {String}
@@ -71,8 +71,8 @@ const WebGLState = Class.create( /** @lends WebGLState.prototype */ {
     },
     /**
      * bindFramebuffer
-     * @param  {GLenum} target      
-     * @param  {WebGLFramebuffer} framebuffer 
+     * @param  {GLenum} target
+     * @param  {WebGLFramebuffer} framebuffer
      */
     bindFramebuffer(target, framebuffer) {
         if (this.currentFramebuffer !== framebuffer) {
@@ -110,15 +110,15 @@ const WebGLState = Class.create( /** @lends WebGLState.prototype */ {
     },
     /**
      * clear
-     * @param  {Number} mask 
+     * @param  {Number} mask
      */
     clear(mask) {
         this.gl.clear(mask);
     },
     /**
      * depthRange
-     * @param  {Number} zNear 
-     * @param  {Number} zFar  
+     * @param  {Number} zNear
+     * @param  {Number} zFar
      */
     depthRange(zNear, zFar) {
         this.set2('depthRange', zNear, zFar);
@@ -126,7 +126,7 @@ const WebGLState = Class.create( /** @lends WebGLState.prototype */ {
     /**
      * stencilFunc
      * @param  {GLenum} func
-     * @param  {Number} ref 
+     * @param  {Number} ref
      * @param  {Number} mask
      */
     stencilFunc(func, ref, mask) {
@@ -134,33 +134,33 @@ const WebGLState = Class.create( /** @lends WebGLState.prototype */ {
     },
     /**
      * stencilMask
-     * @param  {Number} mask 
+     * @param  {Number} mask
      */
     stencilMask(mask) {
         this.set1('stencilMask', mask);
     },
     /**
      * stencilOp
-     * @param  {GLenum} fail  
-     * @param  {GLenum} zfail 
-     * @param  {GLenum} zpass 
+     * @param  {GLenum} fail
+     * @param  {GLenum} zfail
+     * @param  {GLenum} zpass
      */
     stencilOp(fail, zfail, zpass) {
         this.set3('stencilOp', fail, zfail, zpass);
     },
     /**
      * colorMask
-     * @param  {Boolean} red   
-     * @param  {Boolean} green 
-     * @param  {Boolean} blue  
-     * @param  {Boolean} alpha 
+     * @param  {Boolean} red
+     * @param  {Boolean} green
+     * @param  {Boolean} blue
+     * @param  {Boolean} alpha
      */
     colorMask(red, green, blue, alpha) {
         this.set4('colorMask', red, green, blue, alpha);
     },
     /**
      * cullFace
-     * @param  {GLenum} mode 
+     * @param  {GLenum} mode
      */
     cullFace(mode) {
         this.set1('cullFace', mode);
@@ -174,17 +174,17 @@ const WebGLState = Class.create( /** @lends WebGLState.prototype */ {
     },
     /**
      * blendFuncSeparate
-     * @param  {GLenum} srcRGB   
-     * @param  {GLenum} dstRGB   
-     * @param  {GLenum} srcAlpha 
-     * @param  {GLenum} dstAlpha 
+     * @param  {GLenum} srcRGB
+     * @param  {GLenum} dstRGB
+     * @param  {GLenum} srcAlpha
+     * @param  {GLenum} dstAlpha
      */
     blendFuncSeparate(srcRGB, dstRGB, srcAlpha, dstAlpha) {
         this.set4('blendFuncSeparate', srcRGB, dstRGB, srcAlpha, dstAlpha);
     },
     /**
      * blendEquationSeparate
-     * @param  {GLenum} modeRGB  
+     * @param  {GLenum} modeRGB
      * @param  {GLenum} modeAlpha
      */
     blendEquationSeparate(modeRGB, modeAlpha) {
@@ -192,8 +192,8 @@ const WebGLState = Class.create( /** @lends WebGLState.prototype */ {
     },
     /**
      * pixelStorei
-     * @param  {Glenum} pname 
-     * @param  {Glenum} param 
+     * @param  {Glenum} pname
+     * @param  {Glenum} param
      */
     pixelStorei(pname, param) {
         const currentParam = this._pixelStorei[pname];
@@ -204,9 +204,9 @@ const WebGLState = Class.create( /** @lends WebGLState.prototype */ {
     },
     /**
      * viewport
-     * @param  {Number} x     
-     * @param  {Number} y     
-     * @param  {Number} width 
+     * @param  {Number} x
+     * @param  {Number} y
+     * @param  {Number} width
      * @param  {Number} height
      */
     viewport(x, y, width, height) {
@@ -214,7 +214,7 @@ const WebGLState = Class.create( /** @lends WebGLState.prototype */ {
     },
     /**
      * activeTexture
-     * @param  {Number} texture 
+     * @param  {Number} texture
      */
     activeTexture(texture) {
         if (this.activeTextureIndex !== texture) {
@@ -224,8 +224,8 @@ const WebGLState = Class.create( /** @lends WebGLState.prototype */ {
     },
     /**
      * bindTexture
-     * @param  {GLenum} target  
-     * @param  {WebGLTexture } texture 
+     * @param  {GLenum} target
+     * @param  {WebGLTexture } texture
      */
     bindTexture(target, texture) {
         let textureUnit = this.getActiveTextureUnit();

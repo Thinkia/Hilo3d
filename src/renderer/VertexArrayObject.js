@@ -1,10 +1,10 @@
 import Class from '../core/Class';
 import extensions from './extensions';
 import Buffer from './Buffer';
+import GeometryData from '../geometry/GeometryData';
 import bufferUtil from '../utils/bufferUtil';
 import Cache from '../utils/Cache';
-import GeometryData from '../geometry/GeometryData';
-
+import log from '../utils/log';
 import constants from '../constants';
 
 const {
@@ -19,7 +19,7 @@ const cache = new Cache();
  * VAO
  * @class
  */
-const VertexArrayObject = Class.create( /** @lends VertexArrayObject.prototype */ {
+const VertexArrayObject = Class.create(/** @lends VertexArrayObject.prototype */ {
     Statics: {
         /**
          * 缓存
@@ -33,10 +33,10 @@ const VertexArrayObject = Class.create( /** @lends VertexArrayObject.prototype *
         },
         /**
          * 获取 vao
-         * @param  {WebGLRenderingContext} gl     
-         * @param  {String} id  缓存id  
-         * @param  {Object} params 
-         * @return {VertexArrayObject}        
+         * @param  {WebGLRenderingContext} gl
+         * @param  {String} id  缓存id
+         * @param  {Object} params
+         * @return {VertexArrayObject}
          */
         getVao(gl, id, params) {
             let vao = cache.get(id);
@@ -49,7 +49,7 @@ const VertexArrayObject = Class.create( /** @lends VertexArrayObject.prototype *
         },
         /**
          * 重置所有vao
-         * @param  {WebGLRenderingContext} gl 
+         * @param  {WebGLRenderingContext} gl
          */
         reset(gl) { // eslint-disable-line no-unused-vars
             currentVao = null;
@@ -120,9 +120,9 @@ const VertexArrayObject = Class.create( /** @lends VertexArrayObject.prototype *
 
     /**
      * @constructs
-     * @param  {WebGLRenderingContext} gl     
-     * @param  {String} id  缓存id  
-     * @param  {Object} params 
+     * @param  {WebGLRenderingContext} gl
+     * @param  {String} id  缓存id
+     * @param  {Object} params
      */
     constructor(gl, id, params) {
         this.gl = gl;
@@ -291,7 +291,7 @@ const VertexArrayObject = Class.create( /** @lends VertexArrayObject.prototype *
     },
     /**
      * addAttribute
-     * @param {GeometryData} geometryData     
+     * @param {GeometryData} geometryData
      * @param {Object} attribute
      * @param {GLenum} usage gl.STATIC_DRAW|gl.DYNAMIC_DRAW
      * @param {Function} onInit
@@ -330,9 +330,9 @@ const VertexArrayObject = Class.create( /** @lends VertexArrayObject.prototype *
     /**
      * addInstancedAttribute
      * @param {Object} attribute
-     * @param {Array} meshes   
+     * @param {Array} meshes
      * @param {function} getData
-     * @return {AttributeObject} attributeObject  
+     * @return {AttributeObject} attributeObject
      */
     addInstancedAttribute(attribute, meshes, getData) {
         this.bind();
@@ -348,7 +348,7 @@ const VertexArrayObject = Class.create( /** @lends VertexArrayObject.prototype *
             if (attributeData !== undefined) {
                 bufferUtil.fillArrayData(instancedData, getData(mesh), index * glTypeInfo.size);
             } else {
-                console.warn('no attributeData:' + name + '-' + mesh.name);
+                log.warn('no attributeData:' + name + '-' + mesh.name);
             }
         });
 
@@ -368,9 +368,9 @@ const VertexArrayObject = Class.create( /** @lends VertexArrayObject.prototype *
     },
     /**
      * 使用了资源
-     * @param  {WebGLResourceManager} resourceManager 
-     * @param  {Mesh} mesh            
-     * @return {VertexArrayObject}                 
+     * @param  {WebGLResourceManager} resourceManager
+     * @param  {Mesh} mesh
+     * @return {VertexArrayObject}
      */
     useResource(resourceManager, mesh) {
         this.attributes.forEach((attributeObject) => {

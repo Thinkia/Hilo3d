@@ -2,6 +2,7 @@ import Class from '../core/Class';
 import BasicLoader from './BasicLoader';
 import CubeTexture from '../texture/CubeTexture';
 import Loader from './Loader';
+import log from '../utils/log';
 
 /**
  * CubeTexture加载类
@@ -80,7 +81,7 @@ const CubeTextureLoader = Class.create(/** @lends CubeTextureLoader.prototype */
             args.image = images;
             return new CubeTexture(args);
         }).catch((err) => {
-            console.warn('load CubeTexture failed', err.message, err.stack);
+            log.error('load CubeTexture failed', err.message, err.stack);
             throw err;
         });
     }

@@ -2,6 +2,7 @@ import Class from '../core/Class';
 import EventMixin from '../core/EventMixin';
 import Texture from './Texture';
 import Loader from '../loader/Loader';
+import log from '../utils/log';
 
 const placeHolder = new Image();
 placeHolder.src = 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7';
@@ -20,7 +21,7 @@ placeHolder.src = 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAA
  *     });
  * });
  */
-const LazyTexture = Class.create( /** @lends LazyTexture.prototype */ {
+const LazyTexture = Class.create(/** @lends LazyTexture.prototype */ {
     Extends: Texture,
     Mixes: EventMixin,
 
@@ -115,7 +116,7 @@ const LazyTexture = Class.create( /** @lends LazyTexture.prototype */ {
             }
         }, (err) => {
             this.fire('error');
-            console.warn(`LazyTexture Failed ${err}`);
+            log.error(`LazyTexture Failed ${err}`);
         });
     }
 });

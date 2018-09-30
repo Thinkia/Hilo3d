@@ -20,7 +20,7 @@ const {
  * @class
  * @extends Texture
  */
-const DataTexture = Class.create( /** @lends DataTexture.prototype */ {
+const DataTexture = Class.create(/** @lends DataTexture.prototype */ {
     Extends: Texture,
     /**
      * @default true

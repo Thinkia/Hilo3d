@@ -1,6 +1,6 @@
 import Class from '../core/Class';
 import Texture from './Texture';
-
+import log from '../utils/log';
 import constants from '../constants';
 
 const {
@@ -109,11 +109,11 @@ const CubeTexture = Class.create(/** @lends CubeTexture.prototype */{
     },
     _uploadTexture(state) {
         if (!Array.isArray(this.image) || this.image.length !== 6) {
-            console.error('CubeTexture image must be an Array of length 6', this.image);
+            log.error('CubeTexture image must be an Array of length 6', this.image);
             return;
         }
         this.image.forEach((img, i) => {
-            this._glUploadTexture(state, TEXTURE_CUBE_MAP_POSITIVE_X + i, img);
+            this._glUploadTexture(state, TEXTURE_CUBE_MAP_POSITIVE_X + i, img, 0);
         });
     },
     /**

@@ -8,6 +8,7 @@ import BasicLoader from './BasicLoader';
 import Loader from './Loader';
 import Texture from '../texture/Texture';
 import extensions from '../renderer/extensions';
+import log from '../utils/log';
 
 /**
  * @class
@@ -36,19 +37,19 @@ const KhronosTextureContainer = Class.create(/** @lends KhronosTextureContainer.
         // '´', 'K', 'T', 'X', ' ', '1', '1', 'ª', '\r', '\n', '\x1A', '\n'
         // 0xAB, 0x4B, 0x54, 0x58, 0x20, 0x31, 0x31, 0xBB, 0x0D, 0x0A, 0x1A, 0x0A
         const identifier = new Uint8Array(this.arrayBuffer, 0, 12);
-        if (identifier[0] !== 0xAB 
-            || identifier[1] !== 0x4B 
-            || identifier[2] !== 0x54 
-            || identifier[3] !== 0x58 
-            || identifier[4] !== 0x20 
-            || identifier[5] !== 0x31 
-            || identifier[6] !== 0x31 
-            || identifier[7] !== 0xBB 
-            || identifier[8] !== 0x0D 
-            || identifier[9] !== 0x0A 
-            || identifier[10] !== 0x1A 
+        if (identifier[0] !== 0xAB
+            || identifier[1] !== 0x4B
+            || identifier[2] !== 0x54
+            || identifier[3] !== 0x58
+            || identifier[4] !== 0x20
+            || identifier[5] !== 0x31
+            || identifier[6] !== 0x31
+            || identifier[7] !== 0xBB
+            || identifier[8] !== 0x0D
+            || identifier[9] !== 0x0A
+            || identifier[10] !== 0x1A
             || identifier[11] !== 0x0A) {
-            console.error('texture missing KTX identifier');
+            log.error('texture missing KTX identifier');
             return;
         }
 
@@ -72,24 +73,24 @@ const KhronosTextureContainer = Class.create(/** @lends KhronosTextureContainer.
 
         // Make sure we have a compressed type.  Not only reduces work, but probably better to let dev know they are not compressing.
         if (this.glType !== 0) {
-            console.warn('only compressed formats currently supported');
+            log.warn('only compressed formats currently supported');
             return;
-        } 
+        }
 
         // value of zero is an indication to generate mipmaps @ runtime.  Not usually allowed for compressed, so disregard.
         this.numberOfMipmapLevels = Math.max(1, this.numberOfMipmapLevels);
 
-        
+
         if (this.pixelHeight === 0 || this.pixelDepth !== 0) {
-            console.warn('only 2D textures currently supported');
+            log.warn('only 2D textures currently supported');
             return;
         }
         if (this.numberOfArrayElements !== 0) {
-            console.warn('texture arrays not currently supported');
+            log.warn('texture arrays not currently supported');
             return;
         }
         if (this.numberOfFaces !== facesExpected) {
-            console.warn('number of faces expected' + facesExpected + ', but found ' + this.numberOfFaces);
+            log.warn('number of faces expected' + facesExpected + ', but found ' + this.numberOfFaces);
             return;
         }
         // we now have a completely validated file, so could use existence of loadType as success
@@ -101,7 +102,7 @@ const KhronosTextureContainer = Class.create(/** @lends KhronosTextureContainer.
         return ((val & 0xFF) << 24) | ((val & 0xFF00) << 8) | ((val >> 8) & 0xFF00) | ((val >> 24) & 0xFF);
     },
 
-    // return mipmaps for THREE.js
+    // return mipmaps
     mipmaps(loadMipmaps) {
         let mipmaps = [];
 
@@ -169,14 +170,13 @@ const KTXLoader = Class.create(/** @lends KTXLoader.prototype */{
     /**
      * load
      * @param  {Object} params
-     * @param  {Boolean} [params.loadMipmaps=false]
      */
     load(params) {
         return this.loadRes(params.src, 'buffer')
             .then((buffer) => {
                 const ktx = new KhronosTextureContainer(buffer, 1);
+
                 const data = {
-                    mipmaps: ktx.mipmaps(params.loadMipmaps),
                     width: ktx.pixelWidth,
                     height: ktx.pixelHeight,
                     format: ktx.glInternalFormat,
@@ -184,12 +184,21 @@ const KTXLoader = Class.create(/** @lends KTXLoader.prototype */{
                     mipmapCount: ktx.numberOfMipmapLevels
                 };
 
+                if (ktx.numberOfMipmapLevels >= Math.floor(Math.log2(Math.max(data.width, data.height)) + 1)) {
+                    data.mipmaps = ktx.mipmaps(true);
+                    data.image = data.mipmaps[0].data;
+                } else {
+                    data.mipmaps = null;
+                    data.image = ktx.mipmaps(false)[0].data;
+                }
+
                 return new Texture({
                     compressed: true,
                     internalFormat: data.format,
-                    image: data.mipmaps[0].data,
-                    width: data.mipmaps[0].width,
-                    height: data.mipmaps[0].height
+                    image: data.image,
+                    width: data.width,
+                    height: data.height,
+                    mipmaps: data.mipmaps
                 });
             });
     }

@@ -164,7 +164,7 @@ export default glType;
 /**
  * @typedef {Object} glTypeInfo
  * @property {String} name 名字，e.g. FLOAT_VEC2
- * @property {Number} byteSize 字节大小 
+ * @property {Number} byteSize 字节大小
  * @property {String} uniformFuncName uniform方法名字，e.g. uniform3f
  * @property {String} type 类型，可以是 Scalar, Vector, Matrix
  * @property {Number} size 数量

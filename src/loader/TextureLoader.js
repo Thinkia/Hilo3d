@@ -2,6 +2,7 @@ import Class from '../core/Class';
 import BasicLoader from './BasicLoader';
 import Texture from '../texture/Texture';
 import Loader from './Loader';
+import log from '../utils/log';
 
 /**
  * Texture加载类
@@ -52,7 +53,7 @@ const TextureLoader = Class.create(/** @lends TextureLoader.prototype */{
             delete args.type;
             return new Texture(args);
         }).catch((err) => {
-            console.warn('load Texture failed', err.message, err.stack);
+            log.error('load Texture failed', err.message, err.stack);
             throw err;
         });
     }

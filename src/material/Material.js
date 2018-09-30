@@ -26,7 +26,7 @@ const blankInfo = {
  * 材质基类，一般不直接使用
  * @class
  */
-const Material = Class.create( /** @lends Material.prototype */ {
+const Material = Class.create(/** @lends Material.prototype */ {
     /**
      * @default true
      * @type {boolean}
@@ -374,7 +374,7 @@ const Material = Class.create( /** @lends Material.prototype */ {
             u_areaLightsHeight: 'AREALIGHTSHEIGHT',
             u_areaLightsLtcTexture1: 'AREALIGHTSLTCTEXTURE1',
             u_areaLightsLtcTexture2: 'AREALIGHTSLTCTEXTURE2',
-            
+
             // joint
             u_jointMat: 'JOINTMATRIX',
             u_jointMatTexture: 'JOINTMATRIXTEXTURE',
@@ -543,7 +543,7 @@ const Material = Class.create( /** @lends Material.prototype */ {
                 if (supportUV.indexOf(Number(type)) !== -1) {
                     option[`HAS_TEXCOORD${type}`] = 1;
                 } else {
-                    console.warn(`uv_${type} not support!`);
+                    log.warnOnce(`Material._textureOption.update(${type})`, `uv_${type} not support!`);
                     option.HAS_TEXCOORD0 = 1;
                 }
             }
@@ -608,6 +608,19 @@ const Material = Class.create( /** @lends Material.prototype */ {
             }
         }
         return newMaterial;
+    },
+    /**
+     * 销毁贴图
+     * @param {WebGLRenderer} renderer
+     * @return {Material} this
+     */
+    destroyTextures(renderer) {
+        for (const propName in this) {
+            const texture = this[propName];
+            if (texture && texture.isTexture) {
+                texture.destroy(renderer);
+            }
+        }
     }
 });
 

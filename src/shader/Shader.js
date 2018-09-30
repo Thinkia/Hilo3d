@@ -14,7 +14,7 @@ const cache = new Cache();
  * Shader类
  * @class
  */
-const Shader = Class.create( /** @lends Shader.prototype */ {
+const Shader = Class.create(/** @lends Shader.prototype */ {
     /**
      * @default true
      * @type {boolean}
@@ -220,9 +220,9 @@ const Shader = Class.create( /** @lends Shader.prototype */ {
         /**
          * 获取 shader
          * @param {Mesh} mesh
-         * @param {Material} material      
-         * @param {Boolean} isUseInstance 
-         * @param {LightManager} lightManager  
+         * @param {Material} material
+         * @param {Boolean} isUseInstance
+         * @param {LightManager} lightManager
          * @param {Fog} fog
          * @param {Boolean} useLogDepth
          * @return {Shader}
@@ -280,8 +280,8 @@ const Shader = Class.create( /** @lends Shader.prototype */ {
         },
         /**
          * 获取自定义shader
-         * @param  {String} vs 顶点代码       
-         * @param  {String} fs 片段代码     
+         * @param  {String} vs 顶点代码
+         * @param  {String} fs 片段代码
          * @param  {String} [cacheKey] 如果有，会以此值缓存 shader
          * @return {Shader}
          */
@@ -291,7 +291,7 @@ const Shader = Class.create( /** @lends Shader.prototype */ {
             if (cacheKey !== undefined) {
                 shader = cache.get(cacheKey);
             }
-            
+
             if (!shader) {
                 shader = new Shader({
                     vs: commonHeader + header + vs,
@@ -324,7 +324,7 @@ const Shader = Class.create( /** @lends Shader.prototype */ {
     destroyIfNoRef(renderer) {
         const resourceManager = renderer.resourceManager;
         resourceManager.destroyIfNoRef(this);
-        
+
         return this;
     },
     /**

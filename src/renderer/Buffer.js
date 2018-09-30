@@ -1,3 +1,4 @@
+/* eslint no-buffer-constructor: "off" */
 import Class from '../core/Class';
 import Cache from '../utils/Cache';
 import math from '../math/math';
@@ -15,7 +16,7 @@ const cache = new Cache();
  * 缓冲
  * @class
  */
-const Buffer = Class.create( /** @lends Buffer.prototype */ {
+const Buffer = Class.create(/** @lends Buffer.prototype */ {
     Statics: /** @lends Buffer */ {
         /**
          * 缓存
@@ -37,10 +38,10 @@ const Buffer = Class.create( /** @lends Buffer.prototype */ {
         },
         /**
          * 生成顶点缓冲
-         * @param  {WebGLRenderingContext} gl    
-         * @param  {GeometryData} geometryData  
-         * @param  {GLenum} [usage = STATIC_DRAW] 
-         * @return {Buffer}       
+         * @param  {WebGLRenderingContext} gl
+         * @param  {GeometryData} geometryData
+         * @param  {GLenum} [usage = STATIC_DRAW]
+         * @return {Buffer}
          */
         createVertexBuffer(gl, geometryData, usage = STATIC_DRAW) {
             return this.createBuffer(gl, ARRAY_BUFFER, geometryData, usage);
@@ -58,10 +59,10 @@ const Buffer = Class.create( /** @lends Buffer.prototype */ {
 
         /**
          * 生成索引缓冲
-         * @param  {WebGLRenderingContext} gl    
-         * @param  {GeometryData} geometryData  
-         * @param  {GLenum} [usage = STATIC_DRAW] 
-         * @return {Buffer}       
+         * @param  {WebGLRenderingContext} gl
+         * @param  {GeometryData} geometryData
+         * @param  {GLenum} [usage = STATIC_DRAW]
+         * @return {Buffer}
          */
         createIndexBuffer(gl, geometryData, usage = STATIC_DRAW) {
             return this.createBuffer(gl, ELEMENT_ARRAY_BUFFER, geometryData, usage);
@@ -82,10 +83,10 @@ const Buffer = Class.create( /** @lends Buffer.prototype */ {
 
     /**
      * @constructs
-     * @param  {WebGLRenderingContext} gl     
-     * @param  {GLenum} [target = ARRAY_BUFFER] 
-     * @param  {TypedArray} data   
-     * @param  {GLenum} [usage = STATIC_DRAW]  
+     * @param  {WebGLRenderingContext} gl
+     * @param  {GLenum} [target = ARRAY_BUFFER]
+     * @param  {TypedArray} data
+     * @param  {GLenum} [usage = STATIC_DRAW]
      */
     constructor(gl, target = ARRAY_BUFFER, data, usage = STATIC_DRAW) {
         /**
@@ -93,7 +94,7 @@ const Buffer = Class.create( /** @lends Buffer.prototype */ {
          * @type {String}
          */
         this.id = math.generateUUID(this.className);
-        
+
         this.gl = gl;
         /**
          * target
@@ -127,7 +128,7 @@ const Buffer = Class.create( /** @lends Buffer.prototype */ {
     },
     /**
      * 上传数据
-     * @param  {TypedArray} data   
+     * @param  {TypedArray} data
      * @param  {Number} [offset=0] 偏移值
      * @return {Buffer} this
      */

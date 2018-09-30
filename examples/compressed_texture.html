@@ -35,6 +35,7 @@
                         loader.load({
                             src:'./image/compressed/logo_' + src + '.ktx'
                         }).then(function(texture){
+                            texture.minFilter = Hilo3d.constants.NEAREST_MIPMAP_LINEAR;
                             var textureBox = new Hilo3d.Mesh({
                                 geometry:planeGeometry,
                                 material: new Hilo3d.BasicMaterial({
@@ -49,7 +50,7 @@
                                 scaleY:0.66
                             });
                             i ++;
-                            console.log(textureBox.x, textureBox.y)
+                            console.log(src, texture);
                             stage.addChild(textureBox);
                         });
                     })

@@ -4,7 +4,7 @@ import Class from '../core/Class';
  * 渲染信息
  * @class
  */
-const RenderInfo = Class.create( /** @lends RenderInfo.prototype */ {
+const RenderInfo = Class.create(/** @lends RenderInfo.prototype */ {
     /**
      * @default RenderInfo
      * @type {String}

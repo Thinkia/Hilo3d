@@ -19,7 +19,7 @@ const {
  *     diffuse: new Hilo3d.Color(1, 0, 0, 1)
  * });
  */
-const GeometryMaterial = Class.create( /** @lends GeometryMaterial.prototype */ {
+const GeometryMaterial = Class.create(/** @lends GeometryMaterial.prototype */ {
     Extends: BasicMaterial,
     /**
      * @default true

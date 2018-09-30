@@ -42,7 +42,7 @@ const WebGLResourceManager = Class.create(/** @lends WebGLResourceManager.protot
 
     /**
      * 标记使用资源
-     * @param  {Object} res  
+     * @param  {Object} res
      * @param  {Mesh} mesh 使用资源的mesh
      * @return {WebGLResourceManager} this
      */
@@ -69,8 +69,8 @@ const WebGLResourceManager = Class.create(/** @lends WebGLResourceManager.protot
 
     /**
      * 没有引用时销毁资源
-     * @param  {Object} res 
-     * @return {WebGLResourceManager} this    
+     * @param  {Object} res
+     * @return {WebGLResourceManager} this
      */
     destroyIfNoRef(res) {
         if (!this._needDestroyDict) {
@@ -104,7 +104,7 @@ const WebGLResourceManager = Class.create(/** @lends WebGLResourceManager.protot
                 }
             }
         }
-        
+
         this._needDestroyDict = {};
         this.hasNeedDestroyResource = false;
         return this;

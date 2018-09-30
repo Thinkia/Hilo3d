@@ -1,5 +1,6 @@
 import Class from '../core/Class';
 import Vector3 from '../math/Vector3';
+import log from '../utils/log';
 import {
     insertToSortedArray
 } from '../utils/util';
@@ -10,7 +11,7 @@ const tempVector3 = new Vector3();
  * 渲染列表
  * @class
  */
-const RenderList = Class.create( /** @lends RenderList.prototype */ {
+const RenderList = Class.create(/** @lends RenderList.prototype */ {
     /**
      * @default RenderList
      * @type {String}
@@ -87,7 +88,7 @@ const RenderList = Class.create( /** @lends RenderList.prototype */ {
                 arr.push(mesh);
             }
         } else {
-            console.warn('Mesh must have material and geometry', mesh);
+            log.warnOnce(`RenderList.addMesh(${mesh.id})`, 'Mesh must have material and geometry', mesh);
         }
     }
 });

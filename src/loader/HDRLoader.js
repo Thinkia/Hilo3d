@@ -3,7 +3,7 @@ import Class from '../core/Class';
 import BasicLoader from './BasicLoader';
 import Texture from '../texture/Texture';
 import Loader from './Loader';
-
+import log from '../utils/log';
 import constants from '../constants';
 
 const {
@@ -62,7 +62,7 @@ const HDRLoader = Class.create(/** @lends HDRLoader.prototype */{
 
                     return texture;
                 } catch (e) {
-                    console.warn('HDRLoader:parse error => ', e);
+                    log.error('HDRLoader:parse error => ', e);
                 }
                 return null;
             });

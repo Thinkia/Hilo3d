@@ -1,6 +1,7 @@
 import Class from '../core/Class';
 import EventMixin from '../core/EventMixin';
 import LoadCache from './LoadCache';
+import log from '../utils/log';
 import {
     getExtension,
     each
@@ -33,11 +34,11 @@ const cache = new LoadCache();
  *     return new Hilo3d.Color(1, 0, 0);
  * }).then(diffuse => {
  *     return new Hilo3d.BasicMaterial({
- *         diffuse: diffuse 
+ *         diffuse: diffuse
  *     });
  * });
  */
-const BasicLoader = Class.create( /** @lends BasicLoader.prototype */ {
+const BasicLoader = Class.create(/** @lends BasicLoader.prototype */ {
     Mixes: EventMixin,
     /**
      * @default true
@@ -68,7 +69,7 @@ const BasicLoader = Class.create( /** @lends BasicLoader.prototype */ {
                 return cache;
             },
             set() {
-                console.warn('BasicLoader.cache is readonly!');
+                log.warn('BasicLoader.cache is readonly!');
             }
         }
     },

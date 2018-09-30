@@ -31,7 +31,7 @@ const cache = new Cache();
  *     });
  * });
  */
-const Texture = Class.create( /** @lends Texture.prototype */ {
+const Texture = Class.create(/** @lends Texture.prototype */ {
     Statics: {
         /**
          * 缓存
@@ -70,8 +70,16 @@ const Texture = Class.create( /** @lends Texture.prototype */ {
     /**
      * 图片对象
      * @type {Image}
+     * @default null
      */
     image: null,
+
+    /**
+     * mipmaps
+     * @type {Image[]|TypedArray[]}
+     * @default null
+     */
+    mipmaps: null,
 
     /**
      * Texture Target
@@ -79,13 +87,6 @@ const Texture = Class.create( /** @lends Texture.prototype */ {
      * @type {GLenum}
      */
     target: TEXTURE_2D,
-
-    /**
-     * Texture Level
-     * @default 0
-     * @type {number}
-     */
-    level: 0,
 
     /**
      * Texture Internal Format
@@ -207,6 +208,48 @@ const Texture = Class.create( /** @lends Texture.prototype */ {
     uv: 0,
 
     /**
+     * 是否使用 mipmap
+     * @readOnly
+     * @type {Boolean}
+     */
+    useMipmap: {
+        get() {
+            return this.minFilter !== LINEAR && this.minFilter !== NEAREST;
+        },
+        set() {
+            log.warn('texture.useMipmap is readOnly!');
+        }
+    },
+
+    /**
+     * 是否使用 repeat
+     * @readOnly
+     * @type {Boolean}
+     */
+    useRepeat: {
+        get() {
+            return this.wrapS !== CLAMP_TO_EDGE || this.wrapT !== CLAMP_TO_EDGE;
+        },
+        set() {
+            log.warn('texture.useRepeat is readOnly!');
+        }
+    },
+
+    /**
+     * mipmapCount
+     * @readOnly
+     * @type {Number}
+     */
+    mipmapCount: {
+        get() {
+            return Math.floor(Math.log2(Math.max(this.width, this.height)) + 1);
+        },
+        set() {
+            log.warn('texture.mipmapCount is readOnly!');
+        }
+    },
+
+    /**
      * @constructs
      * @param {object} params 初始化参数，所有params都会复制到实例上
      */
@@ -223,44 +266,89 @@ const Texture = Class.create( /** @lends Texture.prototype */ {
         return math.isPowerOfTwo(img.width) && math.isPowerOfTwo(img.height);
     },
     /**
+     * 获取支持的尺寸
+     * @param  {Image} img
+     * @param  {Boolean} [needPowerOfTwo=false]
+     * @return {Object} { width, height }
+     */
+    getSupportSize(img, needPowerOfTwo = false) {
+        let width = img.width;
+        let height = img.height;
+
+        if (needPowerOfTwo && !this.isImgPowerOfTwo(img)) {
+            width = math.nextPowerOfTwo(width);
+            height = math.nextPowerOfTwo(height);
+        }
+
+        const maxTextureSize = capabilities.MAX_TEXTURE_SIZE;
+        if (maxTextureSize) {
+            if (width > maxTextureSize) {
+                width = maxTextureSize;
+            }
+
+            if (height > maxTextureSize) {
+                height = maxTextureSize;
+            }
+        }
+
+        return {
+            width,
+            height
+        };
+    },
+    /**
      * 更新图片大小成为 2 的 n 次方
      * @param  {Image} img
-     * @return {Canvas}
+     * @return {Canvas|Image}
      */
     resizeImgToPowerOfTwo(img) {
-        if (this.isImgPowerOfTwo(img)) {
+        const sizeResult = this.getSupportSize(img, true);
+        return this.resizeImg(img, sizeResult.width, sizeResult.height);
+    },
+    /**
+     * 更新图片大小
+     * @param  {Image} img
+     * @param {Number} width
+     * @param {Number} height
+     * @return {Canvas|Image}
+     */
+    resizeImg(img, width, height) {
+        if (img.width === width && img.height === height) {
             return img;
         }
-        const newW = math.nextPowerOfTwo(img.width);
-        const newH = math.nextPowerOfTwo(img.height);
+
         let canvas = this._canvasImage;
         if (!canvas) {
             canvas = document.createElement('canvas');
             this._canvasImage = canvas;
+            this._canvasCtx = canvas.getContext('2d');
         }
-        canvas.width = newW;
-        canvas.height = newH;
-        let ctx = canvas.getContext('2d');
-        ctx.drawImage(img, 0, 0, img.width, img.height, 0, 0, newW, newH);
-        log.warnOnce('resizeImgToPowerOfTwo' + this.id, `image is not power of two (${img.width}x${img.height}). Resized to ${canvas.width}x${canvas.height}`, img.src);
+        canvas.width = width;
+        canvas.height = height;
+        this._canvasCtx.drawImage(img, 0, 0, img.width, img.height, 0, 0, width, height);
+        log.warnOnce(`Texture.resizeImg(${this.id})`, `image size(${img.width}x${img.height}) is not support. Resized to ${canvas.width}x${canvas.height}`, img.src);
+        this._originImage = img;
         return canvas;
     },
     /**
      * GL上传贴图
      * @private
-     * @param  {WebGLState} state  
-     * @param  {GLEnum} target 
-     * @param  {Image|TypedArray} image  
+     * @param  {WebGLState} state
+     * @param  {GLEnum} target
+     * @param  {Image|TypedArray} image
+     * @param  {image} [level=0]
+     * @param  {Number} [width=this.width]
+     * @param  {Number} [height=this.height]
      * @return {Texture}  this
      */
-    _glUploadTexture(state, target, image) {
+    _glUploadTexture(state, target, image, level = 0, width = this.width, height = this.height) {
         const gl = state.gl;
         if (this.compressed) {
-            gl.compressedTexImage2D(target, this.level, this.internalFormat, this.width, this.height, this.border, image);
+            gl.compressedTexImage2D(target, level, this.internalFormat, width, height, this.border, image);
         } else if (image.width) {
-            gl.texImage2D(target, this.level, this.internalFormat, this.format, this.type, image);
+            gl.texImage2D(target, level, this.internalFormat, this.format, this.type, image);
         } else {
-            gl.texImage2D(target, this.level, this.internalFormat, this.width, this.height, this.border, this.format, this.type, image);
+            gl.texImage2D(target, level, this.internalFormat, width, height, this.border, this.format, this.type, image);
         }
 
         return this;
@@ -268,19 +356,25 @@ const Texture = Class.create( /** @lends Texture.prototype */ {
     /**
      * 上传贴图，子类可重写
      * @private
-     * @param  {WebGLState} state 
-     * @return {Texture} this       
+     * @param  {WebGLState} state
+     * @return {Texture} this
      */
     _uploadTexture(state) {
-        this._glUploadTexture(state, this.target, this.image);
+        if (this.useMipmap && this.mipmaps) {
+            this.mipmaps.forEach((mipmap, index) => {
+                this._glUploadTexture(state, this.target, mipmap.data, index, mipmap.width, mipmap.height);
+            });
+        } else {
+            this._glUploadTexture(state, this.target, this.image, 0);
+        }
 
         return this;
     },
     /**
      * 更新 Texture
-     * @param  {WebGLState} state     
-     * @param  {WebGLTexture} glTexture 
-     * @return {Texture} this          
+     * @param  {WebGLState} state
+     * @param  {WebGLTexture} glTexture
+     * @return {Texture} this
      */
     updateTexture(state, glTexture) {
         const gl = state.gl;
@@ -288,21 +382,26 @@ const Texture = Class.create( /** @lends Texture.prototype */ {
             if (this._originImage && this.image === this._canvasImage) {
                 this.image = this._originImage;
             }
-            const useMipmap = this.minFilter !== LINEAR && this.minFilter !== NEAREST;
-            const useRepeat = this.wrapS !== CLAMP_TO_EDGE || this.wrapT !== CLAMP_TO_EDGE;
-            if (useRepeat || useMipmap) {
-                this._originImage = this.image;
-                this.image = this.resizeImgToPowerOfTwo(this.image);
-            }
+            const useMipmap = this.useMipmap;
+            const useRepeat = this.useRepeat;
+
+            const needPowerOfTwo = useRepeat || useMipmap;
+            const sizeResult = this.getSupportSize(this.image, needPowerOfTwo);
+            this.image = this.resizeImg(this.image, sizeResult.width, sizeResult.height);
+
             state.activeTexture(gl.TEXTURE0 + capabilities.MAX_TEXTURE_INDEX);
             state.bindTexture(this.target, glTexture);
             state.pixelStorei(gl.UNPACK_PREMULTIPLY_ALPHA_WEBGL, this.premultiplyAlpha);
             state.pixelStorei(gl.UNPACK_FLIP_Y_WEBGL, !!this.flipY);
 
             this._uploadTexture(state);
-
             if (useMipmap) {
-                gl.generateMipmap(this.target);
+                if (!this.compressed) {
+                    gl.generateMipmap(this.target);
+                } else if (!this.mipmaps) {
+                    log.warn(`Compressed texture has no mipmips, changed the minFilter from ${this.minFilter} to Linear!`, this);
+                    this.minFilter = LINEAR;
+                }
             }
             this.needUpdate = false;
         }
@@ -312,7 +411,7 @@ const Texture = Class.create( /** @lends Texture.prototype */ {
     /**
      * 获取 GLTexture
      * @param  {WebGLState} state
-     * @return {WebGLTexture}      
+     * @return {WebGLTexture}
      */
     getGLTexture(state) {
         const gl = this.gl = state.gl;
@@ -364,7 +463,6 @@ const Texture = Class.create( /** @lends Texture.prototype */ {
             this.gl.deleteTexture(glTexture);
             cache.remove(id);
         }
-
         return this;
     },
     /**

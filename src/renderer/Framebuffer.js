@@ -3,6 +3,7 @@ import Shader from '../shader/Shader';
 import screenVert from '../shader/screen.vert';
 import screenFrag from '../shader/screen.frag';
 import Cache from '../utils/Cache';
+import log from '../utils/log';
 import Program from './Program';
 import VertexArrayObject from './VertexArrayObject';
 import math from '../math/math';
@@ -33,7 +34,7 @@ const cache = new Cache();
  * 帧缓冲
  * @class
  */
-const Framebuffer = Class.create( /** @lends Framebuffer.prototype */ {
+const Framebuffer = Class.create(/** @lends Framebuffer.prototype */ {
     Statics: {
         /**
          * 缓存
@@ -47,7 +48,7 @@ const Framebuffer = Class.create( /** @lends Framebuffer.prototype */ {
         },
         /**
          * 重置所有framebuffer
-         * @param  {WebGLRenderingContext} gl 
+         * @param  {WebGLRenderingContext} gl
          */
         reset(gl) { // eslint-disable-line no-unused-vars
             cache.each((framebuffer) => {
@@ -56,7 +57,7 @@ const Framebuffer = Class.create( /** @lends Framebuffer.prototype */ {
         },
         /**
          * 销毁所有 Framebuffer
-         * @param  {WebGLRenderingContext} gl 
+         * @param  {WebGLRenderingContext} gl
          */
         destroy(gl) { // eslint-disable-line no-unused-vars
             cache.each((framebuffer) => {
@@ -212,7 +213,7 @@ const Framebuffer = Class.create( /** @lends Framebuffer.prototype */ {
         this.texture = this.createTexture();
 
         if (!this.isComplete()) {
-            console.warn('Framebuffer is not complete => ' + gl.checkFramebufferStatus(gl.FRAMEBUFFER));
+            log.warn('Framebuffer is not complete => ' + gl.checkFramebufferStatus(gl.FRAMEBUFFER));
         }
 
         this.unbind();
@@ -258,11 +259,11 @@ const Framebuffer = Class.create( /** @lends Framebuffer.prototype */ {
     },
     /**
      * 渲染当前纹理
-     * @param  {Number} [x=0]          
-     * @param  {Number} [y=0]          
-     * @param  {Number} [width=1]      
-     * @param  {Number} [height=1]     
-     * @param  {Color} clearColor 
+     * @param  {Number} [x=0]
+     * @param  {Number} [y=0]
+     * @param  {Number} [width=1]
+     * @param  {Number} [height=1]
+     * @param  {Color} clearColor
      */
     render(x = 0, y = 0, width = 1, height = 1, clearColor) {
         if (this._isInit) {
@@ -344,9 +345,9 @@ const Framebuffer = Class.create( /** @lends Framebuffer.prototype */ {
     },
     /**
      * resize
-     * @param  {Number} width  
-     * @param  {Number} height 
-     * @param  {Boolean} [force=true]  
+     * @param  {Number} width
+     * @param  {Number} height
+     * @param  {Boolean} [force=true]
      */
     resize(width, height, force) {
         if (force || this.width !== width || this.height !== height) {
@@ -360,11 +361,11 @@ const Framebuffer = Class.create( /** @lends Framebuffer.prototype */ {
     },
     /**
      * 读取区域像素
-     * @param  {Number} x      
-     * @param  {Number} y      
-     * @param  {Number} [width=1]  
-     * @param  {Number} [height=1] 
-     * @return {TypedArray}        
+     * @param  {Number} x
+     * @param  {Number} y
+     * @param  {Number} [width=1]
+     * @param  {Number} [height=1]
+     * @return {TypedArray}
      */
     readPixels(x, y, width = 1, height = 1) {
         const TypedArray = getTypedArrayClass(this.type);

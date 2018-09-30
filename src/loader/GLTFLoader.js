@@ -2,6 +2,7 @@ import Class from '../core/Class';
 import BasicLoader from './BasicLoader';
 import GLTFParser from './GLTFParser';
 import Loader from './Loader';
+import log from '../utils/log';
 
 /**
  * glTF模型加载类
@@ -53,7 +54,7 @@ const GLTFLoader = Class.create(/** @lends GLTFLoader.prototype */{
                 let parser = new GLTFParser(buffer, params);
                 return parser.parse(this);
             }).catch((err) => {
-                console.warn('load gltf failed', err.message, err.stack);
+                log.error('load gltf failed', err.message, err.stack);
                 throw err;
             });
     }

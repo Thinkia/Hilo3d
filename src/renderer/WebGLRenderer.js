@@ -44,7 +44,7 @@ const {
  * @fires afterRender 渲染后事件
  * @mixes EventMixin
  */
-const WebGLRenderer = Class.create( /** @lends WebGLRenderer.prototype */ {
+const WebGLRenderer = Class.create(/** @lends WebGLRenderer.prototype */ {
     Mixes: EventMixin,
 
     /**
@@ -272,7 +272,7 @@ const WebGLRenderer = Class.create( /** @lends WebGLRenderer.prototype */ {
      * 改变大小
      * @param  {Number} width  宽
      * @param  {Number} height  高
-     * @param  {Boolean} [force=false] 是否强制刷新 
+     * @param  {Boolean} [force=false] 是否强制刷新
      */
     resize(width, height, force) {
         if (force || this.width !== width || this.height !== height) {
@@ -302,8 +302,8 @@ const WebGLRenderer = Class.create( /** @lends WebGLRenderer.prototype */ {
     },
     /**
      * 设置viewport
-     * @param  {Number} [x=this.offsetX]  x    
-     * @param  {Number} [y=this.offsetY] y     
+     * @param  {Number} [x=this.offsetX]  x
+     * @param  {Number} [y=this.offsetY] y
      * @param  {Number} [width=this.gl.drawingBufferWidth]  width
      * @param  {Number} [height=this.gl.drawingBufferHeight]  height
      */
@@ -504,8 +504,8 @@ const WebGLRenderer = Class.create( /** @lends WebGLRenderer.prototype */ {
     /**
      * 设置通用的 uniform
      * @param  {Program} program
-     * @param  {Mesh} mesh   
-     * @param  {Boolean} [force=false] 是否强制更新 
+     * @param  {Mesh} mesh
+     * @param  {Boolean} [force=false] 是否强制更新
      */
     setupUniforms(program, mesh, useInstanced, force) {
         const material = this.forceMaterial || mesh.material;
@@ -524,9 +524,9 @@ const WebGLRenderer = Class.create( /** @lends WebGLRenderer.prototype */ {
     },
     /**
      * 设置vao
-     * @param  {VertexArrayObject} vao  
-     * @param  {Program} program 
-     * @param  {Mesh} mesh    
+     * @param  {VertexArrayObject} vao
+     * @param  {Program} program
+     * @param  {Mesh} mesh
      */
     setupVao(vao, program, mesh) {
         const geometry = mesh.geometry;
@@ -559,8 +559,8 @@ const WebGLRenderer = Class.create( /** @lends WebGLRenderer.prototype */ {
     },
     /**
      * 设置材质
-     * @param  {Program} program 
-     * @param  {Mesh} mesh    
+     * @param  {Program} program
+     * @param  {Mesh} mesh
      */
     setupMaterial(program, mesh, useInstanced, needForceUpdateUniforms = false) {
         const material = this.forceMaterial || mesh.material;
@@ -578,8 +578,8 @@ const WebGLRenderer = Class.create( /** @lends WebGLRenderer.prototype */ {
     },
     /**
      * 设置mesh
-     * @param  {Mesh} mesh         
-     * @param  {Boolean} useInstanced 
+     * @param  {Mesh} mesh
+     * @param  {Boolean} useInstanced
      * @return {Object} res
      * @return {VertexArrayObject} res.vao
      * @return {Program} res.program
@@ -775,9 +775,9 @@ const WebGLRenderer = Class.create( /** @lends WebGLRenderer.prototype */ {
     },
     /**
      * 渲染一组 instanced mesh
-     * @param  {Mesh} mesh     
-     * @param  {Mesh[]} meshes   
-     * @param  {Material} material 
+     * @param  {Mesh} mesh
+     * @param  {Mesh[]} meshes
+     * @param  {Material} material
      */
     renderInstancedMeshes(mesh, meshes, material) {
         const {
@@ -801,7 +801,7 @@ const WebGLRenderer = Class.create( /** @lends WebGLRenderer.prototype */ {
     },
     /**
      * 渲染一组普通mesh
-     * @param  {Mesh[]} meshes 
+     * @param  {Mesh[]} meshes
      */
     renderMultipleMeshes(meshes) {
         meshes.forEach((mesh) => {

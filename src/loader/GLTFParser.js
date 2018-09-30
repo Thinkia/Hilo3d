@@ -15,6 +15,7 @@ import Color from '../math/Color';
 import AnimationStates from '../animation/AnimationStates';
 import Animation from '../animation/Animation';
 import PerspectiveCamera from '../camera/PerspectiveCamera';
+import log from '../utils/log';
 import * as util from '../utils/util';
 import * as extensionHandlers from './GLTFExtensions';
 
@@ -89,7 +90,7 @@ const glTFAttrToGeometry = {
 /**
  * @class
  */
-const GLTFParser = Class.create( /** @lends GLTFParser.prototype */ {
+const GLTFParser = Class.create(/** @lends GLTFParser.prototype */ {
     /**
      * @default true
      * @type {boolean}
@@ -177,7 +178,6 @@ const GLTFParser = Class.create( /** @lends GLTFParser.prototype */ {
         const version = infoDataView.getUint32(4, true);
         const totalLength = infoDataView.getUint32(8, true);
         let content;
-        console.log('parseBinary', version, totalLength);
         let start = 12;
         if (version < 2) {
             const contentLength = infoDataView.getUint32(start, true);
@@ -258,7 +258,7 @@ const GLTFParser = Class.create( /** @lends GLTFParser.prototype */ {
             const bufferView = this.bufferViews[binaryInfo.bufferView];
             const data = new Uint8Array(bufferView.buffer, bufferView.byteOffset, bufferView.byteLength);
             return util.getBlobUrl(binaryInfo.mimeType, data);
-        } 
+        }
 
         if (!uri && ('bufferView' in imgData)) {
             const bufferView = this.bufferViews[imgData.bufferView];
@@ -409,7 +409,7 @@ const GLTFParser = Class.create( /** @lends GLTFParser.prototype */ {
     getColorOrTexture(value) {
         if (Array.isArray(value)) {
             return new Color(value[0], value[1], value[2]);
-        } 
+        }
 
         if (value instanceof Object && 'index' in value) {
             value = value.index;
@@ -779,7 +779,7 @@ const GLTFParser = Class.create( /** @lends GLTFParser.prototype */ {
         for (let name in attr) {
             let info = glTFAttrToGeometry[name];
             if (!info) {
-                console.warn(`Unknow attribute named ${name}!`);
+                log.warn(`Unknow attribute named ${name}!`);
                 continue;
             }
             let isDecode = !(this.isUnQuantizeInShader && info.decodeMatName);
@@ -836,7 +836,7 @@ const GLTFParser = Class.create( /** @lends GLTFParser.prototype */ {
                     return result.then((geometry) => {
                         this.fixProgressiveGeometry(primitive, geometry);
                     }, (err) => {
-                        console.warn('geometry parse error', err);
+                        log.error('geometry parse error', err);
                     });
                 }
                 this.fixProgressiveGeometry(primitive, result);
@@ -915,12 +915,15 @@ const GLTFParser = Class.create( /** @lends GLTFParser.prototype */ {
         let node;
         let data = this.json.nodes[nodeName];
 
+        if (!data) {
+            log.warn(`GLTFParser.parseNode: nodes[${nodeName}] has nothing.`);
+        }
 
         node = new Node({
             name: data.name,
             animationId: nodeName
         });
-        
+
         this.parseExtensions(data.extensions, node);
 
         if ('camera' in data && this.cameras[data.camera]) {
@@ -1015,7 +1018,7 @@ const GLTFParser = Class.create( /** @lends GLTFParser.prototype */ {
 
         const scene = this.json.scenes[this.getDefaultSceneName()];
         if (!scene) {
-            console.warn('GLTFParser:no scene!');
+            log.warn('GLTFParser:no scene!');
             return {
                 node: this.node,
                 meshes: [],
@@ -1048,7 +1051,7 @@ const GLTFParser = Class.create( /** @lends GLTFParser.prototype */ {
             anim.play();
             model.anim = anim;
         }
-        
+
         this.parseExtensions(this.json.extensions, model, {
             isGlobalExtension: true
         });
