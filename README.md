@@ -88,5 +88,5 @@ Hilo3d, a WebGL Rendering Engine developed by Alibaba Group.It could help develo
 [gitter-url]: https://gitter.im/hiloteam/Hilo3d?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge
 [npm-image]: https://img.shields.io/npm/v/hilo3d.svg?style=flat-square
 [npm-url]: https://www.npmjs.com/package/hilo3d
-[size-image]:http://img.badgesize.io/hiloteam/hilo3d/master/build/Hilo3d.js.svg?compression=gzip&style=flat-square
+[size-image]:https://img.badgesize.io/hiloteam/hilo3d/master/build/Hilo3d.js.svg?compression=gzip&style=flat-square
 [cdn-url]: https://g.alicdn.com/hilo/Hilo3d/1.5.115/Hilo3d.js
