@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>Class: Matrix4</title>
+    <title>Class: EulerNotifier</title>
     
     
     <script src="scripts/prettify/prettify.js"></script>
@@ -7053,7 +7053,7 @@
     </ul>
 </div>
     <div class="main">
-        <h1 class="page-title" data-filename="Matrix4.html">Class: Matrix4</h1>
+        <h1 class="page-title" data-filename="EulerNotifier.html">Class: EulerNotifier</h1>
         
 
 
@@ -7061,7 +7061,7 @@
 <section>
 <header>
     <h2>
-    Matrix4
+    EulerNotifier
     </h2>
     
 </header>  
@@ -7075,14 +7075,14 @@
 <dl >
     <dt>
         <div class="nameContainer">
-            <h4 class="name" id="Matrix4">
+            <h4 class="name" id="EulerNotifier">
                 
-                new Matrix4<span class="signature">()</span>
+                new EulerNotifier<span class="signature">(<span class="optional">x</span>, <span class="optional">y</span>, <span class="optional">z</span>)</span>
             </h4>
         
             
             <div class="tag-source">
-                math/Matrix4.js, line 16
+                math/EulerNotifier.js, line 16
             </div>
             
         </div>
@@ -7091,7 +7091,7 @@
         
         
         <div class="description">
-            <p>4x4 矩阵</p>
+            <p>欧拉角, 数据改变会发送事件</p>
         </div>
         
 
@@ -7099,6 +7099,138 @@
         
         
         
+        
+            
+
+<table class="params">
+    <thead>
+	<tr>
+		
+		<th>Name</th>
+		
+		
+		<th>Type</th>
+		
+		
+		<th>Default</th>
+		
+		
+		<th class="last">Description</th>
+	</tr>
+	</thead>
+	
+	<tbody>
+	
+	
+        <tr>
+            
+                <td class="name"><code>x</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">Number</span>
+
+
+            
+            </td>
+            
+            
+                <td class="default">
+                
+                    0
+                
+                </td>
+            
+            
+            <td class="description last">
+                
+                    
+                        <span class="optional">optional</span>
+                    
+                    
+                        
+                    
+                
+                <p>角度 X, 弧度制</p></td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>y</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">Number</span>
+
+
+            
+            </td>
+            
+            
+                <td class="default">
+                
+                    0
+                
+                </td>
+            
+            
+            <td class="description last">
+                
+                    
+                        <span class="optional">optional</span>
+                    
+                    
+                        
+                    
+                
+                <p>角度 Y, 弧度制</p></td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>z</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">Number</span>
+
+
+            
+            </td>
+            
+            
+                <td class="default">
+                
+                    0
+                
+                </td>
+            
+            
+            <td class="description last">
+                
+                    
+                        <span class="optional">optional</span>
+                    
+                    
+                        
+                    
+                
+                <p>角度 Z, 弧度制</p></td>
+        </tr>
+	
+	
+	</tbody>
+</table>
         
         
         
@@ -7128,6 +7260,11 @@
 
         
         
+        <h5>Fires:</h5>
+        <ul>
+            <li>event:update 数据更新事件</li>
+        </ul>
+        
 
         
 
@@ -7144,7 +7281,19 @@
     </div>
     
     
+        <h3 class="subsection-title">Extends</h3>
+        
+        <ul>
+            <li><a href="Euler.html">Euler</a></li>
+        </ul>
     
+    
+    
+        <h3 class="subsection-title">Mixes In</h3>
+        
+        <ul>
+            <li><a href="EventMixin.html">EventMixin</a></li>
+        </ul>
     
     
     
@@ -7204,7 +7353,7 @@
             
                 <td class="default">
                 
-                    Matrix4
+                    EulerNotifier
                 
                 </td>
             
@@ -7222,8 +7371,8 @@
         <tr >
             
                 <td class="name">
-                    <a name="isMatrix4"></a>
-                    <code>isMatrix4</code>
+                    <a name="isEulerNotifier"></a>
+                    <code>isEulerNotifier</code>
                 </td>
             
             
@@ -7259,15 +7408,15 @@
         <tr >
             
                 <td class="name">
-                    <a name="elements"></a>
-                    <code>elements</code>
+                    <a name="degX"></a>
+                    <code>degX</code>
                 </td>
             
             
             <td class="type">
             
                 
-<span class="param-type">Float32Array</span>
+<span class="param-type">Number</span>
 
 
             
@@ -7283,7 +7432,260 @@
             
             <td class="description last">
                 
-                <p>数据</p>
+                <p>角度 X, 角度制</p>
+                
+    
+                
+            </td>
+        </tr>
+	
+	
+        <tr >
+            
+                <td class="name">
+                    <a name="degY"></a>
+                    <code>degY</code>
+                </td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">Number</span>
+
+
+            
+            </td>
+            
+            
+            
+            
+                <td class="default">
+                
+                </td>
+            
+            
+            <td class="description last">
+                
+                <p>角度 Y, 角度制</p>
+                
+    
+                
+            </td>
+        </tr>
+	
+	
+        <tr >
+            
+                <td class="name">
+                    <a name="degZ"></a>
+                    <code>degZ</code>
+                </td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">Number</span>
+
+
+            
+            </td>
+            
+            
+            
+            
+                <td class="default">
+                
+                </td>
+            
+            
+            <td class="description last">
+                
+                <p>角度 Z, 角度制</p>
+                
+    
+                
+            </td>
+        </tr>
+	
+	
+        <tr >
+            
+                <td class="name">
+                    <a name="x"></a>
+                    <code>x</code>
+                </td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">Number</span>
+
+
+            
+            </td>
+            
+            
+            
+            
+                <td class="default">
+                
+                </td>
+            
+            
+            <td class="description last">
+                
+                <p>角度 X, 弧度制</p>
+                
+    
+                
+            </td>
+        </tr>
+	
+	
+        <tr >
+            
+                <td class="name">
+                    <a name="y"></a>
+                    <code>y</code>
+                </td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">Number</span>
+
+
+            
+            </td>
+            
+            
+            
+            
+                <td class="default">
+                
+                </td>
+            
+            
+            <td class="description last">
+                
+                <p>角度 Y, 弧度制</p>
+                
+    
+                
+            </td>
+        </tr>
+	
+	
+        <tr >
+            
+                <td class="name">
+                    <a name="z"></a>
+                    <code>z</code>
+                </td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">Number</span>
+
+
+            
+            </td>
+            
+            
+            
+            
+                <td class="default">
+                
+                </td>
+            
+            
+            <td class="description last">
+                
+                <p>角度 Z, 弧度制</p>
+                
+    
+                
+            </td>
+        </tr>
+	
+	
+        <tr class="inherited-member">
+            
+                <td class="name">
+                    <a name="isEuler"></a>
+                    <code>isEuler</code>
+                </td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">boolean</span>
+
+
+            
+            </td>
+            
+            
+            
+            
+                <td class="default">
+                
+                    true
+                
+                </td>
+            
+            
+            <td class="description last">
+                
+                    <span class="inherited optional"><a href="Euler.html#isEuler">inherited</a></span>
+                
+                
+                
+    
+                
+            </td>
+        </tr>
+	
+	
+        <tr class="inherited-member">
+            
+                <td class="name">
+                    <a name="order"></a>
+                    <code>order</code>
+                </td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+            
+            
+            
+            
+                <td class="default">
+                
+                    'ZYX'
+                
+                </td>
+            
+            
+            <td class="description last">
+                
+                    <span class="inherited optional"><a href="Euler.html#order">inherited</a></span>
+                
+                <p>旋转顺序，默认为 ZYX</p>
                 
     
                 
@@ -7306,17 +7708,19 @@
         
         <dl>
             
-<dl >
+<dl class="inherited-method">
     <dt>
-        <div class="nameContainer">
-            <h4 class="name" id="copy">
+        <div class="nameContainer inherited">
+            <h4 class="name" id="clone">
                 
-                copy<span class="signature">(m)</span><span class="glyphicon glyphicon-circle-arrow-right"></span><span class="type-signature returnType">{<a href="Matrix3.html">Matrix3</a>}</span>
+                    <span class="inherited"><a href="Euler.html#clone">inherited</a></span>
+                
+                clone<span class="signature">()</span><span class="glyphicon glyphicon-circle-arrow-right"></span><span class="type-signature returnType">{<a href="Euler.html">Euler</a>}</span>
             </h4>
         
             
             <div class="tag-source">
-                math/Matrix4.js, line 44
+                math/Euler.js, line 45
             </div>
             
         </div>
@@ -7325,7 +7729,108 @@
         
         
         <div class="description">
-            <p>Copy the values from one mat4 to this</p>
+            <p>克隆</p>
+        </div>
+        
+
+        
+        
+        
+        
+        
+        
+        
+<dl class="details">
+    
+        
+    
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+</dl>
+
+        
+        
+
+        
+
+        
+        
+        
+        
+        
+        <h5>Returns:</h5>
+        
+
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Type</th>
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+    <tbody>
+    
+        <tr>
+            
+            <td class="type">
+            
+                        <a href="Euler.html">Euler</a>
+                        
+                    
+            </td>
+            <td class="description last"></td>
+        </tr>
+    
+    </tbody>
+</table>
+
+        
+        
+        
+    </dd>
+</dl>
+        
+            
+<dl class="inherited-method">
+    <dt>
+        <div class="nameContainer inherited">
+            <h4 class="name" id="copy">
+                
+                    <span class="inherited"><a href="Euler.html#copy">inherited</a></span>
+                
+                copy<span class="signature">(euler)</span><span class="glyphicon glyphicon-circle-arrow-right"></span><span class="type-signature returnType">{<a href="Euler.html">Euler</a>}</span>
+            </h4>
+        
+            
+            <div class="tag-source">
+                math/Euler.js, line 55
+            </div>
+            
+        </div>
+    </dt>
+    <dd>
+        
+        
+        <div class="description">
+            <p>复制</p>
         </div>
         
 
@@ -7356,13 +7861,13 @@
 	
         <tr>
             
-                <td class="name"><code>m</code></td>
+                <td class="name"><code>euler</code></td>
             
             
             <td class="type">
             
                 
-<span class="param-type"><a href="Matrix3.html">Matrix3</a></span>
+<span class="param-type"><a href="Euler.html">Euler</a></span>
 
 
             
@@ -7372,7 +7877,7 @@
             
             <td class="description last">
                 
-                <p>the source matrix</p></td>
+                </td>
         </tr>
 	
 	
@@ -7433,7 +7938,7 @@
             
             <td class="type">
             
-                        <a href="Matrix3.html">Matrix3</a>
+                        <a href="Euler.html">Euler</a>
                         
                     
             </td>
@@ -7450,17 +7955,19 @@
 </dl>
         
             
-<dl >
+<dl class="inherited-method">
     <dt>
-        <div class="nameContainer">
-            <h4 class="name" id="clone">
+        <div class="nameContainer inherited">
+            <h4 class="name" id="set">
                 
-                clone<span class="signature">()</span><span class="glyphicon glyphicon-circle-arrow-right"></span><span class="type-signature returnType">{<a href="Matrix3.html">Matrix3</a>}</span>
+                    <span class="inherited"><a href="Euler.html#set">inherited</a></span>
+                
+                set<span class="signature">(x, y, z)</span><span class="glyphicon glyphicon-circle-arrow-right"></span><span class="type-signature returnType">{<a href="Euler.html">Euler</a>}</span>
             </h4>
         
             
             <div class="tag-source">
-                math/Matrix4.js, line 52
+                math/Euler.js, line 70
             </div>
             
         </div>
@@ -7469,7 +7976,7 @@
         
         
         <div class="description">
-            <p>Creates a new mat4 initialized with values from this matrix</p>
+            <p>Set the components of a euler to the given values</p>
         </div>
         
 
@@ -7477,6 +7984,97 @@
         
         
         
+        
+            
+
+<table class="params">
+    <thead>
+	<tr>
+		
+		<th>Name</th>
+		
+		
+		<th>Type</th>
+		
+		
+		
+		<th class="last">Description</th>
+	</tr>
+	</thead>
+	
+	<tbody>
+	
+	
+        <tr>
+            
+                <td class="name"><code>x</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">Number</span>
+
+
+            
+            </td>
+            
+            
+            
+            <td class="description last">
+                
+                <p>X component</p></td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>y</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">Number</span>
+
+
+            
+            </td>
+            
+            
+            
+            <td class="description last">
+                
+                <p>X component</p></td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>z</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">Number</span>
+
+
+            
+            </td>
+            
+            
+            
+            <td class="description last">
+                
+                <p>Z component</p></td>
+        </tr>
+	
+	
+	</tbody>
+</table>
         
         
         
@@ -7532,11 +8130,11 @@
             
             <td class="type">
             
-                        <a href="Matrix3.html">Matrix3</a>
+                        <a href="Euler.html">Euler</a>
                         
                     
             </td>
-            <td class="description last">a new Matrix3</td>
+            <td class="description last">this</td>
         </tr>
     
     </tbody>
@@ -7549,17 +8147,404 @@
 </dl>
         
             
-<dl >
+<dl class="inherited-method">
     <dt>
-        <div class="nameContainer">
+        <div class="nameContainer inherited">
+            <h4 class="name" id="setDegree">
+                
+                    <span class="inherited"><a href="Euler.html#setDegree">inherited</a></span>
+                
+                setDegree<span class="signature">(degX, degY, degZ)</span><span class="glyphicon glyphicon-circle-arrow-right"></span><span class="type-signature returnType">{<a href="Euler.html">Euler</a>}</span>
+            </h4>
+        
+            
+            <div class="tag-source">
+                math/Euler.js, line 84
+            </div>
+            
+        </div>
+    </dt>
+    <dd>
+        
+        
+        <div class="description">
+            <p>设置角度</p>
+        </div>
+        
+
+        
+        
+        
+        
+        
+            
+
+<table class="params">
+    <thead>
+	<tr>
+		
+		<th>Name</th>
+		
+		
+		<th>Type</th>
+		
+		
+		
+		<th class="last">Description</th>
+	</tr>
+	</thead>
+	
+	<tbody>
+	
+	
+        <tr>
+            
+                <td class="name"><code>degX</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">Number</span>
+
+
+            
+            </td>
+            
+            
+            
+            <td class="description last">
+                
+                <p>角度制</p></td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>degY</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">Number</span>
+
+
+            
+            </td>
+            
+            
+            
+            <td class="description last">
+                
+                <p>角度制</p></td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>degZ</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">Number</span>
+
+
+            
+            </td>
+            
+            
+            
+            <td class="description last">
+                
+                <p>角度制</p></td>
+        </tr>
+	
+	
+	</tbody>
+</table>
+        
+        
+        
+<dl class="details">
+    
+        
+    
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+</dl>
+
+        
+        
+
+        
+
+        
+        
+        
+        
+        
+        <h5>Returns:</h5>
+        
+
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Type</th>
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+    <tbody>
+    
+        <tr>
+            
+            <td class="type">
+            
+                        <a href="Euler.html">Euler</a>
+                        
+                    
+            </td>
+            <td class="description last">this</td>
+        </tr>
+    
+    </tbody>
+</table>
+
+        
+        
+        
+    </dd>
+</dl>
+        
+            
+<dl class="inherited-method">
+    <dt>
+        <div class="nameContainer inherited">
+            <h4 class="name" id="fromArray">
+                
+                    <span class="inherited"><a href="Euler.html#fromArray">inherited</a></span>
+                
+                fromArray<span class="signature">(array, <span class="optional">offset</span>)</span><span class="glyphicon glyphicon-circle-arrow-right"></span><span class="type-signature returnType">{<a href="Euler.html">Euler</a>}</span>
+            </h4>
+        
+            
+            <div class="tag-source">
+                math/Euler.js, line 97
+            </div>
+            
+        </div>
+    </dt>
+    <dd>
+        
+        
+        <div class="description">
+            <p>从数组赋值</p>
+        </div>
+        
+
+        
+        
+        
+        
+        
+            
+
+<table class="params">
+    <thead>
+	<tr>
+		
+		<th>Name</th>
+		
+		
+		<th>Type</th>
+		
+		
+		<th>Default</th>
+		
+		
+		<th class="last">Description</th>
+	</tr>
+	</thead>
+	
+	<tbody>
+	
+	
+        <tr>
+            
+                <td class="name"><code>array</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">Array</span>
+
+
+            
+            </td>
+            
+            
+                <td class="default">
+                
+                </td>
+            
+            
+            <td class="description last">
+                
+                    
+                    
+                        
+                    
+                
+                <p>数组</p></td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>offset</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">Number</span>
+
+
+            
+            </td>
+            
+            
+                <td class="default">
+                
+                    0
+                
+                </td>
+            
+            
+            <td class="description last">
+                
+                    
+                        <span class="optional">optional</span>
+                    
+                    
+                        
+                    
+                
+                <p>数组偏移值</p></td>
+        </tr>
+	
+	
+	</tbody>
+</table>
+        
+        
+        
+<dl class="details">
+    
+        
+    
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+</dl>
+
+        
+        
+
+        
+
+        
+        
+        
+        
+        
+        <h5>Returns:</h5>
+        
+
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Type</th>
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+    <tbody>
+    
+        <tr>
+            
+            <td class="type">
+            
+                        <a href="Euler.html">Euler</a>
+                        
+                    
+            </td>
+            <td class="description last">this</td>
+        </tr>
+    
+    </tbody>
+</table>
+
+        
+        
+        
+    </dd>
+</dl>
+        
+            
+<dl class="inherited-method">
+    <dt>
+        <div class="nameContainer inherited">
             <h4 class="name" id="toArray">
+                
+                    <span class="inherited"><a href="Euler.html#toArray">inherited</a></span>
                 
                 toArray<span class="signature">(<span class="optional">array</span>, <span class="optional">offset</span>)</span><span class="glyphicon glyphicon-circle-arrow-right"></span><span class="type-signature returnType">{Array}</span>
             </h4>
         
             
             <div class="tag-source">
-                math/Matrix4.js, line 63
+                math/Euler.js, line 110
             </div>
             
         </div>
@@ -7744,17 +8729,19 @@
 </dl>
         
             
-<dl >
+<dl class="inherited-method">
     <dt>
-        <div class="nameContainer">
-            <h4 class="name" id="fromArray">
+        <div class="nameContainer inherited">
+            <h4 class="name" id="fromMat4">
                 
-                fromArray<span class="signature">(array, <span class="optional">offset</span>)</span><span class="glyphicon glyphicon-circle-arrow-right"></span><span class="type-signature returnType">{<a href="Matrix4.html">Matrix4</a>}</span>
+                    <span class="inherited"><a href="Euler.html#fromMat4">inherited</a></span>
+                
+                fromMat4<span class="signature">(mat, <span class="optional">order</span>)</span><span class="glyphicon glyphicon-circle-arrow-right"></span><span class="type-signature returnType">{<a href="Euler.html">Euler</a>}</span>
             </h4>
         
             
             <div class="tag-source">
-                math/Matrix4.js, line 76
+                math/Euler.js, line 122
             </div>
             
         </div>
@@ -7763,7 +8750,7 @@
         
         
         <div class="description">
-            <p>从数组赋值</p>
+            <p>Creates a euler from the given 4x4 rotation matrix.</p>
         </div>
         
 
@@ -7796,885 +8783,7 @@
 	
         <tr>
             
-                <td class="name"><code>array</code></td>
-            
-            
-            <td class="type">
-            
-                
-<span class="param-type">Array</span>
-
-
-            
-            </td>
-            
-            
-                <td class="default">
-                
-                </td>
-            
-            
-            <td class="description last">
-                
-                    
-                    
-                        
-                    
-                
-                <p>数组</p></td>
-        </tr>
-	
-	
-	
-        <tr>
-            
-                <td class="name"><code>offset</code></td>
-            
-            
-            <td class="type">
-            
-                
-<span class="param-type">Number</span>
-
-
-            
-            </td>
-            
-            
-                <td class="default">
-                
-                    0
-                
-                </td>
-            
-            
-            <td class="description last">
-                
-                    
-                        <span class="optional">optional</span>
-                    
-                    
-                        
-                    
-                
-                <p>数组偏移值</p></td>
-        </tr>
-	
-	
-	</tbody>
-</table>
-        
-        
-        
-<dl class="details">
-    
-        
-    
-    
-    
-
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-</dl>
-
-        
-        
-
-        
-
-        
-        
-        
-        
-        
-        <h5>Returns:</h5>
-        
-
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Type</th>
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-    <tbody>
-    
-        <tr>
-            
-            <td class="type">
-            
-                        <a href="Matrix4.html">Matrix4</a>
-                        
-                    
-            </td>
-            <td class="description last">this</td>
-        </tr>
-    
-    </tbody>
-</table>
-
-        
-        
-        
-    </dd>
-</dl>
-        
-            
-<dl >
-    <dt>
-        <div class="nameContainer">
-            <h4 class="name" id="set">
-                
-                set<span class="signature">(m00, m01, m02, m03, m10, m11, m12, m13, m20, m21, m22, m23, m30, m31, m32, m33)</span><span class="glyphicon glyphicon-circle-arrow-right"></span><span class="type-signature returnType">{<a href="Matrix4.html">Matrix4</a>}</span>
-            </h4>
-        
-            
-            <div class="tag-source">
-                math/Matrix4.js, line 103
-            </div>
-            
-        </div>
-    </dt>
-    <dd>
-        
-        
-        <div class="description">
-            <p>Set the components of a mat3 to the given values</p>
-        </div>
-        
-
-        
-        
-        
-        
-        
-            
-
-<table class="params">
-    <thead>
-	<tr>
-		
-		<th>Name</th>
-		
-		
-		<th>Type</th>
-		
-		
-		
-		<th class="last">Description</th>
-	</tr>
-	</thead>
-	
-	<tbody>
-	
-	
-        <tr>
-            
-                <td class="name"><code>m00</code></td>
-            
-            
-            <td class="type">
-            
-                
-<span class="param-type">Number</span>
-
-
-            
-            </td>
-            
-            
-            
-            <td class="description last">
-                
-                </td>
-        </tr>
-	
-	
-	
-        <tr>
-            
-                <td class="name"><code>m01</code></td>
-            
-            
-            <td class="type">
-            
-                
-<span class="param-type">Number</span>
-
-
-            
-            </td>
-            
-            
-            
-            <td class="description last">
-                
-                </td>
-        </tr>
-	
-	
-	
-        <tr>
-            
-                <td class="name"><code>m02</code></td>
-            
-            
-            <td class="type">
-            
-                
-<span class="param-type">Number</span>
-
-
-            
-            </td>
-            
-            
-            
-            <td class="description last">
-                
-                </td>
-        </tr>
-	
-	
-	
-        <tr>
-            
-                <td class="name"><code>m03</code></td>
-            
-            
-            <td class="type">
-            
-                
-<span class="param-type">Number</span>
-
-
-            
-            </td>
-            
-            
-            
-            <td class="description last">
-                
-                </td>
-        </tr>
-	
-	
-	
-        <tr>
-            
-                <td class="name"><code>m10</code></td>
-            
-            
-            <td class="type">
-            
-                
-<span class="param-type">Number</span>
-
-
-            
-            </td>
-            
-            
-            
-            <td class="description last">
-                
-                </td>
-        </tr>
-	
-	
-	
-        <tr>
-            
-                <td class="name"><code>m11</code></td>
-            
-            
-            <td class="type">
-            
-                
-<span class="param-type">Number</span>
-
-
-            
-            </td>
-            
-            
-            
-            <td class="description last">
-                
-                </td>
-        </tr>
-	
-	
-	
-        <tr>
-            
-                <td class="name"><code>m12</code></td>
-            
-            
-            <td class="type">
-            
-                
-<span class="param-type">Number</span>
-
-
-            
-            </td>
-            
-            
-            
-            <td class="description last">
-                
-                </td>
-        </tr>
-	
-	
-	
-        <tr>
-            
-                <td class="name"><code>m13</code></td>
-            
-            
-            <td class="type">
-            
-                
-<span class="param-type">Number</span>
-
-
-            
-            </td>
-            
-            
-            
-            <td class="description last">
-                
-                </td>
-        </tr>
-	
-	
-	
-        <tr>
-            
-                <td class="name"><code>m20</code></td>
-            
-            
-            <td class="type">
-            
-                
-<span class="param-type">Number</span>
-
-
-            
-            </td>
-            
-            
-            
-            <td class="description last">
-                
-                </td>
-        </tr>
-	
-	
-	
-        <tr>
-            
-                <td class="name"><code>m21</code></td>
-            
-            
-            <td class="type">
-            
-                
-<span class="param-type">Number</span>
-
-
-            
-            </td>
-            
-            
-            
-            <td class="description last">
-                
-                </td>
-        </tr>
-	
-	
-	
-        <tr>
-            
-                <td class="name"><code>m22</code></td>
-            
-            
-            <td class="type">
-            
-                
-<span class="param-type">Number</span>
-
-
-            
-            </td>
-            
-            
-            
-            <td class="description last">
-                
-                </td>
-        </tr>
-	
-	
-	
-        <tr>
-            
-                <td class="name"><code>m23</code></td>
-            
-            
-            <td class="type">
-            
-                
-<span class="param-type">Number</span>
-
-
-            
-            </td>
-            
-            
-            
-            <td class="description last">
-                
-                </td>
-        </tr>
-	
-	
-	
-        <tr>
-            
-                <td class="name"><code>m30</code></td>
-            
-            
-            <td class="type">
-            
-                
-<span class="param-type">Number</span>
-
-
-            
-            </td>
-            
-            
-            
-            <td class="description last">
-                
-                </td>
-        </tr>
-	
-	
-	
-        <tr>
-            
-                <td class="name"><code>m31</code></td>
-            
-            
-            <td class="type">
-            
-                
-<span class="param-type">Number</span>
-
-
-            
-            </td>
-            
-            
-            
-            <td class="description last">
-                
-                </td>
-        </tr>
-	
-	
-	
-        <tr>
-            
-                <td class="name"><code>m32</code></td>
-            
-            
-            <td class="type">
-            
-                
-<span class="param-type">Number</span>
-
-
-            
-            </td>
-            
-            
-            
-            <td class="description last">
-                
-                </td>
-        </tr>
-	
-	
-	
-        <tr>
-            
-                <td class="name"><code>m33</code></td>
-            
-            
-            <td class="type">
-            
-                
-<span class="param-type">Number</span>
-
-
-            
-            </td>
-            
-            
-            
-            <td class="description last">
-                
-                </td>
-        </tr>
-	
-	
-	</tbody>
-</table>
-        
-        
-        
-<dl class="details">
-    
-        
-    
-    
-    
-
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-</dl>
-
-        
-        
-
-        
-
-        
-        
-        
-        
-        
-        <h5>Returns:</h5>
-        
-
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Type</th>
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-    <tbody>
-    
-        <tr>
-            
-            <td class="type">
-            
-                        <a href="Matrix4.html">Matrix4</a>
-                        
-                    
-            </td>
-            <td class="description last">this</td>
-        </tr>
-    
-    </tbody>
-</table>
-
-        
-        
-        
-    </dd>
-</dl>
-        
-            
-<dl >
-    <dt>
-        <div class="nameContainer">
-            <h4 class="name" id="identity">
-                
-                identity<span class="signature">()</span><span class="glyphicon glyphicon-circle-arrow-right"></span><span class="type-signature returnType">{<a href="Matrix4.html">Matrix4</a>}</span>
-            </h4>
-        
-            
-            <div class="tag-source">
-                math/Matrix4.js, line 111
-            </div>
-            
-        </div>
-    </dt>
-    <dd>
-        
-        
-        <div class="description">
-            <p>Set this to the identity matrix</p>
-        </div>
-        
-
-        
-        
-        
-        
-        
-        
-        
-<dl class="details">
-    
-        
-    
-    
-    
-
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-</dl>
-
-        
-        
-
-        
-
-        
-        
-        
-        
-        
-        <h5>Returns:</h5>
-        
-
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Type</th>
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-    <tbody>
-    
-        <tr>
-            
-            <td class="type">
-            
-                        <a href="Matrix4.html">Matrix4</a>
-                        
-                    
-            </td>
-            <td class="description last">this</td>
-        </tr>
-    
-    </tbody>
-</table>
-
-        
-        
-        
-    </dd>
-</dl>
-        
-            
-<dl >
-    <dt>
-        <div class="nameContainer">
-            <h4 class="name" id="transpose">
-                
-                transpose<span class="signature">()</span><span class="glyphicon glyphicon-circle-arrow-right"></span><span class="type-signature returnType">{<a href="Matrix4.html">Matrix4</a>}</span>
-            </h4>
-        
-            
-            <div class="tag-source">
-                math/Matrix4.js, line 119
-            </div>
-            
-        </div>
-    </dt>
-    <dd>
-        
-        
-        <div class="description">
-            <p>Transpose the values of this</p>
-        </div>
-        
-
-        
-        
-        
-        
-        
-        
-        
-<dl class="details">
-    
-        
-    
-    
-    
-
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-</dl>
-
-        
-        
-
-        
-
-        
-        
-        
-        
-        
-        <h5>Returns:</h5>
-        
-
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Type</th>
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-    <tbody>
-    
-        <tr>
-            
-            <td class="type">
-            
-                        <a href="Matrix4.html">Matrix4</a>
-                        
-                    
-            </td>
-            <td class="description last">this</td>
-        </tr>
-    
-    </tbody>
-</table>
-
-        
-        
-        
-    </dd>
-</dl>
-        
-            
-<dl >
-    <dt>
-        <div class="nameContainer">
-            <h4 class="name" id="invert">
-                
-                invert<span class="signature">(<span class="optional">m</span>)</span><span class="glyphicon glyphicon-circle-arrow-right"></span><span class="type-signature returnType">{<a href="Matrix4.html">Matrix4</a>}</span>
-            </h4>
-        
-            
-            <div class="tag-source">
-                math/Matrix4.js, line 128
-            </div>
-            
-        </div>
-    </dt>
-    <dd>
-        
-        
-        <div class="description">
-            <p>invert a matrix</p>
-        </div>
-        
-
-        
-        
-        
-        
-        
-            
-
-<table class="params">
-    <thead>
-	<tr>
-		
-		<th>Name</th>
-		
-		
-		<th>Type</th>
-		
-		
-		<th>Default</th>
-		
-		
-		<th class="last">Description</th>
-	</tr>
-	</thead>
-	
-	<tbody>
-	
-	
-        <tr>
-            
-                <td class="name"><code>m</code></td>
+                <td class="name"><code>mat</code></td>
             
             
             <td class="type">
@@ -8689,157 +8798,30 @@
             
                 <td class="default">
                 
-                    this
-                
                 </td>
             
             
             <td class="description last">
                 
                     
-                        <span class="optional">optional</span>
-                    
                     
                         
                     
                 
-                </td>
+                <p>rotation matrix</p></td>
         </tr>
 	
-	
-	</tbody>
-</table>
-        
-        
-        
-<dl class="details">
-    
-        
-    
-    
-    
-
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-</dl>
-
-        
-        
-
-        
-
-        
-        
-        
-        
-        
-        <h5>Returns:</h5>
-        
-
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Type</th>
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-    <tbody>
-    
-        <tr>
-            
-            <td class="type">
-            
-                        <a href="Matrix4.html">Matrix4</a>
-                        
-                    
-            </td>
-            <td class="description last">this</td>
-        </tr>
-    
-    </tbody>
-</table>
-
-        
-        
-        
-    </dd>
-</dl>
-        
-            
-<dl >
-    <dt>
-        <div class="nameContainer">
-            <h4 class="name" id="adjoint">
-                
-                adjoint<span class="signature">(<span class="optional">m</span>)</span><span class="glyphicon glyphicon-circle-arrow-right"></span><span class="type-signature returnType">{<a href="Matrix4.html">Matrix4</a>}</span>
-            </h4>
-        
-            
-            <div class="tag-source">
-                math/Matrix4.js, line 137
-            </div>
-            
-        </div>
-    </dt>
-    <dd>
-        
-        
-        <div class="description">
-            <p>Calculates the adjugate of a mat4</p>
-        </div>
-        
-
-        
-        
-        
-        
-        
-            
-
-<table class="params">
-    <thead>
-	<tr>
-		
-		<th>Name</th>
-		
-		
-		<th>Type</th>
-		
-		
-		<th>Default</th>
-		
-		
-		<th class="last">Description</th>
-	</tr>
-	</thead>
-	
-	<tbody>
 	
 	
         <tr>
             
-                <td class="name"><code>m</code></td>
+                <td class="name"><code>order</code></td>
             
             
             <td class="type">
             
                 
-<span class="param-type"><a href="Matrix4.html">Matrix4</a></span>
+<span class="param-type">string</span>
 
 
             
@@ -8848,7 +8830,7 @@
             
                 <td class="default">
                 
-                    this
+                    this.order
                 
                 </td>
             
@@ -8862,7 +8844,7 @@
                         
                     
                 
-                </td>
+                <p>旋转顺序，默认为当前Euler实例的order</p></td>
         </tr>
 	
 	
@@ -8923,7 +8905,7 @@
             
             <td class="type">
             
-                        <a href="Matrix4.html">Matrix4</a>
+                        <a href="Euler.html">Euler</a>
                         
                     
             </td>
@@ -8940,3255 +8922,19 @@
 </dl>
         
             
-<dl >
+<dl class="inherited-method">
     <dt>
-        <div class="nameContainer">
-            <h4 class="name" id="determinant">
-                
-                determinant<span class="signature">()</span><span class="glyphicon glyphicon-circle-arrow-right"></span><span class="type-signature returnType">{<a href="Matrix4.html">Matrix4</a>}</span>
-            </h4>
-        
-            
-            <div class="tag-source">
-                math/Matrix4.js, line 145
-            </div>
-            
-        </div>
-    </dt>
-    <dd>
-        
-        
-        <div class="description">
-            <p>Calculates the determinant of this</p>
-        </div>
-        
-
-        
-        
-        
-        
-        
-        
-        
-<dl class="details">
-    
-        
-    
-    
-    
-
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-</dl>
-
-        
-        
-
-        
-
-        
-        
-        
-        
-        
-        <h5>Returns:</h5>
-        
-
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Type</th>
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-    <tbody>
-    
-        <tr>
-            
-            <td class="type">
-            
-                        <a href="Matrix4.html">Matrix4</a>
-                        
-                    
-            </td>
-            <td class="description last">this</td>
-        </tr>
-    
-    </tbody>
-</table>
-
-        
-        
-        
-    </dd>
-</dl>
-        
-            
-<dl >
-    <dt>
-        <div class="nameContainer">
-            <h4 class="name" id="multiply">
-                
-                multiply<span class="signature">(a, <span class="optional">b</span>)</span><span class="glyphicon glyphicon-circle-arrow-right"></span><span class="type-signature returnType">{<a href="Matrix4.html">Matrix4</a>}</span>
-            </h4>
-        
-            
-            <div class="tag-source">
-                math/Matrix4.js, line 154
-            </div>
-            
-        </div>
-    </dt>
-    <dd>
-        
-        
-        <div class="description">
-            <p>Multiplies two matrix4's</p>
-        </div>
-        
-
-        
-        
-        
-        
-        
-            
-
-<table class="params">
-    <thead>
-	<tr>
-		
-		<th>Name</th>
-		
-		
-		<th>Type</th>
-		
-		
-		
-		<th class="last">Description</th>
-	</tr>
-	</thead>
-	
-	<tbody>
-	
-	
-        <tr>
-            
-                <td class="name"><code>a</code></td>
-            
-            
-            <td class="type">
-            
-                
-<span class="param-type"><a href="Matrix4.html">Matrix4</a></span>
-
-
-            
-            </td>
-            
-            
-            
-            <td class="description last">
-                
-                    
-                    
-                        
-                    
-                
-                </td>
-        </tr>
-	
-	
-	
-        <tr>
-            
-                <td class="name"><code>b</code></td>
-            
-            
-            <td class="type">
-            
-                
-<span class="param-type"><a href="Matrix4.html">Matrix4</a></span>
-
-
-            
-            </td>
-            
-            
-            
-            <td class="description last">
-                
-                    
-                        <span class="optional">optional</span>
-                    
-                    
-                        
-                    
-                
-                <p>如果不传，计算 this 和 a 的乘积</p></td>
-        </tr>
-	
-	
-	</tbody>
-</table>
-        
-        
-        
-<dl class="details">
-    
-        
-    
-    
-    
-
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-</dl>
-
-        
-        
-
-        
-
-        
-        
-        
-        
-        
-        <h5>Returns:</h5>
-        
-
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Type</th>
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-    <tbody>
-    
-        <tr>
-            
-            <td class="type">
-            
-                        <a href="Matrix4.html">Matrix4</a>
-                        
-                    
-            </td>
-            <td class="description last">this</td>
-        </tr>
-    
-    </tbody>
-</table>
-
-        
-        
-        
-    </dd>
-</dl>
-        
-            
-<dl >
-    <dt>
-        <div class="nameContainer">
-            <h4 class="name" id="premultiply">
-                
-                premultiply<span class="signature">(m)</span><span class="glyphicon glyphicon-circle-arrow-right"></span><span class="type-signature returnType">{<a href="Matrix4.html">Matrix4</a>}</span>
-            </h4>
-        
-            
-            <div class="tag-source">
-                math/Matrix4.js, line 167
-            </div>
-            
-        </div>
-    </dt>
-    <dd>
-        
-        
-        <div class="description">
-            <p>左乘</p>
-        </div>
-        
-
-        
-        
-        
-        
-        
-            
-
-<table class="params">
-    <thead>
-	<tr>
-		
-		<th>Name</th>
-		
-		
-		<th>Type</th>
-		
-		
-		
-		<th class="last">Description</th>
-	</tr>
-	</thead>
-	
-	<tbody>
-	
-	
-        <tr>
-            
-                <td class="name"><code>m</code></td>
-            
-            
-            <td class="type">
-            
-                
-<span class="param-type"><a href="Matrix4.html">Matrix4</a></span>
-
-
-            
-            </td>
-            
-            
-            
-            <td class="description last">
-                
-                </td>
-        </tr>
-	
-	
-	</tbody>
-</table>
-        
-        
-        
-<dl class="details">
-    
-        
-    
-    
-    
-
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-</dl>
-
-        
-        
-
-        
-
-        
-        
-        
-        
-        
-        <h5>Returns:</h5>
-        
-
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Type</th>
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-    <tbody>
-    
-        <tr>
-            
-            <td class="type">
-            
-                        <a href="Matrix4.html">Matrix4</a>
-                        
-                    
-            </td>
-            <td class="description last">this</td>
-        </tr>
-    
-    </tbody>
-</table>
-
-        
-        
-        
-    </dd>
-</dl>
-        
-            
-<dl >
-    <dt>
-        <div class="nameContainer">
-            <h4 class="name" id="translate">
-                
-                translate<span class="signature">(v)</span><span class="glyphicon glyphicon-circle-arrow-right"></span><span class="type-signature returnType">{<a href="Matrix4.html">Matrix4</a>}</span>
-            </h4>
-        
-            
-            <div class="tag-source">
-                math/Matrix4.js, line 176
-            </div>
-            
-        </div>
-    </dt>
-    <dd>
-        
-        
-        <div class="description">
-            <p>Translate this by the given vector</p>
-        </div>
-        
-
-        
-        
-        
-        
-        
-            
-
-<table class="params">
-    <thead>
-	<tr>
-		
-		<th>Name</th>
-		
-		
-		<th>Type</th>
-		
-		
-		
-		<th class="last">Description</th>
-	</tr>
-	</thead>
-	
-	<tbody>
-	
-	
-        <tr>
-            
-                <td class="name"><code>v</code></td>
-            
-            
-            <td class="type">
-            
-                
-<span class="param-type"><a href="Vector3.html">Vector3</a></span>
-
-
-            
-            </td>
-            
-            
-            
-            <td class="description last">
-                
-                <p>vector to translate by</p></td>
-        </tr>
-	
-	
-	</tbody>
-</table>
-        
-        
-        
-<dl class="details">
-    
-        
-    
-    
-    
-
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-</dl>
-
-        
-        
-
-        
-
-        
-        
-        
-        
-        
-        <h5>Returns:</h5>
-        
-
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Type</th>
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-    <tbody>
-    
-        <tr>
-            
-            <td class="type">
-            
-                        <a href="Matrix4.html">Matrix4</a>
-                        
-                    
-            </td>
-            <td class="description last">this</td>
-        </tr>
-    
-    </tbody>
-</table>
-
-        
-        
-        
-    </dd>
-</dl>
-        
-            
-<dl >
-    <dt>
-        <div class="nameContainer">
-            <h4 class="name" id="scale">
-                
-                scale<span class="signature">(v)</span><span class="glyphicon glyphicon-circle-arrow-right"></span><span class="type-signature returnType">{<a href="Matrix4.html">Matrix4</a>}</span>
-            </h4>
-        
-            
-            <div class="tag-source">
-                math/Matrix4.js, line 185
-            </div>
-            
-        </div>
-    </dt>
-    <dd>
-        
-        
-        <div class="description">
-            <p>Scales the mat3 by the dimensions in the given vec2</p>
-        </div>
-        
-
-        
-        
-        
-        
-        
-            
-
-<table class="params">
-    <thead>
-	<tr>
-		
-		<th>Name</th>
-		
-		
-		<th>Type</th>
-		
-		
-		
-		<th class="last">Description</th>
-	</tr>
-	</thead>
-	
-	<tbody>
-	
-	
-        <tr>
-            
-                <td class="name"><code>v</code></td>
-            
-            
-            <td class="type">
-            
-                
-<span class="param-type"><a href="Vector3.html">Vector3</a></span>
-
-
-            
-            </td>
-            
-            
-            
-            <td class="description last">
-                
-                <p>the vec3 to scale the matrix by</p></td>
-        </tr>
-	
-	
-	</tbody>
-</table>
-        
-        
-        
-<dl class="details">
-    
-        
-    
-    
-    
-
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-</dl>
-
-        
-        
-
-        
-
-        
-        
-        
-        
-        
-        <h5>Returns:</h5>
-        
-
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Type</th>
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-    <tbody>
-    
-        <tr>
-            
-            <td class="type">
-            
-                        <a href="Matrix4.html">Matrix4</a>
-                        
-                    
-            </td>
-            <td class="description last">this</td>
-        </tr>
-    
-    </tbody>
-</table>
-
-        
-        
-        
-    </dd>
-</dl>
-        
-            
-<dl >
-    <dt>
-        <div class="nameContainer">
-            <h4 class="name" id="rotate">
-                
-                rotate<span class="signature">(rad, axis)</span><span class="glyphicon glyphicon-circle-arrow-right"></span><span class="type-signature returnType">{<a href="Matrix4.html">Matrix4</a>}</span>
-            </h4>
-        
-            
-            <div class="tag-source">
-                math/Matrix4.js, line 195
-            </div>
-            
-        </div>
-    </dt>
-    <dd>
-        
-        
-        <div class="description">
-            <p>Rotates this by the given angle</p>
-        </div>
-        
-
-        
-        
-        
-        
-        
-            
-
-<table class="params">
-    <thead>
-	<tr>
-		
-		<th>Name</th>
-		
-		
-		<th>Type</th>
-		
-		
-		
-		<th class="last">Description</th>
-	</tr>
-	</thead>
-	
-	<tbody>
-	
-	
-        <tr>
-            
-                <td class="name"><code>rad</code></td>
-            
-            
-            <td class="type">
-            
-                
-<span class="param-type">Number</span>
-
-
-            
-            </td>
-            
-            
-            
-            <td class="description last">
-                
-                <p>the angle to rotate the matrix by</p></td>
-        </tr>
-	
-	
-	
-        <tr>
-            
-                <td class="name"><code>axis</code></td>
-            
-            
-            <td class="type">
-            
-                
-<span class="param-type"><a href="Vector3.html">Vector3</a></span>
-
-
-            
-            </td>
-            
-            
-            
-            <td class="description last">
-                
-                <p>the axis to rotate around</p></td>
-        </tr>
-	
-	
-	</tbody>
-</table>
-        
-        
-        
-<dl class="details">
-    
-        
-    
-    
-    
-
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-</dl>
-
-        
-        
-
-        
-
-        
-        
-        
-        
-        
-        <h5>Returns:</h5>
-        
-
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Type</th>
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-    <tbody>
-    
-        <tr>
-            
-            <td class="type">
-            
-                        <a href="Matrix4.html">Matrix4</a>
-                        
-                    
-            </td>
-            <td class="description last">this</td>
-        </tr>
-    
-    </tbody>
-</table>
-
-        
-        
-        
-    </dd>
-</dl>
-        
-            
-<dl >
-    <dt>
-        <div class="nameContainer">
-            <h4 class="name" id="rotateX">
-                
-                rotateX<span class="signature">(rad)</span><span class="glyphicon glyphicon-circle-arrow-right"></span><span class="type-signature returnType">{<a href="Matrix4.html">Matrix4</a>}</span>
-            </h4>
-        
-            
-            <div class="tag-source">
-                math/Matrix4.js, line 204
-            </div>
-            
-        </div>
-    </dt>
-    <dd>
-        
-        
-        <div class="description">
-            <p>Rotates this by the given angle around the X axis</p>
-        </div>
-        
-
-        
-        
-        
-        
-        
-            
-
-<table class="params">
-    <thead>
-	<tr>
-		
-		<th>Name</th>
-		
-		
-		<th>Type</th>
-		
-		
-		
-		<th class="last">Description</th>
-	</tr>
-	</thead>
-	
-	<tbody>
-	
-	
-        <tr>
-            
-                <td class="name"><code>rad</code></td>
-            
-            
-            <td class="type">
-            
-                
-<span class="param-type">Number</span>
-
-
-            
-            </td>
-            
-            
-            
-            <td class="description last">
-                
-                <p>the angle to rotate the matrix by</p></td>
-        </tr>
-	
-	
-	</tbody>
-</table>
-        
-        
-        
-<dl class="details">
-    
-        
-    
-    
-    
-
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-</dl>
-
-        
-        
-
-        
-
-        
-        
-        
-        
-        
-        <h5>Returns:</h5>
-        
-
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Type</th>
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-    <tbody>
-    
-        <tr>
-            
-            <td class="type">
-            
-                        <a href="Matrix4.html">Matrix4</a>
-                        
-                    
-            </td>
-            <td class="description last">this</td>
-        </tr>
-    
-    </tbody>
-</table>
-
-        
-        
-        
-    </dd>
-</dl>
-        
-            
-<dl >
-    <dt>
-        <div class="nameContainer">
-            <h4 class="name" id="rotateY">
-                
-                rotateY<span class="signature">(rad)</span><span class="glyphicon glyphicon-circle-arrow-right"></span><span class="type-signature returnType">{<a href="Matrix4.html">Matrix4</a>}</span>
-            </h4>
-        
-            
-            <div class="tag-source">
-                math/Matrix4.js, line 213
-            </div>
-            
-        </div>
-    </dt>
-    <dd>
-        
-        
-        <div class="description">
-            <p>Rotates this by the given angle around the Y axis</p>
-        </div>
-        
-
-        
-        
-        
-        
-        
-            
-
-<table class="params">
-    <thead>
-	<tr>
-		
-		<th>Name</th>
-		
-		
-		<th>Type</th>
-		
-		
-		
-		<th class="last">Description</th>
-	</tr>
-	</thead>
-	
-	<tbody>
-	
-	
-        <tr>
-            
-                <td class="name"><code>rad</code></td>
-            
-            
-            <td class="type">
-            
-                
-<span class="param-type">Number</span>
-
-
-            
-            </td>
-            
-            
-            
-            <td class="description last">
-                
-                <p>the angle to rotate the matrix by</p></td>
-        </tr>
-	
-	
-	</tbody>
-</table>
-        
-        
-        
-<dl class="details">
-    
-        
-    
-    
-    
-
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-</dl>
-
-        
-        
-
-        
-
-        
-        
-        
-        
-        
-        <h5>Returns:</h5>
-        
-
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Type</th>
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-    <tbody>
-    
-        <tr>
-            
-            <td class="type">
-            
-                        <a href="Matrix4.html">Matrix4</a>
-                        
-                    
-            </td>
-            <td class="description last">this</td>
-        </tr>
-    
-    </tbody>
-</table>
-
-        
-        
-        
-    </dd>
-</dl>
-        
-            
-<dl >
-    <dt>
-        <div class="nameContainer">
-            <h4 class="name" id="rotateZ">
-                
-                rotateZ<span class="signature">(rad)</span><span class="glyphicon glyphicon-circle-arrow-right"></span><span class="type-signature returnType">{<a href="Matrix4.html">Matrix4</a>}</span>
-            </h4>
-        
-            
-            <div class="tag-source">
-                math/Matrix4.js, line 222
-            </div>
-            
-        </div>
-    </dt>
-    <dd>
-        
-        
-        <div class="description">
-            <p>Rotates this by the given angle around the Z axis</p>
-        </div>
-        
-
-        
-        
-        
-        
-        
-            
-
-<table class="params">
-    <thead>
-	<tr>
-		
-		<th>Name</th>
-		
-		
-		<th>Type</th>
-		
-		
-		
-		<th class="last">Description</th>
-	</tr>
-	</thead>
-	
-	<tbody>
-	
-	
-        <tr>
-            
-                <td class="name"><code>rad</code></td>
-            
-            
-            <td class="type">
-            
-                
-<span class="param-type">Number</span>
-
-
-            
-            </td>
-            
-            
-            
-            <td class="description last">
-                
-                <p>the angle to rotate the matrix by</p></td>
-        </tr>
-	
-	
-	</tbody>
-</table>
-        
-        
-        
-<dl class="details">
-    
-        
-    
-    
-    
-
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-</dl>
-
-        
-        
-
-        
-
-        
-        
-        
-        
-        
-        <h5>Returns:</h5>
-        
-
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Type</th>
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-    <tbody>
-    
-        <tr>
-            
-            <td class="type">
-            
-                        <a href="Matrix4.html">Matrix4</a>
-                        
-                    
-            </td>
-            <td class="description last">this</td>
-        </tr>
-    
-    </tbody>
-</table>
-
-        
-        
-        
-    </dd>
-</dl>
-        
-            
-<dl >
-    <dt>
-        <div class="nameContainer">
-            <h4 class="name" id="fromTranslation">
-                
-                fromTranslation<span class="signature">(transition)</span><span class="glyphicon glyphicon-circle-arrow-right"></span><span class="type-signature returnType">{<a href="Matrix4.html">Matrix4</a>}</span>
-            </h4>
-        
-            
-            <div class="tag-source">
-                math/Matrix4.js, line 231
-            </div>
-            
-        </div>
-    </dt>
-    <dd>
-        
-        
-        <div class="description">
-            <p>Creates a matrix from a vector translation</p>
-        </div>
-        
-
-        
-        
-        
-        
-        
-            
-
-<table class="params">
-    <thead>
-	<tr>
-		
-		<th>Name</th>
-		
-		
-		<th>Type</th>
-		
-		
-		
-		<th class="last">Description</th>
-	</tr>
-	</thead>
-	
-	<tbody>
-	
-	
-        <tr>
-            
-                <td class="name"><code>transition</code></td>
-            
-            
-            <td class="type">
-            
-                
-<span class="param-type"><a href="Vector3.html">Vector3</a></span>
-
-
-            
-            </td>
-            
-            
-            
-            <td class="description last">
-                
-                <p>Translation vector</p></td>
-        </tr>
-	
-	
-	</tbody>
-</table>
-        
-        
-        
-<dl class="details">
-    
-        
-    
-    
-    
-
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-</dl>
-
-        
-        
-
-        
-
-        
-        
-        
-        
-        
-        <h5>Returns:</h5>
-        
-
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Type</th>
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-    <tbody>
-    
-        <tr>
-            
-            <td class="type">
-            
-                        <a href="Matrix4.html">Matrix4</a>
-                        
-                    
-            </td>
-            <td class="description last">this</td>
-        </tr>
-    
-    </tbody>
-</table>
-
-        
-        
-        
-    </dd>
-</dl>
-        
-            
-<dl >
-    <dt>
-        <div class="nameContainer">
-            <h4 class="name" id="fromScaling">
-                
-                fromScaling<span class="signature">(v)</span><span class="glyphicon glyphicon-circle-arrow-right"></span><span class="type-signature returnType">{<a href="Matrix4.html">Matrix4</a>}</span>
-            </h4>
-        
-            
-            <div class="tag-source">
-                math/Matrix4.js, line 240
-            </div>
-            
-        </div>
-    </dt>
-    <dd>
-        
-        
-        <div class="description">
-            <p>Creates a matrix from a vector scaling</p>
-        </div>
-        
-
-        
-        
-        
-        
-        
-            
-
-<table class="params">
-    <thead>
-	<tr>
-		
-		<th>Name</th>
-		
-		
-		<th>Type</th>
-		
-		
-		
-		<th class="last">Description</th>
-	</tr>
-	</thead>
-	
-	<tbody>
-	
-	
-        <tr>
-            
-                <td class="name"><code>v</code></td>
-            
-            
-            <td class="type">
-            
-                
-<span class="param-type"><a href="Vector3.html">Vector3</a></span>
-
-
-            
-            </td>
-            
-            
-            
-            <td class="description last">
-                
-                <p>Scaling vector</p></td>
-        </tr>
-	
-	
-	</tbody>
-</table>
-        
-        
-        
-<dl class="details">
-    
-        
-    
-    
-    
-
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-</dl>
-
-        
-        
-
-        
-
-        
-        
-        
-        
-        
-        <h5>Returns:</h5>
-        
-
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Type</th>
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-    <tbody>
-    
-        <tr>
-            
-            <td class="type">
-            
-                        <a href="Matrix4.html">Matrix4</a>
-                        
-                    
-            </td>
-            <td class="description last">this</td>
-        </tr>
-    
-    </tbody>
-</table>
-
-        
-        
-        
-    </dd>
-</dl>
-        
-            
-<dl >
-    <dt>
-        <div class="nameContainer">
-            <h4 class="name" id="fromRotation">
-                
-                fromRotation<span class="signature">(rad, axis)</span><span class="glyphicon glyphicon-circle-arrow-right"></span><span class="type-signature returnType">{<a href="Matrix4.html">Matrix4</a>}</span>
-            </h4>
-        
-            
-            <div class="tag-source">
-                math/Matrix4.js, line 250
-            </div>
-            
-        </div>
-    </dt>
-    <dd>
-        
-        
-        <div class="description">
-            <p>Creates a matrix from a given angle around a given axis</p>
-        </div>
-        
-
-        
-        
-        
-        
-        
-            
-
-<table class="params">
-    <thead>
-	<tr>
-		
-		<th>Name</th>
-		
-		
-		<th>Type</th>
-		
-		
-		
-		<th class="last">Description</th>
-	</tr>
-	</thead>
-	
-	<tbody>
-	
-	
-        <tr>
-            
-                <td class="name"><code>rad</code></td>
-            
-            
-            <td class="type">
-            
-                
-<span class="param-type">Number</span>
-
-
-            
-            </td>
-            
-            
-            
-            <td class="description last">
-                
-                <p>the angle to rotate the matrix by</p></td>
-        </tr>
-	
-	
-	
-        <tr>
-            
-                <td class="name"><code>axis</code></td>
-            
-            
-            <td class="type">
-            
-                
-<span class="param-type"><a href="Vector3.html">Vector3</a></span>
-
-
-            
-            </td>
-            
-            
-            
-            <td class="description last">
-                
-                <p>the axis to rotate around</p></td>
-        </tr>
-	
-	
-	</tbody>
-</table>
-        
-        
-        
-<dl class="details">
-    
-        
-    
-    
-    
-
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-</dl>
-
-        
-        
-
-        
-
-        
-        
-        
-        
-        
-        <h5>Returns:</h5>
-        
-
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Type</th>
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-    <tbody>
-    
-        <tr>
-            
-            <td class="type">
-            
-                        <a href="Matrix4.html">Matrix4</a>
-                        
-                    
-            </td>
-            <td class="description last">this</td>
-        </tr>
-    
-    </tbody>
-</table>
-
-        
-        
-        
-    </dd>
-</dl>
-        
-            
-<dl >
-    <dt>
-        <div class="nameContainer">
-            <h4 class="name" id="fromXRotation">
-                
-                fromXRotation<span class="signature">(rad)</span><span class="glyphicon glyphicon-circle-arrow-right"></span><span class="type-signature returnType">{<a href="Matrix4.html">Matrix4</a>}</span>
-            </h4>
-        
-            
-            <div class="tag-source">
-                math/Matrix4.js, line 259
-            </div>
-            
-        </div>
-    </dt>
-    <dd>
-        
-        
-        <div class="description">
-            <p>Creates a matrix from the given angle around the X axis</p>
-        </div>
-        
-
-        
-        
-        
-        
-        
-            
-
-<table class="params">
-    <thead>
-	<tr>
-		
-		<th>Name</th>
-		
-		
-		<th>Type</th>
-		
-		
-		
-		<th class="last">Description</th>
-	</tr>
-	</thead>
-	
-	<tbody>
-	
-	
-        <tr>
-            
-                <td class="name"><code>rad</code></td>
-            
-            
-            <td class="type">
-            
-                
-<span class="param-type">Number</span>
-
-
-            
-            </td>
-            
-            
-            
-            <td class="description last">
-                
-                <p>the angle to rotate the matrix by</p></td>
-        </tr>
-	
-	
-	</tbody>
-</table>
-        
-        
-        
-<dl class="details">
-    
-        
-    
-    
-    
-
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-</dl>
-
-        
-        
-
-        
-
-        
-        
-        
-        
-        
-        <h5>Returns:</h5>
-        
-
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Type</th>
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-    <tbody>
-    
-        <tr>
-            
-            <td class="type">
-            
-                        <a href="Matrix4.html">Matrix4</a>
-                        
-                    
-            </td>
-            <td class="description last">this</td>
-        </tr>
-    
-    </tbody>
-</table>
-
-        
-        
-        
-    </dd>
-</dl>
-        
-            
-<dl >
-    <dt>
-        <div class="nameContainer">
-            <h4 class="name" id="fromYRotation">
-                
-                fromYRotation<span class="signature">(rad)</span><span class="glyphicon glyphicon-circle-arrow-right"></span><span class="type-signature returnType">{<a href="Matrix4.html">Matrix4</a>}</span>
-            </h4>
-        
-            
-            <div class="tag-source">
-                math/Matrix4.js, line 268
-            </div>
-            
-        </div>
-    </dt>
-    <dd>
-        
-        
-        <div class="description">
-            <p>Creates a matrix from the given angle around the Y axis</p>
-        </div>
-        
-
-        
-        
-        
-        
-        
-            
-
-<table class="params">
-    <thead>
-	<tr>
-		
-		<th>Name</th>
-		
-		
-		<th>Type</th>
-		
-		
-		
-		<th class="last">Description</th>
-	</tr>
-	</thead>
-	
-	<tbody>
-	
-	
-        <tr>
-            
-                <td class="name"><code>rad</code></td>
-            
-            
-            <td class="type">
-            
-                
-<span class="param-type">Number</span>
-
-
-            
-            </td>
-            
-            
-            
-            <td class="description last">
-                
-                <p>the angle to rotate the matrix by</p></td>
-        </tr>
-	
-	
-	</tbody>
-</table>
-        
-        
-        
-<dl class="details">
-    
-        
-    
-    
-    
-
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-</dl>
-
-        
-        
-
-        
-
-        
-        
-        
-        
-        
-        <h5>Returns:</h5>
-        
-
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Type</th>
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-    <tbody>
-    
-        <tr>
-            
-            <td class="type">
-            
-                        <a href="Matrix4.html">Matrix4</a>
-                        
-                    
-            </td>
-            <td class="description last">this</td>
-        </tr>
-    
-    </tbody>
-</table>
-
-        
-        
-        
-    </dd>
-</dl>
-        
-            
-<dl >
-    <dt>
-        <div class="nameContainer">
-            <h4 class="name" id="fromZRotation">
-                
-                fromZRotation<span class="signature">(rad)</span><span class="glyphicon glyphicon-circle-arrow-right"></span><span class="type-signature returnType">{<a href="Matrix4.html">Matrix4</a>}</span>
-            </h4>
-        
-            
-            <div class="tag-source">
-                math/Matrix4.js, line 277
-            </div>
-            
-        </div>
-    </dt>
-    <dd>
-        
-        
-        <div class="description">
-            <p>Creates a matrix from the given angle around the Z axis</p>
-        </div>
-        
-
-        
-        
-        
-        
-        
-            
-
-<table class="params">
-    <thead>
-	<tr>
-		
-		<th>Name</th>
-		
-		
-		<th>Type</th>
-		
-		
-		
-		<th class="last">Description</th>
-	</tr>
-	</thead>
-	
-	<tbody>
-	
-	
-        <tr>
-            
-                <td class="name"><code>rad</code></td>
-            
-            
-            <td class="type">
-            
-                
-<span class="param-type">Number</span>
-
-
-            
-            </td>
-            
-            
-            
-            <td class="description last">
-                
-                <p>the angle to rotate the matrix by</p></td>
-        </tr>
-	
-	
-	</tbody>
-</table>
-        
-        
-        
-<dl class="details">
-    
-        
-    
-    
-    
-
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-</dl>
-
-        
-        
-
-        
-
-        
-        
-        
-        
-        
-        <h5>Returns:</h5>
-        
-
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Type</th>
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-    <tbody>
-    
-        <tr>
-            
-            <td class="type">
-            
-                        <a href="Matrix4.html">Matrix4</a>
-                        
-                    
-            </td>
-            <td class="description last">this</td>
-        </tr>
-    
-    </tbody>
-</table>
-
-        
-        
-        
-    </dd>
-</dl>
-        
-            
-<dl >
-    <dt>
-        <div class="nameContainer">
-            <h4 class="name" id="fromRotationTranslation">
-                
-                fromRotationTranslation<span class="signature">(q, v)</span><span class="glyphicon glyphicon-circle-arrow-right"></span><span class="type-signature returnType">{<a href="Matrix4.html">Matrix4</a>}</span>
-            </h4>
-        
-            
-            <div class="tag-source">
-                math/Matrix4.js, line 287
-            </div>
-            
-        </div>
-    </dt>
-    <dd>
-        
-        
-        <div class="description">
-            <p>Creates a matrix from a quaternion rotation and vector translation</p>
-        </div>
-        
-
-        
-        
-        
-        
-        
-            
-
-<table class="params">
-    <thead>
-	<tr>
-		
-		<th>Name</th>
-		
-		
-		<th>Type</th>
-		
-		
-		
-		<th class="last">Description</th>
-	</tr>
-	</thead>
-	
-	<tbody>
-	
-	
-        <tr>
-            
-                <td class="name"><code>q</code></td>
-            
-            
-            <td class="type">
-            
-                
-<span class="param-type"><a href="Quaternion.html">Quaternion</a></span>
-
-
-            
-            </td>
-            
-            
-            
-            <td class="description last">
-                
-                <p>Rotation quaternion</p></td>
-        </tr>
-	
-	
-	
-        <tr>
-            
-                <td class="name"><code>v</code></td>
-            
-            
-            <td class="type">
-            
-                
-<span class="param-type"><a href="Vector3.html">Vector3</a></span>
-
-
-            
-            </td>
-            
-            
-            
-            <td class="description last">
-                
-                <p>Translation vector</p></td>
-        </tr>
-	
-	
-	</tbody>
-</table>
-        
-        
-        
-<dl class="details">
-    
-        
-    
-    
-    
-
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-</dl>
-
-        
-        
-
-        
-
-        
-        
-        
-        
-        
-        <h5>Returns:</h5>
-        
-
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Type</th>
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-    <tbody>
-    
-        <tr>
-            
-            <td class="type">
-            
-                        <a href="Matrix4.html">Matrix4</a>
-                        
-                    
-            </td>
-            <td class="description last">this</td>
-        </tr>
-    
-    </tbody>
-</table>
-
-        
-        
-        
-    </dd>
-</dl>
-        
-            
-<dl >
-    <dt>
-        <div class="nameContainer">
-            <h4 class="name" id="getTranslation">
-                
-                getTranslation<span class="signature">(<span class="optional">out</span>)</span><span class="glyphicon glyphicon-circle-arrow-right"></span><span class="type-signature returnType">{<a href="Vector3.html">Vector3</a>}</span>
-            </h4>
-        
-            
-            <div class="tag-source">
-                math/Matrix4.js, line 299
-            </div>
-            
-        </div>
-    </dt>
-    <dd>
-        
-        
-        <div class="description">
-            <p>Returns the translation vector component of a transformation
- matrix. If a matrix is built with fromRotationTranslation,
- the returned vector will be the same as the translation vector
- originally supplied.</p>
-        </div>
-        
-
-        
-        
-        
-        
-        
-            
-
-<table class="params">
-    <thead>
-	<tr>
-		
-		<th>Name</th>
-		
-		
-		<th>Type</th>
-		
-		
-		<th>Default</th>
-		
-		
-		<th class="last">Description</th>
-	</tr>
-	</thead>
-	
-	<tbody>
-	
-	
-        <tr>
-            
-                <td class="name"><code>out</code></td>
-            
-            
-            <td class="type">
-            
-                
-<span class="param-type"><a href="Vector3.html">Vector3</a></span>
-
-
-            
-            </td>
-            
-            
-                <td class="default">
-                
-                    new Vector3
-                
-                </td>
-            
-            
-            <td class="description last">
-                
-                    
-                        <span class="optional">optional</span>
-                    
-                    
-                        
-                    
-                
-                <p>Vector to receive translation component</p></td>
-        </tr>
-	
-	
-	</tbody>
-</table>
-        
-        
-        
-<dl class="details">
-    
-        
-    
-    
-    
-
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-</dl>
-
-        
-        
-
-        
-
-        
-        
-        
-        
-        
-        <h5>Returns:</h5>
-        
-
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Type</th>
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-    <tbody>
-    
-        <tr>
-            
-            <td class="type">
-            
-                        <a href="Vector3.html">Vector3</a>
-                        
-                    
-            </td>
-            <td class="description last">out</td>
-        </tr>
-    
-    </tbody>
-</table>
-
-        
-        
-        
-    </dd>
-</dl>
-        
-            
-<dl >
-    <dt>
-        <div class="nameContainer">
-            <h4 class="name" id="getScaling">
-                
-                getScaling<span class="signature">(<span class="optional">out</span>)</span><span class="glyphicon glyphicon-circle-arrow-right"></span><span class="type-signature returnType">{<a href="Vector3.html">Vector3</a>}</span>
-            </h4>
-        
-            
-            <div class="tag-source">
-                math/Matrix4.js, line 312
-            </div>
-            
-        </div>
-    </dt>
-    <dd>
-        
-        
-        <div class="description">
-            <p>Returns the scaling factor component of a transformation
- matrix. If a matrix is built with fromRotationTranslationScale
- with a normalized Quaternion paramter, the returned vector will be
- the same as the scaling vector
- originally supplied.</p>
-        </div>
-        
-
-        
-        
-        
-        
-        
-            
-
-<table class="params">
-    <thead>
-	<tr>
-		
-		<th>Name</th>
-		
-		
-		<th>Type</th>
-		
-		
-		<th>Default</th>
-		
-		
-		<th class="last">Description</th>
-	</tr>
-	</thead>
-	
-	<tbody>
-	
-	
-        <tr>
-            
-                <td class="name"><code>out</code></td>
-            
-            
-            <td class="type">
-            
-                
-<span class="param-type"><a href="Vector3.html">Vector3</a></span>
-
-
-            
-            </td>
-            
-            
-                <td class="default">
-                
-                    new Vector3
-                
-                </td>
-            
-            
-            <td class="description last">
-                
-                    
-                        <span class="optional">optional</span>
-                    
-                    
-                        
-                    
-                
-                <p>Vector to receive scaling factor component</p></td>
-        </tr>
-	
-	
-	</tbody>
-</table>
-        
-        
-        
-<dl class="details">
-    
-        
-    
-    
-    
-
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-</dl>
-
-        
-        
-
-        
-
-        
-        
-        
-        
-        
-        <h5>Returns:</h5>
-        
-
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Type</th>
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-    <tbody>
-    
-        <tr>
-            
-            <td class="type">
-            
-                        <a href="Vector3.html">Vector3</a>
-                        
-                    
-            </td>
-            <td class="description last">out</td>
-        </tr>
-    
-    </tbody>
-</table>
-
-        
-        
-        
-    </dd>
-</dl>
-        
-            
-<dl >
-    <dt>
-        <div class="nameContainer">
-            <h4 class="name" id="getRotation">
-                
-                getRotation<span class="signature">(out)</span><span class="glyphicon glyphicon-circle-arrow-right"></span><span class="type-signature returnType">{<a href="Quaternion.html">Quaternion</a>}</span>
-            </h4>
-        
-            
-            <div class="tag-source">
-                math/Matrix4.js, line 324
-            </div>
-            
-        </div>
-    </dt>
-    <dd>
-        
-        
-        <div class="description">
-            <p>Returns a quaternion representing the rotational component
- of a transformation matrix. If a matrix is built with
- fromRotationTranslation, the returned quaternion will be the
- same as the quaternion originally supplied.</p>
-        </div>
-        
-
-        
-        
-        
-        
-        
-            
-
-<table class="params">
-    <thead>
-	<tr>
-		
-		<th>Name</th>
-		
-		
-		<th>Type</th>
-		
-		
-		
-		<th class="last">Description</th>
-	</tr>
-	</thead>
-	
-	<tbody>
-	
-	
-        <tr>
-            
-                <td class="name"><code>out</code></td>
-            
-            
-            <td class="type">
-            
-                
-<span class="param-type"><a href="Quaternion.html">Quaternion</a></span>
-
-
-            
-            </td>
-            
-            
-            
-            <td class="description last">
-                
-                <p>Quaternion to receive the rotation component</p></td>
-        </tr>
-	
-	
-	</tbody>
-</table>
-        
-        
-        
-<dl class="details">
-    
-        
-    
-    
-    
-
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-</dl>
-
-        
-        
-
-        
-
-        
-        
-        
-        
-        
-        <h5>Returns:</h5>
-        
-
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Type</th>
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-    <tbody>
-    
-        <tr>
-            
-            <td class="type">
-            
-                        <a href="Quaternion.html">Quaternion</a>
-                        
-                    
-            </td>
-            <td class="description last">out</td>
-        </tr>
-    
-    </tbody>
-</table>
-
-        
-        
-        
-    </dd>
-</dl>
-        
-            
-<dl >
-    <dt>
-        <div class="nameContainer">
-            <h4 class="name" id="fromRotationTranslationScale">
-                
-                fromRotationTranslationScale<span class="signature">(q, v, s)</span><span class="glyphicon glyphicon-circle-arrow-right"></span><span class="type-signature returnType">{<a href="Matrix4.html">Matrix4</a>}</span>
-            </h4>
-        
-            
-            <div class="tag-source">
-                math/Matrix4.js, line 335
-            </div>
-            
-        </div>
-    </dt>
-    <dd>
-        
-        
-        <div class="description">
-            <p>Creates a matrix from a quaternion rotation, vector translation and vector scale</p>
-        </div>
-        
-
-        
-        
-        
-        
-        
-            
-
-<table class="params">
-    <thead>
-	<tr>
-		
-		<th>Name</th>
-		
-		
-		<th>Type</th>
-		
-		
-		
-		<th class="last">Description</th>
-	</tr>
-	</thead>
-	
-	<tbody>
-	
-	
-        <tr>
-            
-                <td class="name"><code>q</code></td>
-            
-            
-            <td class="type">
-            
-                
-<span class="param-type"><a href="Quaternion.html">Quaternion</a></span>
-
-
-            
-            </td>
-            
-            
-            
-            <td class="description last">
-                
-                <p>Rotation quaternion</p></td>
-        </tr>
-	
-	
-	
-        <tr>
-            
-                <td class="name"><code>v</code></td>
-            
-            
-            <td class="type">
-            
-                
-<span class="param-type"><a href="Vector3.html">Vector3</a></span>
-
-
-            
-            </td>
-            
-            
-            
-            <td class="description last">
-                
-                <p>Translation vector</p></td>
-        </tr>
-	
-	
-	
-        <tr>
-            
-                <td class="name"><code>s</code></td>
-            
-            
-            <td class="type">
-            
-                
-<span class="param-type"><a href="Vector3.html">Vector3</a></span>
-
-
-            
-            </td>
-            
-            
-            
-            <td class="description last">
-                
-                <p>Scaling vector</p></td>
-        </tr>
-	
-	
-	</tbody>
-</table>
-        
-        
-        
-<dl class="details">
-    
-        
-    
-    
-    
-
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-</dl>
-
-        
-        
-
-        
-
-        
-        
-        
-        
-        
-        <h5>Returns:</h5>
-        
-
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Type</th>
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-    <tbody>
-    
-        <tr>
-            
-            <td class="type">
-            
-                        <a href="Matrix4.html">Matrix4</a>
-                        
-                    
-            </td>
-            <td class="description last">this</td>
-        </tr>
-    
-    </tbody>
-</table>
-
-        
-        
-        
-    </dd>
-</dl>
-        
-            
-<dl >
-    <dt>
-        <div class="nameContainer">
-            <h4 class="name" id="fromRotationTranslationScaleOrigin">
-                
-                fromRotationTranslationScaleOrigin<span class="signature">(q, v, s, o)</span><span class="glyphicon glyphicon-circle-arrow-right"></span><span class="type-signature returnType">{<a href="Matrix4.html">Matrix4</a>}</span>
-            </h4>
-        
-            
-            <div class="tag-source">
-                math/Matrix4.js, line 347
-            </div>
-            
-        </div>
-    </dt>
-    <dd>
-        
-        
-        <div class="description">
-            <p>Creates a matrix from a quaternion rotation, vector translation and vector scale, rotating and scaling around the given origin</p>
-        </div>
-        
-
-        
-        
-        
-        
-        
-            
-
-<table class="params">
-    <thead>
-	<tr>
-		
-		<th>Name</th>
-		
-		
-		<th>Type</th>
-		
-		
-		
-		<th class="last">Description</th>
-	</tr>
-	</thead>
-	
-	<tbody>
-	
-	
-        <tr>
-            
-                <td class="name"><code>q</code></td>
-            
-            
-            <td class="type">
-            
-                
-<span class="param-type"><a href="Quaternion.html">Quaternion</a></span>
-
-
-            
-            </td>
-            
-            
-            
-            <td class="description last">
-                
-                <p>Rotation quaternion</p></td>
-        </tr>
-	
-	
-	
-        <tr>
-            
-                <td class="name"><code>v</code></td>
-            
-            
-            <td class="type">
-            
-                
-<span class="param-type"><a href="Vector3.html">Vector3</a></span>
-
-
-            
-            </td>
-            
-            
-            
-            <td class="description last">
-                
-                <p>Translation vector</p></td>
-        </tr>
-	
-	
-	
-        <tr>
-            
-                <td class="name"><code>s</code></td>
-            
-            
-            <td class="type">
-            
-                
-<span class="param-type"><a href="Vector3.html">Vector3</a></span>
-
-
-            
-            </td>
-            
-            
-            
-            <td class="description last">
-                
-                <p>Scaling vector</p></td>
-        </tr>
-	
-	
-	
-        <tr>
-            
-                <td class="name"><code>o</code></td>
-            
-            
-            <td class="type">
-            
-                
-<span class="param-type"><a href="Vector3.html">Vector3</a></span>
-
-
-            
-            </td>
-            
-            
-            
-            <td class="description last">
-                
-                <p>The origin vector around which to scale and rotate</p></td>
-        </tr>
-	
-	
-	</tbody>
-</table>
-        
-        
-        
-<dl class="details">
-    
-        
-    
-    
-    
-
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-</dl>
-
-        
-        
-
-        
-
-        
-        
-        
-        
-        
-        <h5>Returns:</h5>
-        
-
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Type</th>
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-    <tbody>
-    
-        <tr>
-            
-            <td class="type">
-            
-                        <a href="Matrix4.html">Matrix4</a>
-                        
-                    
-            </td>
-            <td class="description last">this</td>
-        </tr>
-    
-    </tbody>
-</table>
-
-        
-        
-        
-    </dd>
-</dl>
-        
-            
-<dl >
-    <dt>
-        <div class="nameContainer">
+        <div class="nameContainer inherited">
             <h4 class="name" id="fromQuat">
                 
-                fromQuat<span class="signature">(q)</span><span class="glyphicon glyphicon-circle-arrow-right"></span><span class="type-signature returnType">{<a href="Matrix4.html">Matrix4</a>}</span>
+                    <span class="inherited"><a href="Euler.html#fromQuat">inherited</a></span>
+                
+                fromQuat<span class="signature">(quat, <span class="optional">order</span>)</span><span class="glyphicon glyphicon-circle-arrow-right"></span><span class="type-signature returnType">{<a href="Euler.html">Euler</a>}</span>
             </h4>
         
             
             <div class="tag-source">
-                math/Matrix4.js, line 356
+                math/Euler.js, line 208
             </div>
             
         </div>
@@ -12197,7 +8943,7 @@
         
         
         <div class="description">
-            <p>Calculates a 4x4 matrix from the given quaternion</p>
+            <p>Creates a euler from the given quat.</p>
         </div>
         
 
@@ -12218,6 +8964,8 @@
 		<th>Type</th>
 		
 		
+		<th>Default</th>
+		
 		
 		<th class="last">Description</th>
 	</tr>
@@ -12228,7 +8976,7 @@
 	
         <tr>
             
-                <td class="name"><code>q</code></td>
+                <td class="name"><code>quat</code></td>
             
             
             <td class="type">
@@ -12241,1549 +8989,9 @@
             </td>
             
             
-            
-            <td class="description last">
+                <td class="default">
                 
-                <p>Quaternion to create matrix from</p></td>
-        </tr>
-	
-	
-	</tbody>
-</table>
-        
-        
-        
-<dl class="details">
-    
-        
-    
-    
-    
-
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-</dl>
-
-        
-        
-
-        
-
-        
-        
-        
-        
-        
-        <h5>Returns:</h5>
-        
-
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Type</th>
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-    <tbody>
-    
-        <tr>
-            
-            <td class="type">
-            
-                        <a href="Matrix4.html">Matrix4</a>
-                        
-                    
-            </td>
-            <td class="description last">this</td>
-        </tr>
-    
-    </tbody>
-</table>
-
-        
-        
-        
-    </dd>
-</dl>
-        
-            
-<dl >
-    <dt>
-        <div class="nameContainer">
-            <h4 class="name" id="frustum">
-                
-                frustum<span class="signature">(left, right, bottom, top, near, far)</span><span class="glyphicon glyphicon-circle-arrow-right"></span><span class="type-signature returnType">{<a href="Matrix4.html">Matrix4</a>}</span>
-            </h4>
-        
-            
-            <div class="tag-source">
-                math/Matrix4.js, line 370
-            </div>
-            
-        </div>
-    </dt>
-    <dd>
-        
-        
-        <div class="description">
-            <p>Generates a frustum matrix with the given bounds</p>
-        </div>
-        
-
-        
-        
-        
-        
-        
-            
-
-<table class="params">
-    <thead>
-	<tr>
-		
-		<th>Name</th>
-		
-		
-		<th>Type</th>
-		
-		
-		
-		<th class="last">Description</th>
-	</tr>
-	</thead>
-	
-	<tbody>
-	
-	
-        <tr>
-            
-                <td class="name"><code>left</code></td>
-            
-            
-            <td class="type">
-            
-                
-<span class="param-type">Number</span>
-
-
-            
-            </td>
-            
-            
-            
-            <td class="description last">
-                
-                <p>Left bound of the frustum</p></td>
-        </tr>
-	
-	
-	
-        <tr>
-            
-                <td class="name"><code>right</code></td>
-            
-            
-            <td class="type">
-            
-                
-<span class="param-type">Number</span>
-
-
-            
-            </td>
-            
-            
-            
-            <td class="description last">
-                
-                <p>Right bound of the frustum</p></td>
-        </tr>
-	
-	
-	
-        <tr>
-            
-                <td class="name"><code>bottom</code></td>
-            
-            
-            <td class="type">
-            
-                
-<span class="param-type">Number</span>
-
-
-            
-            </td>
-            
-            
-            
-            <td class="description last">
-                
-                <p>Bottom bound of the frustum</p></td>
-        </tr>
-	
-	
-	
-        <tr>
-            
-                <td class="name"><code>top</code></td>
-            
-            
-            <td class="type">
-            
-                
-<span class="param-type">Number</span>
-
-
-            
-            </td>
-            
-            
-            
-            <td class="description last">
-                
-                <p>Top bound of the frustum</p></td>
-        </tr>
-	
-	
-	
-        <tr>
-            
-                <td class="name"><code>near</code></td>
-            
-            
-            <td class="type">
-            
-                
-<span class="param-type">Number</span>
-
-
-            
-            </td>
-            
-            
-            
-            <td class="description last">
-                
-                <p>Near bound of the frustum</p></td>
-        </tr>
-	
-	
-	
-        <tr>
-            
-                <td class="name"><code>far</code></td>
-            
-            
-            <td class="type">
-            
-                
-<span class="param-type">Number</span>
-
-
-            
-            </td>
-            
-            
-            
-            <td class="description last">
-                
-                <p>Far bound of the frustum</p></td>
-        </tr>
-	
-	
-	</tbody>
-</table>
-        
-        
-        
-<dl class="details">
-    
-        
-    
-    
-    
-
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-</dl>
-
-        
-        
-
-        
-
-        
-        
-        
-        
-        
-        <h5>Returns:</h5>
-        
-
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Type</th>
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-    <tbody>
-    
-        <tr>
-            
-            <td class="type">
-            
-                        <a href="Matrix4.html">Matrix4</a>
-                        
-                    
-            </td>
-            <td class="description last">this</td>
-        </tr>
-    
-    </tbody>
-</table>
-
-        
-        
-        
-    </dd>
-</dl>
-        
-            
-<dl >
-    <dt>
-        <div class="nameContainer">
-            <h4 class="name" id="perspective">
-                
-                perspective<span class="signature">(fovy, aspect, near, far)</span><span class="glyphicon glyphicon-circle-arrow-right"></span><span class="type-signature returnType">{<a href="Matrix4.html">Matrix4</a>}</span>
-            </h4>
-        
-            
-            <div class="tag-source">
-                math/Matrix4.js, line 382
-            </div>
-            
-        </div>
-    </dt>
-    <dd>
-        
-        
-        <div class="description">
-            <p>Generates a perspective projection matrix with the given bounds</p>
-        </div>
-        
-
-        
-        
-        
-        
-        
-            
-
-<table class="params">
-    <thead>
-	<tr>
-		
-		<th>Name</th>
-		
-		
-		<th>Type</th>
-		
-		
-		
-		<th class="last">Description</th>
-	</tr>
-	</thead>
-	
-	<tbody>
-	
-	
-        <tr>
-            
-                <td class="name"><code>fovy</code></td>
-            
-            
-            <td class="type">
-            
-                
-<span class="param-type">Number</span>
-
-
-            
-            </td>
-            
-            
-            
-            <td class="description last">
-                
-                <p>Vertical field of view in radians</p></td>
-        </tr>
-	
-	
-	
-        <tr>
-            
-                <td class="name"><code>aspect</code></td>
-            
-            
-            <td class="type">
-            
-                
-<span class="param-type">Number</span>
-
-
-            
-            </td>
-            
-            
-            
-            <td class="description last">
-                
-                <p>Aspect ratio. typically viewport width/height</p></td>
-        </tr>
-	
-	
-	
-        <tr>
-            
-                <td class="name"><code>near</code></td>
-            
-            
-            <td class="type">
-            
-                
-<span class="param-type">Number</span>
-
-
-            
-            </td>
-            
-            
-            
-            <td class="description last">
-                
-                <p>Near bound of the frustum</p></td>
-        </tr>
-	
-	
-	
-        <tr>
-            
-                <td class="name"><code>far</code></td>
-            
-            
-            <td class="type">
-            
-                
-<span class="param-type">Number</span>
-
-
-            
-            </td>
-            
-            
-            
-            <td class="description last">
-                
-                <p>Far bound of the frustum</p></td>
-        </tr>
-	
-	
-	</tbody>
-</table>
-        
-        
-        
-<dl class="details">
-    
-        
-    
-    
-    
-
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-</dl>
-
-        
-        
-
-        
-
-        
-        
-        
-        
-        
-        <h5>Returns:</h5>
-        
-
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Type</th>
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-    <tbody>
-    
-        <tr>
-            
-            <td class="type">
-            
-                        <a href="Matrix4.html">Matrix4</a>
-                        
-                    
-            </td>
-            <td class="description last">this</td>
-        </tr>
-    
-    </tbody>
-</table>
-
-        
-        
-        
-    </dd>
-</dl>
-        
-            
-<dl >
-    <dt>
-        <div class="nameContainer">
-            <h4 class="name" id="perspectiveFromFieldOfView">
-                
-                perspectiveFromFieldOfView<span class="signature">(fov, Near, far)</span><span class="glyphicon glyphicon-circle-arrow-right"></span><span class="type-signature returnType">{<a href="Matrix4.html">Matrix4</a>}</span>
-            </h4>
-        
-            
-            <div class="tag-source">
-                math/Matrix4.js, line 393
-            </div>
-            
-        </div>
-    </dt>
-    <dd>
-        
-        
-        <div class="description">
-            <p>Generates a perspective projection matrix with the given field of view.</p>
-        </div>
-        
-
-        
-        
-        
-        
-        
-            
-
-<table class="params">
-    <thead>
-	<tr>
-		
-		<th>Name</th>
-		
-		
-		<th>Type</th>
-		
-		
-		
-		<th class="last">Description</th>
-	</tr>
-	</thead>
-	
-	<tbody>
-	
-	
-        <tr>
-            
-                <td class="name"><code>fov</code></td>
-            
-            
-            <td class="type">
-            
-                
-<span class="param-type">Object</span>
-
-
-            
-            </td>
-            
-            
-            
-            <td class="description last">
-                
-                <p>Object containing the following values: upDegrees, downDegrees, leftDegrees, rightDegrees</p></td>
-        </tr>
-	
-	
-	
-        <tr>
-            
-                <td class="name"><code>Near</code></td>
-            
-            
-            <td class="type">
-            
-                
-<span class="param-type">Number</span>
-
-
-            
-            </td>
-            
-            
-            
-            <td class="description last">
-                
-                <p>bound of the frustum</p></td>
-        </tr>
-	
-	
-	
-        <tr>
-            
-                <td class="name"><code>far</code></td>
-            
-            
-            <td class="type">
-            
-                
-<span class="param-type">Number</span>
-
-
-            
-            </td>
-            
-            
-            
-            <td class="description last">
-                
-                <p>Far bound of the frustum</p></td>
-        </tr>
-	
-	
-	</tbody>
-</table>
-        
-        
-        
-<dl class="details">
-    
-        
-    
-    
-    
-
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-</dl>
-
-        
-        
-
-        
-
-        
-        
-        
-        
-        
-        <h5>Returns:</h5>
-        
-
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Type</th>
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-    <tbody>
-    
-        <tr>
-            
-            <td class="type">
-            
-                        <a href="Matrix4.html">Matrix4</a>
-                        
-                    
-            </td>
-            <td class="description last">this</td>
-        </tr>
-    
-    </tbody>
-</table>
-
-        
-        
-        
-    </dd>
-</dl>
-        
-            
-<dl >
-    <dt>
-        <div class="nameContainer">
-            <h4 class="name" id="ortho">
-                
-                ortho<span class="signature">(left, right, bottom, top, near, far)</span><span class="glyphicon glyphicon-circle-arrow-right"></span><span class="type-signature returnType">{<a href="Matrix4.html">Matrix4</a>}</span>
-            </h4>
-        
-            
-            <div class="tag-source">
-                math/Matrix4.js, line 407
-            </div>
-            
-        </div>
-    </dt>
-    <dd>
-        
-        
-        <div class="description">
-            <p>Generates a orthogonal projection matrix with the given bounds</p>
-        </div>
-        
-
-        
-        
-        
-        
-        
-            
-
-<table class="params">
-    <thead>
-	<tr>
-		
-		<th>Name</th>
-		
-		
-		<th>Type</th>
-		
-		
-		
-		<th class="last">Description</th>
-	</tr>
-	</thead>
-	
-	<tbody>
-	
-	
-        <tr>
-            
-                <td class="name"><code>left</code></td>
-            
-            
-            <td class="type">
-            
-                
-<span class="param-type">Number</span>
-
-
-            
-            </td>
-            
-            
-            
-            <td class="description last">
-                
-                <p>Left bound of the frustum</p></td>
-        </tr>
-	
-	
-	
-        <tr>
-            
-                <td class="name"><code>right</code></td>
-            
-            
-            <td class="type">
-            
-                
-<span class="param-type">Number</span>
-
-
-            
-            </td>
-            
-            
-            
-            <td class="description last">
-                
-                <p>Right bound of the frustum</p></td>
-        </tr>
-	
-	
-	
-        <tr>
-            
-                <td class="name"><code>bottom</code></td>
-            
-            
-            <td class="type">
-            
-                
-<span class="param-type">Number</span>
-
-
-            
-            </td>
-            
-            
-            
-            <td class="description last">
-                
-                <p>Bottom bound of the frustum</p></td>
-        </tr>
-	
-	
-	
-        <tr>
-            
-                <td class="name"><code>top</code></td>
-            
-            
-            <td class="type">
-            
-                
-<span class="param-type">Number</span>
-
-
-            
-            </td>
-            
-            
-            
-            <td class="description last">
-                
-                <p>Top bound of the frustum</p></td>
-        </tr>
-	
-	
-	
-        <tr>
-            
-                <td class="name"><code>near</code></td>
-            
-            
-            <td class="type">
-            
-                
-<span class="param-type">Number</span>
-
-
-            
-            </td>
-            
-            
-            
-            <td class="description last">
-                
-                <p>Near bound of the frustum</p></td>
-        </tr>
-	
-	
-	
-        <tr>
-            
-                <td class="name"><code>far</code></td>
-            
-            
-            <td class="type">
-            
-                
-<span class="param-type">Number</span>
-
-
-            
-            </td>
-            
-            
-            
-            <td class="description last">
-                
-                <p>Far bound of the frustum</p></td>
-        </tr>
-	
-	
-	</tbody>
-</table>
-        
-        
-        
-<dl class="details">
-    
-        
-    
-    
-    
-
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-</dl>
-
-        
-        
-
-        
-
-        
-        
-        
-        
-        
-        <h5>Returns:</h5>
-        
-
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Type</th>
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-    <tbody>
-    
-        <tr>
-            
-            <td class="type">
-            
-                        <a href="Matrix4.html">Matrix4</a>
-                        
-                    
-            </td>
-            <td class="description last">this</td>
-        </tr>
-    
-    </tbody>
-</table>
-
-        
-        
-        
-    </dd>
-</dl>
-        
-            
-<dl >
-    <dt>
-        <div class="nameContainer">
-            <h4 class="name" id="lookAt">
-                
-                lookAt<span class="signature">(eye, center, up)</span><span class="glyphicon glyphicon-circle-arrow-right"></span><span class="type-signature returnType">{<a href="Matrix4.html">Matrix4</a>}</span>
-            </h4>
-        
-            
-            <div class="tag-source">
-                math/Matrix4.js, line 418
-            </div>
-            
-        </div>
-    </dt>
-    <dd>
-        
-        
-        <div class="description">
-            <p>Generates a look-at matrix with the given eye position, focal point, and up axis</p>
-        </div>
-        
-
-        
-        
-        
-        
-        
-            
-
-<table class="params">
-    <thead>
-	<tr>
-		
-		<th>Name</th>
-		
-		
-		<th>Type</th>
-		
-		
-		
-		<th class="last">Description</th>
-	</tr>
-	</thead>
-	
-	<tbody>
-	
-	
-        <tr>
-            
-                <td class="name"><code>eye</code></td>
-            
-            
-            <td class="type">
-            
-                
-<span class="param-type"><a href="global.html#XYZObject">XYZObject</a></span>
-
-
-            
-            </td>
-            
-            
-            
-            <td class="description last">
-                
-                <p>Position of the viewer</p></td>
-        </tr>
-	
-	
-	
-        <tr>
-            
-                <td class="name"><code>center</code></td>
-            
-            
-            <td class="type">
-            
-                
-<span class="param-type"><a href="global.html#XYZObject">XYZObject</a></span>
-
-
-            
-            </td>
-            
-            
-            
-            <td class="description last">
-                
-                <p>Point the viewer is looking at</p></td>
-        </tr>
-	
-	
-	
-        <tr>
-            
-                <td class="name"><code>up</code></td>
-            
-            
-            <td class="type">
-            
-                
-<span class="param-type"><a href="Vector3.html">Vector3</a></span>
-
-
-            
-            </td>
-            
-            
-            
-            <td class="description last">
-                
-                <p>pointing up</p></td>
-        </tr>
-	
-	
-	</tbody>
-</table>
-        
-        
-        
-<dl class="details">
-    
-        
-    
-    
-    
-
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-</dl>
-
-        
-        
-
-        
-
-        
-        
-        
-        
-        
-        <h5>Returns:</h5>
-        
-
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Type</th>
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-    <tbody>
-    
-        <tr>
-            
-            <td class="type">
-            
-                        <a href="Matrix4.html">Matrix4</a>
-                        
-                    
-            </td>
-            <td class="description last">this</td>
-        </tr>
-    
-    </tbody>
-</table>
-
-        
-        
-        
-    </dd>
-</dl>
-        
-            
-<dl >
-    <dt>
-        <div class="nameContainer">
-            <h4 class="name" id="targetTo">
-                
-                targetTo<span class="signature">(eye, Point, up)</span><span class="glyphicon glyphicon-circle-arrow-right"></span><span class="type-signature returnType">{<a href="Matrix4.html">Matrix4</a>}</span>
-            </h4>
-        
-            
-            <div class="tag-source">
-                math/Matrix4.js, line 437
-            </div>
-            
-        </div>
-    </dt>
-    <dd>
-        
-        
-        <div class="description">
-            <p>Generates a matrix that makes something look at something else.</p>
-        </div>
-        
-
-        
-        
-        
-        
-        
-            
-
-<table class="params">
-    <thead>
-	<tr>
-		
-		<th>Name</th>
-		
-		
-		<th>Type</th>
-		
-		
-		
-		<th class="last">Description</th>
-	</tr>
-	</thead>
-	
-	<tbody>
-	
-	
-        <tr>
-            
-                <td class="name"><code>eye</code></td>
-            
-            
-            <td class="type">
-            
-                
-<span class="param-type"><a href="global.html#XYZObject">XYZObject</a></span>
-
-
-            
-            </td>
-            
-            
-            
-            <td class="description last">
-                
-                <p>Position of the viewer</p></td>
-        </tr>
-	
-	
-	
-        <tr>
-            
-                <td class="name"><code>Point</code></td>
-            
-            
-            <td class="type">
-            
-                
-<span class="param-type"><a href="global.html#XYZObject">XYZObject</a></span>
-
-
-            
-            </td>
-            
-            
-            
-            <td class="description last">
-                
-                <p>the viewer is looking at</p></td>
-        </tr>
-	
-	
-	
-        <tr>
-            
-                <td class="name"><code>up</code></td>
-            
-            
-            <td class="type">
-            
-                
-<span class="param-type"><a href="Vector3.html">Vector3</a></span>
-
-
-            
-            </td>
-            
-            
-            
-            <td class="description last">
-                
-                <p>pointing up</p></td>
-        </tr>
-	
-	
-	</tbody>
-</table>
-        
-        
-        
-<dl class="details">
-    
-        
-    
-    
-    
-
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-</dl>
-
-        
-        
-
-        
-
-        
-        
-        
-        
-        
-        <h5>Returns:</h5>
-        
-
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Type</th>
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-    <tbody>
-    
-        <tr>
-            
-            <td class="type">
-            
-                        <a href="Matrix4.html">Matrix4</a>
-                        
-                    
-            </td>
-            <td class="description last">this</td>
-        </tr>
-    
-    </tbody>
-</table>
-
-        
-        
-        
-    </dd>
-</dl>
-        
-            
-<dl >
-    <dt>
-        <div class="nameContainer">
-            <h4 class="name" id="frob">
-                
-                frob<span class="signature">()</span><span class="glyphicon glyphicon-circle-arrow-right"></span><span class="type-signature returnType">{Number}</span>
-            </h4>
-        
-            
-            <div class="tag-source">
-                math/Matrix4.js, line 517
-            </div>
-            
-        </div>
-    </dt>
-    <dd>
-        
-        
-        <div class="description">
-            <p>Returns Frobenius norm of a mat4</p>
-        </div>
-        
-
-        
-        
-        
-        
-        
-        
-        
-<dl class="details">
-    
-        
-    
-    
-    
-
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-</dl>
-
-        
-        
-
-        
-
-        
-        
-        
-        
-        
-        <h5>Returns:</h5>
-        
-
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Type</th>
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-    <tbody>
-    
-        <tr>
-            
-            <td class="type">
-            
-                        Number
-                        
-                    
-            </td>
-            <td class="description last">Frobenius norm</td>
-        </tr>
-    
-    </tbody>
-</table>
-
-        
-        
-        
-    </dd>
-</dl>
-        
-            
-<dl >
-    <dt>
-        <div class="nameContainer">
-            <h4 class="name" id="add">
-                
-                add<span class="signature">(a, <span class="optional">b</span>)</span><span class="glyphicon glyphicon-circle-arrow-right"></span><span class="type-signature returnType">{Marix4}</span>
-            </h4>
-        
-            
-            <div class="tag-source">
-                math/Matrix4.js, line 526
-            </div>
-            
-        </div>
-    </dt>
-    <dd>
-        
-        
-        <div class="description">
-            <p>Adds two mat4's</p>
-        </div>
-        
-
-        
-        
-        
-        
-        
-            
-
-<table class="params">
-    <thead>
-	<tr>
-		
-		<th>Name</th>
-		
-		
-		<th>Type</th>
-		
-		
-		
-		<th class="last">Description</th>
-	</tr>
-	</thead>
-	
-	<tbody>
-	
-	
-        <tr>
-            
-                <td class="name"><code>a</code></td>
-            
-            
-            <td class="type">
-            
-                
-<span class="param-type"><a href="Matrix4.html">Matrix4</a></span>
-
-
-            
-            </td>
-            
+                </td>
             
             
             <td class="description last">
@@ -13800,197 +9008,24 @@
 	
         <tr>
             
-                <td class="name"><code>b</code></td>
+                <td class="name"><code>order</code></td>
             
             
             <td class="type">
             
                 
-<span class="param-type"><a href="Matrix4.html">Matrix4</a></span>
+<span class="param-type">String</span>
 
 
             
             </td>
             
             
-            
-            <td class="description last">
+                <td class="default">
                 
-                    
-                        <span class="optional">optional</span>
-                    
-                    
-                        
-                    
-                
-                <p>如果不传，计算 this 和 a 的和</p></td>
-        </tr>
-	
-	
-	</tbody>
-</table>
-        
-        
-        
-<dl class="details">
-    
-        
-    
-    
-    
-
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-</dl>
-
-        
-        
-
-        
-
-        
-        
-        
-        
-        
-        <h5>Returns:</h5>
-        
-
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Type</th>
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-    <tbody>
-    
-        <tr>
-            
-            <td class="type">
-            
-                        Marix4
-                        
-                    
-            </td>
-            <td class="description last">this</td>
-        </tr>
-    
-    </tbody>
-</table>
-
-        
-        
-        
-    </dd>
-</dl>
-        
-            
-<dl >
-    <dt>
-        <div class="nameContainer">
-            <h4 class="name" id="subtract">
-                
-                subtract<span class="signature">(a, <span class="optional">b</span>)</span><span class="glyphicon glyphicon-circle-arrow-right"></span><span class="type-signature returnType">{Marix4}</span>
-            </h4>
-        
-            
-            <div class="tag-source">
-                math/Matrix4.js, line 540
-            </div>
-            
-        </div>
-    </dt>
-    <dd>
-        
-        
-        <div class="description">
-            <p>Subtracts matrix b from matrix a</p>
-        </div>
-        
-
-        
-        
-        
-        
-        
-            
-
-<table class="params">
-    <thead>
-	<tr>
-		
-		<th>Name</th>
-		
-		
-		<th>Type</th>
-		
-		
-		
-		<th class="last">Description</th>
-	</tr>
-	</thead>
-	
-	<tbody>
-	
-	
-        <tr>
-            
-                <td class="name"><code>a</code></td>
-            
-            
-            <td class="type">
-            
-                
-<span class="param-type"><a href="Matrix4.html">Matrix4</a></span>
-
-
-            
-            </td>
-            
-            
-            
-            <td class="description last">
-                
-                    
-                    
-                        
-                    
+                    this.order
                 
                 </td>
-        </tr>
-	
-	
-	
-        <tr>
-            
-                <td class="name"><code>b</code></td>
-            
-            
-            <td class="type">
-            
-                
-<span class="param-type"><a href="Matrix4.html">Matrix4</a></span>
-
-
-            
-            </td>
-            
             
             
             <td class="description last">
@@ -14002,7 +9037,7 @@
                         
                     
                 
-                <p>如果不传，计算 this 和 a 的差</p></td>
+                <p>旋转顺序，默认为当前Euler实例的order</p></td>
         </tr>
 	
 	
@@ -14063,7 +9098,7 @@
             
             <td class="type">
             
-                        Marix4
+                        <a href="Euler.html">Euler</a>
                         
                     
             </td>
@@ -14073,930 +9108,6 @@
     </tbody>
 </table>
 
-        
-        
-        
-    </dd>
-</dl>
-        
-            
-<dl >
-    <dt>
-        <div class="nameContainer">
-            <h4 class="name" id="exactEquals">
-                
-                exactEquals<span class="signature">(a, <span class="optional">b</span>)</span><span class="glyphicon glyphicon-circle-arrow-right"></span><span class="type-signature returnType">{Boolean}</span>
-            </h4>
-        
-            
-            <div class="tag-source">
-                math/Matrix4.js, line 554
-            </div>
-            
-        </div>
-    </dt>
-    <dd>
-        
-        
-        <div class="description">
-            <p>Returns whether or not the matrices have exactly the same elements in the same position (when compared with ===)</p>
-        </div>
-        
-
-        
-        
-        
-        
-        
-            
-
-<table class="params">
-    <thead>
-	<tr>
-		
-		<th>Name</th>
-		
-		
-		<th>Type</th>
-		
-		
-		
-		<th class="last">Description</th>
-	</tr>
-	</thead>
-	
-	<tbody>
-	
-	
-        <tr>
-            
-                <td class="name"><code>a</code></td>
-            
-            
-            <td class="type">
-            
-                
-<span class="param-type"><a href="Matrix4.html">Matrix4</a></span>
-
-
-            
-            </td>
-            
-            
-            
-            <td class="description last">
-                
-                    
-                    
-                        
-                    
-                
-                </td>
-        </tr>
-	
-	
-	
-        <tr>
-            
-                <td class="name"><code>b</code></td>
-            
-            
-            <td class="type">
-            
-                
-<span class="param-type"><a href="Matrix4.html">Matrix4</a></span>
-
-
-            
-            </td>
-            
-            
-            
-            <td class="description last">
-                
-                    
-                        <span class="optional">optional</span>
-                    
-                    
-                        
-                    
-                
-                <p>如果不传，比较 this 和 a 是否相等</p></td>
-        </tr>
-	
-	
-	</tbody>
-</table>
-        
-        
-        
-<dl class="details">
-    
-        
-    
-    
-    
-
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-</dl>
-
-        
-        
-
-        
-
-        
-        
-        
-        
-        
-        <h5>Returns:</h5>
-        
-
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Type</th>
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-    <tbody>
-    
-        <tr>
-            
-            <td class="type">
-            
-                        Boolean
-                        
-                    
-            </td>
-            <td class="description last"></td>
-        </tr>
-    
-    </tbody>
-</table>
-
-        
-        
-        
-    </dd>
-</dl>
-        
-            
-<dl >
-    <dt>
-        <div class="nameContainer">
-            <h4 class="name" id="equals">
-                
-                equals<span class="signature">(a, <span class="optional">b</span>)</span><span class="glyphicon glyphicon-circle-arrow-right"></span><span class="type-signature returnType">{Boolean}</span>
-            </h4>
-        
-            
-            <div class="tag-source">
-                math/Matrix4.js, line 567
-            </div>
-            
-        </div>
-    </dt>
-    <dd>
-        
-        
-        <div class="description">
-            <p>Returns whether or not the matrices have approximately the same elements in the same position.</p>
-        </div>
-        
-
-        
-        
-        
-        
-        
-            
-
-<table class="params">
-    <thead>
-	<tr>
-		
-		<th>Name</th>
-		
-		
-		<th>Type</th>
-		
-		
-		
-		<th class="last">Description</th>
-	</tr>
-	</thead>
-	
-	<tbody>
-	
-	
-        <tr>
-            
-                <td class="name"><code>a</code></td>
-            
-            
-            <td class="type">
-            
-                
-<span class="param-type"><a href="Matrix4.html">Matrix4</a></span>
-
-
-            
-            </td>
-            
-            
-            
-            <td class="description last">
-                
-                    
-                    
-                        
-                    
-                
-                </td>
-        </tr>
-	
-	
-	
-        <tr>
-            
-                <td class="name"><code>b</code></td>
-            
-            
-            <td class="type">
-            
-                
-<span class="param-type"><a href="Matrix4.html">Matrix4</a></span>
-
-
-            
-            </td>
-            
-            
-            
-            <td class="description last">
-                
-                    
-                        <span class="optional">optional</span>
-                    
-                    
-                        
-                    
-                
-                <p>如果不传，比较 this 和 a 是否近似相等</p></td>
-        </tr>
-	
-	
-	</tbody>
-</table>
-        
-        
-        
-<dl class="details">
-    
-        
-    
-    
-    
-
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-</dl>
-
-        
-        
-
-        
-
-        
-        
-        
-        
-        
-        <h5>Returns:</h5>
-        
-
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Type</th>
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-    <tbody>
-    
-        <tr>
-            
-            <td class="type">
-            
-                        Boolean
-                        
-                    
-            </td>
-            <td class="description last"></td>
-        </tr>
-    
-    </tbody>
-</table>
-
-        
-        
-        
-    </dd>
-</dl>
-        
-            
-<dl >
-    <dt>
-        <div class="nameContainer">
-            <h4 class="name" id="compose">
-                
-                compose<span class="signature">(q, v, s, p)</span><span class="glyphicon glyphicon-circle-arrow-right"></span><span class="type-signature returnType">{<a href="Matrix4.html">Matrix4</a>}</span>
-            </h4>
-        
-            
-            <div class="tag-source">
-                math/Matrix4.js, line 582
-            </div>
-            
-        </div>
-    </dt>
-    <dd>
-        
-        
-        <div class="description">
-            <p>compose</p>
-        </div>
-        
-
-        
-        
-        
-        
-        
-            
-
-<table class="params">
-    <thead>
-	<tr>
-		
-		<th>Name</th>
-		
-		
-		<th>Type</th>
-		
-		
-		
-		<th class="last">Description</th>
-	</tr>
-	</thead>
-	
-	<tbody>
-	
-	
-        <tr>
-            
-                <td class="name"><code>q</code></td>
-            
-            
-            <td class="type">
-            
-                
-<span class="param-type"><a href="Quaternion.html">Quaternion</a></span>
-
-
-            
-            </td>
-            
-            
-            
-            <td class="description last">
-                
-                <p>quaternion</p></td>
-        </tr>
-	
-	
-	
-        <tr>
-            
-                <td class="name"><code>v</code></td>
-            
-            
-            <td class="type">
-            
-                
-<span class="param-type"><a href="Vector3.html">Vector3</a></span>
-
-
-            
-            </td>
-            
-            
-            
-            <td class="description last">
-                
-                <p>position</p></td>
-        </tr>
-	
-	
-	
-        <tr>
-            
-                <td class="name"><code>s</code></td>
-            
-            
-            <td class="type">
-            
-                
-<span class="param-type"><a href="Vector3.html">Vector3</a></span>
-
-
-            
-            </td>
-            
-            
-            
-            <td class="description last">
-                
-                <p>scale</p></td>
-        </tr>
-	
-	
-	
-        <tr>
-            
-                <td class="name"><code>p</code></td>
-            
-            
-            <td class="type">
-            
-                
-<span class="param-type"><a href="Vector3.html">Vector3</a></span>
-
-
-            
-            </td>
-            
-            
-            
-            <td class="description last">
-                
-                <p>[pivot]</p></td>
-        </tr>
-	
-	
-	</tbody>
-</table>
-        
-        
-        
-<dl class="details">
-    
-        
-    
-    
-    
-
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-</dl>
-
-        
-        
-
-        
-
-        
-        
-        
-        
-        
-        <h5>Returns:</h5>
-        
-
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Type</th>
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-    <tbody>
-    
-        <tr>
-            
-            <td class="type">
-            
-                        <a href="Matrix4.html">Matrix4</a>
-                        
-                    
-            </td>
-            <td class="description last">this</td>
-        </tr>
-    
-    </tbody>
-</table>
-
-        
-        
-        
-    </dd>
-</dl>
-        
-            
-<dl >
-    <dt>
-        <div class="nameContainer">
-            <h4 class="name" id="decompose">
-                
-                decompose<span class="signature">(q, v, s, p)</span><span class="glyphicon glyphicon-circle-arrow-right"></span><span class="type-signature returnType">{<a href="Matrix4.html">Matrix4</a>}</span>
-            </h4>
-        
-            
-            <div class="tag-source">
-                math/Matrix4.js, line 598
-            </div>
-            
-        </div>
-    </dt>
-    <dd>
-        
-        
-        <div class="description">
-            <p>decompose</p>
-        </div>
-        
-
-        
-        
-        
-        
-        
-            
-
-<table class="params">
-    <thead>
-	<tr>
-		
-		<th>Name</th>
-		
-		
-		<th>Type</th>
-		
-		
-		
-		<th class="last">Description</th>
-	</tr>
-	</thead>
-	
-	<tbody>
-	
-	
-        <tr>
-            
-                <td class="name"><code>q</code></td>
-            
-            
-            <td class="type">
-            
-                
-<span class="param-type"><a href="Quaternion.html">Quaternion</a></span>
-
-
-            
-            </td>
-            
-            
-            
-            <td class="description last">
-                
-                <p>quaternion</p></td>
-        </tr>
-	
-	
-	
-        <tr>
-            
-                <td class="name"><code>v</code></td>
-            
-            
-            <td class="type">
-            
-                
-<span class="param-type"><a href="Vector3.html">Vector3</a></span>
-
-
-            
-            </td>
-            
-            
-            
-            <td class="description last">
-                
-                <p>position</p></td>
-        </tr>
-	
-	
-	
-        <tr>
-            
-                <td class="name"><code>s</code></td>
-            
-            
-            <td class="type">
-            
-                
-<span class="param-type"><a href="Vector3.html">Vector3</a></span>
-
-
-            
-            </td>
-            
-            
-            
-            <td class="description last">
-                
-                <p>scale</p></td>
-        </tr>
-	
-	
-	
-        <tr>
-            
-                <td class="name"><code>p</code></td>
-            
-            
-            <td class="type">
-            
-                
-<span class="param-type"><a href="Vector3.html">Vector3</a></span>
-
-
-            
-            </td>
-            
-            
-            
-            <td class="description last">
-                
-                <p>[pivot]</p></td>
-        </tr>
-	
-	
-	</tbody>
-</table>
-        
-        
-        
-<dl class="details">
-    
-        
-    
-    
-    
-
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-</dl>
-
-        
-        
-
-        
-
-        
-        
-        
-        
-        
-        <h5>Returns:</h5>
-        
-
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Type</th>
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-    <tbody>
-    
-        <tr>
-            
-            <td class="type">
-            
-                        <a href="Matrix4.html">Matrix4</a>
-                        
-                    
-            </td>
-            <td class="description last">this</td>
-        </tr>
-    
-    </tbody>
-</table>
-
-        
-        
-        
-    </dd>
-</dl>
-        
-            
-<dl >
-    <dt>
-        <div class="nameContainer">
-            <h4 class="name" id="sub">
-                
-                sub<span class="signature">()</span>
-            </h4>
-        
-            
-            <div class="tag-source">
-                math/Matrix4.js, line 626
-            </div>
-            
-        </div>
-    </dt>
-    <dd>
-        
-        
-        <div class="description">
-            <p>Alias for <a href="Matrix4.html#subtract"><code>Matrix4#subtract</code></a></p>
-        </div>
-        
-
-        
-        
-        
-        
-        
-        
-        
-<dl class="details">
-    
-        
-    
-    
-    
-
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-</dl>
-
-        
-        
-
-        
-
-        
-        
-        
-        
-        
-        
-        
-    </dd>
-</dl>
-        
-            
-<dl >
-    <dt>
-        <div class="nameContainer">
-            <h4 class="name" id="mul">
-                
-                mul<span class="signature">()</span>
-            </h4>
-        
-            
-            <div class="tag-source">
-                math/Matrix4.js, line 632
-            </div>
-            
-        </div>
-    </dt>
-    <dd>
-        
-        
-        <div class="description">
-            <p>Alias for <a href="Matrix4.html#multiply"><code>Matrix4#multiply</code></a></p>
-        </div>
-        
-
-        
-        
-        
-        
-        
-        
-        
-<dl class="details">
-    
-        
-    
-    
-    
-
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-</dl>
-
-        
-        
-
-        
-
-        
-        
-        
-        
         
         
         
