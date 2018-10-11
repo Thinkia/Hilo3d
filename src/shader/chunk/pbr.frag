@@ -98,7 +98,7 @@ uniform vec4 u_baseColor;
     vec3 getIBLContribution(vec3 N, vec3 V, vec3 diffuseColor, vec3 specularColor, float ao, float NdotV, float perceptualRoughness) {
         vec3 color = vec3(.0, .0, .0);
         #ifdef HILO_DIFFUSE_ENV_MAP
-            #ifdef HILO_GAMMA_OUTPUT
+            #ifdef HILO_GAMMA_CORRECTION
                 vec3 diffuseLight = sRGBToLinear(textureEnvMap(u_diffuseEnvMap, N)).rgb;
             #else
                 vec3 diffuseLight = textureEnvMap(u_diffuseEnvMap, N).rgb;
@@ -112,13 +112,13 @@ uniform vec4 u_baseColor;
             #ifdef HILO_USE_SHADER_TEXTURE_LOD
                 float mipCount = 10.0; // resolution of 1024*1024
                 float lod = perceptualRoughness * mipCount;
-                #ifdef HILO_GAMMA_OUTPUT
+                #ifdef HILO_GAMMA_CORRECTION
                     vec3 specularLight = sRGBToLinear(textureEnvMapLod(u_specularEnvMap, R, lod)).rgb;
                 #else
                     vec3 specularLight = textureEnvMapLod(u_specularEnvMap, R, lod).rgb;
                 #endif
             #else
-                #ifdef HILO_GAMMA_OUTPUT
+                #ifdef HILO_GAMMA_CORRECTION
                     vec3 specularLight = sRGBToLinear(textureEnvMap(u_specularEnvMap, R)).rgb;
                 #else
                     vec3 specularLight = textureEnvMap(u_specularEnvMap, R).rgb;

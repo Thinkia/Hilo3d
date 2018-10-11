@@ -6,6 +6,6 @@
     uniform float u_exposure;
 #endif
 
-#ifdef HILO_GAMMA_OUTPUT
+#ifdef HILO_GAMMA_CORRECTION
     uniform float u_gammaFactor;
 #endif

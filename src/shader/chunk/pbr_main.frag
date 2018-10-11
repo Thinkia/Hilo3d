@@ -1,6 +1,6 @@
 vec4 baseColor = u_baseColor;
 #ifdef HILO_BASE_COLOR_MAP
-    #ifdef HILO_GAMMA_OUTPUT
+    #ifdef HILO_GAMMA_CORRECTION
         baseColor *= sRGBToLinear(HILO_TEXTURE_2D(u_baseColorMap));
     #else
         baseColor *= HILO_TEXTURE_2D(u_baseColorMap);
@@ -152,7 +152,7 @@ color.a = baseColor.a;
     #endif
 
     #ifdef HILO_EMISSION_MAP
-        #ifdef HILO_GAMMA_OUTPUT
+        #ifdef HILO_GAMMA_CORRECTION
             color.rgb += sRGBToLinear(HILO_TEXTURE_2D(u_emission)).rgb;
         #else
             color.rgb += HILO_TEXTURE_2D(u_emission).rgb;

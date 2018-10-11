@@ -34,11 +34,11 @@ const PBRMaterial = Class.create(/** @lends PBRMaterial.prototype */ {
     lightType: 'PBR',
 
     /**
-     * gammaOutput
+     * gammaCorrection
      * @type {Boolean}
      * @default true
      */
-    gammaOutput: true,
+    gammaCorrection: true,
 
     /**
      * 基础颜色

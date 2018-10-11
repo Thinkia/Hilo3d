@@ -113,11 +113,28 @@ const Material = Class.create(/** @lends Material.prototype */ {
     ignoreTranparent: false,
 
     /**
-     * gammaOutput
+     * 是否开启 gamma 矫正
      * @type {Boolean}
      * @default false
      */
-    gammaOutput: false,
+    gammaCorrection: false,
+
+    /**
+     * gammaOutput
+     * @type {Boolean}
+     * @deprecated
+     * @default false
+     */
+    gammaOutput: {
+        get() {
+            log.warnOnce('Matrial.gammaOutput', 'material.gammaOutput has deprecated. Use material.gammaCorrection instead.');
+            return this.gammaCorrection;
+        },
+        set(value) {
+            log.warnOnce('Matrial.gammaOutput', 'material.gammaOutput has deprecated. Use material.gammaCorrection instead.');
+            this.gammaCorrection = value;
+        }
+    },
 
     /**
      * gamma值
@@ -479,8 +496,8 @@ const Material = Class.create(/** @lends Material.prototype */ {
             option.USE_HDR = 1;
         }
 
-        if (this.gammaOutput) {
-            option.GAMMA_OUTPUT = 1;
+        if (this.gammaCorrection) {
+            option.GAMMA_CORRECTION = 1;
         }
 
         if (this.receiveShadows) {

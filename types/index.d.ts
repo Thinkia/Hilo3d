@@ -697,6 +697,11 @@ declare namespace hilo3d {
     z?: number;
 
     /**
+     * 位置
+     */
+    position?: Vector3;
+
+    /**
      * 缩放比例x
      */
     scaleX?: number;
@@ -710,6 +715,11 @@ declare namespace hilo3d {
      * 缩放比例z
      */
     scaleZ?: number;
+
+    /**
+     * 缩放比例
+     */
+    scale?: Vector3;
 
     /**
      * 旋转角度x
@@ -727,6 +737,11 @@ declare namespace hilo3d {
     rotationZ?: number;
 
     /**
+     * 旋转角度
+     */
+    rotation?: Vector3;
+
+    /**
      * 中心点x
      */
     pivotX?: number;
@@ -740,6 +755,11 @@ declare namespace hilo3d {
      * 中心点z
      */
     pivotZ?: number;
+
+    /**
+     * 中心点
+     */
+    pivot?: Vector3;
 
     /**
      * 四元数
@@ -8327,13 +8347,14 @@ declare namespace hilo3d {
 
     /**
      * gammaOutput
+     * @deprecated Use gammaCorrection instead.
      */
     gammaOutput?: boolean;
 
     /**
-     * gammaInput
+     * gammaCorrection
      */
-    gammaInput?: boolean;
+    gammaCorrection?: boolean;
 
     /**
      * gamma值
@@ -8671,13 +8692,14 @@ declare namespace hilo3d {
 
     /**
      * gammaOutput
+     * @deprecated Use gammaCorrection instead.
      */
     gammaOutput: boolean;
 
     /**
-     * gammaInput
+     * gammaCorrection
      */
-    gammaInput: boolean;
+    gammaCorrection: boolean;
 
     /**
      * gamma值
@@ -9041,13 +9063,14 @@ declare namespace hilo3d {
 
     /**
      * gammaOutput
+     * @deprecated Use gammaCorrection instead.
      */
     gammaOutput: boolean;
 
     /**
-     * gammaInput
+     * gammaCorrection
      */
-    gammaInput: boolean;
+    gammaCorrection: boolean;
 
     /**
      * gamma值
@@ -9670,38 +9693,37 @@ declare namespace hilo3d {
     /**
      * Alias for {@link Vector4#subtract}
      */
-    sub(): void;
+    sub: Color['subtract'];
 
     /**
      * Alias for {@link Vector4#multiply}
      */
-    mul(): void;
+    mul: Color['multiply'];
 
     /**
      * Alias for {@link Vector4#divide}
      */
-    div(): void;
+    div: Color['divide'];
 
     /**
      * Alias for {@link Vector4#distance}
      */
-    dist(): void;
+    dist: Color['distance'];
 
     /**
      * Alias for {@link Vector4#squaredDistance}
      */
-    sqrDist(): void;
+    sqrDist: Color['squaredDistance'];
 
     /**
      * Alias for {@link Vector4#length}
      */
-    len(): void;
+    len: Color['length'];
 
     /**
      * Alias for {@link Vector4#squaredLength}
      */
-    sqrLen(): void;
-
+    sqrLen: Color['squaredLength'];
   }
 
   class Euler {
@@ -10033,15 +10055,14 @@ declare namespace hilo3d {
     fromRotationTranslationScale(r: number, x: number, y: number, scaleX: number, scaleY: number): Matrix3;
 
     /**
-     * Alias for {@link Matrix3#subtract}
+     * Alias for {@link Vector4#subtract}
      */
-    sub(): void;
+    sub: Matrix3['subtract'];
 
     /**
-     * Alias for {@link Matrix3#multiply}
+     * Alias for {@link Vector4#multiply}
      */
-    mul(): void;
-
+    mul: Matrix3['multiply'];
   }
 
   /**
@@ -10080,12 +10101,12 @@ declare namespace hilo3d {
      * Copy the values from one mat4 to this
      * @param m the source matrix
      */
-    copy(m: Matrix3): Matrix3;
+    copy(m: Matrix4): Matrix4;
 
     /**
      * Creates a new mat4 initialized with values from this matrix
      */
-    clone(): Matrix3;
+    clone(): Matrix4;
 
     /**
      * 转换到数组
@@ -10403,12 +10424,12 @@ declare namespace hilo3d {
     /**
      * Alias for {@link Matrix4#subtract}
      */
-    sub(): void;
+    sub: Matrix4['subtract'];
 
     /**
      * Alias for {@link Matrix4#multiply}
      */
-    mul(): void;
+    mul: Matrix4['multiply'];
 
   }
 
@@ -10759,17 +10780,17 @@ declare namespace hilo3d {
     /**
      * Alias for {@link Quaternion#multiply}
      */
-    mul(): void;
+    mul: Quaternion['multiply'];
 
     /**
      * Alias for {@link Quaternion#length}
      */
-    len(): void;
+    len: Quaternion['length'];
 
     /**
      * Alias for {@link Quaternion#squaredLength}
      */
-    sqrLen(): void;
+    sqrLen: Quaternion['squaredLength'];
 
   }
 
@@ -11216,37 +11237,37 @@ declare namespace hilo3d {
     /**
      * Alias for {@link Vector2#subtract}
      */
-    sub(): void;
+    sub: Color['subtract'];
 
     /**
      * Alias for {@link Vector2#multiply}
      */
-    mul(): void;
+    mul: Vector2['multiply'];
 
     /**
      * Alias for {@link Vector2#divide}
      */
-    div(): void;
+    div: Vector2['divide'];
 
     /**
      * Alias for {@link Vector2#distance}
      */
-    dist(): void;
+    dist: Vector2['distance'];
 
     /**
      * Alias for {@link Vector2#squaredDistance}
      */
-    sqrDist(): void;
+    sqrDist: Vector2['squaredDistance'];
 
     /**
      * Alias for {@link Vector2#length}
      */
-    len(): void;
+    len: Vector2['length'];
 
     /**
      * Alias for {@link Vector2#squaredLength}
      */
-    sqrLen(): void;
+    sqrLen: Vector2['squaredLength'];
 
   }
 
@@ -11565,37 +11586,37 @@ declare namespace hilo3d {
     /**
      * Alias for {@link Vector3#subtract}
      */
-    sub(): void;
+    sub: Vector3['subtract'];
 
     /**
      * Alias for {@link Vector3#multiply}
      */
-    mul(): void;
+    mul: Vector3['multiply'];
 
     /**
      * Alias for {@link Vector3#divide}
      */
-    div(): void;
+    div: Vector3['divide'];
 
     /**
      * Alias for {@link Vector3#distance}
      */
-    dist(): void;
+    dist: Vector3['distance'];
 
     /**
      * Alias for {@link Vector3#squaredDistance}
      */
-    sqrDist(): void;
+    sqrDist: Vector3['squaredDistance'];
 
     /**
      * Alias for {@link Vector3#length}
      */
-    len(): void;
+    len: Vector3['length'];
 
     /**
      * Alias for {@link Vector3#squaredLength}
      */
-    sqrLen(): void;
+    sqrLen: Vector3['squaredLength'];
 
   }
 
@@ -11859,37 +11880,37 @@ declare namespace hilo3d {
     /**
      * Alias for {@link Vector4#subtract}
      */
-    sub(): void;
+    sub: Color['subtract'];
 
     /**
      * Alias for {@link Vector4#multiply}
      */
-    mul(): void;
+    mul: Color['multiply'];
 
     /**
      * Alias for {@link Vector4#divide}
      */
-    div(): void;
+    div: Color['divide'];
 
     /**
      * Alias for {@link Vector4#distance}
      */
-    dist(): void;
+    dist: Color['distance'];
 
     /**
      * Alias for {@link Vector4#squaredDistance}
      */
-    sqrDist(): void;
+    sqrDist: Color['squaredDistance'];
 
     /**
      * Alias for {@link Vector4#length}
      */
-    len(): void;
+    len: Color['length'];
 
     /**
      * Alias for {@link Vector4#squaredLength}
      */
-    sqrLen(): void;
+    sqrLen: Color['squaredLength'];
 
   }
 

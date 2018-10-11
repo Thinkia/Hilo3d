@@ -4,7 +4,7 @@ color.a = 1.0;
 
 color.rgb *= color.a;
 
-#ifdef HILO_GAMMA_OUTPUT
+#ifdef HILO_GAMMA_CORRECTION
     color.rgb = pow(color.rgb, vec3(1.0 / u_gammaFactor));
 #endif
 
