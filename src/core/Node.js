@@ -1,6 +1,7 @@
 import Class from './Class';
 import EventMixin from './EventMixin';
 import Matrix4 from '../math/Matrix4';
+import Matrix4Notifier from '../math/Matrix4Notifier';
 import Vector3 from '../math/Vector3';
 import Vector3Notifier from '../math/Vector3Notifier';
 import EulerNotifier from '../math/EulerNotifier';
@@ -124,12 +125,16 @@ const Node = Class.create(/** @lends Node.prototype */ {
          */
         this.worldMatrix = new Matrix4();
 
-        this._matrix = new Matrix4();
+        this._matrix = new Matrix4Notifier();
         this._position = new Vector3Notifier(0, 0, 0);
         this._scale = new Vector3Notifier(1, 1, 1);
         this._pivot = new Vector3Notifier(0, 0, 0);
         this._rotation = new EulerNotifier();
         this._quaternion = new Quaternion();
+
+        this._matrix.on('update', () => {
+            this._onMatrixUpdate();
+        });
 
         this._position.on('update', () => {
             this._onPositionUpdate();
@@ -268,7 +273,7 @@ const Node = Class.create(/** @lends Node.prototype */ {
         if (this._matrixDirty) {
             this._matrixDirty = false;
             this.matrixVersion++;
-            this._matrix.compose(this.quaternion, this._position, this._scale, this._pivot);
+            this._matrix.fromRotationTranslationScaleOrigin(this.quaternion, this._position, this._scale, this._pivot, true);
         }
 
         return this;
@@ -293,8 +298,8 @@ const Node = Class.create(/** @lends Node.prototype */ {
      */
     updateTransform() {
         this._matrix.decompose(this._quaternion, this._position, this._scale, this._pivot);
-
         this._onQuaternionUpdate();
+
         this._matrixDirty = false;
         return this;
     },
@@ -537,8 +542,9 @@ const Node = Class.create(/** @lends Node.prototype */ {
         return null;
     },
     /**
-     * 元素的矩阵, 如果调用 matrix 方法改变 matrix 内部元素(e.g.:node.matrix.invert())，需要调用 node.updateTransform() 手动更新 transform 属性
-     * @type {Matrix4}
+     * 元素的矩阵
+     * @type {Matrix4Notifier}
+     * @readOnly
      */
     matrix: {
         get() {
@@ -546,8 +552,8 @@ const Node = Class.create(/** @lends Node.prototype */ {
             return this._matrix;
         },
         set(value) {
-            this._matrix = value;
-            this.updateTransform();
+            log.warnOnce('Node.matrix.set', 'node.matrix is readOnly.Use node.matrix.copy instead.');
+            this._matrix.copy(value);
         }
     },
 
@@ -732,7 +738,7 @@ const Node = Class.create(/** @lends Node.prototype */ {
     },
 
     /**
-     * 旋转角度x
+     * 旋转角度 x, 角度制
      * @type {number}
      */
     rotationX: {
@@ -744,7 +750,7 @@ const Node = Class.create(/** @lends Node.prototype */ {
         }
     },
     /**
-     * 旋转角度y
+     * 旋转角度 y, 角度制
      * @type {number}
      */
     rotationY: {
@@ -756,7 +762,7 @@ const Node = Class.create(/** @lends Node.prototype */ {
         }
     },
     /**
-     * 旋转角度z
+     * 旋转角度 z, 角度制
      * @type {number}
      */
     rotationZ: {
@@ -859,6 +865,10 @@ const Node = Class.create(/** @lends Node.prototype */ {
         return this;
     },
 
+    _onMatrixUpdate() {
+        this.matrixVersion++;
+        this.updateTransform();
+    },
     _onPositionUpdate() {
         this._matrixDirty = true;
     },

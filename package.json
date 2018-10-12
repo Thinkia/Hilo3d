@@ -1,6 +1,6 @@
 {
   "name": "hilo3d",
-  "version": "1.6.1",
+  "version": "1.6.3",
   "description": "Hilo3d, a WebGL 3d engine.",
   "main": "build/Hilo3d.js",
   "types": "types/index.d.ts",
@@ -26,6 +26,7 @@
   "devDependencies": {
     "del": "^3.0.0",
     "git-contributor": "^1.0.7",
-    "gulp": "^3.9.1"
+    "gulp": "^3.9.1",
+    "gulp-replace": "^1.0.0"
   }
 }

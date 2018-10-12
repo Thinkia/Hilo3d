@@ -894,9 +894,7 @@ const GLTFParser = Class.create(/** @lends GLTFParser.prototype */ {
     },
     handlerNodeTransform(node, data) {
         if (data.matrix) {
-            let matrix = new Matrix4();
-            matrix.fromArray(data.matrix);
-            node.matrix = matrix;
+            node.matrix.fromArray(data.matrix);
         } else {
             if (data.rotation) {
                 node.quaternion.fromArray(data.rotation);
