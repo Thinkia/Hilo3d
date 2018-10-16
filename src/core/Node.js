@@ -334,21 +334,102 @@ const Node = Class.create(/** @lends Node.prototype */ {
         return mtx;
     },
     /**
+     * _traverse
+     * @private
+     * @param  {Function(Node)} callback
+     * @param  {Boolean}  onlyChild
+     * @return {Boolean}  如果是 true 表示遍历停止
+     */
+    _traverse(callback, onlyChild) {
+        if (!onlyChild) {
+            if (callback(this)) {
+                return true;
+            }
+        }
+
+        const children = this.children;
+        for (let i = 0, l = children.length; i < l; i++) {
+            const res = children[i]._traverse(callback, false);
+            if (res) {
+                return true;
+            }
+        }
+
+        return false;
+    },
+    /**
      * 遍历当前元素的子孙元素
      * @param {Function(Node)} callback 每个元素都会调用这个函数处理
      * @param {Boolean} [onlyChild=false] 是否只遍历子元素
      * @return {Node} this
      */
     traverse(callback, onlyChild = false) {
+        this._traverse(callback, onlyChild);
+        return this;
+    },
+    /**
+     * 遍历当前元素的子孙元素(广度优先)
+     * @param {Function(Node)} callback 每个元素都会调用这个函数处理
+     * @param {Boolean} [onlyChild=false] 是否只遍历子元素
+     * @return {Node} this
+     */
+    traverseBFS(callback, onlyChild = false) {
+        let currentQueue;
+        let nextQueue;
         if (!onlyChild) {
-            if (callback(this)) {
-                return this;
+            nextQueue = [this];
+        } else {
+            nextQueue = this.children;
+        }
+
+        while (nextQueue.length) {
+            currentQueue = nextQueue;
+            nextQueue = [];
+            for (let i = 0, l = currentQueue.length; i < l; i++) {
+                const child = currentQueue[i];
+                if (callback(child)) {
+                    return this;
+                }
+                nextQueue = nextQueue.concat(child.children);
             }
         }
-        this.children.forEach((child) => {
-            child.traverse(callback);
-        });
         return this;
+    },
+    /**
+     * 根据函数来获取一个子孙元素(广度优先)
+     * @param {Function} fn 判读函数
+     * @return {Node|null} 返回获取到的子孙元素
+     */
+    getChildByFnBFS(fn) {
+        let result = null;
+        this.traverseBFS((child) => {
+            if (fn(child)) {
+                result = child;
+                return true;
+            }
+            return false;
+        }, true);
+
+        return result;
+    },
+    /**
+     * 根据 name path 来获取子孙元素
+     * @param  {String[]} path，名字数组, e.g.: getChildByNamePath(['a', 'b', 'c'])
+     * @return {Node|null} 返回获取到的子孙元素
+     */
+    getChildByNamePath(path) {
+        let currentNode = this;
+        for (let i = 0, l = path.length; i < l; i++) {
+            const name = path[i];
+            const node = currentNode.getChildByFnBFS(child => child.name === name);
+            if (node) {
+                currentNode = node;
+            } else {
+                return null;
+            }
+        }
+
+        return currentNode;
     },
     /**
      * 遍历调用子孙元素onUpdate方法

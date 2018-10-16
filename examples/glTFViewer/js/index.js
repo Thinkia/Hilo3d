@@ -71,7 +71,7 @@ var parseUrl = function(url) {
 var resetAll = function(){
     Hilo3d.BasicLoader.cache.clear();
     stage.destroy();
-    stage.matrix = stage.matrix.identity();
+    stage.matrix.identity();
     
     glTFUrl = undefined;
     glTFOriginUrl = undefined;

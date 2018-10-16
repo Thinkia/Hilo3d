@@ -196,7 +196,9 @@ const Stage = Class.create(/** @lends Stage.prototype */ {
      */
     tick(dt) {
         this.traverseUpdate(dt);
-        this.renderer.render(this, this.camera, true);
+        if (this.camera) {
+            this.renderer.render(this, this.camera, true);
+        }
         return this;
     },
     /**
