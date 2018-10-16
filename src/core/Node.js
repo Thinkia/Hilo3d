@@ -414,7 +414,7 @@ const Node = Class.create(/** @lends Node.prototype */ {
     },
     /**
      * 根据 name path 来获取子孙元素
-     * @param  {String[]} path，名字数组, e.g.: getChildByNamePath(['a', 'b', 'c'])
+     * @param  {String[]} path 名字数组, e.g., getChildByNamePath(['a', 'b', 'c'])
      * @return {Node|null} 返回获取到的子孙元素
      */
     getChildByNamePath(path) {
