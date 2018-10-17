@@ -48,10 +48,10 @@ const Mesh = Class.create(/** @lends Mesh.prototype */ {
     useInstanced: true,
     /**
      * 是否开启视锥体裁剪
-     * @default false
+     * @default true
      * @type {Boolean}
      */
-    frustumTest: false,
+    frustumTest: true,
     /**
      * @constructs
      * @param {object} params 初始化参数，所有params都会复制到实例上

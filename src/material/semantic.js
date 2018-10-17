@@ -666,6 +666,15 @@ const semantic = {
     /**
      * @type {semanticObject}
      */
+    POINTLIGHTCAMERA: {
+        get(mesh, material, programInfo) {
+            return lightManager.pointInfo.cameras;
+        }
+    },
+
+    /**
+     * @type {semanticObject}
+     */
     SPOTLIGHTSPOS: {
         get(mesh, material, programInfo) {
             return lightManager.spotInfo.poses;

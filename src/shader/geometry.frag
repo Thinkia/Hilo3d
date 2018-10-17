@@ -54,7 +54,7 @@ void main(void) {
         #ifdef HILO_WRITE_ORIGIN_DATA
             gl_FragColor = vec4(distance, distance, distance, 1.0);
         #else
-            gl_FragColor = packFloat(distance);
+            gl_FragColor = packFloat((distance - u_cameraNear)/(u_cameraFar - u_cameraNear));
         #endif
     #endif
     #pragma glslify: import('./chunk/logDepth_main.frag');

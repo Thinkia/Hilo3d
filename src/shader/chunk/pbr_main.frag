@@ -123,7 +123,7 @@ color.a = baseColor.a;
             #ifdef HILO_POINT_LIGHTS_SMC
                 if (i < HILO_POINT_LIGHTS_SMC) {
                     float bias = max(u_pointLightsShadowBias[i][1] * (1.0 - dot(normal, lightDir)), u_pointLightsShadowBias[i][0]);
-                    shadow = getShadow(u_pointLightsShadowMap[i], bias, distanceVec, u_pointLightSpaceMatrix[i]);
+                    shadow = getShadow(u_pointLightsShadowMap[i], bias, u_pointLightsPos[i], v_fragPos, u_pointLightCamera[i], u_pointLightSpaceMatrix[i]);
                 }
             #endif
 

@@ -31,6 +31,7 @@
         uniform samplerCube u_pointLightsShadowMap[HILO_POINT_LIGHTS_SMC];
         uniform mat4 u_pointLightSpaceMatrix[HILO_POINT_LIGHTS_SMC];
         uniform vec2 u_pointLightsShadowBias[HILO_POINT_LIGHTS_SMC];
+        uniform vec2 u_pointLightCamera[HILO_POINT_LIGHTS_SMC];
     #endif
 #endif
 

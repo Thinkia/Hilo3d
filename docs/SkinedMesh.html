@@ -200,6 +200,8 @@
             
                 <li  data-name="semantic.POINTLIGHTSPACEMATRIX"><a href="semantic.html#.POINTLIGHTSPACEMATRIX">POINTLIGHTSPACEMATRIX</a></li>
             
+                <li  data-name="semantic.POINTLIGHTCAMERA"><a href="semantic.html#.POINTLIGHTCAMERA">POINTLIGHTCAMERA</a></li>
+            
                 <li  data-name="semantic.SPOTLIGHTSPOS"><a href="semantic.html#.SPOTLIGHTSPOS">SPOTLIGHTSPOS</a></li>
             
                 <li  data-name="semantic.SPOTLIGHTSDIR"><a href="semantic.html#.SPOTLIGHTSDIR">SPOTLIGHTSDIR</a></li>
@@ -1583,6 +1585,8 @@
             
                 <li  data-name="SkinedMesh#jointMatTexture"><a href="SkinedMesh.html#jointMatTexture">jointMatTexture</a></li>
             
+                <li  data-name="SkinedMesh#frustumTest"><a href="SkinedMesh.html#frustumTest">frustumTest</a></li>
+            
                 <li  data-name="SkinedMesh#jointNames"><a href="SkinedMesh.html#jointNames">jointNames</a></li>
             
                 <li  data-name="SkinedMesh#inverseBindMatrices"><a href="SkinedMesh.html#inverseBindMatrices">inverseBindMatrices</a></li>
@@ -1592,8 +1596,6 @@
                 <li class="inherited-member" data-name="SkinedMesh#geometry"><a href="SkinedMesh.html#geometry">geometry</a></li>
             
                 <li class="inherited-member" data-name="SkinedMesh#material"><a href="SkinedMesh.html#material">material</a></li>
-            
-                <li class="inherited-member" data-name="SkinedMesh#frustumTest"><a href="SkinedMesh.html#frustumTest">frustumTest</a></li>
             
                 <li class="inherited-member" data-name="SkinedMesh#isNode"><a href="SkinedMesh.html#isNode">isNode</a></li>
             
@@ -7581,6 +7583,43 @@
         <tr >
             
                 <td class="name">
+                    <a name="frustumTest"></a>
+                    <code>frustumTest</code>
+                </td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">Boolean</span>
+
+
+            
+            </td>
+            
+            
+            
+            
+                <td class="default">
+                
+                    false
+                
+                </td>
+            
+            
+            <td class="description last">
+                
+                <p>是否开启视锥体裁剪</p>
+                
+    
+                
+            </td>
+        </tr>
+	
+	
+        <tr >
+            
+                <td class="name">
                     <a name="jointNames"></a>
                     <code>jointNames</code>
                 </td>
@@ -7758,45 +7797,6 @@
                     <span class="inherited optional"><a href="Mesh.html#material">inherited</a></span>
                 
                 
-                
-    
-                
-            </td>
-        </tr>
-	
-	
-        <tr class="inherited-member">
-            
-                <td class="name">
-                    <a name="frustumTest"></a>
-                    <code>frustumTest</code>
-                </td>
-            
-            
-            <td class="type">
-            
-                
-<span class="param-type">Boolean</span>
-
-
-            
-            </td>
-            
-            
-            
-            
-                <td class="default">
-                
-                    false
-                
-                </td>
-            
-            
-            <td class="description last">
-                
-                    <span class="inherited optional"><a href="Mesh.html#frustumTest">inherited</a></span>
-                
-                <p>是否开启视锥体裁剪</p>
                 
     
                 
@@ -9029,7 +9029,7 @@
         
             
             <div class="tag-source">
-                core/SkinedMesh.js, line 99
+                core/SkinedMesh.js, line 105
             </div>
             
         </div>
@@ -9128,7 +9128,7 @@
         
             
             <div class="tag-source">
-                core/SkinedMesh.js, line 125
+                core/SkinedMesh.js, line 131
             </div>
             
         </div>
@@ -9227,7 +9227,7 @@
         
             
             <div class="tag-source">
-                core/SkinedMesh.js, line 137
+                core/SkinedMesh.js, line 143
             </div>
             
         </div>

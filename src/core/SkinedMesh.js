@@ -58,6 +58,12 @@ const SkinedMesh = Class.create(/** @lends SkinedMesh.prototype */{
      */
     jointMatTexture: null,
     /**
+     * 是否开启视锥体裁剪
+     * @default false
+     * @type {Boolean}
+     */
+    frustumTest: false,
+    /**
      * @constructs
      * @param {object} params 初始化参数，所有params都会复制到实例上
      */

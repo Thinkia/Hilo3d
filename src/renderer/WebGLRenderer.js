@@ -635,6 +635,9 @@ const WebGLRenderer = Class.create(/** @lends WebGLRenderer.prototype */ {
      * @param  {Mesh[]} meshes
      */
     renderMeshes(meshes) {
+        if (!meshes.length) {
+            return;
+        }
         const mesh = meshes[0];
         const material = this.forceMaterial || mesh.material;
         const useInstanced = this.useInstanced && mesh.useInstanced && meshes.length > 1;

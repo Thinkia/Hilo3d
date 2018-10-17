@@ -29,9 +29,10 @@ float getShadow(sampler2D shadowMap, vec2 shadowMapSize, float bias, vec3 fragPo
     return 1.0 - shadow / 9.0;
 }
 
-float getShadow(samplerCube shadowMap, float bias, vec3 distanceVec, mat4 lightSpaceMatrix) {
+float getShadow(samplerCube shadowMap, float bias, vec3 lightPos, vec3 position, vec2 camera, mat4 lightSpaceMatrix) {
+    vec4 distanceVec = lightSpaceMatrix * vec4(position, 1.0) - lightSpaceMatrix * vec4(lightPos, 1.0);
     float currentDistance = length(distanceVec);
-    vec3 direction = normalize(( lightSpaceMatrix * vec4(-distanceVec, 1.0) ).xyz);
+    vec3 direction = normalize(distanceVec).xyz;
 
     float shadow = 0.0;
     const float samples = 2.0;
@@ -43,8 +44,11 @@ float getShadow(samplerCube shadowMap, float bias, vec3 distanceVec, mat4 lightS
         {
             for(float z = -offset; z < offset; z +=step)
             {
-                float closestDistance = unpackFloat(textureCube(shadowMap, direction + vec3(x, y, z)));
-                if(currentDistance - bias > closestDistance)
+                float closestDistance = camera[0] + (camera[1] - camera[0]) * unpackFloat(textureCube(shadowMap, direction + vec3(x, y, z)));
+                if (closestDistance == camera[0]) {
+                    continue;
+                }
+                else if(currentDistance - bias > closestDistance)
                     shadow += 1.0;
             }
         }

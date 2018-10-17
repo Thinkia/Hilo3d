@@ -376,6 +376,7 @@ const Material = Class.create(/** @lends Material.prototype */ {
             u_pointLightsShadowBias: 'POINTLIGHTSSHADOWBIAS',
             u_pointLightsShadowMap: 'POINTLIGHTSSHADOWMAP',
             u_pointLightSpaceMatrix: 'POINTLIGHTSPACEMATRIX',
+            u_pointLightCamera: 'POINTLIGHTCAMERA',
             u_spotLightsPos: 'SPOTLIGHTSPOS',
             u_spotLightsDir: 'SPOTLIGHTSDIR',
             u_spotLightsColor: 'SPOTLIGHTSCOLOR',
