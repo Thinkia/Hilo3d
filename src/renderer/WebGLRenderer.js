@@ -680,7 +680,7 @@ const WebGLRenderer = Class.create(/** @lends WebGLRenderer.prototype */ {
 
         stage.traverse((node) => {
             if (!node.visible) {
-                return true;
+                return Node.TRAVERSE_STOP_CHILDREN;
             }
 
             if (node.isMesh) {
@@ -689,7 +689,7 @@ const WebGLRenderer = Class.create(/** @lends WebGLRenderer.prototype */ {
                 lightManager.addLight(node);
             }
 
-            return false;
+            return Node.TRAVERSE_STOP_NONE;
         });
 
         lightManager.createShadowMap(this, camera);

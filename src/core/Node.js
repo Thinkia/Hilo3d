@@ -12,6 +12,10 @@ import log from '../utils/log';
 const defaultUp = new Vector3(0, 1, 0);
 const tempMatrix4 = new Matrix4();
 
+const TRAVERSE_STOP_NONE = false;
+const TRAVERSE_STOP_CHILDREN = 1;
+const TRAVERSE_STOP_ALL = true;
+
 /**
  * 节点，3D场景中的元素，是大部分类的基类
  * @class
@@ -29,6 +33,26 @@ const tempMatrix4 = new Matrix4();
  * stage.addChild(node);
  */
 const Node = Class.create(/** @lends Node.prototype */ {
+    Statics: {
+        /**
+         * traverse callback 返回值，执行后不暂停 traverse
+         * @memberOf Node
+         * @type {Enum}
+         */
+        TRAVERSE_STOP_NONE,
+        /**
+         * traverse callback 返回值，执行后暂停子元素 traverse
+         * @memberOf Node
+         * @type {Enum}
+         */
+        TRAVERSE_STOP_CHILDREN,
+        /**
+         * traverse callback 返回值，执行后暂停所有 traverse
+         * @memberOf Node
+         * @type {Enum}
+         */
+        TRAVERSE_STOP_ALL
+    },
     Mixes: EventMixin,
     /**
      * @default true
@@ -338,24 +362,25 @@ const Node = Class.create(/** @lends Node.prototype */ {
      * @private
      * @param  {Function(Node)} callback
      * @param  {Boolean}  onlyChild
-     * @return {Boolean}  如果是 true 表示遍历停止
+     * @return {Enum}  TRAVERSE_STOP_ALL, TRAVERSE_STOP_CHILDREN, TRAVERSE_STOP_NONE
      */
     _traverse(callback, onlyChild) {
         if (!onlyChild) {
-            if (callback(this)) {
-                return true;
+            const res = callback(this);
+            if (res) {
+                return res;
             }
         }
 
         const children = this.children;
         for (let i = 0, l = children.length; i < l; i++) {
             const res = children[i]._traverse(callback, false);
-            if (res) {
-                return true;
+            if (res === TRAVERSE_STOP_ALL) {
+                return res;
             }
         }
 
-        return false;
+        return TRAVERSE_STOP_NONE;
     },
     /**
      * 遍历当前元素的子孙元素
@@ -387,10 +412,12 @@ const Node = Class.create(/** @lends Node.prototype */ {
             nextQueue = [];
             for (let i = 0, l = currentQueue.length; i < l; i++) {
                 const child = currentQueue[i];
-                if (callback(child)) {
+                const res = callback(child);
+                if (!res) {
+                    nextQueue = nextQueue.concat(child.children);
+                } else if (res === TRAVERSE_STOP_ALL) {
                     return this;
                 }
-                nextQueue = nextQueue.concat(child.children);
             }
         }
         return this;
@@ -405,9 +432,9 @@ const Node = Class.create(/** @lends Node.prototype */ {
         this.traverseBFS((child) => {
             if (fn(child)) {
                 result = child;
-                return true;
+                return TRAVERSE_STOP_ALL;
             }
-            return false;
+            return TRAVERSE_STOP_NONE;
         }, true);
 
         return result;
@@ -442,9 +469,9 @@ const Node = Class.create(/** @lends Node.prototype */ {
                 node.onUpdate(dt);
             }
             if (!node.needCallChildUpdate) {
-                return true;
+                return TRAVERSE_STOP_CHILDREN;
             }
-            return false;
+            return TRAVERSE_STOP_NONE;
         });
         return this;
     },
@@ -458,9 +485,9 @@ const Node = Class.create(/** @lends Node.prototype */ {
         this.traverse((child) => {
             if (fn(child)) {
                 result = child;
-                return true;
+                return TRAVERSE_STOP_ALL;
             }
-            return false;
+            return TRAVERSE_STOP_NONE;
         }, true);
 
         return result;
@@ -591,7 +618,7 @@ const Node = Class.create(/** @lends Node.prototype */ {
         let resArray = [];
         this.traverse((child) => {
             if (eventMode && !child.pointerEnabled) {
-                return true;
+                return TRAVERSE_STOP_CHILDREN;
             }
 
             if (child.isMesh) {
@@ -607,7 +634,7 @@ const Node = Class.create(/** @lends Node.prototype */ {
             }
 
             if (eventMode && !this.pointerChildren) {
-                return true;
+                return TRAVERSE_STOP_CHILDREN;
             }
 
             return false;
