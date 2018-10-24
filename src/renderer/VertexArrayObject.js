@@ -239,7 +239,7 @@ const VertexArrayObject = Class.create(/** @lends VertexArrayObject.prototype */
         if (this.vertexCount === null) {
             const attributeObj = this.attributes[0];
             if (attributeObj) {
-                this.vertexCount = attributeObj.buffer.data.length / attributeObj.attribute.glTypeInfo.size;
+                this.vertexCount = attributeObj.geometryData.count;
             } else {
                 this.vertexCount = 0;
             }

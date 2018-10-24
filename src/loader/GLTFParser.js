@@ -610,11 +610,11 @@ const GLTFParser = Class.create(/** @lends GLTFParser.prototype */ {
         data.data = newArray;
         // values
         let buffer = this.bufferViews[sparse.values.bufferView];
-        const values = new TypedArray(buffer.buffer, buffer.byteOffset + sparse.values.byteOffset, count * data.size);
+        const values = new TypedArray(buffer.buffer, buffer.byteOffset + (sparse.values.byteOffset || 0), count * data.size);
         // indices
         TypedArray = ComponentTypeMap[sparse.indices.componentType][1];
         buffer = this.bufferViews[sparse.indices.bufferView];
-        const indices = new TypedArray(buffer.buffer, buffer.byteOffset + sparse.indices.byteOffset, count);
+        const indices = new TypedArray(buffer.buffer, buffer.byteOffset + (sparse.indices.byteOffset || 0), count);
         // change it
         for (let i = 0; i < count; i++) {
             util.copyArrayData(newArray, values, indices[i] * data.size, i * data.size, data.size);
@@ -631,28 +631,33 @@ const GLTFParser = Class.create(/** @lends GLTFParser.prototype */ {
         let bufferView = this.bufferViews[accessor.bufferView];
         let count = accessor.count * number;
         let result;
-        if (bufferView.byteStride && bufferView.byteStride > number * TypedArray.BYTES_PER_ELEMENT) {
-            if (!bufferView.array) {
-                bufferView.array = new TypedArray(bufferView.buffer, bufferView.byteOffset, bufferView.byteLength / TypedArray.BYTES_PER_ELEMENT);
-            }
-            result = new GeometryData(bufferView.array, number, {
-                offset: accessor.byteOffset || 0,
-                stride: bufferView.byteStride,
-                bufferViewId: bufferView.id
-            });
-        } else {
-            let offset = (accessor.byteOffset || 0) + bufferView.byteOffset;
-            let array;
-            if (offset % TypedArray.BYTES_PER_ELEMENT) {
-                let buffer = bufferView.buffer.slice(offset, offset + count * TypedArray.BYTES_PER_ELEMENT);
-                array = new TypedArray(buffer);
+        if (bufferView) {
+            if (bufferView.byteStride && bufferView.byteStride > number * TypedArray.BYTES_PER_ELEMENT) {
+                if (!bufferView.array) {
+                    bufferView.array = new TypedArray(bufferView.buffer, bufferView.byteOffset, bufferView.byteLength / TypedArray.BYTES_PER_ELEMENT);
+                }
+                result = new GeometryData(bufferView.array, number, {
+                    offset: accessor.byteOffset || 0,
+                    stride: bufferView.byteStride,
+                    bufferViewId: bufferView.id
+                });
             } else {
-                array = new TypedArray(bufferView.buffer, offset, count);
+                let offset = (accessor.byteOffset || 0) + bufferView.byteOffset;
+                let array;
+                if (offset % TypedArray.BYTES_PER_ELEMENT) {
+                    let buffer = bufferView.buffer.slice(offset, offset + count * TypedArray.BYTES_PER_ELEMENT);
+                    array = new TypedArray(buffer);
+                } else {
+                    array = new TypedArray(bufferView.buffer, offset, count);
+                }
+                result = new GeometryData(array, number);
             }
-            result = new GeometryData(array, number);
         }
 
         if (accessor.sparse) {
+            if (!result) {
+                result = new GeometryData(new TypedArray(count), number);
+            }
             result = this.sparseAccessorHandler(result, accessor.sparse);
         }
 
@@ -763,14 +768,19 @@ const GLTFParser = Class.create(/** @lends GLTFParser.prototype */ {
         return geometry;
     },
     handlerGeometry(geometry, primitive) {
+        const mode = primitive.mode === undefined ? 4 : primitive.mode;
         if (primitive.extensions) {
-            const extensionGeometry = this.parseExtensions(primitive.extensions);
+            const extensionGeometry = this.parseExtensions(primitive.extensions, primitive);
             if (extensionGeometry) {
+                extensionGeometry.mode = mode;
                 return extensionGeometry;
             }
         }
+
         if (!geometry) {
-            geometry = new Geometry();
+            geometry = new Geometry({
+                mode
+            });
         }
         if ('indices' in primitive) {
             geometry.indices = this.getAccessorData(primitive.indices);
