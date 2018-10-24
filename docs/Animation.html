@@ -525,9 +525,9 @@
             
                 <li  data-name="Animation#endTime"><a href="Animation.html#endTime">endTime</a></li>
             
-                <li  data-name="Animation#baseTime"><a href="Animation.html#baseTime">baseTime</a></li>
+                <li  data-name="Animation#clipStartTime"><a href="Animation.html#clipStartTime">clipStartTime</a></li>
             
-                <li  data-name="Animation#totalTime"><a href="Animation.html#totalTime">totalTime</a></li>
+                <li  data-name="Animation#clipEndTime"><a href="Animation.html#clipEndTime">clipEndTime</a></li>
             
                 <li  data-name="Animation#rootNode"><a href="Animation.html#rootNode">rootNode</a></li>
             
@@ -550,6 +550,8 @@
                 <li  data-name="Animation#addClip"><a href="Animation.html#addClip">addClip</a></li>
             
                 <li  data-name="Animation#removeClip"><a href="Animation.html#removeClip">removeClip</a></li>
+            
+                <li  data-name="Animation#getAnimStatesListTimeInfo"><a href="Animation.html#getAnimStatesListTimeInfo">getAnimStatesListTimeInfo</a></li>
             
                 <li  data-name="Animation#updateAnimStates"><a href="Animation.html#updateAnimStates">updateAnimStates</a></li>
             
@@ -7709,8 +7711,8 @@
         <tr >
             
                 <td class="name">
-                    <a name="baseTime"></a>
-                    <code>baseTime</code>
+                    <a name="clipStartTime"></a>
+                    <code>clipStartTime</code>
                 </td>
             
             
@@ -7746,8 +7748,8 @@
         <tr >
             
                 <td class="name">
-                    <a name="totalTime"></a>
-                    <code>totalTime</code>
+                    <a name="clipEndTime"></a>
+                    <code>clipEndTime</code>
                 </td>
             
             
@@ -7772,7 +7774,7 @@
             
             <td class="description last">
                 
-                <p>动画总时间，初始化后会根据 AnimationStates 来自动获取</p>
+                <p>动画整体的最大时间，初始化后会根据 AnimationStates 来自动获取</p>
                 
     
                 
@@ -8358,6 +8360,150 @@
 <dl >
     <dt>
         <div class="nameContainer">
+            <h4 class="name" id="getAnimStatesListTimeInfo">
+                
+                getAnimStatesListTimeInfo<span class="signature">(animStatesList)</span><span class="glyphicon glyphicon-circle-arrow-right"></span><span class="type-signature returnType">{Object}</span>
+            </h4>
+        
+            
+            <div class="tag-source">
+                animation/Animation.js, line 157
+            </div>
+            
+        </div>
+    </dt>
+    <dd>
+        
+        
+        <div class="description">
+            <p>获取动画列表的时间信息</p>
+        </div>
+        
+
+        
+        
+        
+        
+        
+            
+
+<table class="params">
+    <thead>
+	<tr>
+		
+		<th>Name</th>
+		
+		
+		<th>Type</th>
+		
+		
+		
+		<th class="last">Description</th>
+	</tr>
+	</thead>
+	
+	<tbody>
+	
+	
+        <tr>
+            
+                <td class="name"><code>animStatesList</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">Array.&lt;<a href="AnimationStates.html">AnimationStates</a>></span>
+
+
+            
+            </td>
+            
+            
+            
+            <td class="description last">
+                
+                <p>动画列表</p></td>
+        </tr>
+	
+	
+	</tbody>
+</table>
+        
+        
+        
+<dl class="details">
+    
+        
+    
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+</dl>
+
+        
+        
+
+        
+
+        
+        
+        
+        
+        
+        <h5>Returns:</h5>
+        
+
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Type</th>
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+    <tbody>
+    
+        <tr>
+            
+            <td class="type">
+            
+                        Object
+                        
+                    
+            </td>
+            <td class="description last">result {startTime, endTime} 时间信息</td>
+        </tr>
+    
+    </tbody>
+</table>
+
+        
+        
+        
+    </dd>
+</dl>
+        
+            
+<dl >
+    <dt>
+        <div class="nameContainer">
             <h4 class="name" id="updateAnimStates">
                 
                 updateAnimStates<span class="signature">()</span><span class="glyphicon glyphicon-circle-arrow-right"></span><span class="type-signature returnType">{<a href="Animation.html">Animation</a>}</span>
@@ -8365,7 +8511,7 @@
         
             
             <div class="tag-source">
-                animation/Animation.js, line 206
+                animation/Animation.js, line 219
             </div>
             
         </div>
@@ -8464,7 +8610,7 @@
         
             
             <div class="tag-source">
-                animation/Animation.js, line 218
+                animation/Animation.js, line 231
             </div>
             
         </div>
@@ -8560,7 +8706,7 @@
             
                 <td class="default">
                 
-                    this.totalTime
+                    this.clipEndTime
                 
                 </td>
             
@@ -8633,7 +8779,7 @@
         
             
             <div class="tag-source">
-                animation/Animation.js, line 256
+                animation/Animation.js, line 269
             </div>
             
         </div>
@@ -8703,7 +8849,7 @@
         
             
             <div class="tag-source">
-                animation/Animation.js, line 267
+                animation/Animation.js, line 280
             </div>
             
         </div>
@@ -8773,7 +8919,7 @@
         
             
             <div class="tag-source">
-                animation/Animation.js, line 273
+                animation/Animation.js, line 286
             </div>
             
         </div>
@@ -8843,7 +8989,7 @@
         
             
             <div class="tag-source">
-                animation/Animation.js, line 281
+                animation/Animation.js, line 294
             </div>
             
         </div>

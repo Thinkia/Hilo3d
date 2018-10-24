@@ -3,6 +3,7 @@ import WebGLDebugUtils from 'webgl-debug';
 // HILO_DEBUG_END
 
 import Class from '../core/Class';
+import Node from '../core/Node';
 import semantic from '../material/semantic';
 import Color from '../math/Color';
 import Shader from '../shader/Shader';

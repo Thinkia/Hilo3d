@@ -525,9 +525,9 @@
             
                 <li  data-name="Animation#endTime"><a href="Animation.html#endTime">endTime</a></li>
             
-                <li  data-name="Animation#baseTime"><a href="Animation.html#baseTime">baseTime</a></li>
+                <li  data-name="Animation#clipStartTime"><a href="Animation.html#clipStartTime">clipStartTime</a></li>
             
-                <li  data-name="Animation#totalTime"><a href="Animation.html#totalTime">totalTime</a></li>
+                <li  data-name="Animation#clipEndTime"><a href="Animation.html#clipEndTime">clipEndTime</a></li>
             
                 <li  data-name="Animation#rootNode"><a href="Animation.html#rootNode">rootNode</a></li>
             
@@ -550,6 +550,8 @@
                 <li  data-name="Animation#addClip"><a href="Animation.html#addClip">addClip</a></li>
             
                 <li  data-name="Animation#removeClip"><a href="Animation.html#removeClip">removeClip</a></li>
+            
+                <li  data-name="Animation#getAnimStatesListTimeInfo"><a href="Animation.html#getAnimStatesListTimeInfo">getAnimStatesListTimeInfo</a></li>
             
                 <li  data-name="Animation#updateAnimStates"><a href="Animation.html#updateAnimStates">updateAnimStates</a></li>
             
@@ -7215,7 +7217,7 @@
         
             
             <div class="tag-source">
-                renderer/WebGLRenderer.js, line 47
+                renderer/WebGLRenderer.js, line 48
             </div>
             
         </div>
@@ -8512,7 +8514,7 @@
         
             
             <div class="tag-source">
-                renderer/WebGLRenderer.js, line 277
+                renderer/WebGLRenderer.js, line 278
             </div>
             
         </div>
@@ -8706,7 +8708,7 @@
         
             
             <div class="tag-source">
-                renderer/WebGLRenderer.js, line 296
+                renderer/WebGLRenderer.js, line 297
             </div>
             
         </div>
@@ -8844,7 +8846,7 @@
         
             
             <div class="tag-source">
-                renderer/WebGLRenderer.js, line 310
+                renderer/WebGLRenderer.js, line 311
             </div>
             
         </div>
@@ -9082,7 +9084,7 @@
         
             
             <div class="tag-source">
-                renderer/WebGLRenderer.js, line 355
+                renderer/WebGLRenderer.js, line 356
             </div>
             
         </div>
@@ -9181,7 +9183,7 @@
         
             
             <div class="tag-source">
-                renderer/WebGLRenderer.js, line 367
+                renderer/WebGLRenderer.js, line 368
             </div>
             
         </div>
@@ -9251,7 +9253,7 @@
         
             
             <div class="tag-source">
-                renderer/WebGLRenderer.js, line 446
+                renderer/WebGLRenderer.js, line 447
             </div>
             
         </div>
@@ -9366,7 +9368,7 @@
         
             
             <div class="tag-source">
-                renderer/WebGLRenderer.js, line 461
+                renderer/WebGLRenderer.js, line 462
             </div>
             
         </div>
@@ -9481,7 +9483,7 @@
         
             
             <div class="tag-source">
-                renderer/WebGLRenderer.js, line 473
+                renderer/WebGLRenderer.js, line 474
             </div>
             
         </div>
@@ -9596,7 +9598,7 @@
         
             
             <div class="tag-source">
-                renderer/WebGLRenderer.js, line 486
+                renderer/WebGLRenderer.js, line 487
             </div>
             
         </div>
@@ -9711,7 +9713,7 @@
         
             
             <div class="tag-source">
-                renderer/WebGLRenderer.js, line 510
+                renderer/WebGLRenderer.js, line 511
             </div>
             
         </div>
@@ -9905,7 +9907,7 @@
         
             
             <div class="tag-source">
-                renderer/WebGLRenderer.js, line 531
+                renderer/WebGLRenderer.js, line 532
             </div>
             
         </div>
@@ -10066,7 +10068,7 @@
         
             
             <div class="tag-source">
-                renderer/WebGLRenderer.js, line 565
+                renderer/WebGLRenderer.js, line 566
             </div>
             
         </div>
@@ -10204,7 +10206,7 @@
         
             
             <div class="tag-source">
-                renderer/WebGLRenderer.js, line 588
+                renderer/WebGLRenderer.js, line 589
             </div>
             
         </div>
@@ -10421,7 +10423,7 @@
         
             
             <div class="tag-source">
-                renderer/WebGLRenderer.js, line 628
+                renderer/WebGLRenderer.js, line 629
             </div>
             
         </div>
@@ -10559,7 +10561,7 @@
         
             
             <div class="tag-source">
-                renderer/WebGLRenderer.js, line 637
+                renderer/WebGLRenderer.js, line 638
             </div>
             
         </div>
@@ -10674,7 +10676,7 @@
         
             
             <div class="tag-source">
-                renderer/WebGLRenderer.js, line 656
+                renderer/WebGLRenderer.js, line 657
             </div>
             
         </div>
@@ -10868,7 +10870,7 @@
         
             
             <div class="tag-source">
-                renderer/WebGLRenderer.js, line 727
+                renderer/WebGLRenderer.js, line 728
             </div>
             
         </div>
@@ -10938,7 +10940,7 @@
         
             
             <div class="tag-source">
-                renderer/WebGLRenderer.js, line 737
+                renderer/WebGLRenderer.js, line 738
             </div>
             
         </div>
@@ -11068,7 +11070,7 @@
         
             
             <div class="tag-source">
-                renderer/WebGLRenderer.js, line 754
+                renderer/WebGLRenderer.js, line 755
             </div>
             
         </div>
@@ -11138,7 +11140,7 @@
         
             
             <div class="tag-source">
-                renderer/WebGLRenderer.js, line 766
+                renderer/WebGLRenderer.js, line 767
             </div>
             
         </div>
@@ -11253,7 +11255,7 @@
         
             
             <div class="tag-source">
-                renderer/WebGLRenderer.js, line 774
+                renderer/WebGLRenderer.js, line 775
             </div>
             
         </div>
@@ -11368,7 +11370,7 @@
         
             
             <div class="tag-source">
-                renderer/WebGLRenderer.js, line 785
+                renderer/WebGLRenderer.js, line 786
             </div>
             
         </div>
@@ -11529,7 +11531,7 @@
         
             
             <div class="tag-source">
-                renderer/WebGLRenderer.js, line 809
+                renderer/WebGLRenderer.js, line 810
             </div>
             
         </div>
@@ -11644,7 +11646,7 @@
         
             
             <div class="tag-source">
-                renderer/WebGLRenderer.js, line 817
+                renderer/WebGLRenderer.js, line 818
             </div>
             
         </div>
