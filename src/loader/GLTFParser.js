@@ -392,6 +392,9 @@ const GLTFParser = Class.create(/** @lends GLTFParser.prototype */ {
     // get Texture for glTF 2.0
     getTexture(textureInfo) {
         let texture = this.textures[textureInfo.index];
+        if (!texture) {
+            return null;
+        }
         const texCoord = textureInfo.texCoord || 0;
 
         const key = textureInfo.index + '_' + texCoord;

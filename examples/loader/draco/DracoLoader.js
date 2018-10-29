@@ -27,7 +27,7 @@
         return result;
     }
 
-    function decode(byteArray, info) {
+    function decode(byteArray, info, primitive) {
         var attributesMap = info.attributes;
         var buffer = new dracoDecoder.DecoderBuffer();
         buffer.Init(byteArray, byteArray.byteLength);
@@ -49,7 +49,7 @@
         }
         dracoDecoder.destroy(buffer);
 
-        var geometry = new Geometry();
+        var geometry = primitive._geometry || new Geometry();
 
         var numFaces = dracoGeometry.num_faces();
         var numPoints = dracoGeometry.num_points();
@@ -173,11 +173,10 @@
     Hilo3d.Loader.addLoader('drc', DracoLoader);
 
     Hilo3d.GLTFParser.extensionHandlers.KHR_draco_mesh_compression = {
-        parse: function(info, parser) {
+        parse: function(info, parser, primitive) {
             var bufferView = parser.bufferViews[info.bufferView];
             var uintArray = new Uint8Array(bufferView.buffer, bufferView.byteOffset, bufferView.byteLength);
-
-            var geometry = decode(uintArray, info);
+            var geometry = decode(uintArray, info, primitive);
             return geometry;
         }
     };
