@@ -773,7 +773,7 @@ const GLTFParser = Class.create(/** @lends GLTFParser.prototype */ {
     handlerGeometry(geometry, primitive) {
         const mode = primitive.mode === undefined ? 4 : primitive.mode;
         if (primitive.extensions) {
-            const extensionGeometry = this.parseExtensions(primitive.extensions, primitive);
+            const extensionGeometry = this.parseExtensions(primitive.extensions, null, primitive);
             if (extensionGeometry) {
                 extensionGeometry.mode = mode;
                 return extensionGeometry;

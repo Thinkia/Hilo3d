@@ -28,7 +28,7 @@ const AliAMCExtension = {
         }
         return Promise.resolve();
     },
-    parse(info, parser) {
+    parse(info, parser, result, primitive) {
         const st = Date.now();
         const bufferView = parser.bufferViews[info.bufferView];
         const {
@@ -44,7 +44,7 @@ const AliAMCExtension = {
 
         function done(amcGeometry) {
             AliAMCExtension._decodeTotalTime += Date.now() - st;
-            return amcGeometry.toHilo3dGeometry(mockHilo3d);
+            return amcGeometry.toHilo3dGeometry(mockHilo3d, primitive._geometry);
         }
 
         if (useAuto) {

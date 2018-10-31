@@ -102,6 +102,9 @@ var initModel = function(model){
     stage.addChild(model.node);
     var bounds = model.node.getBounds();
 
+    var modelHasLight = !!(model.lights && model.lights.length);
+    var modelHasCamera = !!(model.cameras && model.cameras.length);
+
     if (!utils.keys.noResize) {
         const scale = 1.5/Math.max(bounds.width, bounds.height, bounds.depth);
         model.node.setPosition(-bounds.x * scale, -bounds.y * scale, -bounds.z * scale);
@@ -112,11 +115,11 @@ var initModel = function(model){
         model.node.setScale(utils.keys.scale);
     }
 
-    if (utils.keys.camera) {
-        stage.camera = model.cameras[utils.keys.camera];
+    if (utils.keys.camera !== 'false' && modelHasCamera) {
+        stage.camera = model.cameras[utils.keys.camera||0];
     }
-    
-    if (!utils.keys.noDefaultLight) {
+
+    if (utils.keys.addLight !== undefined || !modelHasLight) {
         utils.loadEnvMap(function(data) {
             model.materials.forEach(function(material) {
                 material.brdfLUT = data.brdfLUT;

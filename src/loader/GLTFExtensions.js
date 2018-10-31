@@ -139,6 +139,7 @@ export const KHR_lights_punctual = {
                     name,
                     range
                 });
+                light.direction.set(0, 0, -1);
                 break;
             case 'point':
                 light = new PointLight({
@@ -157,6 +158,7 @@ export const KHR_lights_punctual = {
                     cutoff,
                     outerCutoff
                 });
+                light.direction.set(0, 0, -1);
                 break;
             default:
                 return;
