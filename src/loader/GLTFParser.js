@@ -103,7 +103,28 @@ const GLTFParser = Class.create(/** @lends GLTFParser.prototype */ {
     className: 'GLTFParser',
     Statics: {
         MAGIC: 'glTF',
-        extensionHandlers
+        /**
+         * 扩展接口
+         * @type {Object}
+         */
+        extensionHandlers,
+        /**
+         * 注册扩展接口
+         * @param  {String} extensionName 接口名称
+         * @param  {Object} handler
+         */
+        registerExtensionHandler(extensionName, handler) {
+            this.extensionHandlers[extensionName] = handler;
+        },
+        /**
+         * 取消注册扩展接口
+         * @param  {Sting} extensionName 接口名称
+         */
+        unregisterExtensionHandler(extensionName) {
+            if (this.extensionHandlers[extensionName]) {
+                delete this.extensionHandlers[extensionName];
+            }
+        }
     },
     isMultiAnim: true,
     isProgressive: false,

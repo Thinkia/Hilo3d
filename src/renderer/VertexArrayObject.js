@@ -358,7 +358,7 @@ const VertexArrayObject = Class.create(/** @lends VertexArrayObject.prototype */
             geometryData = attributeObject.geometryData;
             geometryData.data = instancedData;
         } else {
-            geometryData = new GeometryData(instancedData);
+            geometryData = new GeometryData(instancedData, 1);
         }
 
         return this.addAttribute(geometryData, attribute, gl.DYNAMIC_DRAW, (attributeObject) => {

@@ -185,7 +185,7 @@ const GeometryData = Class.create(/** @lends GeometryData.prototype */ {
      * @return {GeometryData}
      */
     clone() {
-        const res = new GeometryData();
+        const res = new GeometryData(null, 1);
         res.copy(this);
         return res;
     },
