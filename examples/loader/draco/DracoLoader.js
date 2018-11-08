@@ -77,6 +77,7 @@
             TEXCOORD_0: ['uvs', 2],
             TEXCOORD_1: ['uvs1', 2],
             COLOR: ['color', 2],
+            COLOR_0: ['color', 2],
             JOINTS_0: ['skinIndices', 4],
             WEIGHTS_0: ['skinWeights', 4],
         };

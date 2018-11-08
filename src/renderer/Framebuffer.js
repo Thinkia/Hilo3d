@@ -296,8 +296,8 @@ const Framebuffer = Class.create(/** @lends Framebuffer.prototype */ {
                 width *= 2;
                 height *= 2;
                 const vertices = [x, y, x + width, y, x, y - height, x + width, y - height];
-                vao.addAttribute(new GeometryData(new Float32Array(vertices)), program.attributes.a_position);
-                vao.addAttribute(new GeometryData(new Float32Array([0, 1, 1, 1, 0, 0, 1, 0])), program.attributes.a_texcoord0);
+                vao.addAttribute(new GeometryData(new Float32Array(vertices), 2), program.attributes.a_position);
+                vao.addAttribute(new GeometryData(new Float32Array([0, 1, 1, 1, 0, 0, 1, 0]), 2), program.attributes.a_texcoord0);
             }
 
             state.activeTexture(gl.TEXTURE0);

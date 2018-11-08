@@ -65,7 +65,7 @@ const GeometryData = Class.create(/** @lends GeometryData.prototype */ {
      * @constructs
      * @param  {TypedArray} data  数据
      * @param  {Number} size The number of components per vertex attribute.Must be 1, 2, 3, or 4.
-     * @param  {Object} params 初始化参数，所有params都会复制到实例上
+     * @param  {Object} [params] 初始化参数，所有params都会复制到实例上
      */
     constructor(data, size, params) {
         /**
@@ -83,6 +83,10 @@ const GeometryData = Class.create(/** @lends GeometryData.prototype */ {
         Object.assign(this, params);
         if (!this.bufferViewId) {
             this.bufferViewId = this.id;
+        }
+
+        if (!this.size) {
+            log.warn('GeometryData.constructor: geometryData must set size!', this);
         }
     },
 

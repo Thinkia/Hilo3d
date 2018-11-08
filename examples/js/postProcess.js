@@ -182,8 +182,8 @@
                 width *= 2;
                 height *= 2;
                 var vertices = [x, y, x + width, y, x, y - height, x + width, y - height];
-                vao.addAttribute(new Hilo3d.GeometryData(new Float32Array(vertices)), program.attributes.a_position);
-                vao.addAttribute(new Hilo3d.GeometryData(new Float32Array([0, 1, 1, 1, 0, 0, 1, 0])), program.attributes.a_texcoord0);
+                vao.addAttribute(new Hilo3d.GeometryData(new Float32Array(vertices), 2), program.attributes.a_position);
+                vao.addAttribute(new Hilo3d.GeometryData(new Float32Array([0, 1, 1, 1, 0, 0, 1, 0]), 2), program.attributes.a_texcoord0);
             }
 
             if(!uniforms.u_diffuse){
