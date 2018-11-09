@@ -105,6 +105,11 @@ const Animation = Class.create(/** @lends Animation.prototype */{
         }
     },
     /**
+     * AnimationId集合
+     * @type {Object}
+     */
+    validAnimationIds: null,
+    /**
      * @constructs
      * @param {Object} parmas 创建对象的属性参数。可包含此类的所有属性。
      */
@@ -183,7 +188,7 @@ const Animation = Class.create(/** @lends Animation.prototype */{
                 if (originName !== undefined && !map[originName]) {
                     map[originName] = child;
                 }
-            }, true);
+            }, false);
         }
     },
     tick(dt) {

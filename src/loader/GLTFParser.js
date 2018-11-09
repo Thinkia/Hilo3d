@@ -990,6 +990,7 @@ const GLTFParser = Class.create(/** @lends GLTFParser.prototype */ {
         const isMultiAnim = this.isMultiAnim;
         const clips = {};
         let animStatesList = [];
+        const validAnimationIds = {};
         util.each(this.json.animations, (info) => {
             info.channels.forEach((channel) => {
                 let path = channel.target.path;
@@ -1014,6 +1015,7 @@ const GLTFParser = Class.create(/** @lends GLTFParser.prototype */ {
                     type: AnimationStates.getType(path)
                 });
                 animStatesList.push(animStates);
+                validAnimationIds[nodeId] = true;
             });
 
             if (isMultiAnim && animStatesList.length) {
@@ -1030,6 +1032,7 @@ const GLTFParser = Class.create(/** @lends GLTFParser.prototype */ {
             return new Animation({
                 rootNode: this.node,
                 animStatesList,
+                validAnimationIds,
                 clips
             });
         }
