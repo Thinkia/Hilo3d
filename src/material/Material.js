@@ -489,7 +489,7 @@ const Material = Class.create(/** @lends Material.prototype */ {
     },
     /**
      * 增加贴图 uniforms
-     * @param {Object} textureUniforms(必须是 semanticName)
+     * @param {Object} textureUniforms textureName:semanticName 键值对
      */
     addTextureUniforms(textureUniforms) {
         const uniforms = {};
