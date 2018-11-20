@@ -343,6 +343,19 @@ const Material = Class.create(/** @lends Material.prototype */ {
     exposure: 1,
 
     /**
+     * 是否需要加基础 uniforms
+     * @type {Boolean}
+     * @default true
+     */
+    needBasicUnifroms: true,
+    /**
+     * 是否需要加基础 attributes
+     * @type {Boolean}
+     * @default true
+     */
+    needBasicAttributes: true,
+
+    /**
      * @constructs
      * @param {object} params 初始化参数，所有params都会复制到实例上
      */
@@ -356,7 +369,52 @@ const Material = Class.create(/** @lends Material.prototype */ {
          * @default {}
          * @type {object}
          */
-        this.uniforms = {
+        this.uniforms = {};
+
+        /**
+         * 可以通过指定，semantic来指定值的获取方式，或者自定义get方法
+         * @default {}
+         * @type {object}
+         */
+        this.attributes = {};
+
+        Object.assign(this, params);
+
+        if (this.needBasicAttributes) {
+            this.addBasicAttributes();
+        }
+
+        if (this.needBasicUnifroms) {
+            this.addBasicUniforms();
+        }
+    },
+    /**
+     * 增加基础 attributes
+     */
+    addBasicAttributes() {
+        Object.assign(this.attributes, {
+            a_position: 'POSITION',
+            a_normal: 'NORMAL',
+            a_tangent: 'TANGENT',
+            a_texcoord0: 'TEXCOORD_0',
+            a_texcoord1: 'TEXCOORD_1',
+            a_color: 'COLOR_0',
+            a_skinIndices: 'SKININDICES',
+            a_skinWeights: 'SKINWEIGHTS'
+        });
+
+        ['POSITION', 'NORMAL', 'TANGENT'].forEach((name) => {
+            const camelName = name.slice(0, 1) + name.slice(1).toLowerCase();
+            for (let i = 0; i < 8; i++) {
+                this.attributes['a_morph' + camelName + i] = 'MORPH' + name + i;
+            }
+        });
+    },
+    /**
+     * 增加基础 uniforms
+     */
+    addBasicUniforms() {
+        Object.assign(this.uniforms, {
             u_normalMatrix: 'MODELVIEWINVERSETRANSPOSE',
             u_modelViewMatrix: 'MODELVIEW',
             u_modelViewProjectionMatrix: 'MODELVIEWPROJECTION',
@@ -420,7 +478,7 @@ const Material = Class.create(/** @lends Material.prototype */ {
             u_alphaCutoff: 'ALPHACUTOFF',
             u_exposure: 'EXPOSURE',
             u_gammaFactor: 'GAMMAFACTOR',
-        };
+        });
 
         this.addTextureUniforms({
             u_normalMap: 'NORMALMAP',
@@ -428,32 +486,11 @@ const Material = Class.create(/** @lends Material.prototype */ {
             u_emission: 'EMISSION',
             u_transparency: 'TRANSPARENCY'
         });
-
-        /**
-         * 可以通过指定，semantic来指定值的获取方式，或者自定义get方法
-         * @default {}
-         * @type {object}
-         */
-        this.attributes = {
-            a_position: 'POSITION',
-            a_normal: 'NORMAL',
-            a_tangent: 'TANGENT',
-            a_texcoord0: 'TEXCOORD_0',
-            a_texcoord1: 'TEXCOORD_1',
-            a_color: 'COLOR_0',
-            a_skinIndices: 'SKININDICES',
-            a_skinWeights: 'SKINWEIGHTS'
-        };
-
-        ['POSITION', 'NORMAL', 'TANGENT'].forEach((name) => {
-            const camelName = name.slice(0, 1) + name.slice(1).toLowerCase();
-            for (let i = 0; i < 8; i++) {
-                this.attributes['a_morph' + camelName + i] = 'MORPH' + name + i;
-            }
-        });
-
-        Object.assign(this, params);
     },
+    /**
+     * 增加贴图 uniforms
+     * @param {Object} textureUniforms(必须是 semanticName)
+     */
     addTextureUniforms(textureUniforms) {
         const uniforms = {};
 
@@ -465,6 +502,11 @@ const Material = Class.create(/** @lends Material.prototype */ {
         }
         Object.assign(this.uniforms, uniforms);
     },
+    /**
+     * 获取渲染选项值
+     * @param  {Object} [option={}] 渲染选项值
+     * @return {Object} 渲染选项值
+     */
     getRenderOption(option = {}) {
         const lightType = this.lightType;
         option[`LIGHT_TYPE_${lightType}`] = 1;
@@ -570,6 +612,11 @@ const Material = Class.create(/** @lends Material.prototype */ {
         }
     },
 
+    /**
+     * 获取 instanced uniforms
+     * @private
+     * @return {Object}
+     */
     getInstancedUniforms() {
         let instancedUniforms = this._instancedUniforms;
         if (!this._instancedUniforms) {

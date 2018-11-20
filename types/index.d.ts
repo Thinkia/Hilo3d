@@ -97,6 +97,8 @@ declare namespace hilo3d {
      */
     animStatesList: AnimationStates[];
 
+    tick(delta: number): void;
+
     /**
      * 添加动画剪辑
      * @param name 剪辑名字
@@ -378,7 +380,7 @@ declare namespace hilo3d {
     /**
      * animation 查找 id
      */
-    animationId: string;
+    animationId: number;
 
     /**
      * 是否自动更新世界矩阵
@@ -898,7 +900,7 @@ declare namespace hilo3d {
     /**
      * animation 查找 id
      */
-    animationId: string;
+    animationId: number;
 
     /**
      * 是否自动更新世界矩阵
@@ -1348,7 +1350,7 @@ declare namespace hilo3d {
     /**
      * animation 查找 id
      */
-    animationId: string;
+    animationId: number;
 
     /**
      * 是否自动更新世界矩阵
@@ -2174,7 +2176,7 @@ declare namespace hilo3d {
     /**
      * animation 查找 id
      */
-    animationId: string;
+    animationId: number;
 
     /**
      * 是否自动更新世界矩阵
@@ -2540,7 +2542,9 @@ declare namespace hilo3d {
     /**
      * animation 查找 id
      */
-    animationId?: string;
+    animationId: number;
+
+    jointName: string;
 
     /**
      * 是否自动更新世界矩阵
@@ -2600,6 +2604,8 @@ declare namespace hilo3d {
      * 元素的up向量
      */
     up: Vector3;
+
+    anim?: Animation;
 
     /**
      * 元素直接点数组
@@ -2728,6 +2734,18 @@ declare namespace hilo3d {
     getChildrenByClassName(className: string): Node[];
 
     /**
+     * 获取指定名字路径的子孙元素
+     * @param className 名字路径
+     */
+    getChildByNamePath(path: string[]): Node;
+
+    /**
+     * 获取指定名字路径的所有子孙元素
+     * @param path 名字路径
+     */
+    getChildrenByNamePath(path: string[]): Node[];
+
+    /**
      * 设置元素的缩放比例
      * @param x X缩放比例
      * @param y Y缩放比例
@@ -2789,7 +2807,7 @@ declare namespace hilo3d {
 
   }
 
-  class SkinedMesh {
+  class SkinedMesh extends Mesh {
     /**
      * 蒙皮Mesh
      */
@@ -2884,7 +2902,7 @@ declare namespace hilo3d {
     /**
      * animation 查找 id
      */
-    animationId: string;
+    animationId: number;
 
     /**
      * 是否自动更新世界矩阵
@@ -3354,7 +3372,7 @@ declare namespace hilo3d {
     /**
      * animation 查找 id
      */
-    animationId: string;
+    animationId: number;
 
     /**
      * 是否自动更新世界矩阵
@@ -5453,7 +5471,7 @@ declare namespace hilo3d {
     /**
      * animation 查找 id
      */
-    animationId: string;
+    animationId: number;
 
     /**
      * 是否自动更新世界矩阵
@@ -5815,7 +5833,7 @@ declare namespace hilo3d {
     /**
      * animation 查找 id
      */
-    animationId: string;
+    animationId: number;
 
     /**
      * 是否自动更新世界矩阵
@@ -6178,7 +6196,7 @@ declare namespace hilo3d {
     /**
      * animation 查找 id
      */
-    animationId: string;
+    animationId: number;
 
     /**
      * 是否自动更新世界矩阵
@@ -6491,6 +6509,8 @@ declare namespace hilo3d {
      */
     constructor(params: IAmbientLightParams);
 
+    isAmbientLight: boolean;
+
     /**
      * 光强度
      */
@@ -6606,6 +6626,11 @@ declare namespace hilo3d {
      */
     color: Color;
 
+    /**
+     * 阴影生成参数，默认不生成阴影
+     */
+    shadow?: Object;
+
     isNode: boolean;
 
     className: string;
@@ -6618,7 +6643,7 @@ declare namespace hilo3d {
     /**
      * animation 查找 id
      */
-    animationId: string;
+    animationId: number;
 
     /**
      * 是否自动更新世界矩阵
@@ -7072,7 +7097,7 @@ declare namespace hilo3d {
     /**
      * animation 查找 id
      */
-    animationId: string;
+    animationId: number;
 
     /**
      * 是否自动更新世界矩阵
@@ -7508,7 +7533,7 @@ declare namespace hilo3d {
     /**
      * animation 查找 id
      */
-    animationId: string;
+    animationId: number;
 
     /**
      * 是否自动更新世界矩阵
@@ -8085,6 +8110,9 @@ declare namespace hilo3d {
 
     className: string;
 
+    static registerExtensionHandler(extensionName: string, handler: {parse: Function});
+    static unregisterExtensionHandler(extensionName: string);
+    extensionHandlers: {[name: string]: {parse: Function}};
   }
 
   class LoadCache {

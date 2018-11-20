@@ -26,6 +26,8 @@
         time:0,
         geometry: geometry,
         material: new Hilo3d.ShaderMaterial({
+            needBasicUnifroms: false,
+            needBasicAttributes: false,
             diffuse: new Hilo3d.LazyTexture({
                 crossOrigin: true,
                 src: '//gw.alicdn.com/tfs/TB1Q8dQSVXXXXciXVXXXXXXXXXX-512-512.jpg'
