@@ -98,6 +98,7 @@ declare namespace hilo3d {
     animStatesList: AnimationStates[];
 
     tick(delta: number): void;
+    validAnimationIds: {[key: number]: boolean};
 
     /**
      * 添加动画剪辑
@@ -2610,7 +2611,7 @@ declare namespace hilo3d {
     /**
      * 元素直接点数组
      */
-    children: (Node | Mesh)[];
+    children: (Node | Mesh | Camera | Light)[];
 
     /**
      * 元素的世界矩阵
@@ -2643,19 +2644,19 @@ declare namespace hilo3d {
      * 添加一个子元素
      * @param child 需要添加的子元素
      */
-    addChild(child: Node | Mesh): Node;
+    addChild(child: Node | Mesh | Camera | Light): Node;
 
     /**
      * 移除指定的子元素
      * @param child 需要移除的元素
      */
-    removeChild(child: Node | Mesh): Node;
+    removeChild(child: Node | Mesh | Camera | Light): Node;
 
     /**
      * 将当前元素添加到某个父元素的子元素中
      * @param parent 需要添加到的父元素
      */
-    addTo(parent: Node): Node;
+    addTo(parent: Node | Stage): Node;
 
     /**
      * 将当前元素从其父元素中移除
@@ -8112,7 +8113,7 @@ declare namespace hilo3d {
 
     static registerExtensionHandler(extensionName: string, handler: {parse: Function});
     static unregisterExtensionHandler(extensionName: string);
-    extensionHandlers: {[name: string]: {parse: Function}};
+    static extensionHandlers: {[name: string]: {parse: Function}};
   }
 
   class LoadCache {

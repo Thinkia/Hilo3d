@@ -19,13 +19,6 @@ const WebGLResourceManager = Class.create(/** @lends WebGLResourceManager.protot
     isWebGLResourceManager: true,
 
     /**
-     * 是否使用了资源
-     * @type {Boolean}
-     * @default false
-     */
-    hasUsedResource: false,
-
-    /**
      * 是否有需要销毁的资源
      * @type {Boolean}
      * @default false
@@ -47,8 +40,6 @@ const WebGLResourceManager = Class.create(/** @lends WebGLResourceManager.protot
      * @return {WebGLResourceManager} this
      */
     useResource(res, mesh) {
-        this.hasUsedResource = true;
-
         if (res) {
             const key = res.className + ':' + res.id;
             if (!this._usedResourceDict[key]) {
@@ -115,7 +106,6 @@ const WebGLResourceManager = Class.create(/** @lends WebGLResourceManager.protot
      * @return {WebGLResourceManager} this
      */
     reset() {
-        this.hasUsedResource = false;
         this._usedResourceDict = {};
 
         return this;
