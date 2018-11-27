@@ -100,6 +100,13 @@ var showStage = function(){
 var initModel = function(model){
     window.model = model;
     stage.addChild(model.node);
+
+    if(!utils.keys.depthMask){
+        model.materials.forEach(function(material){
+            material.depthMask = true;
+        });
+    }
+
     var bounds = model.node.getBounds();
 
     var modelHasLight = !!(model.lights && model.lights.length);
