@@ -15,6 +15,11 @@ if (!window.notInit) {
         height: innerHeight
     });
 
+    window.onresize = function(){
+        camera.aspect = innerWidth / innerHeight;
+        stage.resize(innerWidth, innerHeight);
+    }
+
     renderer = stage.renderer;
     gl;
 
