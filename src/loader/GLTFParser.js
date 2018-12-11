@@ -90,7 +90,7 @@ const glTFAttrToGeometry = {
 /**
  * @class
  */
-const GLTFParser = Class.create(/** @lends GLTFParser.prototype */ {
+const GLTFParser = Class.create(/** @lends GLTFParser.prototype */{
     /**
      * @default true
      * @type {boolean}
@@ -180,6 +180,15 @@ const GLTFParser = Class.create(/** @lends GLTFParser.prototype */ {
     getExtensionHandler(name) {
         return this.extensionHandlers && this.extensionHandlers[name] || GLTFParser.extensionHandlers[name];
     },
+    parseExtension(extensions, name, result, options = {}) {
+        const info = extensions[name];
+        const extension = this.getExtensionHandler(name);
+        if (extension && extension.parse) {
+            return extension.parse(info, this, result, options);
+        }
+
+        return null;
+    },
     parseExtensions(extensions, result, options = {}) {
         util.each(extensions, (info, name) => {
             const extension = this.getExtensionHandler(name);
@@ -227,6 +236,14 @@ const GLTFParser = Class.create(/** @lends GLTFParser.prototype */ {
     },
     loadResources(loader) {
         const actions = [];
+
+        for (let extensionName in this.extensionsUsed) {
+            const extension = this.getExtensionHandler(extensionName);
+            if (extension && extension.init) {
+                actions.push(extension.init(loader, this));
+            }
+        }
+
         if (this.isBinary) {
             actions.push(this.loadBuffers(loader).then(() => {
                 return this.loadTextures(loader);
@@ -234,13 +251,6 @@ const GLTFParser = Class.create(/** @lends GLTFParser.prototype */ {
         } else {
             actions.push(this.loadBuffers(loader));
             actions.push(this.loadTextures(loader));
-        }
-
-        for (let extensionName in this.extensionsUsed) {
-            const extension = this.getExtensionHandler(extensionName);
-            if (extension && extension.init) {
-                actions.push(extension.init(loader, this));
-            }
         }
 
         return Promise.all(actions);
@@ -314,12 +324,12 @@ const GLTFParser = Class.create(/** @lends GLTFParser.prototype */ {
                 }
                 if (this.isUseExtension(values, 'KHR_materials_pbrSpecularGlossiness')) {
                     const subValues = values.extensions.KHR_materials_pbrSpecularGlossiness;
-                    if (subValues.diffuseTexture) {
-                        map[subValues.diffuseTexture.index] = true;
-                    }
-                    if (subValues.specularGlossinessTexture) {
-                        map[subValues.specularGlossinessTexture.index] = true;
-                    }
+                    const extensionHandler = this.getExtensionHandler('KHR_materials_pbrSpecularGlossiness');
+                    extensionHandler.getUsedTextureNameMap(subValues, map, this);
+                } else if (this.isUseExtension(values, 'KHR_techniques_webgl')) {
+                    const subValues = values.extensions.KHR_techniques_webgl;
+                    const extensionHandler = this.getExtensionHandler('KHR_techniques_webgl');
+                    extensionHandler.getUsedTextureNameMap(subValues, map, this);
                 } else if (values.pbrMetallicRoughness) {
                     const subValues = values.pbrMetallicRoughness;
                     if (subValues.baseColorTexture) {
@@ -614,7 +624,11 @@ const GLTFParser = Class.create(/** @lends GLTFParser.prototype */ {
 
             let material;
             if (this.isGLTF2 && !kmc) {
-                material = this.createPBRMaterial(materialData);
+                if (this.isUseExtension(materialData, 'KHR_techniques_webgl')) {
+                    material = this.parseExtension(materialData.extensions, 'KHR_techniques_webgl');
+                } else {
+                    material = this.createPBRMaterial(materialData);
+                }
             } else {
                 material = this.createKMCMaterial(materialData, kmc);
             }

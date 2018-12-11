@@ -58,6 +58,8 @@ const semantic = {
      */
     gl: null,
 
+    blankInfo,
+
     /**
      * 初始化
      * @param  {State} _state

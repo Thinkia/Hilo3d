@@ -4,8 +4,18 @@ import DirectionalLight from '../light/DirectionalLight';
 import SpotLight from '../light/SpotLight';
 import Color from '../math/Color';
 import math from '../math/math';
+import * as util from '../utils/util';
+import ShaderMaterial from '../material/ShaderMaterial';
+import semantic from '../material/semantic';
+import constants from '../constants';
 
-export { default as ALI_amc_mesh_compression } from './AliAMCExtension';
+const {
+    SAMPLER_2D
+} = constants;
+
+export {
+    default as ALI_amc_mesh_compression
+} from './AliAMCExtension';
 
 export const WEB3D_quantized_attributes = {
     unQuantizeData(data, decodeMat) {
@@ -75,6 +85,14 @@ export const ALI_bounding_box = {
 };
 
 export const KHR_materials_pbrSpecularGlossiness = {
+    getUsedTextureNameMap(extension, map) {
+        if (extension.diffuseTexture) {
+            map[extension.diffuseTexture.index] = true;
+        }
+        if (extension.specularGlossinessTexture) {
+            map[extension.specularGlossinessTexture.index] = true;
+        }
+    },
     parse(info, parser, material) {
         if (info.diffuseFactor) {
             material.baseColor.fromArray(info.diffuseFactor);
@@ -168,5 +186,136 @@ export const KHR_lights_punctual = {
             node.addChild(light);
             parser.lights.push(light);
         }
+    }
+};
+
+export const KHR_techniques_webgl = {
+    init(loader, parser) {
+        const actions = [];
+        const extensions = parser.json.extensions || {};
+        const KHR_techniques_webgl = extensions.KHR_techniques_webgl || {};
+
+        const programs = KHR_techniques_webgl.programs || [];
+        const shaders = KHR_techniques_webgl.shaders || [];
+        const techniques = KHR_techniques_webgl.techniques || [];
+
+        parser.shaders = {};
+        shaders.forEach((shader, index) => {
+            const uri = util.getRelativePath(parser.src, shader.uri);
+            actions.push(loader.loadRes(uri).then((shaderText) => {
+                parser.shaders[index] = shaderText;
+            }));
+        });
+
+        parser.programs = {};
+        programs.forEach((program, index) => {
+            parser.programs[index] = Object.assign({}, program);
+        });
+
+        parser.techniques = {};
+        techniques.forEach((technique, index) => {
+            const newTechnique = parser.techniques[index] = Object.assign({}, technique);
+            const textureInfos = newTechnique.textureInfos = {};
+            const uniforms = technique.uniforms || {};
+            for (let name in uniforms) {
+                const uniform = uniforms[name];
+                if (uniform.type === SAMPLER_2D) {
+                    textureInfos[name] = uniform.value || {};
+                }
+            }
+        });
+
+        return Promise.all(actions);
+    },
+    getUsedTextureNameMap(extension, map, parser) {
+        const techniques = parser.techniques;
+        const technique = techniques[extension.technique];
+        const values = extension.values || {};
+        if (technique) {
+            const textureInfos = technique.textureInfos;
+            for (let name in textureInfos) {
+                let imageIndex;
+                if (values[name] && values[name].index !== undefined) {
+                    imageIndex = values[name].index;
+                } else if (textureInfos[name].index !== undefined) {
+                    imageIndex = textureInfos[name].index;
+                }
+
+                if (imageIndex !== undefined) {
+                    map[textureInfos[name].index] = true;
+                }
+            }
+        }
+    },
+    parse(info, parser, material, options) {
+        if (options.isGlobalExtension) {
+            return null;
+        }
+
+        const textures = parser.textures || [];
+
+        const techniqueInfo = parser.techniques[info.technique];
+        if (!techniqueInfo) {
+            return null;
+        }
+        const programInfo = parser.programs[techniqueInfo.program];
+        if (!programInfo) {
+            return null;
+        }
+
+        const fragmentText = parser.shaders[programInfo.fragmentShader];
+        const vertexText = parser.shaders[programInfo.vertexShader];
+
+        const uniformsInfo = techniqueInfo.uniforms || {};
+        const attributesInfo = techniqueInfo.attributes || {};
+        const valuesInfo = info.values || {};
+
+        const attributes = {};
+        const uniforms = {};
+
+        for (let uniformName in uniformsInfo) {
+            const uniformDef = uniformsInfo[uniformName] || {};
+            const uniformValue = valuesInfo[uniformName] || uniformDef.value;
+            let uniformObject;
+            if (uniformValue) {
+                if (uniformDef.type === SAMPLER_2D) {
+                    const textureIndex = uniformValue.index || 0;
+                    uniformObject = {
+                        get(mesh, material, programInfo) {
+                            return semantic.handlerTexture(textures[textureIndex], programInfo.textureIndex);
+                        }
+                    };
+                } else {
+                    uniformObject = {
+                        get() {
+                            return uniformValue;
+                        }
+                    };
+                }
+            } else if (uniformDef.semantic) {
+                uniformObject = uniformDef.semantic;
+            } else {
+                uniformObject = semantic.blankInfo;
+            }
+            uniforms[uniformName] = uniformObject;
+        }
+
+        for (let attributeName in attributesInfo) {
+            const attributeValue = attributesInfo[attributeName] || {};
+            if (attributeValue.semantic) {
+                attributes[attributeName] = attributeValue.semantic;
+            }
+        }
+
+        const shaderMaterial = new ShaderMaterial({
+            needBasicUnifroms: false,
+            needBasicAttributes: false,
+            vs: vertexText,
+            fs: fragmentText,
+            attributes,
+            uniforms
+        });
+
+        return shaderMaterial;
     }
 };
