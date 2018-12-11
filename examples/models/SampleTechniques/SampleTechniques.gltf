@@ -234,11 +234,11 @@
             "shaders": [
                 {
                     "type": 35632,
-                    "uri": "duck0FS.glsl"
+                    "uri": "duck0FS.text"
                 },
                 {
                     "type": 35633,
-                    "uri": "duck0VS.glsl"
+                    "uri": "duck0VS.text"
                 }
             ],
             "techniques": [
