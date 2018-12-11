@@ -201,7 +201,10 @@ export const KHR_techniques_webgl = {
 
         parser.shaders = {};
         shaders.forEach((shader, index) => {
-            const uri = util.getRelativePath(parser.src, shader.uri);
+            let uri = util.getRelativePath(parser.src, shader.uri);
+            if (parser.preHandlerShaderURI) {
+                uri = parser.preHandlerShaderURI(uri, index, shader);
+            }
             actions.push(loader.loadRes(uri).then((shaderText) => {
                 parser.shaders[index] = shaderText;
             }));
@@ -292,8 +295,24 @@ export const KHR_techniques_webgl = {
                         }
                     };
                 }
-            } else if (uniformDef.semantic) {
-                uniformObject = uniformDef.semantic;
+            } else if (uniformDef.semantic && semantic[uniformDef.semantic]) {
+                const semanticFunc = semantic[uniformDef.semantic];
+                const nodeIndex = uniformDef.node;
+                let node;
+                if (nodeIndex !== undefined) {
+                    uniformObject = {
+                        get(mesh, material, programInfo) {
+                            if (node === undefined) {
+                                node = parser.node.getChildByFn((node) => {
+                                    return node.animationId === nodeIndex;
+                                }) || mesh;
+                            }
+                            return semanticFunc.get(node, material, programInfo);
+                        }
+                    };
+                } else {
+                    uniformObject = uniformDef.semantic;
+                }
             } else {
                 uniformObject = semantic.blankInfo;
             }

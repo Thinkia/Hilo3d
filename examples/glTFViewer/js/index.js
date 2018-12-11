@@ -162,7 +162,8 @@ var loadGlTF = function(glTFUrl, isFromFile){
     if (isFromFile) {
         Object.assign(params, {
             preHandlerImageURI: preHandlerResURI,
-            preHandlerBufferURI: preHandlerResURI
+            preHandlerBufferURI: preHandlerResURI,
+            preHandlerShaderURI: preHandlerResURI
         });
     }
 
