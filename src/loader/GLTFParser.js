@@ -15,6 +15,7 @@ import Color from '../math/Color';
 import AnimationStates from '../animation/AnimationStates';
 import Animation from '../animation/Animation';
 import PerspectiveCamera from '../camera/PerspectiveCamera';
+import OrthographicCamera from '../camera/OrthographicCamera';
 import log from '../utils/log';
 import * as util from '../utils/util';
 import * as extensionHandlers from './GLTFExtensions';
@@ -928,9 +929,9 @@ const GLTFParser = Class.create(/** @lends GLTFParser.prototype */{
         this.cameras = {};
         const defaultAspect = window.innerWidth / window.innerHeight;
         util.each(this.json.cameras, (cameraData, name) => {
-            if (cameraData.type === 'perspective') {
-                const camera = new PerspectiveCamera();
-                camera.name = cameraData.name || name;
+            let camera;
+            if (cameraData.type === 'perspective' && cameraData.perspective) {
+                camera = new PerspectiveCamera();
                 camera.fov = math.radToDeg(cameraData.perspective.yfov);
                 camera.near = cameraData.perspective.znear;
                 camera.far = cameraData.perspective.zfar;
@@ -939,6 +940,18 @@ const GLTFParser = Class.create(/** @lends GLTFParser.prototype */{
                 } else {
                     camera.aspect = defaultAspect;
                 }
+            } else if (cameraData.type === 'orthographic' && cameraData.orthographic) {
+                camera = new OrthographicCamera();
+                camera.near = cameraData.orthographic.znear;
+                camera.far = cameraData.orthographic.zfar;
+                camera.right = cameraData.orthographic.xmag;
+                camera.left = camera.right * -1;
+                camera.top = cameraData.orthographic.ymag;
+                camera.bottom = camera.right * -1;
+            }
+
+            if (camera) {
+                camera.name = cameraData.name || name;
                 this.cameras[name] = camera;
             }
         });
