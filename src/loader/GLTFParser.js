@@ -947,7 +947,7 @@ const GLTFParser = Class.create(/** @lends GLTFParser.prototype */{
                 camera.right = cameraData.orthographic.xmag;
                 camera.left = camera.right * -1;
                 camera.top = cameraData.orthographic.ymag;
-                camera.bottom = camera.right * -1;
+                camera.bottom = camera.top * -1;
             }
 
             if (camera) {
