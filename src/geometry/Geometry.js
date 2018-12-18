@@ -879,6 +879,24 @@ const Geometry = Class.create(/** @lends Geometry.prototype */ {
         }
         return opt;
     },
+    getShaderKey() {
+        if (this._shaderKey === undefined) {
+            this._shaderKey = 'geometry';
+            if (this.isMorphGeometry) {
+                this._shaderKey += `_id_${this.id}`;
+            } else {
+                if (this.colors) {
+                    this._shaderKey += '_colors';
+                }
+
+                if (this.positionDecodeMat) {
+                    this._shaderKey += 'positionDecodeMat';
+                }
+            }
+        }
+
+        return this._shaderKey;
+    },
     /**
      * @deprecated
      * @return {Geometry} this

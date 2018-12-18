@@ -147,9 +147,8 @@ const Shader = Class.create(/** @lends Shader.prototype */ {
             if (fog) {
                 headerKey += '_fog_' + fog.mode;
             }
-            if (mesh.geometry.isMorphGeometry) {
-                headerKey += '_' + mesh.geometry.id;
-            }
+
+            headerKey += '_' + mesh.geometry.getShaderKey();
 
             if (useLogDepth) {
                 headerKey += '_fogDepth';
