@@ -611,7 +611,7 @@ const GLTFParser = Class.create(/** @lends GLTFParser.prototype */{
         this.materials = {};
         util.each(this.json.materials, (materialData, name) => {
             if (this.customMaterialCreator) {
-                const material = this.customMaterialCreator(name, materialData, this.json);
+                const material = this.customMaterialCreator(name, materialData, this.json, this);
                 if (material) {
                     this.materials[name] = material;
                     return;
