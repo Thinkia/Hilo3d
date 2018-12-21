@@ -45,6 +45,7 @@ const GLTFLoader = Class.create(/** @lends GLTFLoader.prototype */{
      * @param {function} [params.preHandlerImageURI=null] 图片URL预处理函数
      * @param {function} [params.preHandlerBufferURI=null] Buffer URL预处理函数
      * @param {function} [params.customMaterialCreator=null] 是否使用自定义的Material创建器
+     * @param {function} [params.isLoadAllTextures=false] 是否加载所有的贴图，默认只加载用到的贴图
      * @async
      * @return {Promise<Model, Error>} 返回加载完的模型对象
      */

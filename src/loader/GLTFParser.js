@@ -130,6 +130,7 @@ const GLTFParser = Class.create(/** @lends GLTFParser.prototype */{
     isMultiAnim: true,
     isProgressive: false,
     isUnQuantizeInShader: true,
+    isLoadAllTextures: false,
     preHandlerImageURI: null,
     preHandlerBufferURI: null,
     customMaterialCreator: null,
@@ -372,11 +373,15 @@ const GLTFParser = Class.create(/** @lends GLTFParser.prototype */{
             return Promise.resolve();
         }
 
-        const usedTextures = this.getUsedTextureNameMap();
+        let needLoadTextures = Object.keys(this.json.textures);
+        if (!this.isLoadAllTextures) {
+            const usedTextures = this.getUsedTextureNameMap();
+            needLoadTextures = needLoadTextures.filter((textureName) => {
+                return usedTextures[textureName];
+            });
+        }
 
-        return Promise.all(Object.keys(this.json.textures).filter((textureName) => {
-            return usedTextures[textureName];
-        }).map((textureName) => {
+        return Promise.all(needLoadTextures.map((textureName) => {
             let textureData = this.json.textures[textureName];
             let uri = this.getImageUri(textureData.source);
             uri = util.getRelativePath(this.src, uri);
