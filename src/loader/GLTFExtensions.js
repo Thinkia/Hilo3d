@@ -5,6 +5,7 @@ import SpotLight from '../light/SpotLight';
 import Color from '../math/Color';
 import math from '../math/math';
 import * as util from '../utils/util';
+import log from '../utils/log';
 import ShaderMaterial from '../material/ShaderMaterial';
 import semantic from '../material/semantic';
 import constants from '../constants';
@@ -278,9 +279,12 @@ export const KHR_techniques_webgl = {
 
         for (let uniformName in uniformsInfo) {
             const uniformDef = uniformsInfo[uniformName] || {};
-            const uniformValue = valuesInfo[uniformName] || uniformDef.value;
+            let uniformValue = valuesInfo[uniformName];
+            if (uniformValue === undefined) {
+                uniformValue = uniformDef.value;
+            }
             let uniformObject;
-            if (uniformValue) {
+            if (uniformValue !== undefined) {
                 if (uniformDef.type === SAMPLER_2D) {
                     const textureIndex = uniformValue.index || 0;
                     uniformObject = {
@@ -314,6 +318,7 @@ export const KHR_techniques_webgl = {
                     uniformObject = uniformDef.semantic;
                 }
             } else {
+                log.warn(`KHR_techniques_webgl: no ${uniformName} value found!`);
                 uniformObject = semantic.blankInfo;
             }
             uniforms[uniformName] = uniformObject;
