@@ -456,16 +456,14 @@ const GLTFParser = Class.create(/** @lends GLTFParser.prototype */{
         }
         return this.textures[value];
     },
-    createPBRMaterial(materialData) {
-        const material = new PBRMaterial();
-        let values = materialData;
-        switch (values.alphaMode) {
+    parseMaterialCommonProps(material, materialData) {
+        switch (materialData.alphaMode) {
             case 'BLEND':
                 material.transparent = true;
                 break;
             case 'MASK':
-                if ('alphaCutoff' in values) {
-                    material.alphaCutoff = values.alphaCutoff;
+                if ('alphaCutoff' in materialData) {
+                    material.alphaCutoff = materialData.alphaCutoff;
                 } else {
                     material.alphaCutoff = 0.5;
                 }
@@ -476,15 +474,19 @@ const GLTFParser = Class.create(/** @lends GLTFParser.prototype */{
                 break;
         }
 
-        if (!values.doubleSided) {
+        if (!materialData.doubleSided) {
             material.side = FRONT;
         } else {
             material.side = FRONT_AND_BACK;
         }
 
-        if (values.transparencyTexture) {
-            material.transparency = this.getTexture(values.transparencyTexture);
+        if (materialData.transparencyTexture) {
+            material.transparency = this.getTexture(materialData.transparencyTexture);
         }
+    },
+    createPBRMaterial(materialData) {
+        const material = new PBRMaterial();
+        let values = materialData;
 
         const needLight = !this.isUseExtension(values, 'KHR_materials_unlit');
 
@@ -635,6 +637,7 @@ const GLTFParser = Class.create(/** @lends GLTFParser.prototype */{
                 } else {
                     material = this.createPBRMaterial(materialData);
                 }
+                this.parseMaterialCommonProps(material, materialData);
             } else {
                 material = this.createKMCMaterial(materialData, kmc);
             }
