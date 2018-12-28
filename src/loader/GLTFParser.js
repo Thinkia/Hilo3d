@@ -134,6 +134,7 @@ const GLTFParser = Class.create(/** @lends GLTFParser.prototype */{
     preHandlerImageURI: null,
     preHandlerBufferURI: null,
     customMaterialCreator: null,
+    ignoreTextureError: false,
     src: '',
     /**
      * @constructs
@@ -402,7 +403,7 @@ const GLTFParser = Class.create(/** @lends GLTFParser.prototype */{
             this.textures[textureName] = texture;
 
             if (!this.isProgressive) {
-                return texture.load();
+                return texture.load(!this.ignoreTextureError);
             }
             return Promise.resolve();
         }));

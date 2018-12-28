@@ -95,9 +95,10 @@ const LazyTexture = Class.create(/** @lends LazyTexture.prototype */ {
 
     /**
      * 加载图片
+     * @param {boolean} [throwError=false] 是否 throw error
      * @return {Promise} 返回加载的Promise
      */
-    load() {
+    load(throwError) {
         LazyTexture.loader = LazyTexture.loader || new Loader();
         return LazyTexture.loader.load({
             src: this.src,
@@ -116,7 +117,11 @@ const LazyTexture = Class.create(/** @lends LazyTexture.prototype */ {
             }
         }, (err) => {
             this.fire('error');
-            log.error(`LazyTexture Failed ${err}`);
+            if (throwError) {
+                throw new Error(`LazyTexture Failed ${err}`);
+            } else {
+                log.warn(`LazyTexture Failed ${err}`);
+            }
         });
     }
 });

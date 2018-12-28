@@ -42,6 +42,7 @@ const GLTFLoader = Class.create(/** @lends GLTFLoader.prototype */{
      * @param {boolean} [params.isMultiAnim=false] 模型是否多动画，如果是的话会返回 anims 对象保存多个动画对象
      * @param {boolean} [params.isProgressive=false] 是否渐进式加载，图片加载完前使用占位图片
      * @param {boolean} [params.isUnQuantizeInShader=true] 是否在shader中进行量化解压数据
+     * @param {boolean} [params.ignoreTextureError=false] 是否忽略图片加载错误
      * @param {function} [params.preHandlerImageURI=null] 图片URL预处理函数
      * @param {function} [params.preHandlerBufferURI=null] Buffer URL预处理函数
      * @param {function} [params.customMaterialCreator=null] 是否使用自定义的Material创建器
