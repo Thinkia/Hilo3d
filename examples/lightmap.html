@@ -30,7 +30,7 @@
         directionLight.direction.set(1, 1, -1);
         const loader = new Hilo3d.Loader();
         loader.load([{
-            // src: '/dl/models/tmx/test.gltf'
+            ignoreTextureError: true,
             src: '//ossgw.alicdn.com/tmall-c3/tmx/9578a65ee149dc3a6e71d9844d4e1da9.gltf'
         }, {
             type: 'Texture',

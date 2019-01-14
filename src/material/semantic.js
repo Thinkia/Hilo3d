@@ -638,6 +638,15 @@ const semantic = {
     /**
      * @type {semanticObject}
      */
+    POINTLIGHTSRANGE: {
+        get(mesh, material, programInfo) {
+            return lightManager.pointInfo.ranges;
+        }
+    },
+
+    /**
+     * @type {semanticObject}
+     */
     POINTLIGHTSSHADOWMAP: {
         get(mesh, material, programInfo) {
             const result = lightManager.pointInfo.shadowMap.map((texture, i) => {
@@ -716,6 +725,15 @@ const semantic = {
     SPOTLIGHTSINFO: {
         get(mesh, material, programInfo) {
             return lightManager.spotInfo.infos;
+        }
+    },
+
+    /**
+     * @type {semanticObject}
+     */
+    SPOTLIGHTSRANGE: {
+        get(mesh, material, programInfo) {
+            return lightManager.spotInfo.ranges;
         }
     },
 

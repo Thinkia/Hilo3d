@@ -55,13 +55,13 @@
         });
         var createLight = function(color) {
             lightNum ++;
-            var amount = 10 + 2 * Math.random();
+            var amount = 100 + 2 * Math.random();
 
             var pointLight = new Hilo3d.PointLight({
                 time:lightNum * 666,
                 color: color,
                 amount:amount,
-                range: 50,
+                range: 100,
                 shadow: {
                     minBias: 0.1
                 },

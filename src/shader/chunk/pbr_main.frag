@@ -100,7 +100,7 @@ color.a = baseColor.a;
             float theta = dot(normalize(distanceVec), lightDir);
             float epsilon = u_spotLightsCutoffs[i][0] - u_spotLightsCutoffs[i][1];
             float intensity = clamp((theta - u_spotLightsCutoffs[i][1]) / epsilon, 0.0, 1.0);
-            float attenuation = getLightAttenuation(distanceVec, u_spotLightsInfo[i]);
+            float attenuation = getLightAttenuation(distanceVec, u_spotLightsInfo[i], u_spotLightsRange[i]);
             vec3 radiance = intensity * attenuation * u_spotLightsColor[i];
 
             float shadow = 1.0;
@@ -127,7 +127,7 @@ color.a = baseColor.a;
                 }
             #endif
 
-            float attenuation = getLightAttenuation(distanceVec, u_pointLightsInfo[i]);
+            float attenuation = getLightAttenuation(distanceVec, u_pointLightsInfo[i], u_pointLightsRange[i]);
             vec3 radiance = attenuation * u_pointLightsColor[i];
 
             color.rgb += shadow * radiance * calculateLo(N, V, lightDir, specularEnvironmentR0, specularEnvironmentR90, alphaRoughness, diffuseColor, NdotV);

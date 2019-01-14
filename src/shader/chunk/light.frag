@@ -15,6 +15,7 @@
     uniform vec3 u_spotLightsColor[HILO_SPOT_LIGHTS];
     uniform vec2 u_spotLightsCutoffs[HILO_SPOT_LIGHTS];
     uniform vec3 u_spotLightsInfo[HILO_SPOT_LIGHTS];
+    uniform float u_spotLightsRange[HILO_SPOT_LIGHTS];
     #ifdef HILO_SPOT_LIGHTS_SMC
         uniform sampler2D u_spotLightsShadowMap[HILO_SPOT_LIGHTS_SMC];
         uniform vec2 u_spotLightsShadowMapSize[HILO_SPOT_LIGHTS_SMC];
@@ -27,6 +28,7 @@
     uniform vec3 u_pointLightsPos[HILO_POINT_LIGHTS];
     uniform vec3 u_pointLightsColor[HILO_POINT_LIGHTS];
     uniform vec3 u_pointLightsInfo[HILO_POINT_LIGHTS];
+    uniform float u_pointLightsRange[HILO_POINT_LIGHTS];
     #ifdef HILO_POINT_LIGHTS_SMC
         uniform samplerCube u_pointLightsShadowMap[HILO_POINT_LIGHTS_SMC];
         uniform mat4 u_pointLightSpaceMatrix[HILO_POINT_LIGHTS_SMC];

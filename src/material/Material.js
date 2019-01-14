@@ -120,6 +120,13 @@ const Material = Class.create(/** @lends Material.prototype */ {
     gammaCorrection: false,
 
     /**
+     * 是否使用物理灯光
+     * @type {Boolean}
+     * @default false
+     */
+    usePhysicsLight: false,
+
+    /**
      * gammaOutput
      * @type {Boolean}
      * @deprecated
@@ -431,6 +438,7 @@ const Material = Class.create(/** @lends Material.prototype */ {
             u_pointLightsPos: 'POINTLIGHTSPOS',
             u_pointLightsColor: 'POINTLIGHTSCOLOR',
             u_pointLightsInfo: 'POINTLIGHTSINFO',
+            u_pointLightsRange: 'POINTLIGHTSRANGE',
             u_pointLightsShadowBias: 'POINTLIGHTSSHADOWBIAS',
             u_pointLightsShadowMap: 'POINTLIGHTSSHADOWMAP',
             u_pointLightSpaceMatrix: 'POINTLIGHTSPACEMATRIX',
@@ -440,6 +448,7 @@ const Material = Class.create(/** @lends Material.prototype */ {
             u_spotLightsColor: 'SPOTLIGHTSCOLOR',
             u_spotLightsCutoffs: 'SPOTLIGHTSCUTOFFS',
             u_spotLightsInfo: 'SPOTLIGHTSINFO',
+            u_spotLightsRange: 'SPOTLIGHTSRANGE',
             u_spotLightsShadowMap: 'SPOTLIGHTSSHADOWMAP',
             u_spotLightsShadowMapSize: 'SPOTLIGHTSSHADOWMAPSIZE',
             u_spotLightsShadowBias: 'SPOTLIGHTSSHADOWBIAS',
@@ -557,6 +566,10 @@ const Material = Class.create(/** @lends Material.prototype */ {
 
         if (this.uvMatrix1) {
             option.UV_MATRIX1 = 1;
+        }
+
+        if (this.usePhysicsLight) {
+            option.USE_PHYSICS_LIGHT = 1;
         }
 
         textureOption.update();

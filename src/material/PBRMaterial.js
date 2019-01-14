@@ -41,6 +41,13 @@ const PBRMaterial = Class.create(/** @lends PBRMaterial.prototype */ {
     gammaCorrection: true,
 
     /**
+     * 是否使用物理灯光
+     * @type {Boolean}
+     * @default true
+     */
+    usePhysicsLight: true,
+
+    /**
      * 基础颜色
      * @default null
      * @type {Color}
