@@ -81,6 +81,12 @@ const Node = Class.create(/** @lends Node.prototype */ {
      */
     autoUpdateWorldMatrix: true,
     /**
+     * 是否自动更新子元素世界矩阵
+     * @default true
+     * @type {boolean}
+     */
+    autoUpdateChildWorldMatrix: true,
+    /**
      * 父节点
      * @default null
      * @type {Node}
@@ -341,6 +347,12 @@ const Node = Class.create(/** @lends Node.prototype */ {
                     node.worldMatrix.copy(node.matrix);
                 }
             }
+
+            if (!node.autoUpdateChildWorldMatrix && !force) {
+                return TRAVERSE_STOP_CHILDREN;
+            }
+
+            return TRAVERSE_STOP_NONE;
         });
         return this;
     },
