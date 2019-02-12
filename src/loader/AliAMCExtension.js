@@ -24,7 +24,7 @@ const AliAMCExtension = {
         }
 
         if (AliAMCExtension.useWASM) {
-            return AMDecompression.initWASM(AliAMCExtension.wasmURL);
+            return AMDecompression.initWASM(AliAMCExtension.wasmURL, AliAMCExtension.memPages);
         }
         return Promise.resolve();
     },

@@ -17,9 +17,8 @@ gulp.task('del', (done) => {
 
 gulp.task('copy', ['del'], () => {
     return gulp.src([
-            `${gitlabPath}/+(build|examples|docs|types)/**/*`,
-            `${gitlabPath}/README.md`,
-            `${gitlabPath}/+(src)/+(animation|camera|constants|core|geometry|loader|material|renderer|shader|texture)/**/*`,
+            `${gitlabPath}/+(build|examples|docs|types|test|src)/**/*`,
+            `${gitlabPath}/README.md`
         ])
         .pipe(gulp.dest('./'));
 });

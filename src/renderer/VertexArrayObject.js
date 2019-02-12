@@ -43,6 +43,9 @@ const VertexArrayObject = Class.create(/** @lends VertexArrayObject.prototype */
             if (!vao) {
                 vao = new VertexArrayObject(gl, id, params);
                 cache.add(id, vao);
+            } else if (params.mode && params.mode !== vao.mode) {
+                // for geometry.mode change
+                vao.mode = params.mode;
             }
 
             return vao;
