@@ -566,6 +566,7 @@ void mainImage( out vec4 fragColor, in vec2 fragCoord )
 `;
 </script>
 <script>
+    Hilo3d.extensions.use("OES_standard_derivatives");
     renderer.clearColor = new Hilo3d.Color(0, 0, 0, 1);
     var commonUniformGetMethod = function(mesh, material, programInfo){
         return this.value;
@@ -695,7 +696,6 @@ void mainImage( out vec4 fragColor, in vec2 fragCoord )
                 #extension GL_OES_standard_derivatives: enable
                 #define texture texture2D
                 precision HILO_MAX_FRAGMENT_PRECISION float;
-
                 uniform vec3 iResolution;
                 uniform float iTime;
                 uniform float iTimeDelta;
