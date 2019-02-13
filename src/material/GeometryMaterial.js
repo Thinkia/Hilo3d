@@ -11,7 +11,7 @@ const {
 } = constants;
 
 /**
- * 基础材质
+ * 几何材质，支持 POSITION, NORMAL, DEPTH, DISTANCE 顶点类型
  * @class
  * @extends BasicMaterial
  * @example
