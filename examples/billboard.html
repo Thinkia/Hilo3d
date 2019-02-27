@@ -25,9 +25,13 @@
             u_diffuse:'DIFFUSE',    
             'u_modelViewMatrix':'MODELVIEW',
             'u_projectionMatrix':'PROJECTION',
-            'u_vOffset':{
-                get:function(){
-                    return [0, 0, 0];
+            'u_scale':{
+                isDependMesh: true,
+                get:function(mesh){
+                    if (!mesh.__billdboardScale) {
+                        mesh.__billdboardScale = new Hilo3d.Vector3(1, 1, 1);
+                    }
+                    return mesh.worldMatrix.getScaling(mesh.__billdboardScale).elements;
                 }
             },
         },
@@ -47,36 +51,18 @@
         `,
         vs:`
             precision HILO_MAX_VERTEX_PRECISION float;
+            uniform vec3 u_scale;
             attribute vec3 a_position;
             attribute vec2 a_texcoord0;
             varying vec2 v_texcoord0;
 
             uniform mat4 u_modelViewMatrix;
             uniform mat4 u_projectionMatrix;
-            uniform vec3 u_vOffset;
 
             void main(void) {
-                // Quad中心点的 view 坐标 
-                vec4 vCenter = u_modelViewMatrix * vec4(0, 0, 0, 1) + vec4(u_vOffset, 0) ;
-                
-                // Quad自身坐标系的Up方向 
-                vec3 vUp = vec3(0, 1, 0);  
-                
-                // 中心点到相机的LookAt方向 
-                vec3 vEye = normalize( vec3(0, 0, 0)  - vec3(vCenter));
-                
-                // Quad自身坐标系的Right方向 
-                vec3 vRight = cross(vUp, vEye);
-                vUp = normalize(cross(vEye, vRight));
-                vRight = normalize(vRight);
-
-                // 根据纹理坐标偏移，10为Quad的scale size 
-                vec3 vTmpPos = vCenter.xyz;
-                float size = 0.2;
-                vTmpPos += (a_texcoord0.x - 0.5) * size * vRight;
-                vTmpPos += (a_texcoord0.y - 0.5) * size * vUp;
-
-                gl_Position = u_projectionMatrix * vec4(( vTmpPos), 1);
+                vec4 center = u_modelViewMatrix * vec4(0, 0, 0, 1);
+                center.xy += a_position.xy * u_scale.xy;
+                gl_Position = u_projectionMatrix * center;
                 v_texcoord0 = a_texcoord0;
             }
         `
@@ -90,17 +76,23 @@
         var rect = new Hilo3d.Mesh({
             geometry: planeGeometry,
             material: billdboardMaterial,
-            x: rand(-1.5, 1.5),
-            y: rand(-1.5, 1.5),
-            z: rand(-1.5, 1.5),
-            time:rand(0, 10),
-            onUpdate(dt){
-                this.time += dt;
-            }
+            x: rand(-1, 1),
+            y: rand(-1, 1),
+            z: rand(-1, 1)
         });
-        rect.setScale(rand(0.01, 0.02));
+        rect.setScale(rand(0.08, 0.2));
         stage.addChild(rect);
     }
+
+    var centerRect = new Hilo3d.Mesh({
+        geometry: planeGeometry,
+        material: billdboardMaterial,
+        x: 0,
+        y: 0,
+        z: 0
+    });
+    centerRect.setScale(1);
+    stage.addChild(centerRect);
 </script>
 </body>
 </html>
