@@ -397,6 +397,10 @@
             
                 <li  data-name="extensions.get"><a href="extensions.html#.get">get</a></li>
             
+                <li  data-name="extensions.disable"><a href="extensions.html#.disable">disable</a></li>
+            
+                <li  data-name="extensions.enable"><a href="extensions.html#.enable">enable</a></li>
+            
             </ul>
             <ul class="events itemMembers">
             
@@ -7307,7 +7311,7 @@
     
     
         
-            <div class="description"><p>WebGL 扩展</p></div>
+            <div class="description"><p>WebGL 扩展管理，默认开启的扩展有：ANGLE_instanced_arrays, OES_vertex_array_object, OES_texture_float, WEBGL_lose_context, OES_element_index_uint, EXT_shader_texture_lod</p></div>
         
         
         
@@ -7568,7 +7572,7 @@
         
             
             <div class="tag-source">
-                <a href="renderer_extensions.js.html">renderer/extensions.js</a>, <a href="renderer_extensions.js.html#line38">line 38</a>
+                <a href="renderer_extensions.js.html">renderer/extensions.js</a>, <a href="renderer_extensions.js.html#line39">line 39</a>
             </div>
             
         </div>
@@ -7683,7 +7687,7 @@
         
             
             <div class="tag-source">
-                <a href="renderer_extensions.js.html">renderer/extensions.js</a>, <a href="renderer_extensions.js.html#line46">line 46</a>
+                <a href="renderer_extensions.js.html">renderer/extensions.js</a>, <a href="renderer_extensions.js.html#line47">line 47</a>
             </div>
             
         </div>
@@ -7798,7 +7802,7 @@
         
             
             <div class="tag-source">
-                <a href="renderer_extensions.js.html">renderer/extensions.js</a>, <a href="renderer_extensions.js.html#line61">line 61</a>
+                <a href="renderer_extensions.js.html">renderer/extensions.js</a>, <a href="renderer_extensions.js.html#line62">line 62</a>
             </div>
             
         </div>
@@ -7960,7 +7964,7 @@
         
             
             <div class="tag-source">
-                <a href="renderer_extensions.js.html">renderer/extensions.js</a>, <a href="renderer_extensions.js.html#line75">line 75</a>
+                <a href="renderer_extensions.js.html">renderer/extensions.js</a>, <a href="renderer_extensions.js.html#line76">line 76</a>
             </div>
             
         </div>
@@ -8137,6 +8141,236 @@
     </tbody>
 </table>
 
+        
+        
+        
+    </dd>
+</dl>
+        
+            
+<dl >
+    <dt>
+        <div class="nameContainer">
+            <h4 class="name" id=".disable">
+                
+                <span class="type-signature static">static</span>extensions.disable<span class="signature">(name)</span>
+            </h4>
+        
+            
+            <div class="tag-source">
+                <a href="renderer_extensions.js.html">renderer/extensions.js</a>, <a href="renderer_extensions.js.html#line93">line 93</a>
+            </div>
+            
+        </div>
+    </dt>
+    <dd>
+        
+        
+        <div class="description">
+            <p>禁止扩展</p>
+        </div>
+        
+
+        
+        
+        
+        
+        
+            
+
+<table class="params">
+    <thead>
+	<tr>
+		
+		<th>Name</th>
+		
+		
+		<th>Type</th>
+		
+		
+		
+		<th class="last">Description</th>
+	</tr>
+	</thead>
+	
+	<tbody>
+	
+	
+        <tr>
+            
+                <td class="name"><code>name</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+            
+            
+            
+            <td class="description last">
+                
+                <p>扩展名称</p></td>
+        </tr>
+	
+	
+	</tbody>
+</table>
+        
+        
+        
+<dl class="details">
+    
+        
+    
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+</dl>
+
+        
+        
+
+        
+
+        
+        
+        
+        
+        
+        
+        
+    </dd>
+</dl>
+        
+            
+<dl >
+    <dt>
+        <div class="nameContainer">
+            <h4 class="name" id=".enable">
+                
+                <span class="type-signature static">static</span>extensions.enable<span class="signature">(name)</span>
+            </h4>
+        
+            
+            <div class="tag-source">
+                <a href="renderer_extensions.js.html">renderer/extensions.js</a>, <a href="renderer_extensions.js.html#line101">line 101</a>
+            </div>
+            
+        </div>
+    </dt>
+    <dd>
+        
+        
+        <div class="description">
+            <p>开启扩展</p>
+        </div>
+        
+
+        
+        
+        
+        
+        
+            
+
+<table class="params">
+    <thead>
+	<tr>
+		
+		<th>Name</th>
+		
+		
+		<th>Type</th>
+		
+		
+		
+		<th class="last">Description</th>
+	</tr>
+	</thead>
+	
+	<tbody>
+	
+	
+        <tr>
+            
+                <td class="name"><code>name</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+            
+            
+            
+            <td class="description last">
+                
+                <p>扩展名称</p></td>
+        </tr>
+	
+	
+	</tbody>
+</table>
+        
+        
+        
+<dl class="details">
+    
+        
+    
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+</dl>
+
+        
+        
+
+        
+
+        
+        
+        
+        
         
         
         

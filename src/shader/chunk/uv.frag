@@ -9,6 +9,7 @@
 #if defined(HILO_HAS_TEXCOORD0) || defined(HILO_HAS_TEXCOORD1)
     #if defined(HILO_HAS_TEXCOORD0) && defined(HILO_HAS_TEXCOORD1)
         #define HILO_SAMPLER_2D hiloSampler2D
+        // https://www.khronos.org/opengl/wiki/Data_Type_(GLSL)#Opaque_types
         #define HILO_TEXTURE_2D(HILO_SAMPLER_2D)  hiloTexture2D(HILO_SAMPLER_2D.texture, HILO_SAMPLER_2D.uv)
         struct hiloSampler2D{
             sampler2D texture;

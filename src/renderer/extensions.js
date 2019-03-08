@@ -2,6 +2,7 @@
  * WebGL 扩展
  * @namespace extensions
  * @type {Object}
+ * @description WebGL 扩展管理，默认开启的扩展有：ANGLE_instanced_arrays, OES_vertex_array_object, OES_texture_float, WEBGL_lose_context, OES_element_index_uint, EXT_shader_texture_lod
  */
 const extensions = {
     /**
@@ -85,10 +86,18 @@ const extensions = {
         return ext;
     },
 
+    /**
+     * 禁止扩展
+     * @param  {String} name 扩展名称
+     */
     disable(name) {
         this._disabledExtensions[name] = true;
     },
 
+    /**
+     * 开启扩展
+     * @param  {String} name 扩展名称
+     */
     enable(name) {
         this._disabledExtensions[name] = false;
     },
