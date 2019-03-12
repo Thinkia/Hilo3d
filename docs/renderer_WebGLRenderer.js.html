@@ -7344,6 +7344,8 @@ const {
  * @fires beforeRender 渲染前事件
  * @fires beforeRenderScene 渲染场景前事件
  * @fires afterRender 渲染后事件
+ * @fires webglContextLost webglContextLost 事件
+ * @fires webglContextRestored webglContextRestored 事件
  * @mixes EventMixin
  */
 const WebGLRenderer = Class.create(/** @lends WebGLRenderer.prototype */ {
@@ -7720,6 +7722,7 @@ const WebGLRenderer = Class.create(/** @lends WebGLRenderer.prototype */ {
         }
     },
     _onContextLost(e) {
+        this.fire('webglContextLost');
         const gl = this.gl;
         this._isContextLost = true;
 
@@ -7736,6 +7739,7 @@ const WebGLRenderer = Class.create(/** @lends WebGLRenderer.prototype */ {
         this._lastProgram = null;
     },
     _onContextRestore(e) { // eslint-disable-line no-unused-vars
+        this.fire('webglContextRestored');
         const gl = this.gl;
         this._isContextLost = false;
         extensions.reset(gl);
