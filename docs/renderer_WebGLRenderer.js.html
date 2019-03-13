@@ -7671,15 +7671,21 @@ const WebGLRenderer = Class.create(/** @lends WebGLRenderer.prototype */ {
     initContext() {
         if (!this._isInit) {
             this._isInit = true;
-            let gl = this.gl = this.domElement.getContext('webgl', {
+            const contextAttributes = {
                 alpha: this.alpha,
                 depth: this.depth,
                 stencil: this.stencil,
                 antialias: this.antialias,
                 premultipliedAlpha: this.premultipliedAlpha,
-                preserveDrawingBuffer: this.preserveDrawingBuffer,
                 failIfMajorPerformanceCaveat: this.failIfMajorPerformanceCaveat
-            });
+            };
+
+            // fix ios bug...
+            if (this.preserveDrawingBuffer === true) {
+                contextAttributes.preserveDrawingBuffer = true;
+            }
+
+            let gl = this.gl = this.domElement.getContext('webgl', contextAttributes);
 
             // HILO_DEBUG_START
             gl = this.gl = WebGLDebugUtils.makeDebugContext(gl, (err, funcName) => {

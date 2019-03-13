@@ -100,6 +100,511 @@ describe('constants/webgl', () => {
 })();
 
 (function(){
+describe('display:geometry', () => {
+    const camera = new Hilo3d.PerspectiveCamera({
+        aspect: innerWidth / innerHeight,
+        far: 100,
+        near: 0.1,
+        z: 3
+    });
+
+    const stage = new Hilo3d.Stage({
+        container: document.querySelector('#stage'),
+        camera: camera,
+        clearColor: new Hilo3d.Color(1, 1, 1),
+        width: innerWidth,
+        height: innerHeight
+    });
+
+    var directionLight = new Hilo3d.DirectionalLight({
+        color: new Hilo3d.Color(1, 1, 1),
+        direction: new Hilo3d.Vector3(0.7, -1, -0.5)
+    }).addTo(stage);
+
+    var ambientLight = new Hilo3d.AmbientLight({
+        color: new Hilo3d.Color(1, 1, 1),
+        amount: .5
+    }).addTo(stage);
+
+    const material = new Hilo3d.BasicMaterial();
+
+    const mesh = new Hilo3d.Mesh({
+        material: material,
+        rotationX: -60,
+        rotationY: 30
+    });
+
+    stage.addChild(mesh);
+
+    describe('color', () => {
+        beforeEach('init color', () => {
+            material.diffuse = new Hilo3d.Color(0.3, 0.6, 0.9);
+        });
+
+        it('box', (done) => {
+            mesh.geometry = new Hilo3d.BoxGeometry();
+            stage.tick();
+            utils.diffWithScreenshot('geometry-color-box', done);
+        });
+
+        it('sphere', (done) => {
+            mesh.geometry = new Hilo3d.SphereGeometry();
+            stage.tick();
+            utils.diffWithScreenshot('geometry-color-sphere', done);
+        });
+
+        it('plane', (done) => {
+            mesh.geometry = new Hilo3d.PlaneGeometry();
+            stage.tick();
+            utils.diffWithScreenshot('geometry-color-plane', done);
+        });
+    });
+
+    describe('texture', () => {
+        const texture = new Hilo3d.Texture();
+        const loader = new Hilo3d.TextureLoader();
+
+        beforeEach('load image', (done) => {
+            material.diffuse = texture;
+            material.id = Hilo3d.math.generateUUID('BasicMaterial');
+            loader.load({
+                src: './asset/images/logo.png'
+            }).then((texture) => {
+                material.diffuse = texture;
+                done();
+            })
+        });
+
+        it('box', (done) => {
+            mesh.geometry = new Hilo3d.BoxGeometry();
+            mesh.geometry.setAllRectUV([
+                [0, 1],
+                [1, 1],
+                [1, 0],
+                [0, 0]
+            ]);
+            stage.tick();
+            utils.diffWithScreenshot('geometry-texture-box', done);
+        });
+
+        it('sphere', (done) => {
+            mesh.geometry = new Hilo3d.SphereGeometry();
+            stage.tick();
+            utils.diffWithScreenshot('geometry-texture-sphere', done);
+        });
+
+        it('plane', (done) => {
+            mesh.geometry = new Hilo3d.PlaneGeometry();
+            stage.tick();
+            utils.diffWithScreenshot('geometry-texture-plane', done);
+        });
+    });
+});
+})();
+
+(function(){
+const BoxGeometry = Hilo3d.BoxGeometry;
+
+describe('BoxGeometry', () => {
+    it('create', () => {
+        const geometry = new BoxGeometry;
+        geometry.isBoxGeometry.should.be.true();
+        geometry.className.should.equal('BoxGeometry');
+    });
+});
+})();
+
+(function(){
+const Geometry = Hilo3d.Geometry;
+
+describe('Geometry', () => {
+    it('create', () => {
+        const geometry = new Geometry;
+        geometry.isGeometry.should.be.true();
+        geometry.className.should.equal('Geometry');
+    });
+});
+})();
+
+(function(){
+const GeometryData = Hilo3d.GeometryData;
+
+describe('GeometryData', () => {
+    it('create', () => {
+        const data = new GeometryData;
+        data.isGeometryData.should.be.true();
+        data.className.should.equal('GeometryData');
+    });
+
+    const testData = new GeometryData(new Float32Array([
+        1, 2, 4, 6, 8, 10, 12, 14, 16, 18, 20, 22, 24, 26, 28, 30
+    ]), 3, {
+        stride: 16,
+        offset: 4
+    });
+
+    it('stride & strideSize', () => {
+        testData.stride.should.equal(16);
+        testData.strideSize.should.equal(4);
+    });
+
+    it('offset & offsetSize', () => {
+        testData.offset.should.equal(4);
+        testData.offsetSize.should.equal(1);
+    });
+
+    it('data', () => {
+        testData.type.should.equal(Hilo3d.constants.FLOAT);
+    });
+
+    it('length & realLength & count', () => {
+        testData.length.should.equal(16);
+        testData.realLength.should.equal(12);
+        testData.count.should.equal(4);
+    });
+
+    it('getOffset', () => {
+        testData.getOffset(1).should.equal(5);
+    });
+
+    it('get & set', () => {
+        testData.get(1).elements.should.deepEqual(new Float32Array([10, 12, 14]));
+        testData.set(1, new Hilo3d.Vector3(55, 66, 77));
+        testData.get(1).elements.should.deepEqual(new Float32Array([55, 66, 77]));
+        testData.set(1, new Hilo3d.Vector3(10, 12, 14));
+    });
+
+    it('getByOffset & setByOffset', () => {
+        testData.getByOffset(5).elements.should.deepEqual(new Float32Array([10, 12, 14]));
+        testData.setByOffset(3, new Hilo3d.Vector3(55, 66, 77));
+        testData.getByOffset(3).elements.should.deepEqual(new Float32Array([55, 66, 77]));
+        testData.setByOffset(3, new Hilo3d.Vector3(6, 8, 10));
+    });
+
+    it('traverse & traverseByComponent', () => {
+        let callback = sinon.spy((attribute, index, offset) => {
+            offset.should.equal(index * 4 + 1);
+            attribute.elements.should.deepEqual(new Float32Array([offset * 2, (offset + 1) * 2, (offset + 2) * 2]));
+        });
+        testData.traverse(callback);
+        callback.callCount.should.equal(4);
+
+        callback = sinon.spy((data, index, offset) => {
+            data.should.equal(offset * 2);
+            offset.should.equal(Math.floor(index/3) * 4 + index%3 + 1);
+        });
+        testData.traverseByComponent(callback);
+        callback.callCount.should.equal(12);
+    });
+});
+})();
+
+(function(){
+const MorphGeometry = Hilo3d.MorphGeometry;
+
+describe('MorphGeometry', () => {
+    it('create', () => {
+        const geometry = new MorphGeometry;
+        geometry.isMorphGeometry.should.be.true();
+        geometry.className.should.equal('MorphGeometry');
+    });
+});
+})();
+
+(function(){
+const PlaneGeometry = Hilo3d.PlaneGeometry;
+
+describe('PlaneGeometry', () => {
+    it('create', () => {
+        const geometry = new PlaneGeometry;
+        geometry.isPlaneGeometry.should.be.true();
+        geometry.className.should.equal('PlaneGeometry');
+    });
+});
+})();
+
+(function(){
+const SphereGeometry = Hilo3d.SphereGeometry;
+
+describe('SphereGeometry', () => {
+    it('create', () => {
+        const geometry = new SphereGeometry;
+        geometry.isSphereGeometry.should.be.true();
+        geometry.className.should.equal('SphereGeometry');
+    });
+});
+})();
+
+(function(){
+const AxisHelper = Hilo3d.AxisHelper;
+
+describe('AxisHelper', () => {
+    it('create', () => {
+        const helper = new AxisHelper;
+        helper.isAxisHelper.should.be.true();
+        helper.className.should.equal('AxisHelper');
+    });
+});
+})();
+
+(function(){
+const AxisNetHelper = Hilo3d.AxisNetHelper;
+
+describe('AxisNetHelper', () => {
+    it('create', () => {
+        const helper = new AxisNetHelper;
+        helper.isAxisNetHelper.should.be.true();
+        helper.className.should.equal('AxisNetHelper');
+    });
+});
+})();
+
+(function(){
+const CameraHelper = Hilo3d.CameraHelper;
+
+describe('CameraHelper', () => {
+    it('create', () => {
+        const helper = new CameraHelper;
+        helper.isCameraHelper.should.be.true();
+        helper.className.should.equal('CameraHelper');
+    });
+});
+})();
+
+(function(){
+const AmbientLight = Hilo3d.AmbientLight;
+
+describe('AmbientLight', () => {
+    it('create', () => {
+        const light = new AmbientLight();
+        light.isAmbientLight.should.be.true();
+        light.className.should.equal('AmbientLight');
+        light.amount.should.be.Number();
+    });
+});
+})();
+
+(function(){
+const DirectionalLight = Hilo3d.DirectionalLight;
+
+describe('DirectionalLight', () => {
+    it('create', () => {
+        const light = new DirectionalLight();
+        light.isDirectionalLight.should.be.true();
+        light.className.should.equal('DirectionalLight');
+        light.direction.isVector3.should.be.true();
+    });
+
+    it('createShadowMap', () => {
+        const light = new DirectionalLight({
+            shadow:{
+                minBias:0.01,
+                maxBias:0.1
+            }
+        });
+
+        const env = utils.createHilo3dEnv();
+        light.createShadowMap(env.renderer, env.camera);
+        light.lightShadow.isLightShadow.should.be.true();
+    });
+
+    it('getWorldDirection', () => {
+        const light = new DirectionalLight({
+            direction:new Hilo3d.Vector3(0, 0.5, 0)
+        });
+        light.getWorldDirection().elements.should.deepEqual(new Float32Array([0, 1, 0]));
+    });
+
+    it('getViewDirection', () => {
+        const camera = new Hilo3d.Camera({
+            rotationX:180
+        });
+        camera.updateViewMatrix();
+
+        const light = new DirectionalLight({
+            direction:new Hilo3d.Vector3(0, 0.5, 0)
+        });
+        light.getViewDirection(camera).equals(new Hilo3d.Vector3(0, -1, 0)).should.be.true();
+    });
+});
+})();
+
+(function(){
+const Light = Hilo3d.Light;
+
+describe('Light', () => {
+    it('create', () => {
+        const light = new Light();
+        light.isLight.should.be.true();
+        light.className.should.equal('Light');
+        light.color.isColor.should.be.true();
+    });
+});
+})();
+
+(function(){
+const LightManager = Hilo3d.LightManager;
+
+describe('LightManager', () => {
+    it('create', () => {
+        const ligthManager = new LightManager;
+        ligthManager.isLightManager.should.be.true();
+        ligthManager.className.should.equal('LightManager');
+
+        ligthManager.ambientLights.should.be.Array();
+        ligthManager.directionalLights.should.be.Array();
+        ligthManager.pointLights.should.be.Array();
+        ligthManager.spotLights.should.be.Array();
+    });
+
+    it('getShadowMapCount & reset', () => {
+        const ligthManager = new LightManager;
+        ligthManager.addLight(new Hilo3d.PointLight({
+            shadow:{}
+        }));
+        ligthManager.addLight(new Hilo3d.PointLight());
+        ligthManager.addLight(new Hilo3d.PointLight({
+            shadow:{}
+        }));
+
+        ligthManager.getShadowMapCount('POINT_LIGHTS').should.equal(2);
+
+        ligthManager.reset();
+        ligthManager.getShadowMapCount('POINT_LIGHTS').should.equal(0);
+    });
+
+    it('getRenderOption', () => {
+        const ligthManager = new LightManager();
+        should(ligthManager.getRenderOption().HAS_LIGHT).be.Undefined();
+        ligthManager.addLight(new Hilo3d.PointLight);
+        ligthManager.addLight(new Hilo3d.PointLight);
+        ligthManager.addLight(new Hilo3d.SpotLight);
+        ligthManager.updateInfo(new Hilo3d.Camera);
+        should(ligthManager.getRenderOption().HAS_LIGHT).be.equal(1);
+        should(ligthManager.getRenderOption().POINT_LIGHTS).be.equal(2);
+    });
+});
+})();
+
+(function(){
+const LightShadow = Hilo3d.LightShadow;
+
+describe('LightShadow', () => {
+    it('create', ()=>{
+        const lightShadow = new LightShadow();
+        lightShadow.isLightShadow.should.be.true();
+        lightShadow.className.should.equal('LightShadow');
+    });
+
+    it('createFramebuffer', ()=>{
+        const lightShadow = new LightShadow();
+        lightShadow.createFramebuffer();
+        lightShadow.framebuffer.isFramebuffer.should.be.true();
+        lightShadow.framebuffer.width.should.equal(lightShadow.width);
+        lightShadow.framebuffer.height.should.equal(lightShadow.height);
+    });
+});
+})();
+
+(function(){
+const PointLight = Hilo3d.PointLight;
+
+describe('PointLight', () => {
+    it('create', () => {
+        const light = new PointLight();
+        light.isPointLight.should.be.true();
+        light.className.should.equal('PointLight');
+        light.constantAttenuation.should.be.Number();
+        light.linearAttenuation.should.be.Number();
+        light.quadraticAttenuation.should.be.Number();
+    });
+
+    it('toInfoArray', () => {
+        const light = new PointLight({
+            constantAttenuation:0.1,
+            linearAttenuation:0.2,
+            quadraticAttenuation:0.3
+        });
+
+        const res = [];
+        light.toInfoArray(res, 3);
+        res[3].should.equal(light.constantAttenuation);
+        res[4].should.equal(light.linearAttenuation);
+        res[5].should.equal(light.quadraticAttenuation);
+    });
+});
+})();
+
+(function(){
+const SpotLight = Hilo3d.SpotLight;
+
+describe('SpotLight', () => {
+    it('create', () => {
+        const light = new SpotLight({
+            cutoff:30,
+            outerCutoff:45
+        });
+        light.isSpotLight.should.be.true();
+        light.className.should.equal('SpotLight');
+        light.direction.isVector3.should.be.true();
+        light.constantAttenuation.should.be.Number();
+        light.linearAttenuation.should.be.Number();
+        light.quadraticAttenuation.should.be.Number();
+        light.outerCutoff.should.be.Number();
+        light.cutoff.should.be.Number();
+        light._outerCutoffCos.should.equal(Math.cos(Hilo3d.math.degToRad(light.outerCutoff)));
+        light._cutoffCos.should.equal(Math.cos(Hilo3d.math.degToRad(light.cutoff)));
+    });
+
+    it('toInfoArray', () => {
+        const light = new SpotLight({
+            constantAttenuation:0.1,
+            linearAttenuation:0.2,
+            quadraticAttenuation:0.3
+        });
+
+        const res = [];
+        light.toInfoArray(res, 3);
+        res[3].should.equal(light.constantAttenuation);
+        res[4].should.equal(light.linearAttenuation);
+        res[5].should.equal(light.quadraticAttenuation);
+    });
+
+    it('createShadowMap', () => {
+        const light = new SpotLight({
+            shadow:{
+                minBias:0.01,
+                maxBias:0.1
+            }
+        });
+
+        const env = utils.createHilo3dEnv();
+        light.createShadowMap(env.renderer, env.camera);
+        light.lightShadow.isLightShadow.should.be.true();
+    });
+
+    it('getWorldDirection', () => {
+        const light = new SpotLight({
+            direction:new Hilo3d.Vector3(0, 0.5, 0)
+        });
+        light.getWorldDirection().elements.should.deepEqual(new Float32Array([0, 1, 0]));
+    });
+
+    it('getViewDirection', () => {
+        const camera = new Hilo3d.Camera({
+            rotationX:180
+        });
+        camera.updateViewMatrix();
+
+        const light = new SpotLight({
+            direction:new Hilo3d.Vector3(0, 0.5, 0)
+        });
+        light.getViewDirection(camera).equals(new Hilo3d.Vector3(0, -1, 0)).should.be.true();
+    });
+});
+})();
+
+(function(){
 const Class = Hilo3d.Class;
 
 describe('Class', function(){
@@ -840,511 +1345,6 @@ describe('Tween', function(){
     });
 });
 
-})();
-
-(function(){
-describe('display:geometry', () => {
-    const camera = new Hilo3d.PerspectiveCamera({
-        aspect: innerWidth / innerHeight,
-        far: 100,
-        near: 0.1,
-        z: 3
-    });
-
-    const stage = new Hilo3d.Stage({
-        container: document.querySelector('#stage'),
-        camera: camera,
-        clearColor: new Hilo3d.Color(1, 1, 1),
-        width: innerWidth,
-        height: innerHeight
-    });
-
-    var directionLight = new Hilo3d.DirectionalLight({
-        color: new Hilo3d.Color(1, 1, 1),
-        direction: new Hilo3d.Vector3(0.7, -1, -0.5)
-    }).addTo(stage);
-
-    var ambientLight = new Hilo3d.AmbientLight({
-        color: new Hilo3d.Color(1, 1, 1),
-        amount: .5
-    }).addTo(stage);
-
-    const material = new Hilo3d.BasicMaterial();
-
-    const mesh = new Hilo3d.Mesh({
-        material: material,
-        rotationX: -60,
-        rotationY: 30
-    });
-
-    stage.addChild(mesh);
-
-    describe('color', () => {
-        beforeEach('init color', () => {
-            material.diffuse = new Hilo3d.Color(0.3, 0.6, 0.9);
-        });
-
-        it('box', (done) => {
-            mesh.geometry = new Hilo3d.BoxGeometry();
-            stage.tick();
-            utils.diffWithScreenshot('geometry-color-box', done);
-        });
-
-        it('sphere', (done) => {
-            mesh.geometry = new Hilo3d.SphereGeometry();
-            stage.tick();
-            utils.diffWithScreenshot('geometry-color-sphere', done);
-        });
-
-        it('plane', (done) => {
-            mesh.geometry = new Hilo3d.PlaneGeometry();
-            stage.tick();
-            utils.diffWithScreenshot('geometry-color-plane', done);
-        });
-    });
-
-    describe('texture', () => {
-        const texture = new Hilo3d.Texture();
-        const loader = new Hilo3d.TextureLoader();
-
-        beforeEach('load image', (done) => {
-            material.diffuse = texture;
-            material.id = Hilo3d.math.generateUUID('BasicMaterial');
-            loader.load({
-                src: './asset/images/logo.png'
-            }).then((texture) => {
-                material.diffuse = texture;
-                done();
-            })
-        });
-
-        it('box', (done) => {
-            mesh.geometry = new Hilo3d.BoxGeometry();
-            mesh.geometry.setAllRectUV([
-                [0, 1],
-                [1, 1],
-                [1, 0],
-                [0, 0]
-            ]);
-            stage.tick();
-            utils.diffWithScreenshot('geometry-texture-box', done);
-        });
-
-        it('sphere', (done) => {
-            mesh.geometry = new Hilo3d.SphereGeometry();
-            stage.tick();
-            utils.diffWithScreenshot('geometry-texture-sphere', done);
-        });
-
-        it('plane', (done) => {
-            mesh.geometry = new Hilo3d.PlaneGeometry();
-            stage.tick();
-            utils.diffWithScreenshot('geometry-texture-plane', done);
-        });
-    });
-});
-})();
-
-(function(){
-const BoxGeometry = Hilo3d.BoxGeometry;
-
-describe('BoxGeometry', () => {
-    it('create', () => {
-        const geometry = new BoxGeometry;
-        geometry.isBoxGeometry.should.be.true();
-        geometry.className.should.equal('BoxGeometry');
-    });
-});
-})();
-
-(function(){
-const Geometry = Hilo3d.Geometry;
-
-describe('Geometry', () => {
-    it('create', () => {
-        const geometry = new Geometry;
-        geometry.isGeometry.should.be.true();
-        geometry.className.should.equal('Geometry');
-    });
-});
-})();
-
-(function(){
-const GeometryData = Hilo3d.GeometryData;
-
-describe('GeometryData', () => {
-    it('create', () => {
-        const data = new GeometryData;
-        data.isGeometryData.should.be.true();
-        data.className.should.equal('GeometryData');
-    });
-
-    const testData = new GeometryData(new Float32Array([
-        1, 2, 4, 6, 8, 10, 12, 14, 16, 18, 20, 22, 24, 26, 28, 30
-    ]), 3, {
-        stride: 16,
-        offset: 4
-    });
-
-    it('stride & strideSize', () => {
-        testData.stride.should.equal(16);
-        testData.strideSize.should.equal(4);
-    });
-
-    it('offset & offsetSize', () => {
-        testData.offset.should.equal(4);
-        testData.offsetSize.should.equal(1);
-    });
-
-    it('data', () => {
-        testData.type.should.equal(Hilo3d.constants.FLOAT);
-    });
-
-    it('length & realLength & count', () => {
-        testData.length.should.equal(16);
-        testData.realLength.should.equal(12);
-        testData.count.should.equal(4);
-    });
-
-    it('getOffset', () => {
-        testData.getOffset(1).should.equal(5);
-    });
-
-    it('get & set', () => {
-        testData.get(1).elements.should.deepEqual(new Float32Array([10, 12, 14]));
-        testData.set(1, new Hilo3d.Vector3(55, 66, 77));
-        testData.get(1).elements.should.deepEqual(new Float32Array([55, 66, 77]));
-        testData.set(1, new Hilo3d.Vector3(10, 12, 14));
-    });
-
-    it('getByOffset & setByOffset', () => {
-        testData.getByOffset(5).elements.should.deepEqual(new Float32Array([10, 12, 14]));
-        testData.setByOffset(3, new Hilo3d.Vector3(55, 66, 77));
-        testData.getByOffset(3).elements.should.deepEqual(new Float32Array([55, 66, 77]));
-        testData.setByOffset(3, new Hilo3d.Vector3(6, 8, 10));
-    });
-
-    it('traverse & traverseByComponent', () => {
-        let callback = sinon.spy((attribute, index, offset) => {
-            offset.should.equal(index * 4 + 1);
-            attribute.elements.should.deepEqual(new Float32Array([offset * 2, (offset + 1) * 2, (offset + 2) * 2]));
-        });
-        testData.traverse(callback);
-        callback.callCount.should.equal(4);
-
-        callback = sinon.spy((data, index, offset) => {
-            data.should.equal(offset * 2);
-            offset.should.equal(Math.floor(index/3) * 4 + index%3 + 1);
-        });
-        testData.traverseByComponent(callback);
-        callback.callCount.should.equal(12);
-    });
-});
-})();
-
-(function(){
-const MorphGeometry = Hilo3d.MorphGeometry;
-
-describe('MorphGeometry', () => {
-    it('create', () => {
-        const geometry = new MorphGeometry;
-        geometry.isMorphGeometry.should.be.true();
-        geometry.className.should.equal('MorphGeometry');
-    });
-});
-})();
-
-(function(){
-const PlaneGeometry = Hilo3d.PlaneGeometry;
-
-describe('PlaneGeometry', () => {
-    it('create', () => {
-        const geometry = new PlaneGeometry;
-        geometry.isPlaneGeometry.should.be.true();
-        geometry.className.should.equal('PlaneGeometry');
-    });
-});
-})();
-
-(function(){
-const SphereGeometry = Hilo3d.SphereGeometry;
-
-describe('SphereGeometry', () => {
-    it('create', () => {
-        const geometry = new SphereGeometry;
-        geometry.isSphereGeometry.should.be.true();
-        geometry.className.should.equal('SphereGeometry');
-    });
-});
-})();
-
-(function(){
-const AxisHelper = Hilo3d.AxisHelper;
-
-describe('AxisHelper', () => {
-    it('create', () => {
-        const helper = new AxisHelper;
-        helper.isAxisHelper.should.be.true();
-        helper.className.should.equal('AxisHelper');
-    });
-});
-})();
-
-(function(){
-const AxisNetHelper = Hilo3d.AxisNetHelper;
-
-describe('AxisNetHelper', () => {
-    it('create', () => {
-        const helper = new AxisNetHelper;
-        helper.isAxisNetHelper.should.be.true();
-        helper.className.should.equal('AxisNetHelper');
-    });
-});
-})();
-
-(function(){
-const CameraHelper = Hilo3d.CameraHelper;
-
-describe('CameraHelper', () => {
-    it('create', () => {
-        const helper = new CameraHelper;
-        helper.isCameraHelper.should.be.true();
-        helper.className.should.equal('CameraHelper');
-    });
-});
-})();
-
-(function(){
-const AmbientLight = Hilo3d.AmbientLight;
-
-describe('AmbientLight', () => {
-    it('create', () => {
-        const light = new AmbientLight();
-        light.isAmbientLight.should.be.true();
-        light.className.should.equal('AmbientLight');
-        light.amount.should.be.Number();
-    });
-});
-})();
-
-(function(){
-const DirectionalLight = Hilo3d.DirectionalLight;
-
-describe('DirectionalLight', () => {
-    it('create', () => {
-        const light = new DirectionalLight();
-        light.isDirectionalLight.should.be.true();
-        light.className.should.equal('DirectionalLight');
-        light.direction.isVector3.should.be.true();
-    });
-
-    it('createShadowMap', () => {
-        const light = new DirectionalLight({
-            shadow:{
-                minBias:0.01,
-                maxBias:0.1
-            }
-        });
-
-        const env = utils.createHilo3dEnv();
-        light.createShadowMap(env.renderer, env.camera);
-        light.lightShadow.isLightShadow.should.be.true();
-    });
-
-    it('getWorldDirection', () => {
-        const light = new DirectionalLight({
-            direction:new Hilo3d.Vector3(0, 0.5, 0)
-        });
-        light.getWorldDirection().elements.should.deepEqual(new Float32Array([0, 1, 0]));
-    });
-
-    it('getViewDirection', () => {
-        const camera = new Hilo3d.Camera({
-            rotationX:180
-        });
-        camera.updateViewMatrix();
-
-        const light = new DirectionalLight({
-            direction:new Hilo3d.Vector3(0, 0.5, 0)
-        });
-        light.getViewDirection(camera).equals(new Hilo3d.Vector3(0, -1, 0)).should.be.true();
-    });
-});
-})();
-
-(function(){
-const Light = Hilo3d.Light;
-
-describe('Light', () => {
-    it('create', () => {
-        const light = new Light();
-        light.isLight.should.be.true();
-        light.className.should.equal('Light');
-        light.color.isColor.should.be.true();
-    });
-});
-})();
-
-(function(){
-const LightManager = Hilo3d.LightManager;
-
-describe('LightManager', () => {
-    it('create', () => {
-        const ligthManager = new LightManager;
-        ligthManager.isLightManager.should.be.true();
-        ligthManager.className.should.equal('LightManager');
-
-        ligthManager.ambientLights.should.be.Array();
-        ligthManager.directionalLights.should.be.Array();
-        ligthManager.pointLights.should.be.Array();
-        ligthManager.spotLights.should.be.Array();
-    });
-
-    it('getShadowMapCount & reset', () => {
-        const ligthManager = new LightManager;
-        ligthManager.addLight(new Hilo3d.PointLight({
-            shadow:{}
-        }));
-        ligthManager.addLight(new Hilo3d.PointLight());
-        ligthManager.addLight(new Hilo3d.PointLight({
-            shadow:{}
-        }));
-
-        ligthManager.getShadowMapCount('POINT_LIGHTS').should.equal(2);
-
-        ligthManager.reset();
-        ligthManager.getShadowMapCount('POINT_LIGHTS').should.equal(0);
-    });
-
-    it('getRenderOption', () => {
-        const ligthManager = new LightManager();
-        should(ligthManager.getRenderOption().HAS_LIGHT).be.Undefined();
-        ligthManager.addLight(new Hilo3d.PointLight);
-        ligthManager.addLight(new Hilo3d.PointLight);
-        ligthManager.addLight(new Hilo3d.SpotLight);
-        ligthManager.updateInfo(new Hilo3d.Camera);
-        should(ligthManager.getRenderOption().HAS_LIGHT).be.equal(1);
-        should(ligthManager.getRenderOption().POINT_LIGHTS).be.equal(2);
-    });
-});
-})();
-
-(function(){
-const LightShadow = Hilo3d.LightShadow;
-
-describe('LightShadow', () => {
-    it('create', ()=>{
-        const lightShadow = new LightShadow();
-        lightShadow.isLightShadow.should.be.true();
-        lightShadow.className.should.equal('LightShadow');
-    });
-
-    it('createFramebuffer', ()=>{
-        const lightShadow = new LightShadow();
-        lightShadow.createFramebuffer();
-        lightShadow.framebuffer.isFramebuffer.should.be.true();
-        lightShadow.framebuffer.width.should.equal(lightShadow.width);
-        lightShadow.framebuffer.height.should.equal(lightShadow.height);
-    });
-});
-})();
-
-(function(){
-const PointLight = Hilo3d.PointLight;
-
-describe('PointLight', () => {
-    it('create', () => {
-        const light = new PointLight();
-        light.isPointLight.should.be.true();
-        light.className.should.equal('PointLight');
-        light.constantAttenuation.should.be.Number();
-        light.linearAttenuation.should.be.Number();
-        light.quadraticAttenuation.should.be.Number();
-    });
-
-    it('toInfoArray', () => {
-        const light = new PointLight({
-            constantAttenuation:0.1,
-            linearAttenuation:0.2,
-            quadraticAttenuation:0.3
-        });
-
-        const res = [];
-        light.toInfoArray(res, 3);
-        res[3].should.equal(light.constantAttenuation);
-        res[4].should.equal(light.linearAttenuation);
-        res[5].should.equal(light.quadraticAttenuation);
-    });
-});
-})();
-
-(function(){
-const SpotLight = Hilo3d.SpotLight;
-
-describe('SpotLight', () => {
-    it('create', () => {
-        const light = new SpotLight({
-            cutoff:30,
-            outerCutoff:45
-        });
-        light.isSpotLight.should.be.true();
-        light.className.should.equal('SpotLight');
-        light.direction.isVector3.should.be.true();
-        light.constantAttenuation.should.be.Number();
-        light.linearAttenuation.should.be.Number();
-        light.quadraticAttenuation.should.be.Number();
-        light.outerCutoff.should.be.Number();
-        light.cutoff.should.be.Number();
-        light._outerCutoffCos.should.equal(Math.cos(Hilo3d.math.degToRad(light.outerCutoff)));
-        light._cutoffCos.should.equal(Math.cos(Hilo3d.math.degToRad(light.cutoff)));
-    });
-
-    it('toInfoArray', () => {
-        const light = new SpotLight({
-            constantAttenuation:0.1,
-            linearAttenuation:0.2,
-            quadraticAttenuation:0.3
-        });
-
-        const res = [];
-        light.toInfoArray(res, 3);
-        res[3].should.equal(light.constantAttenuation);
-        res[4].should.equal(light.linearAttenuation);
-        res[5].should.equal(light.quadraticAttenuation);
-    });
-
-    it('createShadowMap', () => {
-        const light = new SpotLight({
-            shadow:{
-                minBias:0.01,
-                maxBias:0.1
-            }
-        });
-
-        const env = utils.createHilo3dEnv();
-        light.createShadowMap(env.renderer, env.camera);
-        light.lightShadow.isLightShadow.should.be.true();
-    });
-
-    it('getWorldDirection', () => {
-        const light = new SpotLight({
-            direction:new Hilo3d.Vector3(0, 0.5, 0)
-        });
-        light.getWorldDirection().elements.should.deepEqual(new Float32Array([0, 1, 0]));
-    });
-
-    it('getViewDirection', () => {
-        const camera = new Hilo3d.Camera({
-            rotationX:180
-        });
-        camera.updateViewMatrix();
-
-        const light = new SpotLight({
-            direction:new Hilo3d.Vector3(0, 0.5, 0)
-        });
-        light.getViewDirection(camera).equals(new Hilo3d.Vector3(0, -1, 0)).should.be.true();
-    });
-});
 })();
 
 (function(){
@@ -3269,6 +3269,83 @@ describe('math', function() {
 })();
 
 (function(){
+const Shader = Hilo3d.Shader;
+
+describe('Shader', () => {
+    Shader.init(testEnv.renderer);
+
+    it('create', () => {
+        const shader = new Shader;
+        shader.isShader.should.be.true();
+        shader.className.should.equal('Shader');
+    });
+
+    it('getHeaderKey', () => {
+        const {
+            mesh,
+            material,
+            renderer,
+            geometry,
+            fog
+        } = testEnv;
+        const lightManager = renderer.lightManager;
+        const key = Shader.getHeaderKey(mesh, material, lightManager, fog);
+        key.should.equal(`header_${material.id}_${lightManager.lightInfo.uid}_fog_${fog.mode}_${geometry.getShaderKey()}`);
+    });
+
+    it('getHeader', () => {
+        const {
+            mesh,
+            material,
+            renderer,
+            geometry,
+            fog
+        } = testEnv;
+        const lightManager = renderer.lightManager;
+        const header = Shader.getHeader(mesh, material, lightManager, fog);
+        header.should.equal(`#define SHADER_NAME Material
+#define HILO_LIGHT_TYPE_NONE 1
+#define HILO_SIDE 1028
+#define HILO_RECEIVE_SHADOWS 1
+#define HILO_CAST_SHADOWS 1
+#define HILO_HAS_FOG 1
+#define HILO_FOG_LINEAR 1
+`);
+    });
+
+    it('getCustomShader', () => {
+        const shader = Shader.getCustomShader('void main(){}', 'void main(){}', '#define HILO_LIGHT_TYPE_NONE 1\n');
+        shader.vs.should.equal(`
+#define HILO_MAX_PRECISION highp
+#define HILO_MAX_VERTEX_PRECISION highp
+#define HILO_MAX_FRAGMENT_PRECISION highp
+#define HILO_LIGHT_TYPE_NONE 1
+void main(){}`);
+
+        shader.fs.should.equal(`
+#define HILO_MAX_PRECISION highp
+#define HILO_MAX_VERTEX_PRECISION highp
+#define HILO_MAX_FRAGMENT_PRECISION highp
+#define HILO_LIGHT_TYPE_NONE 1
+void main(){}`);
+    });
+
+    it('getBasicShader', () => {
+        const shader = Shader.getBasicShader(testEnv.material, false, '#define HILO_LIGHT_TYPE_NONE 1');
+        shader.fs.should.be.String();
+        shader.vs.should.be.String();
+    });
+
+    it('cache', () => {
+        const shader = Shader.getCustomShader('', '', '', 'testCustomId');
+        Shader.cache.get('testCustomId').should.equal(shader);
+        Shader.reset();
+        should(Shader.cache.get('testCustomId')).be.undefined();
+    });
+});
+})();
+
+(function(){
 const Buffer = Hilo3d.Buffer;
 
 describe('Buffer', () => {
@@ -3835,83 +3912,6 @@ describe('glType', () => {
         const info = glType.get(Hilo3d.constants.FLOAT_VEC3);
         info.name.should.equal('FLOAT_VEC3');
         info.glValue.should.equal(Hilo3d.constants.FLOAT_VEC3);
-    });
-});
-})();
-
-(function(){
-const Shader = Hilo3d.Shader;
-
-describe('Shader', () => {
-    Shader.init(testEnv.renderer);
-
-    it('create', () => {
-        const shader = new Shader;
-        shader.isShader.should.be.true();
-        shader.className.should.equal('Shader');
-    });
-
-    it('getHeaderKey', () => {
-        const {
-            mesh,
-            material,
-            renderer,
-            geometry,
-            fog
-        } = testEnv;
-        const lightManager = renderer.lightManager;
-        const key = Shader.getHeaderKey(mesh, material, lightManager, fog);
-        key.should.equal(`header_${material.id}_${lightManager.lightInfo.uid}_fog_${fog.mode}_${geometry.getShaderKey()}`);
-    });
-
-    it('getHeader', () => {
-        const {
-            mesh,
-            material,
-            renderer,
-            geometry,
-            fog
-        } = testEnv;
-        const lightManager = renderer.lightManager;
-        const header = Shader.getHeader(mesh, material, lightManager, fog);
-        header.should.equal(`#define SHADER_NAME Material
-#define HILO_LIGHT_TYPE_NONE 1
-#define HILO_SIDE 1028
-#define HILO_RECEIVE_SHADOWS 1
-#define HILO_CAST_SHADOWS 1
-#define HILO_HAS_FOG 1
-#define HILO_FOG_LINEAR 1
-`);
-    });
-
-    it('getCustomShader', () => {
-        const shader = Shader.getCustomShader('void main(){}', 'void main(){}', '#define HILO_LIGHT_TYPE_NONE 1\n');
-        shader.vs.should.equal(`
-#define HILO_MAX_PRECISION highp
-#define HILO_MAX_VERTEX_PRECISION highp
-#define HILO_MAX_FRAGMENT_PRECISION highp
-#define HILO_LIGHT_TYPE_NONE 1
-void main(){}`);
-
-        shader.fs.should.equal(`
-#define HILO_MAX_PRECISION highp
-#define HILO_MAX_VERTEX_PRECISION highp
-#define HILO_MAX_FRAGMENT_PRECISION highp
-#define HILO_LIGHT_TYPE_NONE 1
-void main(){}`);
-    });
-
-    it('getBasicShader', () => {
-        const shader = Shader.getBasicShader(testEnv.material, false, '#define HILO_LIGHT_TYPE_NONE 1');
-        shader.fs.should.be.String();
-        shader.vs.should.be.String();
-    });
-
-    it('cache', () => {
-        const shader = Shader.getCustomShader('', '', '', 'testCustomId');
-        Shader.cache.get('testCustomId').should.equal(shader);
-        Shader.reset();
-        should(Shader.cache.get('testCustomId')).be.undefined();
     });
 });
 })();
