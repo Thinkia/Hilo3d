@@ -169,21 +169,26 @@ const Geometry = Class.create(/** @lends Geometry.prototype */ {
         }
     },
     calculateNormals() {
+        const vertices = this.vertices;
+        if (!vertices) {
+            log.warnOnce('geometry.calculateNormals', 'geometry.calculateNormals error:no vertices data.');
+            return;
+        }
+
         if (!this._normals) {
-            this._normals = new GeometryData(new Float32Array(this.vertices.realLength), 3);
+            this._normals = new GeometryData(new Float32Array(vertices.realLength), 3);
         }
         const normals = this._normals;
         let indices;
         if (this.indices) {
             indices = this.indices.data;
         } else {
-            const len = this.vertices.length / 3;
+            const len = vertices.length / 3;
             indices = new Array(len);
             for (let i = 0; i < len; i++) {
                 indices[i] = i;
             }
         }
-        const vertices = this.vertices;
         let idx = 0;
         const verticesInFaceCountList = new Uint8Array(vertices.count);
         for (let i = 0; i < indices.length; i += 3) {
@@ -248,22 +253,26 @@ const Geometry = Class.create(/** @lends Geometry.prototype */ {
         }
     },
     calculateTangents(uvs, tangentsName) {
+        const vertices = this.vertices;
+        if (!vertices) {
+            log.warnOnce('geometry.calculateTangents', 'geometry.calculateTangents error:no vertices data.');
+            return;
+        }
         if (!this[tangentsName]) {
-            this[tangentsName] = new GeometryData(new Float32Array(this.vertices.count * 4), 4);
+            this[tangentsName] = new GeometryData(new Float32Array(vertices.count * 4), 4);
         }
         const tangents = this[tangentsName];
         let indices;
         if (this.indices) {
             indices = this.indices.data;
         } else {
-            const len = this.vertices.length / 3;
+            const len = vertices.length / 3;
             indices = new Array(len);
             for (let i = 0; i < len; i++) {
                 indices[i] = i;
             }
         }
 
-        const vertices = this.vertices;
         let idx = 0;
         for (let i = 0; i < indices.length; i += 3) {
             idx = indices[i];
@@ -406,16 +415,24 @@ const Geometry = Class.create(/** @lends Geometry.prototype */ {
      */
     merge(geometry, matrix) {
         let vertices = geometry.vertices;
-        const count = this.vertices.count;
+        if (vertices && this.vertices) {
+            const count = this.vertices.count;
 
-        if (matrix) {
-            vertices = geometry.vertices.clone();
-            vertices.traverse((vertex, index, offset) => {
-                vertices.setByOffset(offset, vertex.transformMat4(matrix));
-            });
+            if (matrix) {
+                vertices = geometry.vertices.clone();
+                vertices.traverse((vertex, index, offset) => {
+                    vertices.setByOffset(offset, vertex.transformMat4(matrix));
+                });
+            }
+
+            this.vertices.merge(vertices);
+
+            if (this.indices && geometry.indices) {
+                this.indices.merge(geometry.indices, data => data + count);
+            } else {
+                this.indices = null;
+            }
         }
-
-        this.vertices.merge(vertices);
 
         if (this.uvs && geometry.uvs) {
             this.uvs.merge(geometry.uvs);
@@ -433,12 +450,6 @@ const Geometry = Class.create(/** @lends Geometry.prototype */ {
             this.colors.merge(geometry.colors);
         } else {
             this.colors = null;
-        }
-
-        if (this.indices && geometry.indices) {
-            this.indices.merge(geometry.indices, data => data + count);
-        } else {
-            this.indices = null;
         }
 
         if (this._normals) {
@@ -585,7 +596,13 @@ const Geometry = Class.create(/** @lends Geometry.prototype */ {
                 zMax: -Infinity
             };
         }
-        const data = this.vertices.data;
+
+        const vertices = this.vertices;
+        if (!vertices) {
+            log.warnOnce('geometry.getBounds', 'geometry has no vertices data, geometry.getBounds will return Infinity bounds.');
+            return bounds;
+        }
+        const data = vertices.data;
         for (let i = 0; i < data.length; i += 3) {
             tempVector31.fromArray(data, i);
             if (matrix) {
@@ -645,7 +662,13 @@ const Geometry = Class.create(/** @lends Geometry.prototype */ {
             const sphere = new Sphere({
                 center: new Vector3(localBounds.x, localBounds.y, localBounds.z)
             });
-            sphere.fromPoints(this.vertices.data);
+            const vertices = this.vertices;
+            if (vertices) {
+                sphere.fromPoints(vertices.data);
+            } else {
+                log.warnOnce('geometry.getLocalSphereBounds', 'geometry has no vertices data, geometry.getLocalSphereBounds will return Infinity bounds.');
+                sphere.radius = Infinity;
+            }
             this._localSphereBounds = sphere;
         }
         return this._localSphereBounds;
@@ -786,6 +809,11 @@ const Geometry = Class.create(/** @lends Geometry.prototype */ {
         // TODO:optimize
 
         const vertices = this.vertices;
+
+        if (!vertices) {
+            return null;
+        }
+
         const indices = this.indices;
         const triangle = [];
         const resArray = [];
