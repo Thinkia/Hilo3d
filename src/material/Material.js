@@ -399,7 +399,8 @@ const Material = Class.create(/** @lends Material.prototype */ {
      * 增加基础 attributes
      */
     addBasicAttributes() {
-        Object.assign(this.attributes, {
+        const attributes = this.attributes;
+        this._copyProps(attributes, {
             a_position: 'POSITION',
             a_normal: 'NORMAL',
             a_tangent: 'TANGENT',
@@ -413,7 +414,10 @@ const Material = Class.create(/** @lends Material.prototype */ {
         ['POSITION', 'NORMAL', 'TANGENT'].forEach((name) => {
             const camelName = name.slice(0, 1) + name.slice(1).toLowerCase();
             for (let i = 0; i < 8; i++) {
-                this.attributes['a_morph' + camelName + i] = 'MORPH' + name + i;
+                const morphAttributeName = 'a_morph' + camelName + i;
+                if (attributes[morphAttributeName] === undefined) {
+                    attributes[morphAttributeName] = 'MORPH' + name + i;
+                }
             }
         });
     },
@@ -421,7 +425,7 @@ const Material = Class.create(/** @lends Material.prototype */ {
      * 增加基础 uniforms
      */
     addBasicUniforms() {
-        Object.assign(this.uniforms, {
+        this._copyProps(this.uniforms, {
             u_normalMatrix: 'MODELVIEWINVERSETRANSPOSE',
             u_modelViewMatrix: 'MODELVIEW',
             u_modelViewProjectionMatrix: 'MODELVIEWPROJECTION',
@@ -509,7 +513,7 @@ const Material = Class.create(/** @lends Material.prototype */ {
             uniforms[`${uniformName}.texture`] = semanticName;
             uniforms[`${uniformName}.uv`] = `${semanticName}UV`;
         }
-        Object.assign(this.uniforms, uniforms);
+        this._copyProps(this.uniforms, uniforms);
     },
     /**
      * 获取渲染选项值
@@ -697,6 +701,19 @@ const Material = Class.create(/** @lends Material.prototype */ {
             const texture = this[propName];
             if (texture && texture.isTexture) {
                 texture.destroy(renderer);
+            }
+        }
+    },
+    /**
+     * 复制属性，只有没属性时才会覆盖
+     * @private
+     * @param  {Object} origin
+     * @param  {Object} data
+     */
+    _copyProps(origin, data) {
+        for (const key in data) {
+            if (origin[key] === undefined) {
+                origin[key] = data[key];
             }
         }
     }
