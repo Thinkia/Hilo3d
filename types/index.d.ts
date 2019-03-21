@@ -2806,6 +2806,13 @@ declare namespace hilo3d {
      */
     getBounds(parent?: Node, currentMatrix?: Matrix4, bounds?: Bounds): Bounds;
 
+    /**
+     * 销毁 Node 资源
+     * @param {WebGLRenderer} renderer
+     * @param {Boolean} [destroyTextures=false] 是否销毁材质的贴图，默认不销毁
+     * @return {Node} this
+     */
+    destroy(renderer: WebGLRenderer, destroyTextures: boolean = false): void;
   }
 
   class SkinedMesh extends Mesh {
@@ -13344,7 +13351,7 @@ declare namespace hilo3d {
      * 销毁当前Texture
      * @param gl gl
      */
-    destroy(gl: WebGLRenderingContext): void;
+    destroy(): void;
 
   }
 
@@ -13447,7 +13454,7 @@ declare namespace hilo3d {
      * 销毁当前Texture
      * @param gl gl
      */
-    destroy(gl: WebGLRenderingContext): void;
+    destroy(): void;
 
   }
 
@@ -13592,7 +13599,7 @@ declare namespace hilo3d {
      * 销毁当前Texture
      * @param gl gl
      */
-    destroy(gl: WebGLRenderingContext): void;
+    destroy(): void;
 
   }
 
@@ -13706,7 +13713,7 @@ declare namespace hilo3d {
      * 销毁当前Texture
      * @param gl gl
      */
-    destroy(gl: WebGLRenderingContext): void;
+    destroy(): void;
   }
 
   class Cache {
