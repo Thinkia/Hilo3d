@@ -108,6 +108,20 @@ const BasicLoader = Class.create(/** @lends BasicLoader.prototype */ {
         a.href = url;
         return a.hostname !== loc.hostname || a.port !== loc.port || a.protocol !== loc.protocol;
     },
+    isBase64(url) {
+        return /^data:(.+?);base64,/.test(url);
+    },
+    Uint8ArrayFrom(source, mapFn) {
+        if (Uint8Array.from) {
+            return Uint8Array.from(source, mapFn);
+        }
+        const len = source.length;
+        const result = new Uint8Array(len);
+        for (let i = 0; i < len; i++) {
+            result[i] = mapFn(source[i]);
+        }
+        return result;
+    },
     /**
      * 加载图片
      * @param {string} url 图片地址
@@ -141,7 +155,9 @@ const BasicLoader = Class.create(/** @lends BasicLoader.prototype */ {
             };
             img.onabort = img.onerror;
             if (crossOrigin || this.isCrossOrigin(url)) {
-                img.crossOrigin = 'anonymous';
+                if (!this.isBase64(url)) {
+                    img.crossOrigin = 'anonymous';
+                }
             }
             img.src = url;
         });
@@ -153,14 +169,14 @@ const BasicLoader = Class.create(/** @lends BasicLoader.prototype */ {
      * @return {Promise.<data, Error>} 返回加载完的内容对象(Object, ArrayBuffer, String)
      */
     loadRes(url, type) {
-        if (/^data:(.+?);base64,/.test(url)) {
+        if (this.isBase64(url)) {
             const mime = RegExp.$1;
             const base64Str = url.slice(13 + mime.length);
             let result = atob(base64Str);
             if (type === 'json') {
                 result = JSON.parse(result);
             } else if (type === 'buffer') {
-                result = Uint8Array.from(result, c => c.charCodeAt(0)).buffer;
+                result = this.Uint8ArrayFrom(result, c => c.charCodeAt(0)).buffer;
             }
             return Promise.resolve(result);
         }
