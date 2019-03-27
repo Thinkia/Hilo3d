@@ -16,7 +16,7 @@ const AliAMCExtension = {
     useAuto: true,
     init() {
         if (AliAMCExtension.useAuto) {
-            return AMDecompression.initWASM(AliAMCExtension.wasmURL);
+            return AMDecompression.initWASM(AliAMCExtension.wasmURL, AliAMCExtension.memPages);
         }
 
         if (AliAMCExtension.useWebWorker) {

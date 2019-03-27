@@ -121,17 +121,17 @@ export const KHR_materials_pbrSpecularGlossiness = {
 export const KHR_lights_punctual = {
     parse(info, parser, node, options) {
         if (options.isGlobalExtension) {
-            return;
+            return node;
         }
 
         if (!parser.isUseExtension(parser.json, 'KHR_lights_punctual') || !parser.json.extensions.KHR_lights_punctual.lights) {
-            return;
+            return node;
         }
 
         const lightInfo = parser.json.extensions.KHR_lights_punctual.lights[info.light];
 
         if (!lightInfo) {
-            return;
+            return node;
         }
 
         let light;
@@ -180,13 +180,14 @@ export const KHR_lights_punctual = {
                 light.direction.set(0, 0, -1);
                 break;
             default:
-                return;
+                return node;
         }
 
         if (light) {
             node.addChild(light);
             parser.lights.push(light);
         }
+        return node;
     }
 };
 
@@ -253,18 +254,18 @@ export const KHR_techniques_webgl = {
     },
     parse(info, parser, material, options) {
         if (options.isGlobalExtension) {
-            return null;
+            return material;
         }
 
         const textures = parser.textures || [];
 
         const techniqueInfo = parser.techniques[info.technique];
         if (!techniqueInfo) {
-            return null;
+            return material;
         }
         const programInfo = parser.programs[techniqueInfo.program];
         if (!programInfo) {
-            return null;
+            return material;
         }
 
         const fragmentText = parser.shaders[programInfo.fragmentShader];
