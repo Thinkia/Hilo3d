@@ -9,7 +9,7 @@
 #ifdef HILO_HAS_TEXCOORD1
     attribute vec2 a_texcoord1;
     varying vec2 v_texcoord1;
-    #ifdef HILO_UV_MATRIX
+    #ifdef HILO_UV_MATRIX1
         uniform mat3 u_uvMatrix1;
     #endif
 #endif

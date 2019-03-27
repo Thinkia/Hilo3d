@@ -6,7 +6,7 @@
     #endif
 #endif
 #ifdef HILO_HAS_TEXCOORD1
-    #ifdef HILO_UV_MATRIX
+    #ifdef HILO_UV_MATRIX1
         v_texcoord1 = (u_uvMatrix1 * vec3(uv1, 1.0)).xy;
     #else
         v_texcoord1 = uv1;
