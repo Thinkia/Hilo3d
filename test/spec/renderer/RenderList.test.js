@@ -52,28 +52,51 @@ describe('RenderList', () => {
                 id:'testRenderListGeometry1',
             })
         }), camera);
+
+        list.addMesh(new Hilo3d.Mesh({
+            material: new Hilo3d.Material({
+                id:'testRenderListMaterial1',
+                transparent: false
+            }),
+            geometry: new Hilo3d.BoxGeometry({
+                id:'testRenderListGeometry1',
+            }),
+            renderOrder:1
+        }), camera);
+
+        list.addMesh(new Hilo3d.Mesh({
+            material: new Hilo3d.Material({
+                id:'testRenderListMaterial1',
+                transparent: false
+            }),
+            geometry: new Hilo3d.BoxGeometry({
+                id:'testRenderListGeometry1',
+            }),
+            renderOrder:-1
+        }), camera);
+    });
+
+    it("sort", () => {
+        list.sort();
+        list.opaqueList[0].renderOrder.should.equal(-1);
+        list.opaqueList[list.opaqueList.length-1].renderOrder.should.equal(1);
     });
 
     it('addMesh', () => {
         list.transparentList.should.have.length(2);
-        list.dict.should.have.size(2);
-        list.dict['testRenderListMaterial1_testRenderListGeometry1'].should.have.length(2);
+        list.opaqueList.should.have.length(5);
     });
 
     it('traverse', () => {
         const callback = sinon.spy();
         list.traverse(callback);
-        callback.callCount.should.equal(4);
-        callback.args[0][0].should.have.length(1);
-        callback.args[1][0].should.have.length(2);
-        callback.args[2][0].should.have.length(1);
-        callback.args[2][0][0].material.transparent.should.be.true();
-        callback.args[3][0].should.have.length(1);
+        callback.callCount.should.equal(7);
     });
 
     it('reset', () => {
         list.reset();
         list.transparentList.should.have.length(0);
-        list.dict.should.have.size(0);
+        list.opaqueList.should.have.length(0);
+        list.instancedDict.should.have.size(0);
     });
 });

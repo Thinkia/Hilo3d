@@ -1,11 +1,31 @@
 import Class from '../core/Class';
 import Vector3 from '../math/Vector3';
 import log from '../utils/log';
-import {
-    insertToSortedArray
-} from '../utils/util';
 
 const tempVector3 = new Vector3();
+
+const opaqueSort = function(meshA, meshB) {
+    if (meshA.renderOrder !== meshB.renderOrder) {
+        return meshA.renderOrder - meshB.renderOrder;
+    }
+
+    const _shaderNumIdA = meshA.material._shaderNumId || 0;
+    const _shaderNumIdB = meshB.material._shaderNumId || 0;
+
+    if (_shaderNumIdA !== _shaderNumIdB) {
+        return _shaderNumIdA - _shaderNumIdB;
+    }
+
+    return meshA._sortRenderZ - meshB._sortRenderZ;
+};
+
+const transparentSort = function(meshA, meshB) {
+    if (meshA.renderOrder !== meshB.renderOrder) {
+        return meshA.renderOrder - meshB.renderOrder;
+    }
+
+    return meshB._sortRenderZ - meshA._sortRenderZ;
+};
 
 /**
  * 渲染列表
@@ -25,41 +45,71 @@ const RenderList = Class.create(/** @lends RenderList.prototype */ {
     isRenderList: true,
 
     /**
+     * 使用 instanced
+     * @type {Boolean}
+     * @default false
+     */
+    useInstanced: false,
+
+    /**
      * @constructs
      */
     constructor() {
         /**
-         * 不透明物体字典
-         * @type {Object}
+         * 不透明物体列表
+         * @type {Array}
          */
-        this.dict = {};
+        this.opaqueList = [];
 
         /**
          * 透明物体列表
          * @type {Array}
          */
         this.transparentList = [];
+
+        /**
+         * instanced物体字典
+         * @type {Object}
+         */
+        this.instancedDict = {};
     },
     /**
      * 重置列表
      */
     reset() {
-        this.dict = {};
+        this.opaqueList.length = 0;
         this.transparentList.length = 0;
+        this.instancedDict = {};
     },
     /**
      * 遍历列表执行回调
-     * @param  {RenderList~traverseCallback} callback(meshes)
+     * @param  {RenderList~traverseCallback} callback callback(mesh)
+     * @param  {RenderList~instancedTraverseCallback} [instancedCallback=null] instancedCallback(instancedMeshes)
      */
-    traverse(callback) {
-        const dict = this.dict;
-        for (let id in dict) {
-            callback(dict[id]);
+    traverse(callback, instancedCallback) {
+        this.opaqueList.forEach((mesh) => {
+            callback(mesh);
+        });
+
+        const instancedDict = this.instancedDict;
+        for (let instancedId in instancedDict) {
+            const instancedList = instancedDict[instancedId];
+            if (instancedList.length > 2 && instancedCallback) {
+                instancedCallback(instancedList);
+            } else {
+                instancedList.forEach((mesh) => {
+                    callback(mesh);
+                });
+            }
         }
 
         this.transparentList.forEach((mesh) => {
-            callback([mesh]);
+            callback(mesh);
         });
+    },
+    sort() {
+        this.transparentList.sort(transparentSort);
+        this.opaqueList.sort(opaqueSort);
     },
     /**
      * 增加 mesh
@@ -74,18 +124,25 @@ const RenderList = Class.create(/** @lends RenderList.prototype */ {
             if (mesh.frustumTest && !camera.isMeshVisible(mesh)) {
                 return;
             }
-            const id = material.id + '_' + geometry.id;
-            mesh.instanceId = id;
-            if (material.transparent) {
+
+            if (this.useInstanced && mesh.useInstanced) {
+                const instancedDict = this.instancedDict;
+                const instancedId = material.id + '_' + geometry.id;
+                let instancedList = instancedDict[instancedId];
+                if (!instancedDict[instancedId]) {
+                    instancedList = instancedDict[instancedId] = [];
+                }
+                instancedList.push(mesh);
+            } else {
                 mesh.worldMatrix.getTranslation(tempVector3);
                 tempVector3.transformMat4(camera.viewProjectionMatrix);
                 mesh._sortRenderZ = tempVector3.z;
-                insertToSortedArray(this.transparentList, mesh, (a, b) => {
-                    return b._sortRenderZ - a._sortRenderZ;
-                });
-            } else {
-                const arr = this.dict[id] = this.dict[id] || [];
-                arr.push(mesh);
+
+                if (material.transparent) {
+                    this.transparentList.push(mesh);
+                } else {
+                    this.opaqueList.push(mesh);
+                }
             }
         } else {
             log.warnOnce(`RenderList.addMesh(${mesh.id})`, 'Mesh must have material and geometry', mesh);
@@ -97,5 +154,10 @@ export default RenderList;
 
 /**
  * @callback RenderList~traverseCallback
- * @param {Mesh[]} mesh
+ * @param {Mesh} mesh
+ */
+
+/**
+ * @callback RenderList~instancedTraverseCallback
+ * @param {Mesh[]} meshes
  */

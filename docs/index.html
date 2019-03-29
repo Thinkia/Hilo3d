@@ -1285,6 +1285,8 @@
             
                 <li  data-name="Mesh#frustumTest"><a href="Mesh.html#frustumTest">frustumTest</a></li>
             
+                <li  data-name="Mesh#renderOrder"><a href="Mesh.html#renderOrder">renderOrder</a></li>
+            
                 <li class="inherited-member" data-name="Mesh#isNode"><a href="Mesh.html#isNode">isNode</a></li>
             
                 <li class="inherited-member" data-name="Mesh#name"><a href="Mesh.html#name">name</a></li>
@@ -1626,6 +1628,8 @@
                 <li class="inherited-member" data-name="SkinedMesh#geometry"><a href="SkinedMesh.html#geometry">geometry</a></li>
             
                 <li class="inherited-member" data-name="SkinedMesh#material"><a href="SkinedMesh.html#material">material</a></li>
+            
+                <li class="inherited-member" data-name="SkinedMesh#renderOrder"><a href="SkinedMesh.html#renderOrder">renderOrder</a></li>
             
                 <li class="inherited-member" data-name="SkinedMesh#isNode"><a href="SkinedMesh.html#isNode">isNode</a></li>
             
@@ -2819,6 +2823,8 @@
             
                 <li class="inherited-member" data-name="AxisNetHelper#frustumTest"><a href="AxisNetHelper.html#frustumTest">frustumTest</a></li>
             
+                <li class="inherited-member" data-name="AxisNetHelper#renderOrder"><a href="AxisNetHelper.html#renderOrder">renderOrder</a></li>
+            
                 <li class="inherited-member" data-name="AxisNetHelper#isNode"><a href="AxisNetHelper.html#isNode">isNode</a></li>
             
                 <li class="inherited-member" data-name="AxisNetHelper#name"><a href="AxisNetHelper.html#name">name</a></li>
@@ -2989,6 +2995,8 @@
                 <li class="inherited-member" data-name="CameraHelper#useInstanced"><a href="CameraHelper.html#useInstanced">useInstanced</a></li>
             
                 <li class="inherited-member" data-name="CameraHelper#frustumTest"><a href="CameraHelper.html#frustumTest">frustumTest</a></li>
+            
+                <li class="inherited-member" data-name="CameraHelper#renderOrder"><a href="CameraHelper.html#renderOrder">renderOrder</a></li>
             
                 <li class="inherited-member" data-name="CameraHelper#isNode"><a href="CameraHelper.html#isNode">isNode</a></li>
             
@@ -6419,9 +6427,13 @@
             
                 <li  data-name="RenderList#isRenderList"><a href="RenderList.html#isRenderList">isRenderList</a></li>
             
-                <li  data-name="RenderList#dict"><a href="RenderList.html#dict">dict</a></li>
+                <li  data-name="RenderList#useInstanced"><a href="RenderList.html#useInstanced">useInstanced</a></li>
+            
+                <li  data-name="RenderList#opaqueList"><a href="RenderList.html#opaqueList">opaqueList</a></li>
             
                 <li  data-name="RenderList#transparentList"><a href="RenderList.html#transparentList">transparentList</a></li>
+            
+                <li  data-name="RenderList#instancedDict"><a href="RenderList.html#instancedDict">instancedDict</a></li>
             
             </ul>
             <ul class="typedefs itemMembers">
@@ -6429,6 +6441,8 @@
             <span class="subtitle">Typedefs</span>
             
                 <li data-name="RenderList~traverseCallback"><a href="RenderList.html#~traverseCallback">traverseCallback</a></li>
+            
+                <li data-name="RenderList~instancedTraverseCallback"><a href="RenderList.html#~instancedTraverseCallback">instancedTraverseCallback</a></li>
             
             </ul>
             <ul class="methods itemMembers">
@@ -6610,8 +6624,6 @@
                 <li  data-name="WebGLRenderer#setupMesh"><a href="WebGLRenderer.html#setupMesh">setupMesh</a></li>
             
                 <li  data-name="WebGLRenderer#addRenderInfo"><a href="WebGLRenderer.html#addRenderInfo">addRenderInfo</a></li>
-            
-                <li  data-name="WebGLRenderer#renderMeshes"><a href="WebGLRenderer.html#renderMeshes">renderMeshes</a></li>
             
                 <li  data-name="WebGLRenderer#render"><a href="WebGLRenderer.html#render">render</a></li>
             
@@ -7316,11 +7328,11 @@
 
 
     <section>
-        <article class="readme"><h1>Hilo3d <a target="_blank" href="https://www.npmjs.com/package/hilo3d"><img src="https://img.shields.io/npm/v/hilo3d.svg?style=flat-square" alt="npm"></a> <a target="_blank" href="https://g.alicdn.com/hilo/Hilo3d/1.11.30/Hilo3d.js"><img src="https://img.badgesize.io/hiloteam/hilo3d/master/build/Hilo3d.js.svg?compression=gzip&amp;style=flat-square" alt="size"></a> <a target="_blank" href="https://gitter.im/hiloteam/Hilo3d?utm_source=badge&amp;utm_medium=badge&amp;utm_campaign=pr-badge&amp;utm_content=badge"><img src="https://img.shields.io/badge/GITTER-join%20chat-green.svg?style=flat-square" alt="gitter.im"></a></h1><p>Hilo3d, a WebGL Rendering Engine developed by Alibaba Group.It could help developers build 3D games conveniently in minutes.</p>
+        <article class="readme"><h1>Hilo3d <a target="_blank" href="https://www.npmjs.com/package/hilo3d"><img src="https://img.shields.io/npm/v/hilo3d.svg?style=flat-square" alt="npm"></a> <a target="_blank" href="https://g.alicdn.com/hilo/Hilo3d/1.12.0/Hilo3d.js"><img src="https://img.badgesize.io/hiloteam/hilo3d/master/build/Hilo3d.js.svg?compression=gzip&amp;style=flat-square" alt="size"></a> <a target="_blank" href="https://gitter.im/hiloteam/Hilo3d?utm_source=badge&amp;utm_medium=badge&amp;utm_campaign=pr-badge&amp;utm_content=badge"><img src="https://img.shields.io/badge/GITTER-join%20chat-green.svg?style=flat-square" alt="gitter.im"></a></h1><p>Hilo3d, a WebGL Rendering Engine developed by Alibaba Group.It could help developers build 3D games conveniently in minutes.</p>
 <blockquote>
 <p>本站点暂时不公开Hilo3d源码，仅提供压缩版本 （正式开源时间参考 <a target="_blank" href="https://github.com/hiloteam/Hilo3d/issues/4">开源计划</a>）</p>
 </blockquote>
-<h3>静态CDN</h3><p><a target="_blank" href="https://g.alicdn.com/hilo/Hilo3d/1.11.30/Hilo3d.js">https://g.alicdn.com/hilo/Hilo3d/1.11.30/Hilo3d.js</a></p>
+<h3>静态CDN</h3><p><a target="_blank" href="https://g.alicdn.com/hilo/Hilo3d/1.12.0/Hilo3d.js">https://g.alicdn.com/hilo/Hilo3d/1.12.0/Hilo3d.js</a></p>
 <h3>API 文档</h3><p>参见 <a href="../docs/index.html">docs/index.html</a></p>
 <h3>glTF 特性测试</h3><ul>
 <li><a target="_blank" href="https://cx20.github.io/gltf-test/?engines=Hilo3d">glTF Feature Test</a></li>

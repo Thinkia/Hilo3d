@@ -246,11 +246,11 @@ const Shader = Class.create(/** @lends Shader.prototype */ {
          * @return {Shader}
          */
         getBasicShader(material, isUseInstance, header) {
-            let instancedUniforms = [];
+            let instancedUniforms = '';
             if (isUseInstance) {
                 instancedUniforms = material.getInstancedUniforms().map(x => x.name);
+                instancedUniforms = instancedUniforms.join('|');
             }
-            instancedUniforms = instancedUniforms.join('|');
             const key = material.className + ':' + instancedUniforms + ':' + header;
 
             let shader = cache.get(key);
@@ -275,7 +275,23 @@ const Shader = Class.create(/** @lends Shader.prototype */ {
 
                 shader = this.getCustomShader(vs, fs, header, key);
             }
+
+            if (shader) {
+                const shaderNumId = this._getNumId(shader);
+                if (shaderNumId !== null) {
+                    material._shaderNumId = shaderNumId;
+                }
+            }
             return shader;
+        },
+        _getNumId(obj) {
+            const id = obj.id;
+            const res = id.match(/_(\d+)/);
+            if (res && res[1]) {
+                return parseInt(res[1], 10);
+            }
+
+            return null;
         },
         /**
          * 获取自定义shader
@@ -298,7 +314,6 @@ const Shader = Class.create(/** @lends Shader.prototype */ {
                 });
 
                 if (cacheKey) {
-                    shader.id = cacheKey;
                     cache.add(cacheKey, shader);
                 }
             }

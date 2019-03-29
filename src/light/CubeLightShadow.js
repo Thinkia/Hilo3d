@@ -35,6 +35,20 @@ const LookAtMap = [
     [0, -1, 0, 0, -1, 0, 0, 0, 1, 0, 0, -1, 0, -1, 0, 0, -1, 0]
 ];
 
+const isNeedRenderMesh = function(mesh, camera) {
+    if (mesh.material.castShadows) {
+        if (!mesh.frustumTest) {
+            return true;
+        }
+
+        if (camera.isMeshVisible(mesh)) {
+            return true;
+        }
+    }
+
+    return false;
+};
+
 /**
  * @class
  * @private
@@ -155,20 +169,14 @@ const CubeLightShadow = Class.create(/** @lends CubeLightShadow.prototype */ {
     },
     renderShadowScene(renderer) {
         const renderList = renderer.renderList;
-        renderList.traverse((arr) => {
-            renderer.renderMeshes(arr.filter((mesh) => {
-                if (mesh.material.castShadows) {
-                    if (!mesh.frustumTest) {
-                        return true;
-                    }
-
-                    if (this.camera.isMeshVisible(mesh)) {
-                        return true;
-                    }
-                }
-
-                return false;
-            }));
+        const camera = this.camera;
+        renderList.traverse((mesh) => {
+            if (isNeedRenderMesh(mesh, camera)) {
+                renderer.renderMesh(mesh);
+            }
+        }, (instancedMeshes) => {
+            const needRenderMeshes = instancedMeshes.filter(mesh => isNeedRenderMesh(mesh, camera));
+            renderer.renderInstancedMeshes(needRenderMeshes);
         });
     }
 });

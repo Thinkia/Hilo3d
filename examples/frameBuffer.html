@@ -71,10 +71,8 @@
 
         renderer.clear(clearColor);
         textureBox.material.diffuse.setGLTexture(texture.getGLTexture(renderer.state));
-        renderer.renderList.traverse((arr) => {
-            arr.forEach(mesh => {
-                renderer.renderMesh(mesh);
-            });
+        renderer.renderList.traverse((mesh) => {
+            renderer.renderMesh(mesh);
         });
         framebuffer.unbind()
 

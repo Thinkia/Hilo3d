@@ -18,6 +18,10 @@ let shadowMaterial = null;
 const clearColor = new Color(1, 1, 1);
 const tempMatrix4 = new Matrix4();
 
+const isNeedRenderMesh = function(mesh) {
+    return mesh.material.castShadows;
+};
+
 /**
  * @class
  * @private
@@ -157,8 +161,12 @@ const LightShadow = Class.create(/** @lends LightShadow.prototype */{
     },
     renderShadowScene(renderer) {
         const renderList = renderer.renderList;
-        renderList.traverse((arr) => {
-            renderer.renderMeshes(arr.filter(mesh => mesh.material.castShadows));
+        renderList.traverse((mesh) => {
+            if (isNeedRenderMesh(mesh)) {
+                renderer.renderMesh(mesh);
+            }
+        }, (instancedMeshes) => {
+            renderer.renderInstancedMeshes(instancedMeshes.filter(mesh => isNeedRenderMesh(mesh)));
         });
     },
     showShadowMap() {

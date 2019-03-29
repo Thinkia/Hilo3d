@@ -249,6 +249,8 @@ const WebGLRenderer = Class.create(/** @lends WebGLRenderer.prototype */ {
          */
         this.clearColor = new Color(1, 1, 1);
 
+        Object.assign(this, params);
+
         /**
          * 渲染信息
          * @type {RenderInfo}
@@ -276,7 +278,6 @@ const WebGLRenderer = Class.create(/** @lends WebGLRenderer.prototype */ {
          * @default new WebGLResourceManager
          */
         this.resourceManager = new WebGLResourceManager();
-        Object.assign(this, params);
     },
     /**
      * 改变大小
@@ -413,6 +414,8 @@ const WebGLRenderer = Class.create(/** @lends WebGLRenderer.prototype */ {
             if (!extensions.instanced) {
                 this.useInstanced = false;
             }
+
+            this.renderList.useInstanced = this.useInstanced;
 
             if (!extensions.vao) {
                 this.useVao = false;
@@ -652,23 +655,7 @@ const WebGLRenderer = Class.create(/** @lends WebGLRenderer.prototype */ {
         renderInfo.addFaceCount(faceCount);
         renderInfo.addDrawCount(drawCount);
     },
-    /**
-     * 渲染一组mesh
-     * @param  {Mesh[]} meshes
-     */
-    renderMeshes(meshes) {
-        if (!meshes.length) {
-            return;
-        }
-        const mesh = meshes[0];
-        const material = this.forceMaterial || mesh.material;
-        const useInstanced = this.useInstanced && mesh.useInstanced && meshes.length > 1;
-        if (useInstanced) {
-            this.renderInstancedMeshes(mesh, meshes, material);
-        } else {
-            this.renderMultipleMeshes(meshes);
-        }
-    },
+
     /**
      * 渲染
      * @param  {Stage} stage
@@ -714,6 +701,7 @@ const WebGLRenderer = Class.create(/** @lends WebGLRenderer.prototype */ {
             return Node.TRAVERSE_STOP_NONE;
         });
 
+        renderList.sort();
         lightManager.createShadowMap(this, camera);
         lightManager.updateInfo(camera);
 
@@ -748,8 +736,10 @@ const WebGLRenderer = Class.create(/** @lends WebGLRenderer.prototype */ {
      */
     renderScene() {
         const renderList = this.renderList;
-        renderList.traverse((arr) => {
-            this.renderMeshes(arr);
+        renderList.traverse((mesh) => {
+            this.renderMesh(mesh);
+        }, (instancedMeshes) => {
+            this.renderInstancedMeshes(instancedMeshes);
         });
         this._gameModeSumbit();
     },
@@ -807,11 +797,14 @@ const WebGLRenderer = Class.create(/** @lends WebGLRenderer.prototype */ {
     },
     /**
      * 渲染一组 instanced mesh
-     * @param  {Mesh} mesh
      * @param  {Mesh[]} meshes
-     * @param  {Material} material
      */
-    renderInstancedMeshes(mesh, meshes, material) {
+    renderInstancedMeshes(meshes) {
+        const mesh = meshes[0];
+        if (!mesh) {
+            return;
+        }
+        const material = this.forceMaterial || mesh.material;
         const {
             vao,
             program

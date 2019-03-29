@@ -1285,6 +1285,8 @@
             
                 <li  data-name="Mesh#frustumTest"><a href="Mesh.html#frustumTest">frustumTest</a></li>
             
+                <li  data-name="Mesh#renderOrder"><a href="Mesh.html#renderOrder">renderOrder</a></li>
+            
                 <li class="inherited-member" data-name="Mesh#isNode"><a href="Mesh.html#isNode">isNode</a></li>
             
                 <li class="inherited-member" data-name="Mesh#name"><a href="Mesh.html#name">name</a></li>
@@ -1626,6 +1628,8 @@
                 <li class="inherited-member" data-name="SkinedMesh#geometry"><a href="SkinedMesh.html#geometry">geometry</a></li>
             
                 <li class="inherited-member" data-name="SkinedMesh#material"><a href="SkinedMesh.html#material">material</a></li>
+            
+                <li class="inherited-member" data-name="SkinedMesh#renderOrder"><a href="SkinedMesh.html#renderOrder">renderOrder</a></li>
             
                 <li class="inherited-member" data-name="SkinedMesh#isNode"><a href="SkinedMesh.html#isNode">isNode</a></li>
             
@@ -2819,6 +2823,8 @@
             
                 <li class="inherited-member" data-name="AxisNetHelper#frustumTest"><a href="AxisNetHelper.html#frustumTest">frustumTest</a></li>
             
+                <li class="inherited-member" data-name="AxisNetHelper#renderOrder"><a href="AxisNetHelper.html#renderOrder">renderOrder</a></li>
+            
                 <li class="inherited-member" data-name="AxisNetHelper#isNode"><a href="AxisNetHelper.html#isNode">isNode</a></li>
             
                 <li class="inherited-member" data-name="AxisNetHelper#name"><a href="AxisNetHelper.html#name">name</a></li>
@@ -2989,6 +2995,8 @@
                 <li class="inherited-member" data-name="CameraHelper#useInstanced"><a href="CameraHelper.html#useInstanced">useInstanced</a></li>
             
                 <li class="inherited-member" data-name="CameraHelper#frustumTest"><a href="CameraHelper.html#frustumTest">frustumTest</a></li>
+            
+                <li class="inherited-member" data-name="CameraHelper#renderOrder"><a href="CameraHelper.html#renderOrder">renderOrder</a></li>
             
                 <li class="inherited-member" data-name="CameraHelper#isNode"><a href="CameraHelper.html#isNode">isNode</a></li>
             
@@ -6419,9 +6427,13 @@
             
                 <li  data-name="RenderList#isRenderList"><a href="RenderList.html#isRenderList">isRenderList</a></li>
             
-                <li  data-name="RenderList#dict"><a href="RenderList.html#dict">dict</a></li>
+                <li  data-name="RenderList#useInstanced"><a href="RenderList.html#useInstanced">useInstanced</a></li>
+            
+                <li  data-name="RenderList#opaqueList"><a href="RenderList.html#opaqueList">opaqueList</a></li>
             
                 <li  data-name="RenderList#transparentList"><a href="RenderList.html#transparentList">transparentList</a></li>
+            
+                <li  data-name="RenderList#instancedDict"><a href="RenderList.html#instancedDict">instancedDict</a></li>
             
             </ul>
             <ul class="typedefs itemMembers">
@@ -6429,6 +6441,8 @@
             <span class="subtitle">Typedefs</span>
             
                 <li data-name="RenderList~traverseCallback"><a href="RenderList.html#~traverseCallback">traverseCallback</a></li>
+            
+                <li data-name="RenderList~instancedTraverseCallback"><a href="RenderList.html#~instancedTraverseCallback">instancedTraverseCallback</a></li>
             
             </ul>
             <ul class="methods itemMembers">
@@ -6610,8 +6624,6 @@
                 <li  data-name="WebGLRenderer#setupMesh"><a href="WebGLRenderer.html#setupMesh">setupMesh</a></li>
             
                 <li  data-name="WebGLRenderer#addRenderInfo"><a href="WebGLRenderer.html#addRenderInfo">addRenderInfo</a></li>
-            
-                <li  data-name="WebGLRenderer#renderMeshes"><a href="WebGLRenderer.html#renderMeshes">renderMeshes</a></li>
             
                 <li  data-name="WebGLRenderer#render"><a href="WebGLRenderer.html#render">render</a></li>
             
@@ -7552,6 +7564,8 @@ const WebGLRenderer = Class.create(/** @lends WebGLRenderer.prototype */ {
          */
         this.clearColor = new Color(1, 1, 1);
 
+        Object.assign(this, params);
+
         /**
          * 渲染信息
          * @type {RenderInfo}
@@ -7579,7 +7593,6 @@ const WebGLRenderer = Class.create(/** @lends WebGLRenderer.prototype */ {
          * @default new WebGLResourceManager
          */
         this.resourceManager = new WebGLResourceManager();
-        Object.assign(this, params);
     },
     /**
      * 改变大小
@@ -7716,6 +7729,8 @@ const WebGLRenderer = Class.create(/** @lends WebGLRenderer.prototype */ {
             if (!extensions.instanced) {
                 this.useInstanced = false;
             }
+
+            this.renderList.useInstanced = this.useInstanced;
 
             if (!extensions.vao) {
                 this.useVao = false;
@@ -7955,23 +7970,7 @@ const WebGLRenderer = Class.create(/** @lends WebGLRenderer.prototype */ {
         renderInfo.addFaceCount(faceCount);
         renderInfo.addDrawCount(drawCount);
     },
-    /**
-     * 渲染一组mesh
-     * @param  {Mesh[]} meshes
-     */
-    renderMeshes(meshes) {
-        if (!meshes.length) {
-            return;
-        }
-        const mesh = meshes[0];
-        const material = this.forceMaterial || mesh.material;
-        const useInstanced = this.useInstanced &amp;&amp; mesh.useInstanced &amp;&amp; meshes.length > 1;
-        if (useInstanced) {
-            this.renderInstancedMeshes(mesh, meshes, material);
-        } else {
-            this.renderMultipleMeshes(meshes);
-        }
-    },
+
     /**
      * 渲染
      * @param  {Stage} stage
@@ -8017,6 +8016,7 @@ const WebGLRenderer = Class.create(/** @lends WebGLRenderer.prototype */ {
             return Node.TRAVERSE_STOP_NONE;
         });
 
+        renderList.sort();
         lightManager.createShadowMap(this, camera);
         lightManager.updateInfo(camera);
 
@@ -8051,8 +8051,10 @@ const WebGLRenderer = Class.create(/** @lends WebGLRenderer.prototype */ {
      */
     renderScene() {
         const renderList = this.renderList;
-        renderList.traverse((arr) => {
-            this.renderMeshes(arr);
+        renderList.traverse((mesh) => {
+            this.renderMesh(mesh);
+        }, (instancedMeshes) => {
+            this.renderInstancedMeshes(instancedMeshes);
         });
         this._gameModeSumbit();
     },
@@ -8110,11 +8112,14 @@ const WebGLRenderer = Class.create(/** @lends WebGLRenderer.prototype */ {
     },
     /**
      * 渲染一组 instanced mesh
-     * @param  {Mesh} mesh
      * @param  {Mesh[]} meshes
-     * @param  {Material} material
      */
-    renderInstancedMeshes(mesh, meshes, material) {
+    renderInstancedMeshes(meshes) {
+        const mesh = meshes[0];
+        if (!mesh) {
+            return;
+        }
+        const material = this.forceMaterial || mesh.material;
         const {
             vao,
             program

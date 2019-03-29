@@ -1285,6 +1285,8 @@
             
                 <li  data-name="Mesh#frustumTest"><a href="Mesh.html#frustumTest">frustumTest</a></li>
             
+                <li  data-name="Mesh#renderOrder"><a href="Mesh.html#renderOrder">renderOrder</a></li>
+            
                 <li class="inherited-member" data-name="Mesh#isNode"><a href="Mesh.html#isNode">isNode</a></li>
             
                 <li class="inherited-member" data-name="Mesh#name"><a href="Mesh.html#name">name</a></li>
@@ -1626,6 +1628,8 @@
                 <li class="inherited-member" data-name="SkinedMesh#geometry"><a href="SkinedMesh.html#geometry">geometry</a></li>
             
                 <li class="inherited-member" data-name="SkinedMesh#material"><a href="SkinedMesh.html#material">material</a></li>
+            
+                <li class="inherited-member" data-name="SkinedMesh#renderOrder"><a href="SkinedMesh.html#renderOrder">renderOrder</a></li>
             
                 <li class="inherited-member" data-name="SkinedMesh#isNode"><a href="SkinedMesh.html#isNode">isNode</a></li>
             
@@ -2819,6 +2823,8 @@
             
                 <li class="inherited-member" data-name="AxisNetHelper#frustumTest"><a href="AxisNetHelper.html#frustumTest">frustumTest</a></li>
             
+                <li class="inherited-member" data-name="AxisNetHelper#renderOrder"><a href="AxisNetHelper.html#renderOrder">renderOrder</a></li>
+            
                 <li class="inherited-member" data-name="AxisNetHelper#isNode"><a href="AxisNetHelper.html#isNode">isNode</a></li>
             
                 <li class="inherited-member" data-name="AxisNetHelper#name"><a href="AxisNetHelper.html#name">name</a></li>
@@ -2989,6 +2995,8 @@
                 <li class="inherited-member" data-name="CameraHelper#useInstanced"><a href="CameraHelper.html#useInstanced">useInstanced</a></li>
             
                 <li class="inherited-member" data-name="CameraHelper#frustumTest"><a href="CameraHelper.html#frustumTest">frustumTest</a></li>
+            
+                <li class="inherited-member" data-name="CameraHelper#renderOrder"><a href="CameraHelper.html#renderOrder">renderOrder</a></li>
             
                 <li class="inherited-member" data-name="CameraHelper#isNode"><a href="CameraHelper.html#isNode">isNode</a></li>
             
@@ -6419,9 +6427,13 @@
             
                 <li  data-name="RenderList#isRenderList"><a href="RenderList.html#isRenderList">isRenderList</a></li>
             
-                <li  data-name="RenderList#dict"><a href="RenderList.html#dict">dict</a></li>
+                <li  data-name="RenderList#useInstanced"><a href="RenderList.html#useInstanced">useInstanced</a></li>
+            
+                <li  data-name="RenderList#opaqueList"><a href="RenderList.html#opaqueList">opaqueList</a></li>
             
                 <li  data-name="RenderList#transparentList"><a href="RenderList.html#transparentList">transparentList</a></li>
+            
+                <li  data-name="RenderList#instancedDict"><a href="RenderList.html#instancedDict">instancedDict</a></li>
             
             </ul>
             <ul class="typedefs itemMembers">
@@ -6429,6 +6441,8 @@
             <span class="subtitle">Typedefs</span>
             
                 <li data-name="RenderList~traverseCallback"><a href="RenderList.html#~traverseCallback">traverseCallback</a></li>
+            
+                <li data-name="RenderList~instancedTraverseCallback"><a href="RenderList.html#~instancedTraverseCallback">instancedTraverseCallback</a></li>
             
             </ul>
             <ul class="methods itemMembers">
@@ -6610,8 +6624,6 @@
                 <li  data-name="WebGLRenderer#setupMesh"><a href="WebGLRenderer.html#setupMesh">setupMesh</a></li>
             
                 <li  data-name="WebGLRenderer#addRenderInfo"><a href="WebGLRenderer.html#addRenderInfo">addRenderInfo</a></li>
-            
-                <li  data-name="WebGLRenderer#renderMeshes"><a href="WebGLRenderer.html#renderMeshes">renderMeshes</a></li>
             
                 <li  data-name="WebGLRenderer#render"><a href="WebGLRenderer.html#render">render</a></li>
             
@@ -7323,7 +7335,7 @@
         
             
             <div class="tag-source">
-                <a href="renderer_RenderList.js.html">renderer/RenderList.js</a>, <a href="renderer_RenderList.js.html#line14">line 14</a>
+                <a href="renderer_RenderList.js.html">renderer/RenderList.js</a>, <a href="renderer_RenderList.js.html#line34">line 34</a>
             </div>
             
         </div>
@@ -7500,15 +7512,52 @@
         <tr >
             
                 <td class="name">
-                    <a name="dict"></a>
-                    <code>dict</code>
+                    <a name="useInstanced"></a>
+                    <code>useInstanced</code>
                 </td>
             
             
             <td class="type">
             
                 
-<span class="param-type">Object</span>
+<span class="param-type">Boolean</span>
+
+
+            
+            </td>
+            
+            
+            
+            
+                <td class="default">
+                
+                    false
+                
+                </td>
+            
+            
+            <td class="description last">
+                
+                <p>使用 instanced</p>
+                
+    
+                
+            </td>
+        </tr>
+	
+	
+        <tr >
+            
+                <td class="name">
+                    <a name="opaqueList"></a>
+                    <code>opaqueList</code>
+                </td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">Array</span>
 
 
             
@@ -7524,7 +7573,7 @@
             
             <td class="description last">
                 
-                <p>不透明物体字典</p>
+                <p>不透明物体列表</p>
                 
     
                 
@@ -7567,6 +7616,41 @@
         </tr>
 	
 	
+        <tr >
+            
+                <td class="name">
+                    <a name="instancedDict"></a>
+                    <code>instancedDict</code>
+                </td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+            
+            </td>
+            
+            
+            
+            
+                <td class="default">
+                
+                </td>
+            
+            
+            <td class="description last">
+                
+                <p>instanced物体字典</p>
+                
+    
+                
+            </td>
+        </tr>
+	
+	
 	</tbody>
 </table>
 </dd>
@@ -7592,7 +7676,7 @@
         
             
             <div class="tag-source">
-                <a href="renderer_RenderList.js.html">renderer/RenderList.js</a>, <a href="renderer_RenderList.js.html#line46">line 46</a>
+                <a href="renderer_RenderList.js.html">renderer/RenderList.js</a>, <a href="renderer_RenderList.js.html#line79">line 79</a>
             </div>
             
         </div>
@@ -7657,12 +7741,12 @@
         <div class="nameContainer">
             <h4 class="name" id="traverse">
                 
-                traverse<span class="signature">(callback(meshes))</span>
+                traverse<span class="signature">(callback, <span class="optional">instancedCallback</span>)</span>
             </h4>
         
             
             <div class="tag-source">
-                <a href="renderer_RenderList.js.html">renderer/RenderList.js</a>, <a href="renderer_RenderList.js.html#line54">line 54</a>
+                <a href="renderer_RenderList.js.html">renderer/RenderList.js</a>, <a href="renderer_RenderList.js.html#line89">line 89</a>
             </div>
             
         </div>
@@ -7692,6 +7776,8 @@
 		<th>Type</th>
 		
 		
+		<th>Default</th>
+		
 		
 		<th class="last">Description</th>
 	</tr>
@@ -7702,7 +7788,7 @@
 	
         <tr>
             
-                <td class="name"><code>callback(meshes)</code></td>
+                <td class="name"><code>callback</code></td>
             
             
             <td class="type">
@@ -7715,10 +7801,55 @@
             </td>
             
             
+                <td class="default">
+                
+                </td>
+            
             
             <td class="description last">
                 
+                    
+                    
+                        
+                    
+                
+                <p>callback(mesh)</p></td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>instancedCallback</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type"><a href="RenderList.html#~instancedTraverseCallback">RenderList~instancedTraverseCallback</a></span>
+
+
+            
+            </td>
+            
+            
+                <td class="default">
+                
+                    null
+                
                 </td>
+            
+            
+            <td class="description last">
+                
+                    
+                        <span class="optional">optional</span>
+                    
+                    
+                        
+                    
+                
+                <p>instancedCallback(instancedMeshes)</p></td>
         </tr>
 	
 	
@@ -7777,7 +7908,7 @@
         
             
             <div class="tag-source">
-                <a href="renderer_RenderList.js.html">renderer/RenderList.js</a>, <a href="renderer_RenderList.js.html#line69">line 69</a>
+                <a href="renderer_RenderList.js.html">renderer/RenderList.js</a>, <a href="renderer_RenderList.js.html#line119">line 119</a>
             </div>
             
         </div>
@@ -7921,7 +8052,7 @@
         
             
             <div class="tag-source">
-                <a href="renderer_RenderList.js.html">renderer/RenderList.js</a>, <a href="renderer_RenderList.js.html#line98">line 98</a>
+                <a href="renderer_RenderList.js.html">renderer/RenderList.js</a>, <a href="renderer_RenderList.js.html#line155">line 155</a>
             </div>
             
         </div>
@@ -7958,6 +8089,117 @@
         <tr>
             
                 <td class="name"><code>mesh</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type"><a href="Mesh.html">Mesh</a></span>
+
+
+            
+            </td>
+            
+            
+            
+            <td class="description last">
+                
+                </td>
+        </tr>
+	
+	
+	</tbody>
+</table>
+        
+        
+        
+<dl class="details">
+    
+        
+    
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+</dl>
+
+        
+        
+
+        
+
+        
+        
+        
+        
+        
+        
+        
+    </dd>
+</dl>
+            
+                
+<dl >
+    <dt>
+        <div class="nameContainer">
+            <h4 class="name" id="~instancedTraverseCallback">
+                
+                instancedTraverseCallback<span class="signature">(meshes)</span>
+            </h4>
+        
+            
+            <div class="tag-source">
+                <a href="renderer_RenderList.js.html">renderer/RenderList.js</a>, <a href="renderer_RenderList.js.html#line160">line 160</a>
+            </div>
+            
+        </div>
+    </dt>
+    <dd>
+        
+        
+
+        
+        
+        
+        
+        
+            
+
+<table class="params">
+    <thead>
+	<tr>
+		
+		<th>Name</th>
+		
+		
+		<th>Type</th>
+		
+		
+		
+		<th class="last">Description</th>
+	</tr>
+	</thead>
+	
+	<tbody>
+	
+	
+        <tr>
+            
+                <td class="name"><code>meshes</code></td>
             
             
             <td class="type">

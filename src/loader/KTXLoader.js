@@ -72,12 +72,6 @@ const KhronosTextureContainer = Class.create(/** @lends KhronosTextureContainer.
         this.numberOfMipmapLevels = headerDataView.getUint32(11 * dataSize, littleEndian); // number of levels; disregard possibility of 0 for compressed textures
         this.bytesOfKeyValueData = headerDataView.getUint32(12 * dataSize, littleEndian); // the amount of space after the header for meta-data
 
-        // Make sure we have a compressed type.  Not only reduces work, but probably better to let dev know they are not compressing.
-        if (this.glType !== 0) {
-            log.warn('only compressed formats currently supported');
-            return;
-        }
-
         // value of zero is an indication to generate mipmaps @ runtime.  Not usually allowed for compressed, so disregard.
         this.numberOfMipmapLevels = Math.max(1, this.numberOfMipmapLevels);
 
@@ -95,7 +89,11 @@ const KhronosTextureContainer = Class.create(/** @lends KhronosTextureContainer.
         }
         // we now have a completely validated file, so could use existence of loadType as success
         // would need to make this more elaborate & adjust checks above to support more than one load type
-        this.loadType = KhronosTextureContainer.COMPRESSED_2D;
+        if (this.glType === 0) {
+            this.loadType = KhronosTextureContainer.COMPRESSED_2D;
+        } else {
+            this.loadType = KhronosTextureContainer.TEX_2D;
+        }
     },
 
     // return mipmaps
@@ -173,11 +171,13 @@ const KTXLoader = Class.create(/** @lends KTXLoader.prototype */{
                 const ktx = new KhronosTextureContainer(buffer, 1);
 
                 const data = {
+                    compressed: ktx.glType === 0,
+                    type: ktx.glType,
                     width: ktx.pixelWidth,
                     height: ktx.pixelHeight,
-                    format: ktx.glInternalFormat,
-                    isCubemap: ktx.numberOfFaces === 6,
-                    mipmapCount: ktx.numberOfMipmapLevels
+                    internalFormat: ktx.glInternalFormat,
+                    format: ktx.glFormat,
+                    isCubemap: ktx.numberOfFaces === 6
                 };
 
                 if (ktx.numberOfMipmapLevels >= Math.floor(Math.log2(Math.max(data.width, data.height)) + 1)) {
@@ -188,14 +188,7 @@ const KTXLoader = Class.create(/** @lends KTXLoader.prototype */{
                     data.image = ktx.mipmaps(false)[0].data;
                 }
 
-                return new Texture({
-                    compressed: true,
-                    internalFormat: data.format,
-                    image: data.image,
-                    width: data.width,
-                    height: data.height,
-                    mipmaps: data.mipmaps
-                });
+                return new Texture(data);
             });
     }
 });

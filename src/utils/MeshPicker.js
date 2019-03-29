@@ -90,13 +90,11 @@ const MeshPicker = Class.create(/** @lends MeshPicker.prototype */{
         renderer.clear(clearColor);
         const currentForceMaterial = renderer.forceMaterial;
         renderer.forceMaterial = meshPickerMaterial;
-        renderer.renderList.traverse((arr) => {
-            arr.forEach((mesh) => {
-                this.createMeshNumberId(mesh);
-                meshPickerMaterial.diffuse.fromHEX(mesh.color);
-                meshPickerMaterial.isDirty = true;
-                renderer.renderMesh(mesh);
-            });
+        renderer.renderList.traverse((mesh) => {
+            this.createMeshNumberId(mesh);
+            meshPickerMaterial.diffuse.fromHEX(mesh.color);
+            meshPickerMaterial.isDirty = true;
+            renderer.renderMesh(mesh);
         });
         renderer.forceMaterial = currentForceMaterial;
         framebuffer.unbind();
