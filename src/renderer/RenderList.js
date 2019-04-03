@@ -5,25 +5,33 @@ import log from '../utils/log';
 const tempVector3 = new Vector3();
 
 const opaqueSort = function(meshA, meshB) {
-    if (meshA.renderOrder !== meshB.renderOrder) {
-        return meshA.renderOrder - meshB.renderOrder;
+    // sort by material renderOrder
+    const renderOrderA = meshA.material.renderOrder;
+    const renderOrderB = meshB.material.renderOrder;
+    if (renderOrderA !== renderOrderB) {
+        return renderOrderA - renderOrderB;
     }
 
-    const _shaderNumIdA = meshA.material._shaderNumId || 0;
-    const _shaderNumIdB = meshB.material._shaderNumId || 0;
-
-    if (_shaderNumIdA !== _shaderNumIdB) {
-        return _shaderNumIdA - _shaderNumIdB;
+    // sort by shader id
+    const shaderNumIdA = meshA.material._shaderNumId || 0;
+    const shaderNumIdB = meshB.material._shaderNumId || 0;
+    if (shaderNumIdA !== shaderNumIdB) {
+        return shaderNumIdA - shaderNumIdB;
     }
 
+    // sort by render z
     return meshA._sortRenderZ - meshB._sortRenderZ;
 };
 
 const transparentSort = function(meshA, meshB) {
-    if (meshA.renderOrder !== meshB.renderOrder) {
-        return meshA.renderOrder - meshB.renderOrder;
+    // sort by material renderOrder
+    const renderOrderA = meshA.material.renderOrder;
+    const renderOrderB = meshB.material.renderOrder;
+    if (renderOrderA !== renderOrderB) {
+        return renderOrderA - renderOrderB;
     }
 
+    // sort by inverse render z
     return meshB._sortRenderZ - meshA._sortRenderZ;
 };
 

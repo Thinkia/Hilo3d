@@ -23,6 +23,48 @@ describe('AnimationStates', () => {
 })();
 
 (function(){
+const Camera = Hilo3d.Camera;
+const Matrix4 = Hilo3d.Matrix4;
+const Frustum = Hilo3d.Frustum;
+
+describe('Camera', () => {
+    it('create', () => {
+        const camera = new Camera;
+        camera.isCamera.should.be.true();
+        camera.className.should.equal('Camera');
+        camera.viewMatrix.should.instanceof(Matrix4);
+        camera.projectionMatrix.should.instanceof(Matrix4);
+        camera.viewProjectionMatrix.should.instanceof(Matrix4);
+        camera._frustum.should.instanceof(Frustum);
+    });
+});
+})();
+
+(function(){
+const OrthographicCamera = Hilo3d.OrthographicCamera;
+
+describe('OrthographicCamera', () => {
+    it('create', () => {
+        const camera = new OrthographicCamera;
+        camera.isOrthographicCamera.should.be.true();
+        camera.className.should.equal('OrthographicCamera');
+    });
+});
+})();
+
+(function(){
+const PerspectiveCamera = Hilo3d.PerspectiveCamera;
+
+describe('PerspectiveCamera', () => {
+    it('create', () => {
+        const camera = new PerspectiveCamera;
+        camera.isPerspectiveCamera.should.be.true();
+        camera.className.should.equal('PerspectiveCamera');
+    });
+});
+})();
+
+(function(){
 const webgl = Hilo3d.constants.webgl;
 const webglExtensions = Hilo3d.constants.webglExtensions;
 const constants = Hilo3d.constants;
@@ -904,84 +946,6 @@ describe('display:geometry', () => {
 })();
 
 (function(){
-const Camera = Hilo3d.Camera;
-const Matrix4 = Hilo3d.Matrix4;
-const Frustum = Hilo3d.Frustum;
-
-describe('Camera', () => {
-    it('create', () => {
-        const camera = new Camera;
-        camera.isCamera.should.be.true();
-        camera.className.should.equal('Camera');
-        camera.viewMatrix.should.instanceof(Matrix4);
-        camera.projectionMatrix.should.instanceof(Matrix4);
-        camera.viewProjectionMatrix.should.instanceof(Matrix4);
-        camera._frustum.should.instanceof(Frustum);
-    });
-});
-})();
-
-(function(){
-const OrthographicCamera = Hilo3d.OrthographicCamera;
-
-describe('OrthographicCamera', () => {
-    it('create', () => {
-        const camera = new OrthographicCamera;
-        camera.isOrthographicCamera.should.be.true();
-        camera.className.should.equal('OrthographicCamera');
-    });
-});
-})();
-
-(function(){
-const PerspectiveCamera = Hilo3d.PerspectiveCamera;
-
-describe('PerspectiveCamera', () => {
-    it('create', () => {
-        const camera = new PerspectiveCamera;
-        camera.isPerspectiveCamera.should.be.true();
-        camera.className.should.equal('PerspectiveCamera');
-    });
-});
-})();
-
-(function(){
-const AxisHelper = Hilo3d.AxisHelper;
-
-describe('AxisHelper', () => {
-    it('create', () => {
-        const helper = new AxisHelper;
-        helper.isAxisHelper.should.be.true();
-        helper.className.should.equal('AxisHelper');
-    });
-});
-})();
-
-(function(){
-const AxisNetHelper = Hilo3d.AxisNetHelper;
-
-describe('AxisNetHelper', () => {
-    it('create', () => {
-        const helper = new AxisNetHelper;
-        helper.isAxisNetHelper.should.be.true();
-        helper.className.should.equal('AxisNetHelper');
-    });
-});
-})();
-
-(function(){
-const CameraHelper = Hilo3d.CameraHelper;
-
-describe('CameraHelper', () => {
-    it('create', () => {
-        const helper = new CameraHelper;
-        helper.isCameraHelper.should.be.true();
-        helper.className.should.equal('CameraHelper');
-    });
-});
-})();
-
-(function(){
 const BoxGeometry = Hilo3d.BoxGeometry;
 
 describe('BoxGeometry', () => {
@@ -1110,6 +1074,42 @@ describe('SphereGeometry', () => {
         const geometry = new SphereGeometry;
         geometry.isSphereGeometry.should.be.true();
         geometry.className.should.equal('SphereGeometry');
+    });
+});
+})();
+
+(function(){
+const AxisHelper = Hilo3d.AxisHelper;
+
+describe('AxisHelper', () => {
+    it('create', () => {
+        const helper = new AxisHelper;
+        helper.isAxisHelper.should.be.true();
+        helper.className.should.equal('AxisHelper');
+    });
+});
+})();
+
+(function(){
+const AxisNetHelper = Hilo3d.AxisNetHelper;
+
+describe('AxisNetHelper', () => {
+    it('create', () => {
+        const helper = new AxisNetHelper;
+        helper.isAxisNetHelper.should.be.true();
+        helper.className.should.equal('AxisNetHelper');
+    });
+});
+})();
+
+(function(){
+const CameraHelper = Hilo3d.CameraHelper;
+
+describe('CameraHelper', () => {
+    it('create', () => {
+        const helper = new CameraHelper;
+        helper.isCameraHelper.should.be.true();
+        helper.className.should.equal('CameraHelper');
     });
 });
 })();
@@ -3483,7 +3483,7 @@ describe('RenderInfo', () => {
 (function(){
 const RenderList = Hilo3d.RenderList;
 
-describe.only('RenderList', () => {
+describe('RenderList', () => {
     it('create', () => {
         const list = new RenderList;
         list.isRenderList.should.be.true();
@@ -3539,30 +3539,30 @@ describe.only('RenderList', () => {
         list.addMesh(new Hilo3d.Mesh({
             material: new Hilo3d.Material({
                 id:'testRenderListMaterial1',
-                transparent: false
+                transparent: false,
+                renderOrder:1
             }),
             geometry: new Hilo3d.BoxGeometry({
                 id:'testRenderListGeometry1',
-            }),
-            renderOrder:1
+            })
         }), camera);
 
         list.addMesh(new Hilo3d.Mesh({
             material: new Hilo3d.Material({
                 id:'testRenderListMaterial1',
-                transparent: false
+                transparent: false,
+                renderOrder:-1
             }),
             geometry: new Hilo3d.BoxGeometry({
                 id:'testRenderListGeometry1',
-            }),
-            renderOrder:-1
+            })
         }), camera);
     });
 
     it("sort", () => {
         list.sort();
-        list.opaqueList[0].renderOrder.should.equal(-1);
-        list.opaqueList[list.opaqueList.length-1].renderOrder.should.equal(1);
+        list.opaqueList[0].material.renderOrder.should.equal(-1);
+        list.opaqueList[list.opaqueList.length-1].material.renderOrder.should.equal(1);
     });
 
     it('addMesh', () => {

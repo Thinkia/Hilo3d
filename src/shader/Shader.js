@@ -9,6 +9,7 @@ import geometryFragCode from './geometry.frag';
 import pbrFragCode from './pbr.frag';
 
 const cache = new Cache();
+const headerCache = new Cache();
 
 /**
  * Shader类
@@ -114,13 +115,24 @@ const Shader = Class.create(/** @lends Shader.prototype */ {
         },
 
         /**
-         * 缓存
+         * Shader 缓存
          * @readOnly
          * @type {Cache}
          */
         cache: {
             get() {
                 return cache;
+            }
+        },
+
+        /**
+         * Shader header缓存，一般不用管
+         * @readOnly
+         * @type {Cache}
+         */
+        headerCache: {
+            get() {
+                return headerCache;
             }
         },
 
@@ -165,7 +177,7 @@ const Shader = Class.create(/** @lends Shader.prototype */ {
          */
         getHeader(mesh, material, lightManager, fog, useLogDepth) {
             const headerKey = this.getHeaderKey(mesh, material, lightManager, fog);
-            let header = cache.get(headerKey);
+            let header = headerCache.get(headerKey);
             if (!header || material.isDirty) {
                 const headers = {};
                 const lightType = material.lightType;
@@ -202,7 +214,7 @@ const Shader = Class.create(/** @lends Shader.prototype */ {
                     return `#define HILO_${name} ${headers[name]}`;
                 }).join('\n') + '\n';
 
-                cache.add(headerKey, header);
+                headerCache.add(headerKey, header);
             }
             return header;
         },

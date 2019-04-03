@@ -1285,8 +1285,6 @@
             
                 <li  data-name="Mesh#frustumTest"><a href="Mesh.html#frustumTest">frustumTest</a></li>
             
-                <li  data-name="Mesh#renderOrder"><a href="Mesh.html#renderOrder">renderOrder</a></li>
-            
                 <li class="inherited-member" data-name="Mesh#isNode"><a href="Mesh.html#isNode">isNode</a></li>
             
                 <li class="inherited-member" data-name="Mesh#name"><a href="Mesh.html#name">name</a></li>
@@ -1628,8 +1626,6 @@
                 <li class="inherited-member" data-name="SkinedMesh#geometry"><a href="SkinedMesh.html#geometry">geometry</a></li>
             
                 <li class="inherited-member" data-name="SkinedMesh#material"><a href="SkinedMesh.html#material">material</a></li>
-            
-                <li class="inherited-member" data-name="SkinedMesh#renderOrder"><a href="SkinedMesh.html#renderOrder">renderOrder</a></li>
             
                 <li class="inherited-member" data-name="SkinedMesh#isNode"><a href="SkinedMesh.html#isNode">isNode</a></li>
             
@@ -2823,8 +2819,6 @@
             
                 <li class="inherited-member" data-name="AxisNetHelper#frustumTest"><a href="AxisNetHelper.html#frustumTest">frustumTest</a></li>
             
-                <li class="inherited-member" data-name="AxisNetHelper#renderOrder"><a href="AxisNetHelper.html#renderOrder">renderOrder</a></li>
-            
                 <li class="inherited-member" data-name="AxisNetHelper#isNode"><a href="AxisNetHelper.html#isNode">isNode</a></li>
             
                 <li class="inherited-member" data-name="AxisNetHelper#name"><a href="AxisNetHelper.html#name">name</a></li>
@@ -2995,8 +2989,6 @@
                 <li class="inherited-member" data-name="CameraHelper#useInstanced"><a href="CameraHelper.html#useInstanced">useInstanced</a></li>
             
                 <li class="inherited-member" data-name="CameraHelper#frustumTest"><a href="CameraHelper.html#frustumTest">frustumTest</a></li>
-            
-                <li class="inherited-member" data-name="CameraHelper#renderOrder"><a href="CameraHelper.html#renderOrder">renderOrder</a></li>
             
                 <li class="inherited-member" data-name="CameraHelper#isNode"><a href="CameraHelper.html#isNode">isNode</a></li>
             
@@ -4282,6 +4274,8 @@
             
                 <li class="inherited-member" data-name="BasicMaterial#usePhysicsLight"><a href="BasicMaterial.html#usePhysicsLight">usePhysicsLight</a></li>
             
+                <li class="inherited-member" data-name="BasicMaterial#renderOrder"><a href="BasicMaterial.html#renderOrder">renderOrder</a></li>
+            
                 <li class="inherited-member" data-name="BasicMaterial#gammaOutput"><a href="BasicMaterial.html#gammaOutput">gammaOutput</a></li>
             
                 <li class="inherited-member" data-name="BasicMaterial#gammaFactor"><a href="BasicMaterial.html#gammaFactor">gammaFactor</a></li>
@@ -4429,6 +4423,8 @@
             
                 <li class="inherited-member" data-name="GeometryMaterial#usePhysicsLight"><a href="GeometryMaterial.html#usePhysicsLight">usePhysicsLight</a></li>
             
+                <li class="inherited-member" data-name="GeometryMaterial#renderOrder"><a href="GeometryMaterial.html#renderOrder">renderOrder</a></li>
+            
                 <li class="inherited-member" data-name="GeometryMaterial#gammaOutput"><a href="GeometryMaterial.html#gammaOutput">gammaOutput</a></li>
             
                 <li class="inherited-member" data-name="GeometryMaterial#gammaFactor"><a href="GeometryMaterial.html#gammaFactor">gammaFactor</a></li>
@@ -4547,6 +4543,8 @@
                 <li  data-name="Material#gammaCorrection"><a href="Material.html#gammaCorrection">gammaCorrection</a></li>
             
                 <li  data-name="Material#usePhysicsLight"><a href="Material.html#usePhysicsLight">usePhysicsLight</a></li>
+            
+                <li  data-name="Material#renderOrder"><a href="Material.html#renderOrder">renderOrder</a></li>
             
                 <li  data-name="Material#gammaOutput"><a href="Material.html#gammaOutput">gammaOutput</a></li>
             
@@ -4705,6 +4703,8 @@
             
                 <li class="inherited-member" data-name="PBRMaterial#ignoreTranparent"><a href="PBRMaterial.html#ignoreTranparent">ignoreTranparent</a></li>
             
+                <li class="inherited-member" data-name="PBRMaterial#renderOrder"><a href="PBRMaterial.html#renderOrder">renderOrder</a></li>
+            
                 <li class="inherited-member" data-name="PBRMaterial#gammaOutput"><a href="PBRMaterial.html#gammaOutput">gammaOutput</a></li>
             
                 <li class="inherited-member" data-name="PBRMaterial#gammaFactor"><a href="PBRMaterial.html#gammaFactor">gammaFactor</a></li>
@@ -4831,6 +4831,8 @@
                 <li class="inherited-member" data-name="ShaderMaterial#gammaCorrection"><a href="ShaderMaterial.html#gammaCorrection">gammaCorrection</a></li>
             
                 <li class="inherited-member" data-name="ShaderMaterial#usePhysicsLight"><a href="ShaderMaterial.html#usePhysicsLight">usePhysicsLight</a></li>
+            
+                <li class="inherited-member" data-name="ShaderMaterial#renderOrder"><a href="ShaderMaterial.html#renderOrder">renderOrder</a></li>
             
                 <li class="inherited-member" data-name="ShaderMaterial#gammaOutput"><a href="ShaderMaterial.html#gammaOutput">gammaOutput</a></li>
             
@@ -6784,6 +6786,8 @@
             
                 <li  data-name="Shader.cache"><a href="Shader.html#.cache">cache</a></li>
             
+                <li  data-name="Shader.headerCache"><a href="Shader.html#.headerCache">headerCache</a></li>
+            
             </ul>
             <ul class="typedefs itemMembers">
             
@@ -7367,12 +7371,6 @@ const Mesh = Class.create(/** @lends Mesh.prototype */ {
      * @type {Boolean}
      */
     frustumTest: true,
-    /**
-     * 渲染顺序
-     * @default 0
-     * @type {Number}
-     */
-    renderOrder: 0,
     /**
      * @constructs
      * @param {object} params 初始化参数，所有params都会复制到实例上

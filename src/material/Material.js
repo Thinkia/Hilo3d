@@ -127,6 +127,13 @@ const Material = Class.create(/** @lends Material.prototype */ {
     usePhysicsLight: false,
 
     /**
+     * 渲染顺序数字小的先渲染（透明物体和不透明在不同的队列）
+     * @default 0
+     * @type {Number}
+     */
+    renderOrder: 0,
+
+    /**
      * gammaOutput
      * @type {Boolean}
      * @deprecated

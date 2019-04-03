@@ -56,30 +56,30 @@ describe('RenderList', () => {
         list.addMesh(new Hilo3d.Mesh({
             material: new Hilo3d.Material({
                 id:'testRenderListMaterial1',
-                transparent: false
+                transparent: false,
+                renderOrder:1
             }),
             geometry: new Hilo3d.BoxGeometry({
                 id:'testRenderListGeometry1',
-            }),
-            renderOrder:1
+            })
         }), camera);
 
         list.addMesh(new Hilo3d.Mesh({
             material: new Hilo3d.Material({
                 id:'testRenderListMaterial1',
-                transparent: false
+                transparent: false,
+                renderOrder:-1
             }),
             geometry: new Hilo3d.BoxGeometry({
                 id:'testRenderListGeometry1',
-            }),
-            renderOrder:-1
+            })
         }), camera);
     });
 
     it("sort", () => {
         list.sort();
-        list.opaqueList[0].renderOrder.should.equal(-1);
-        list.opaqueList[list.opaqueList.length-1].renderOrder.should.equal(1);
+        list.opaqueList[0].material.renderOrder.should.equal(-1);
+        list.opaqueList[list.opaqueList.length-1].material.renderOrder.should.equal(1);
     });
 
     it('addMesh', () => {

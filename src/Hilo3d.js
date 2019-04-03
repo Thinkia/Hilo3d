@@ -26,6 +26,7 @@ export { default as capabilities } from './renderer/capabilities';
 export { default as extensions } from './renderer/extensions';
 export { default as Framebuffer } from './renderer/Framebuffer';
 export { default as glType } from './renderer/glType';
+export { default as logGLResource } from './renderer/logGLResource';
 export { default as Program } from './renderer/Program';
 export { default as RenderInfo } from './renderer/RenderInfo';
 export { default as RenderList } from './renderer/RenderList';
