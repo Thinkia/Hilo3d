@@ -7388,7 +7388,10 @@ const ShaderMaterial = Class.create(/** @lends ShaderMaterial.prototype */{
     getRenderOption(option = {}) {
         ShaderMaterial.superclass.getRenderOption.call(this, option);
         if (this.getCustomRenderOption) {
-            option = this.getCustomRenderOption(option);
+            const custumOption = this.getCustomRenderOption({});
+            for (let name in custumOption) {
+                option[`HILO_CUSTUM_OPTION_${name}`] = custumOption[name];
+            }
         }
         return option;
     },

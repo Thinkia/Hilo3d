@@ -26,6 +26,10 @@
         time:0,
         geometry: geometry,
         material: new Hilo3d.ShaderMaterial({
+            getCustomRenderOption(option){
+                option.CUSTOM_OPTION = 1;
+                return option;
+            },
             needBasicUnifroms: false,
             needBasicAttributes: false,
             diffuse: new Hilo3d.LazyTexture({

@@ -10,6 +10,7 @@ import pbrFragCode from './pbr.frag';
 
 const cache = new Cache();
 const headerCache = new Cache();
+const CUSTUM_OPTION_PREFIX = 'HILO_CUSTUM_OPTION_';
 
 /**
  * Shader类
@@ -211,6 +212,9 @@ const Shader = Class.create(/** @lends Shader.prototype */ {
 
                 header = `#define SHADER_NAME ${material.className}\n`;
                 header += Object.keys(headers).map((name) => {
+                    if (name.indexOf(CUSTUM_OPTION_PREFIX) > -1) {
+                        return `#define ${name.replace(CUSTUM_OPTION_PREFIX, '')} ${headers[name]}`;
+                    }
                     return `#define HILO_${name} ${headers[name]}`;
                 }).join('\n') + '\n';
 
