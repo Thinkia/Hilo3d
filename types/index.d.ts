@@ -7946,6 +7946,7 @@ declare namespace hilo3d {
      * @param params.bottom 下面的图片地址
      * @param params.front 前面的图片地址
      * @param params.back 背面的图片地址
+     * @param params.uv uv
      */
     load(params: {
       crossOrigin?: boolean;
@@ -7956,6 +7957,7 @@ declare namespace hilo3d {
       bottom?: string;
       front?: string;
       back?: string;
+      uv?: number;
     }): Promise<CubeTexture>;
 
     isBasicLoader: boolean;
@@ -8291,8 +8293,9 @@ declare namespace hilo3d {
      * @param params 加载参数
      * @param params.src 纹理图片地址
      * @param params.crossOrigin 是否跨域，不传将自动判断
+     * @param params.uv uv
      */
-    load(params: {src: string, crossOrigin?: boolean}): Promise<Texture>;
+    load(params: {src: string, crossOrigin?: boolean, uv?: number, flipY?: number}): Promise<Texture>;
 
     isBasicLoader: boolean;
 
@@ -8509,6 +8512,10 @@ declare namespace hilo3d {
   }
 
   class IBasicMaterial extends IMaterial {
+    /**
+     * 渲染顺序。
+     */
+    renderOrder?: number;
     /**
      * 光照类型，支持: NONE, PHONG, BLINN-PHONG, LAMBERT
      */
