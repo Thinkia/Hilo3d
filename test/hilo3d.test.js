@@ -843,6 +843,109 @@ describe('Tween', function(){
 })();
 
 (function(){
+describe('display:geometry', () => {
+    const camera = new Hilo3d.PerspectiveCamera({
+        aspect: innerWidth / innerHeight,
+        far: 100,
+        near: 0.1,
+        z: 3
+    });
+
+    const stage = new Hilo3d.Stage({
+        container: document.querySelector('#stage'),
+        camera: camera,
+        clearColor: new Hilo3d.Color(1, 1, 1),
+        width: innerWidth,
+        height: innerHeight
+    });
+
+    var directionLight = new Hilo3d.DirectionalLight({
+        color: new Hilo3d.Color(1, 1, 1),
+        direction: new Hilo3d.Vector3(0.7, -1, -0.5)
+    }).addTo(stage);
+
+    var ambientLight = new Hilo3d.AmbientLight({
+        color: new Hilo3d.Color(1, 1, 1),
+        amount: .5
+    }).addTo(stage);
+
+    const material = new Hilo3d.BasicMaterial();
+
+    const mesh = new Hilo3d.Mesh({
+        material: material,
+        rotationX: -60,
+        rotationY: 30
+    });
+
+    stage.addChild(mesh);
+
+    describe('color', () => {
+        beforeEach('init color', () => {
+            material.diffuse = new Hilo3d.Color(0.3, 0.6, 0.9);
+        });
+
+        it('box', (done) => {
+            mesh.geometry = new Hilo3d.BoxGeometry();
+            stage.tick();
+            utils.diffWithScreenshot('geometry-color-box', done);
+        });
+
+        it('sphere', (done) => {
+            mesh.geometry = new Hilo3d.SphereGeometry();
+            stage.tick();
+            utils.diffWithScreenshot('geometry-color-sphere', done);
+        });
+
+        it('plane', (done) => {
+            mesh.geometry = new Hilo3d.PlaneGeometry();
+            stage.tick();
+            utils.diffWithScreenshot('geometry-color-plane', done);
+        });
+    });
+
+    describe('texture', () => {
+        const texture = new Hilo3d.Texture();
+        const loader = new Hilo3d.TextureLoader();
+
+        beforeEach('load image', (done) => {
+            material.diffuse = texture;
+            material.id = Hilo3d.math.generateUUID('BasicMaterial');
+            loader.load({
+                src: './asset/images/logo.png'
+            }).then((texture) => {
+                material.diffuse = texture;
+                done();
+            })
+        });
+
+        it('box', (done) => {
+            mesh.geometry = new Hilo3d.BoxGeometry();
+            mesh.geometry.setAllRectUV([
+                [0, 1],
+                [1, 1],
+                [1, 0],
+                [0, 0]
+            ]);
+            stage.tick();
+            utils.diffWithScreenshot('geometry-texture-box', done);
+        });
+
+        it('sphere', (done) => {
+            mesh.geometry = new Hilo3d.SphereGeometry();
+            stage.tick();
+            utils.diffWithScreenshot('geometry-texture-sphere', done);
+        });
+
+        it('plane', (done) => {
+            mesh.geometry = new Hilo3d.PlaneGeometry();
+            stage.tick();
+            utils.diffWithScreenshot('geometry-texture-plane', done);
+        });
+    });
+});
+})();
+
+(function(){
 const BoxGeometry = Hilo3d.BoxGeometry;
 
 describe('BoxGeometry', () => {
@@ -1376,109 +1479,6 @@ describe('TextureLoader', () => {
         const loader = new TextureLoader;
         loader.isTextureLoader.should.be.true();
         loader.className.should.equal('TextureLoader');
-    });
-});
-})();
-
-(function(){
-describe('display:geometry', () => {
-    const camera = new Hilo3d.PerspectiveCamera({
-        aspect: innerWidth / innerHeight,
-        far: 100,
-        near: 0.1,
-        z: 3
-    });
-
-    const stage = new Hilo3d.Stage({
-        container: document.querySelector('#stage'),
-        camera: camera,
-        clearColor: new Hilo3d.Color(1, 1, 1),
-        width: innerWidth,
-        height: innerHeight
-    });
-
-    var directionLight = new Hilo3d.DirectionalLight({
-        color: new Hilo3d.Color(1, 1, 1),
-        direction: new Hilo3d.Vector3(0.7, -1, -0.5)
-    }).addTo(stage);
-
-    var ambientLight = new Hilo3d.AmbientLight({
-        color: new Hilo3d.Color(1, 1, 1),
-        amount: .5
-    }).addTo(stage);
-
-    const material = new Hilo3d.BasicMaterial();
-
-    const mesh = new Hilo3d.Mesh({
-        material: material,
-        rotationX: -60,
-        rotationY: 30
-    });
-
-    stage.addChild(mesh);
-
-    describe('color', () => {
-        beforeEach('init color', () => {
-            material.diffuse = new Hilo3d.Color(0.3, 0.6, 0.9);
-        });
-
-        it('box', (done) => {
-            mesh.geometry = new Hilo3d.BoxGeometry();
-            stage.tick();
-            utils.diffWithScreenshot('geometry-color-box', done);
-        });
-
-        it('sphere', (done) => {
-            mesh.geometry = new Hilo3d.SphereGeometry();
-            stage.tick();
-            utils.diffWithScreenshot('geometry-color-sphere', done);
-        });
-
-        it('plane', (done) => {
-            mesh.geometry = new Hilo3d.PlaneGeometry();
-            stage.tick();
-            utils.diffWithScreenshot('geometry-color-plane', done);
-        });
-    });
-
-    describe('texture', () => {
-        const texture = new Hilo3d.Texture();
-        const loader = new Hilo3d.TextureLoader();
-
-        beforeEach('load image', (done) => {
-            material.diffuse = texture;
-            material.id = Hilo3d.math.generateUUID('BasicMaterial');
-            loader.load({
-                src: './asset/images/logo.png'
-            }).then((texture) => {
-                material.diffuse = texture;
-                done();
-            })
-        });
-
-        it('box', (done) => {
-            mesh.geometry = new Hilo3d.BoxGeometry();
-            mesh.geometry.setAllRectUV([
-                [0, 1],
-                [1, 1],
-                [1, 0],
-                [0, 0]
-            ]);
-            stage.tick();
-            utils.diffWithScreenshot('geometry-texture-box', done);
-        });
-
-        it('sphere', (done) => {
-            mesh.geometry = new Hilo3d.SphereGeometry();
-            stage.tick();
-            utils.diffWithScreenshot('geometry-texture-sphere', done);
-        });
-
-        it('plane', (done) => {
-            mesh.geometry = new Hilo3d.PlaneGeometry();
-            stage.tick();
-            utils.diffWithScreenshot('geometry-texture-plane', done);
-        });
     });
 });
 })();
@@ -3269,266 +3269,6 @@ describe('math', function() {
 })();
 
 (function(){
-const Shader = Hilo3d.Shader;
-const ShaderMaterial = Hilo3d.ShaderMaterial;
-
-describe('Shader', () => {
-    Shader.init(testEnv.renderer);
-
-    it('create', () => {
-        const shader = new Shader;
-        shader.isShader.should.be.true();
-        shader.className.should.equal('Shader');
-    });
-
-    it('getHeaderKey', () => {
-        const {
-            mesh,
-            material,
-            renderer,
-            geometry,
-            fog
-        } = testEnv;
-        const lightManager = renderer.lightManager;
-        const key = Shader.getHeaderKey(mesh, material, lightManager, fog);
-        key.should.equal(`header_${material.id}_${lightManager.lightInfo.uid}_fog_${fog.mode}_${geometry.getShaderKey()}`);
-    });
-
-    it('getHeader', () => {
-        const {
-            mesh,
-            material,
-            renderer,
-            geometry,
-            fog
-        } = testEnv;
-        const lightManager = renderer.lightManager;
-        const header = Shader.getHeader(mesh, material, lightManager, fog);
-        header.should.equal(`#define SHADER_NAME Material
-#define HILO_LIGHT_TYPE_NONE 1
-#define HILO_SIDE 1028
-#define HILO_RECEIVE_SHADOWS 1
-#define HILO_CAST_SHADOWS 1
-#define HILO_HAS_FOG 1
-#define HILO_FOG_LINEAR 1
-`);
-        const shaderMaterialHeader = Shader.getHeader(mesh, new ShaderMaterial({
-            getCustomRenderOption(options){
-                options.CUSTUM_1 = 1;
-                options.CUSTUM_2 = 0;
-                return options;
-            }
-        }), lightManager, fog);
-        shaderMaterialHeader.should.equal(`#define SHADER_NAME ShaderMaterial
-#define HILO_LIGHT_TYPE_NONE 1
-#define HILO_SIDE 1028
-#define HILO_RECEIVE_SHADOWS 1
-#define HILO_CAST_SHADOWS 1
-#define CUSTUM_1 1
-#define CUSTUM_2 0
-#define HILO_HAS_FOG 1
-#define HILO_FOG_LINEAR 1
-`);
-    });
-
-    it('getCustomShader', () => {
-        const shader = Shader.getCustomShader('void main(){}', 'void main(){}', '#define HILO_LIGHT_TYPE_NONE 1\n');
-        shader.vs.should.equal(`
-#define HILO_MAX_PRECISION highp
-#define HILO_MAX_VERTEX_PRECISION highp
-#define HILO_MAX_FRAGMENT_PRECISION highp
-#define HILO_LIGHT_TYPE_NONE 1
-void main(){}`);
-
-        shader.fs.should.equal(`
-#define HILO_MAX_PRECISION highp
-#define HILO_MAX_VERTEX_PRECISION highp
-#define HILO_MAX_FRAGMENT_PRECISION highp
-#define HILO_LIGHT_TYPE_NONE 1
-void main(){}`);
-    });
-
-    it('getBasicShader', () => {
-        const shader = Shader.getBasicShader(testEnv.material, false, '#define HILO_LIGHT_TYPE_NONE 1');
-        shader.fs.should.be.String();
-        shader.vs.should.be.String();
-    });
-
-    it('cache', () => {
-        const shader = Shader.getCustomShader('', '', '', 'testCustomId');
-        Shader.cache.get('testCustomId').should.equal(shader);
-        Shader.reset();
-        should(Shader.cache.get('testCustomId')).be.undefined();
-    });
-});
-})();
-
-(function(){
-const CubeTexture = Hilo3d.CubeTexture;
-
-describe('CubeTexture', () => {
-    it('create', () => {
-        const texture = new CubeTexture();
-        texture.isCubeTexture.should.be.true();
-        texture.className.should.equal('CubeTexture');
-    });
-
-    it('images', () => {
-        const texture = new CubeTexture({
-            image:[
-                new Image,
-                new Image,
-                new Image,
-                new Image,
-                new Image,
-                new Image,
-            ]
-        });
-
-        texture.right.should.equal(texture.image[0]);
-        texture.left.should.equal(texture.image[1]);
-        texture.top.should.equal(texture.image[2]);
-        texture.bottom.should.equal(texture.image[3]);
-        texture.front.should.equal(texture.image[4]);
-        texture.back.should.equal(texture.image[5]);
-    });
-});
-})();
-
-(function(){
-const DataTexture = Hilo3d.DataTexture;
-
-describe('DataTexture', () => {
-    it('create', () => {
-        const texture = new DataTexture();
-        texture.isDataTexture.should.be.true();
-        texture.className.should.equal('DataTexture');
-    });
-
-    it('resetSize', () => {
-        const texture = new DataTexture();
-        texture.resetSize(100);
-        texture.width.should.equal(4);
-        texture.height.should.equal(8);
-
-        texture.resetSize(200);
-        texture.width.should.equal(8);
-        texture.height.should.equal(8);
-    });
-
-    it('data', () => {
-        const texture = new DataTexture({
-            data:new Float32Array(100)
-        });
-        texture.width.should.equal(4);
-        texture.height.should.equal(8);
-        texture.image.length.should.equal(128);
-    });
-});
-})();
-
-(function(){
-const LazyTexture = Hilo3d.LazyTexture;
-
-describe('LazyTexture', () => {
-    it('create', () => {
-        const texture = new LazyTexture();
-        texture.isLazyTexture.should.be.true();
-        texture.className.should.equal('LazyTexture');
-    });
-
-    it('load', (done) => {
-        const texture = new LazyTexture({
-            src:'./asset/images/logo.png'
-        });
-
-        texture.on('load', () => {
-            texture.image.width.should.equal(600);
-            done();
-        });
-
-        texture.on('error', () => {
-            done(new Error('load error!'));
-        })
-    });
-});
-})();
-
-(function(){
-const Texture = Hilo3d.Texture;
-
-describe('Texture', () => {
-    it('create', () => {
-        const texture = new Texture();
-        texture.isTexture.should.be.true();
-        texture.className.should.equal('Texture');
-    });
-
-    it('isImgPowerOfTwo', () => {
-        const texture = new Texture();
-        const img = new Image;
-        img.width = 100;
-        img.height = 100;
-
-        texture.isImgPowerOfTwo(img).should.be.false();
-        img.width = 512;
-        texture.isImgPowerOfTwo(img).should.be.false();
-        img.height = 1024;
-        texture.isImgPowerOfTwo(img).should.be.true();
-    });
-
-    it('resizeImgToPowerOfTwo', (done) => {
-        const texture = new Texture();
-        const img = new Image;
-        img.onload = () => {
-            texture.isImgPowerOfTwo(img).should.be.false();
-            texture.isImgPowerOfTwo(texture.resizeImgToPowerOfTwo(img)).should.be.true();
-            done();
-        };
-        img.src='./asset/images/logo.png';
-    });
-
-    it('getSupportSize', () => {
-        const texture = new Texture();
-        let img = {width:1024000, height:2040};
-        const originMaxTextureSize = Hilo3d.capabilities.MAX_TEXTURE_SIZE;
-        let size;
-
-        Hilo3d.capabilities.MAX_TEXTURE_SIZE = null;
-        size = texture.getSupportSize(img);
-        size.width.should.equal(img.width);
-        size.height.should.equal(img.height);
-
-        Hilo3d.capabilities.MAX_TEXTURE_SIZE = 4096;
-        size = texture.getSupportSize(img);
-        size.width.should.equal(4096);
-        size.height.should.equal(2040);
-
-        Hilo3d.capabilities.MAX_TEXTURE_SIZE = 4096;
-        size = texture.getSupportSize(img, true);
-        size.width.should.equal(4096);
-        size.height.should.equal(2048);
-
-        img.width = 4097;
-        img.height = 4097;
-        Hilo3d.capabilities.MAX_TEXTURE_SIZE = 4096;
-        size = texture.getSupportSize(img, true);
-        size.width.should.equal(4096);
-        size.height.should.equal(4096);
-
-        img.width = 4097;
-        img.height = 19999;
-        Hilo3d.capabilities.MAX_TEXTURE_SIZE = 20000;
-        size = texture.getSupportSize(img, true);
-        size.width.should.equal(8192);
-        size.height.should.equal(20000);
-
-        Hilo3d.capabilities.MAX_TEXTURE_SIZE = originMaxTextureSize;
-    });
-});
-})();
-
-(function(){
 const Buffer = Hilo3d.Buffer;
 
 describe('Buffer', () => {
@@ -4118,6 +3858,266 @@ describe('glType', () => {
         const info = glType.get(Hilo3d.constants.FLOAT_VEC3);
         info.name.should.equal('FLOAT_VEC3');
         info.glValue.should.equal(Hilo3d.constants.FLOAT_VEC3);
+    });
+});
+})();
+
+(function(){
+const Shader = Hilo3d.Shader;
+const ShaderMaterial = Hilo3d.ShaderMaterial;
+
+describe('Shader', () => {
+    Shader.init(testEnv.renderer);
+
+    it('create', () => {
+        const shader = new Shader;
+        shader.isShader.should.be.true();
+        shader.className.should.equal('Shader');
+    });
+
+    it('getHeaderKey', () => {
+        const {
+            mesh,
+            material,
+            renderer,
+            geometry,
+            fog
+        } = testEnv;
+        const lightManager = renderer.lightManager;
+        const key = Shader.getHeaderKey(mesh, material, lightManager, fog);
+        key.should.equal(`header_${material.id}_${lightManager.lightInfo.uid}_fog_${fog.mode}_${geometry.getShaderKey()}`);
+    });
+
+    it('getHeader', () => {
+        const {
+            mesh,
+            material,
+            renderer,
+            geometry,
+            fog
+        } = testEnv;
+        const lightManager = renderer.lightManager;
+        const header = Shader.getHeader(mesh, material, lightManager, fog);
+        header.should.equal(`#define SHADER_NAME Material
+#define HILO_LIGHT_TYPE_NONE 1
+#define HILO_SIDE 1028
+#define HILO_RECEIVE_SHADOWS 1
+#define HILO_CAST_SHADOWS 1
+#define HILO_HAS_FOG 1
+#define HILO_FOG_LINEAR 1
+`);
+        const shaderMaterialHeader = Shader.getHeader(mesh, new ShaderMaterial({
+            getCustomRenderOption(options){
+                options.CUSTUM_1 = 1;
+                options.CUSTUM_2 = 0;
+                return options;
+            }
+        }), lightManager, fog);
+        shaderMaterialHeader.should.equal(`#define SHADER_NAME ShaderMaterial
+#define HILO_LIGHT_TYPE_NONE 1
+#define HILO_SIDE 1028
+#define HILO_RECEIVE_SHADOWS 1
+#define HILO_CAST_SHADOWS 1
+#define CUSTUM_1 1
+#define CUSTUM_2 0
+#define HILO_HAS_FOG 1
+#define HILO_FOG_LINEAR 1
+`);
+    });
+
+    it('getCustomShader', () => {
+        const shader = Shader.getCustomShader('void main(){}', 'void main(){}', '#define HILO_LIGHT_TYPE_NONE 1\n');
+        shader.vs.should.equal(`
+#define HILO_MAX_PRECISION highp
+#define HILO_MAX_VERTEX_PRECISION highp
+#define HILO_MAX_FRAGMENT_PRECISION highp
+#define HILO_LIGHT_TYPE_NONE 1
+void main(){}`);
+
+        shader.fs.should.equal(`
+#define HILO_MAX_PRECISION highp
+#define HILO_MAX_VERTEX_PRECISION highp
+#define HILO_MAX_FRAGMENT_PRECISION highp
+#define HILO_LIGHT_TYPE_NONE 1
+void main(){}`);
+    });
+
+    it('getBasicShader', () => {
+        const shader = Shader.getBasicShader(testEnv.material, false, '#define HILO_LIGHT_TYPE_NONE 1');
+        shader.fs.should.be.String();
+        shader.vs.should.be.String();
+    });
+
+    it('cache', () => {
+        const shader = Shader.getCustomShader('', '', '', 'testCustomId');
+        Shader.cache.get('testCustomId').should.equal(shader);
+        Shader.reset();
+        should(Shader.cache.get('testCustomId')).be.undefined();
+    });
+});
+})();
+
+(function(){
+const CubeTexture = Hilo3d.CubeTexture;
+
+describe('CubeTexture', () => {
+    it('create', () => {
+        const texture = new CubeTexture();
+        texture.isCubeTexture.should.be.true();
+        texture.className.should.equal('CubeTexture');
+    });
+
+    it('images', () => {
+        const texture = new CubeTexture({
+            image:[
+                new Image,
+                new Image,
+                new Image,
+                new Image,
+                new Image,
+                new Image,
+            ]
+        });
+
+        texture.right.should.equal(texture.image[0]);
+        texture.left.should.equal(texture.image[1]);
+        texture.top.should.equal(texture.image[2]);
+        texture.bottom.should.equal(texture.image[3]);
+        texture.front.should.equal(texture.image[4]);
+        texture.back.should.equal(texture.image[5]);
+    });
+});
+})();
+
+(function(){
+const DataTexture = Hilo3d.DataTexture;
+
+describe('DataTexture', () => {
+    it('create', () => {
+        const texture = new DataTexture();
+        texture.isDataTexture.should.be.true();
+        texture.className.should.equal('DataTexture');
+    });
+
+    it('resetSize', () => {
+        const texture = new DataTexture();
+        texture.resetSize(100);
+        texture.width.should.equal(4);
+        texture.height.should.equal(8);
+
+        texture.resetSize(200);
+        texture.width.should.equal(8);
+        texture.height.should.equal(8);
+    });
+
+    it('data', () => {
+        const texture = new DataTexture({
+            data:new Float32Array(100)
+        });
+        texture.width.should.equal(4);
+        texture.height.should.equal(8);
+        texture.image.length.should.equal(128);
+    });
+});
+})();
+
+(function(){
+const LazyTexture = Hilo3d.LazyTexture;
+
+describe('LazyTexture', () => {
+    it('create', () => {
+        const texture = new LazyTexture();
+        texture.isLazyTexture.should.be.true();
+        texture.className.should.equal('LazyTexture');
+    });
+
+    it('load', (done) => {
+        const texture = new LazyTexture({
+            src:'./asset/images/logo.png'
+        });
+
+        texture.on('load', () => {
+            texture.image.width.should.equal(600);
+            done();
+        });
+
+        texture.on('error', () => {
+            done(new Error('load error!'));
+        })
+    });
+});
+})();
+
+(function(){
+const Texture = Hilo3d.Texture;
+
+describe('Texture', () => {
+    it('create', () => {
+        const texture = new Texture();
+        texture.isTexture.should.be.true();
+        texture.className.should.equal('Texture');
+    });
+
+    it('isImgPowerOfTwo', () => {
+        const texture = new Texture();
+        const img = new Image;
+        img.width = 100;
+        img.height = 100;
+
+        texture.isImgPowerOfTwo(img).should.be.false();
+        img.width = 512;
+        texture.isImgPowerOfTwo(img).should.be.false();
+        img.height = 1024;
+        texture.isImgPowerOfTwo(img).should.be.true();
+    });
+
+    it('resizeImgToPowerOfTwo', (done) => {
+        const texture = new Texture();
+        const img = new Image;
+        img.onload = () => {
+            texture.isImgPowerOfTwo(img).should.be.false();
+            texture.isImgPowerOfTwo(texture.resizeImgToPowerOfTwo(img)).should.be.true();
+            done();
+        };
+        img.src='./asset/images/logo.png';
+    });
+
+    it('getSupportSize', () => {
+        const texture = new Texture();
+        let img = {width:1024000, height:2040};
+        const originMaxTextureSize = Hilo3d.capabilities.MAX_TEXTURE_SIZE;
+        let size;
+
+        Hilo3d.capabilities.MAX_TEXTURE_SIZE = null;
+        size = texture.getSupportSize(img);
+        size.width.should.equal(img.width);
+        size.height.should.equal(img.height);
+
+        Hilo3d.capabilities.MAX_TEXTURE_SIZE = 4096;
+        size = texture.getSupportSize(img);
+        size.width.should.equal(4096);
+        size.height.should.equal(2040);
+
+        Hilo3d.capabilities.MAX_TEXTURE_SIZE = 4096;
+        size = texture.getSupportSize(img, true);
+        size.width.should.equal(4096);
+        size.height.should.equal(2048);
+
+        img.width = 4097;
+        img.height = 4097;
+        Hilo3d.capabilities.MAX_TEXTURE_SIZE = 4096;
+        size = texture.getSupportSize(img, true);
+        size.width.should.equal(4096);
+        size.height.should.equal(4096);
+
+        img.width = 4097;
+        img.height = 19999;
+        Hilo3d.capabilities.MAX_TEXTURE_SIZE = 20000;
+        size = texture.getSupportSize(img, true);
+        size.width.should.equal(8192);
+        size.height.should.equal(20000);
+
+        Hilo3d.capabilities.MAX_TEXTURE_SIZE = originMaxTextureSize;
     });
 });
 })();

@@ -12,4 +12,6 @@ color.rgb *= color.a;
     color.rgb = vec3(1.0) - exp(-color.rgb * u_exposure);
 #endif
 
+#pragma glslify: import('./fog_main.frag');
+
 gl_FragColor = color;
