@@ -59,6 +59,7 @@
             for (var i = 0; i < 200; i++) {
                 let r = 1;
                 var rect = new Hilo3d.Mesh({
+                    useInstanced: true,
                     geometry: randArr(geometryes),
                     material: randArr(materials),
                     x: rand(-r, r),

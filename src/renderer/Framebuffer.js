@@ -9,7 +9,7 @@ import VertexArrayObject from './VertexArrayObject';
 import math from '../math/math';
 import Color from '../math/Color';
 import GeometryData from '../geometry/GeometryData';
-import capabilities from './capabilities';
+import Texture from '../texture/Texture';
 import {
     getTypedArrayClass
 } from '../utils/util';
@@ -25,7 +25,8 @@ const {
     DEPTH_TEST,
     CULL_FACE,
     TRIANGLE_STRIP,
-    NEAREST
+    NEAREST,
+    CLAMP_TO_EDGE
 } = constants;
 
 const cache = new Cache();
@@ -139,7 +140,7 @@ const Framebuffer = Class.create(/** @lends Framebuffer.prototype */ {
 
     /**
      * texture
-     * @type {WebGLTexture}
+     * @type {Texture}
      */
     texture: null,
 
@@ -301,7 +302,7 @@ const Framebuffer = Class.create(/** @lends Framebuffer.prototype */ {
             }
 
             state.activeTexture(gl.TEXTURE0);
-            state.bindTexture(gl.TEXTURE_2D, this.texture);
+            state.bindTexture(gl.TEXTURE_2D, this.texture.getGLTexture(state));
             vao.draw();
         }
     },
@@ -325,21 +326,26 @@ const Framebuffer = Class.create(/** @lends Framebuffer.prototype */ {
     /**
      * 生成纹理
      * @private
-     * @return {WebGLTexture}
+     * @return {Texture}
      */
     createTexture() {
         const state = this.state;
         const gl = state.gl;
-        const texture = gl.createTexture();
+        const texture = new Texture({
+            minFilter: this.minFilter,
+            magFilter: this.magFilter,
+            internalFormat: this.internalFormat,
+            format: this.format,
+            type: this.type,
+            width: this.width,
+            height: this.height,
+            image: this.data,
+            wrapS: CLAMP_TO_EDGE,
+            wrapT: CLAMP_TO_EDGE
+        });
 
-        state.activeTexture(gl.TEXTURE0 + capabilities.MAX_TEXTURE_INDEX);
-        state.bindTexture(this.target, texture);
-        gl.texImage2D(this.target, 0, this.internalFormat, this.width, this.height, 0, this.format, this.type, this.data);
-        gl.texParameteri(this.target, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
-        gl.texParameteri(this.target, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
-        gl.texParameteri(this.target, gl.TEXTURE_MIN_FILTER, this.minFilter);
-        gl.texParameteri(this.target, gl.TEXTURE_MAG_FILTER, this.magFilter);
-        gl.framebufferTexture2D(gl.FRAMEBUFFER, this.attachment, this.target, texture, 0);
+        const glTexture = texture.getGLTexture(state);
+        gl.framebufferTexture2D(gl.FRAMEBUFFER, this.attachment, this.target, glTexture, 0);
 
         return texture;
     },
@@ -405,7 +411,7 @@ const Framebuffer = Class.create(/** @lends Framebuffer.prototype */ {
             }
 
             if (this.texture) {
-                gl.deleteTexture(this.texture);
+                this.texture.destroy();
                 this.texture = null;
             }
         }

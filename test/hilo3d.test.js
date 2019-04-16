@@ -1348,142 +1348,6 @@ describe('SpotLight', () => {
 })();
 
 (function(){
-const BasicLoader = Hilo3d.BasicLoader;
-
-describe('BasicLoader', () => {
-    it('create', () => {
-        const loader = new BasicLoader;
-        loader.isBasicLoader.should.be.true();
-        loader.className.should.equal('BasicLoader');
-    });
-});
-})();
-
-(function(){
-const CubeTextureLoader = Hilo3d.CubeTextureLoader;
-
-describe('CubeTextureLoader', () => {
-    it('create', () => {
-        const loader = new CubeTextureLoader;
-        loader.isCubeTextureLoader.should.be.true();
-        loader.className.should.equal('CubeTextureLoader');
-    });
-});
-})();
-
-(function(){
-const GLTFLoader = Hilo3d.GLTFLoader;
-
-describe('GLTFLoader', () => {
-    it('create', () => {
-        const loader = new GLTFLoader;
-        loader.isGLTFLoader.should.be.true();
-        loader.className.should.equal('GLTFLoader');
-    });
-});
-})();
-
-(function(){
-const GLTFParser = Hilo3d.GLTFParser;
-
-describe('GLTFParser', () => {
-    it('create', () => {
-        const parser = new GLTFParser;
-        parser.isGLTFParser.should.be.true();
-        parser.className.should.equal('GLTFParser');
-    });
-
-    it('register & unregister ExtensionHandler', () => {
-        const parser = new GLTFParser;
-        should(parser.getExtensionHandler('hello')).be.undefined();
-        
-        GLTFParser.registerExtensionHandler('hello', {
-            parse(){
-
-            }
-        });
-        should(parser.getExtensionHandler('hello')).not.be.undefined();
-        should(parser.getExtensionHandler('hello2')).be.undefined();
-        
-        GLTFParser.unregisterExtensionHandler('hello');
-        should(parser.getExtensionHandler('hello')).be.undefined();
-    });
-});
-})();
-
-(function(){
-const HDRLoader = Hilo3d.HDRLoader;
-
-describe('HDRLoader', () => {
-    it('create', () => {
-        const loader = new HDRLoader;
-        loader.isHDRLoader.should.be.true();
-        loader.className.should.equal('HDRLoader');
-    });
-});
-})();
-
-(function(){
-const KTXLoader = Hilo3d.KTXLoader;
-
-describe('KTXLoader', () => {
-    it('create', () => {
-        const loader = new KTXLoader;
-        loader.isKTXLoader.should.be.true();
-        loader.className.should.equal('KTXLoader');
-    });
-});
-})();
-
-(function(){
-const LoadCache = Hilo3d.LoadCache;
-
-describe('LoadCache', () => {
-    it('create', () => {
-        const cache = new LoadCache;
-        cache.isLoadCache.should.be.true();
-        cache.className.should.equal('LoadCache');
-    });
-});
-})();
-
-(function(){
-const LoadQueue = Hilo3d.LoadQueue;
-
-describe('LoadQueue', () => {
-    it('create', () => {
-        const queue = new LoadQueue;
-        queue.isLoadQueue.should.be.true();
-        queue.className.should.equal('LoadQueue');
-    });
-});
-})();
-
-(function(){
-const ShaderMaterialLoader = Hilo3d.ShaderMaterialLoader;
-
-describe('ShaderMaterialLoader', () => {
-    it('create', () => {
-        const loader = new ShaderMaterialLoader;
-        loader.isShaderMaterialLoader.should.be.true();
-        loader.className.should.equal('ShaderMaterialLoader');
-    });
-});
-})();
-
-(function(){
-const TextureLoader = Hilo3d.TextureLoader;
-
-describe('TextureLoader', () => {
-    it('create', () => {
-        const loader = new TextureLoader;
-        loader.isTextureLoader.should.be.true();
-        loader.className.should.equal('TextureLoader');
-    });
-});
-})();
-
-(function(){
 const BasicMaterial = Hilo3d.BasicMaterial;
 
 describe('BasicMaterial', () => {
@@ -1730,6 +1594,142 @@ describe('ShaderMaterial', () => {
 
         options.INIT.should.equal(1);
         options.HILO_CUSTUM_OPTION_TEST.should.equal(1);
+    });
+});
+})();
+
+(function(){
+const BasicLoader = Hilo3d.BasicLoader;
+
+describe('BasicLoader', () => {
+    it('create', () => {
+        const loader = new BasicLoader;
+        loader.isBasicLoader.should.be.true();
+        loader.className.should.equal('BasicLoader');
+    });
+});
+})();
+
+(function(){
+const CubeTextureLoader = Hilo3d.CubeTextureLoader;
+
+describe('CubeTextureLoader', () => {
+    it('create', () => {
+        const loader = new CubeTextureLoader;
+        loader.isCubeTextureLoader.should.be.true();
+        loader.className.should.equal('CubeTextureLoader');
+    });
+});
+})();
+
+(function(){
+const GLTFLoader = Hilo3d.GLTFLoader;
+
+describe('GLTFLoader', () => {
+    it('create', () => {
+        const loader = new GLTFLoader;
+        loader.isGLTFLoader.should.be.true();
+        loader.className.should.equal('GLTFLoader');
+    });
+});
+})();
+
+(function(){
+const GLTFParser = Hilo3d.GLTFParser;
+
+describe('GLTFParser', () => {
+    it('create', () => {
+        const parser = new GLTFParser;
+        parser.isGLTFParser.should.be.true();
+        parser.className.should.equal('GLTFParser');
+    });
+
+    it('register & unregister ExtensionHandler', () => {
+        const parser = new GLTFParser;
+        should(parser.getExtensionHandler('hello')).be.undefined();
+        
+        GLTFParser.registerExtensionHandler('hello', {
+            parse(){
+
+            }
+        });
+        should(parser.getExtensionHandler('hello')).not.be.undefined();
+        should(parser.getExtensionHandler('hello2')).be.undefined();
+        
+        GLTFParser.unregisterExtensionHandler('hello');
+        should(parser.getExtensionHandler('hello')).be.undefined();
+    });
+});
+})();
+
+(function(){
+const HDRLoader = Hilo3d.HDRLoader;
+
+describe('HDRLoader', () => {
+    it('create', () => {
+        const loader = new HDRLoader;
+        loader.isHDRLoader.should.be.true();
+        loader.className.should.equal('HDRLoader');
+    });
+});
+})();
+
+(function(){
+const KTXLoader = Hilo3d.KTXLoader;
+
+describe('KTXLoader', () => {
+    it('create', () => {
+        const loader = new KTXLoader;
+        loader.isKTXLoader.should.be.true();
+        loader.className.should.equal('KTXLoader');
+    });
+});
+})();
+
+(function(){
+const LoadCache = Hilo3d.LoadCache;
+
+describe('LoadCache', () => {
+    it('create', () => {
+        const cache = new LoadCache;
+        cache.isLoadCache.should.be.true();
+        cache.className.should.equal('LoadCache');
+    });
+});
+})();
+
+(function(){
+const LoadQueue = Hilo3d.LoadQueue;
+
+describe('LoadQueue', () => {
+    it('create', () => {
+        const queue = new LoadQueue;
+        queue.isLoadQueue.should.be.true();
+        queue.className.should.equal('LoadQueue');
+    });
+});
+})();
+
+(function(){
+const ShaderMaterialLoader = Hilo3d.ShaderMaterialLoader;
+
+describe('ShaderMaterialLoader', () => {
+    it('create', () => {
+        const loader = new ShaderMaterialLoader;
+        loader.isShaderMaterialLoader.should.be.true();
+        loader.className.should.equal('ShaderMaterialLoader');
+    });
+});
+})();
+
+(function(){
+const TextureLoader = Hilo3d.TextureLoader;
+
+describe('TextureLoader', () => {
+    it('create', () => {
+        const loader = new TextureLoader;
+        loader.isTextureLoader.should.be.true();
+        loader.className.should.equal('TextureLoader');
     });
 });
 })();
@@ -3958,171 +3958,6 @@ void main(){}`);
 })();
 
 (function(){
-const CubeTexture = Hilo3d.CubeTexture;
-
-describe('CubeTexture', () => {
-    it('create', () => {
-        const texture = new CubeTexture();
-        texture.isCubeTexture.should.be.true();
-        texture.className.should.equal('CubeTexture');
-    });
-
-    it('images', () => {
-        const texture = new CubeTexture({
-            image:[
-                new Image,
-                new Image,
-                new Image,
-                new Image,
-                new Image,
-                new Image,
-            ]
-        });
-
-        texture.right.should.equal(texture.image[0]);
-        texture.left.should.equal(texture.image[1]);
-        texture.top.should.equal(texture.image[2]);
-        texture.bottom.should.equal(texture.image[3]);
-        texture.front.should.equal(texture.image[4]);
-        texture.back.should.equal(texture.image[5]);
-    });
-});
-})();
-
-(function(){
-const DataTexture = Hilo3d.DataTexture;
-
-describe('DataTexture', () => {
-    it('create', () => {
-        const texture = new DataTexture();
-        texture.isDataTexture.should.be.true();
-        texture.className.should.equal('DataTexture');
-    });
-
-    it('resetSize', () => {
-        const texture = new DataTexture();
-        texture.resetSize(100);
-        texture.width.should.equal(4);
-        texture.height.should.equal(8);
-
-        texture.resetSize(200);
-        texture.width.should.equal(8);
-        texture.height.should.equal(8);
-    });
-
-    it('data', () => {
-        const texture = new DataTexture({
-            data:new Float32Array(100)
-        });
-        texture.width.should.equal(4);
-        texture.height.should.equal(8);
-        texture.image.length.should.equal(128);
-    });
-});
-})();
-
-(function(){
-const LazyTexture = Hilo3d.LazyTexture;
-
-describe('LazyTexture', () => {
-    it('create', () => {
-        const texture = new LazyTexture();
-        texture.isLazyTexture.should.be.true();
-        texture.className.should.equal('LazyTexture');
-    });
-
-    it('load', (done) => {
-        const texture = new LazyTexture({
-            src:'./asset/images/logo.png'
-        });
-
-        texture.on('load', () => {
-            texture.image.width.should.equal(600);
-            done();
-        });
-
-        texture.on('error', () => {
-            done(new Error('load error!'));
-        })
-    });
-});
-})();
-
-(function(){
-const Texture = Hilo3d.Texture;
-
-describe('Texture', () => {
-    it('create', () => {
-        const texture = new Texture();
-        texture.isTexture.should.be.true();
-        texture.className.should.equal('Texture');
-    });
-
-    it('isImgPowerOfTwo', () => {
-        const texture = new Texture();
-        const img = new Image;
-        img.width = 100;
-        img.height = 100;
-
-        texture.isImgPowerOfTwo(img).should.be.false();
-        img.width = 512;
-        texture.isImgPowerOfTwo(img).should.be.false();
-        img.height = 1024;
-        texture.isImgPowerOfTwo(img).should.be.true();
-    });
-
-    it('resizeImgToPowerOfTwo', (done) => {
-        const texture = new Texture();
-        const img = new Image;
-        img.onload = () => {
-            texture.isImgPowerOfTwo(img).should.be.false();
-            texture.isImgPowerOfTwo(texture.resizeImgToPowerOfTwo(img)).should.be.true();
-            done();
-        };
-        img.src='./asset/images/logo.png';
-    });
-
-    it('getSupportSize', () => {
-        const texture = new Texture();
-        let img = {width:1024000, height:2040};
-        const originMaxTextureSize = Hilo3d.capabilities.MAX_TEXTURE_SIZE;
-        let size;
-
-        Hilo3d.capabilities.MAX_TEXTURE_SIZE = null;
-        size = texture.getSupportSize(img);
-        size.width.should.equal(img.width);
-        size.height.should.equal(img.height);
-
-        Hilo3d.capabilities.MAX_TEXTURE_SIZE = 4096;
-        size = texture.getSupportSize(img);
-        size.width.should.equal(4096);
-        size.height.should.equal(2040);
-
-        Hilo3d.capabilities.MAX_TEXTURE_SIZE = 4096;
-        size = texture.getSupportSize(img, true);
-        size.width.should.equal(4096);
-        size.height.should.equal(2048);
-
-        img.width = 4097;
-        img.height = 4097;
-        Hilo3d.capabilities.MAX_TEXTURE_SIZE = 4096;
-        size = texture.getSupportSize(img, true);
-        size.width.should.equal(4096);
-        size.height.should.equal(4096);
-
-        img.width = 4097;
-        img.height = 19999;
-        Hilo3d.capabilities.MAX_TEXTURE_SIZE = 20000;
-        size = texture.getSupportSize(img, true);
-        size.width.should.equal(8192);
-        size.height.should.equal(20000);
-
-        Hilo3d.capabilities.MAX_TEXTURE_SIZE = originMaxTextureSize;
-    });
-});
-})();
-
-(function(){
 const Ticker = Hilo3d.Ticker;
 
 describe('Ticker', function(){
@@ -4349,6 +4184,171 @@ describe('util', function () {
             indexArr.length.should.equal(2);
             indexArr.should.eql([-1, 0]);
         });
+    });
+});
+})();
+
+(function(){
+const CubeTexture = Hilo3d.CubeTexture;
+
+describe('CubeTexture', () => {
+    it('create', () => {
+        const texture = new CubeTexture();
+        texture.isCubeTexture.should.be.true();
+        texture.className.should.equal('CubeTexture');
+    });
+
+    it('images', () => {
+        const texture = new CubeTexture({
+            image:[
+                new Image,
+                new Image,
+                new Image,
+                new Image,
+                new Image,
+                new Image,
+            ]
+        });
+
+        texture.right.should.equal(texture.image[0]);
+        texture.left.should.equal(texture.image[1]);
+        texture.top.should.equal(texture.image[2]);
+        texture.bottom.should.equal(texture.image[3]);
+        texture.front.should.equal(texture.image[4]);
+        texture.back.should.equal(texture.image[5]);
+    });
+});
+})();
+
+(function(){
+const DataTexture = Hilo3d.DataTexture;
+
+describe('DataTexture', () => {
+    it('create', () => {
+        const texture = new DataTexture();
+        texture.isDataTexture.should.be.true();
+        texture.className.should.equal('DataTexture');
+    });
+
+    it('resetSize', () => {
+        const texture = new DataTexture();
+        texture.resetSize(100);
+        texture.width.should.equal(4);
+        texture.height.should.equal(8);
+
+        texture.resetSize(200);
+        texture.width.should.equal(8);
+        texture.height.should.equal(8);
+    });
+
+    it('data', () => {
+        const texture = new DataTexture({
+            data:new Float32Array(100)
+        });
+        texture.width.should.equal(4);
+        texture.height.should.equal(8);
+        texture.image.length.should.equal(128);
+    });
+});
+})();
+
+(function(){
+const LazyTexture = Hilo3d.LazyTexture;
+
+describe('LazyTexture', () => {
+    it('create', () => {
+        const texture = new LazyTexture();
+        texture.isLazyTexture.should.be.true();
+        texture.className.should.equal('LazyTexture');
+    });
+
+    it('load', (done) => {
+        const texture = new LazyTexture({
+            src:'./asset/images/logo.png'
+        });
+
+        texture.on('load', () => {
+            texture.image.width.should.equal(600);
+            done();
+        });
+
+        texture.on('error', () => {
+            done(new Error('load error!'));
+        })
+    });
+});
+})();
+
+(function(){
+const Texture = Hilo3d.Texture;
+
+describe('Texture', () => {
+    it('create', () => {
+        const texture = new Texture();
+        texture.isTexture.should.be.true();
+        texture.className.should.equal('Texture');
+    });
+
+    it('isImgPowerOfTwo', () => {
+        const texture = new Texture();
+        const img = new Image;
+        img.width = 100;
+        img.height = 100;
+
+        texture.isImgPowerOfTwo(img).should.be.false();
+        img.width = 512;
+        texture.isImgPowerOfTwo(img).should.be.false();
+        img.height = 1024;
+        texture.isImgPowerOfTwo(img).should.be.true();
+    });
+
+    it('resizeImgToPowerOfTwo', (done) => {
+        const texture = new Texture();
+        const img = new Image;
+        img.onload = () => {
+            texture.isImgPowerOfTwo(img).should.be.false();
+            texture.isImgPowerOfTwo(texture.resizeImgToPowerOfTwo(img)).should.be.true();
+            done();
+        };
+        img.src='./asset/images/logo.png';
+    });
+
+    it('getSupportSize', () => {
+        const texture = new Texture();
+        let img = {width:1024000, height:2040};
+        const originMaxTextureSize = Hilo3d.capabilities.MAX_TEXTURE_SIZE;
+        let size;
+
+        Hilo3d.capabilities.MAX_TEXTURE_SIZE = null;
+        size = texture.getSupportSize(img);
+        size.width.should.equal(img.width);
+        size.height.should.equal(img.height);
+
+        Hilo3d.capabilities.MAX_TEXTURE_SIZE = 4096;
+        size = texture.getSupportSize(img);
+        size.width.should.equal(4096);
+        size.height.should.equal(2040);
+
+        Hilo3d.capabilities.MAX_TEXTURE_SIZE = 4096;
+        size = texture.getSupportSize(img, true);
+        size.width.should.equal(4096);
+        size.height.should.equal(2048);
+
+        img.width = 4097;
+        img.height = 4097;
+        Hilo3d.capabilities.MAX_TEXTURE_SIZE = 4096;
+        size = texture.getSupportSize(img, true);
+        size.width.should.equal(4096);
+        size.height.should.equal(4096);
+
+        img.width = 4097;
+        img.height = 19999;
+        Hilo3d.capabilities.MAX_TEXTURE_SIZE = 20000;
+        size = texture.getSupportSize(img, true);
+        size.width.should.equal(8192);
+        size.height.should.equal(20000);
+
+        Hilo3d.capabilities.MAX_TEXTURE_SIZE = originMaxTextureSize;
     });
 });
 })();

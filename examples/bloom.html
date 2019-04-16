@@ -186,7 +186,7 @@
         uniforms:{
             u_scene:{
                 get(mesh, material, programInfo) {
-                    return Hilo3d.semantic.handlerGLTexture(Hilo3d.constants.TEXTURE_2D, renderer.framebuffer.texture, programInfo.textureIndex);
+                    return Hilo3d.semantic.handlerTexture(renderer.framebuffer.texture, programInfo.textureIndex);
                 }
             }
         }

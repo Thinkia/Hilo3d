@@ -575,7 +575,7 @@ const semantic = {
     DIRECTIONALLIGHTSSHADOWMAP: {
         get(mesh, material, programInfo) {
             const result = lightManager.directionalInfo.shadowMap.map((texture, i) => {
-                return semantic.handlerGLTexture(TEXTURE_2D, texture, programInfo.textureIndex + i);
+                return semantic.handlerTexture(texture, programInfo.textureIndex + i);
             });
             return result;
         }
@@ -649,8 +649,8 @@ const semantic = {
      */
     POINTLIGHTSSHADOWMAP: {
         get(mesh, material, programInfo) {
-            const result = lightManager.pointInfo.shadowMap.map((texture, i) => {
-                return semantic.handlerGLTexture(TEXTURE_CUBE_MAP, texture, programInfo.textureIndex + i);
+            const result = lightManager.pointInfo.shadowMap.map((glTexture, i) => {
+                return semantic.handlerGLTexture(TEXTURE_CUBE_MAP, glTexture, programInfo.textureIndex + i);
             });
             return result;
         }
@@ -743,7 +743,7 @@ const semantic = {
     SPOTLIGHTSSHADOWMAP: {
         get(mesh, material, programInfo) {
             const result = lightManager.spotInfo.shadowMap.map((texture, i) => {
-                return semantic.handlerGLTexture(TEXTURE_2D, texture, programInfo.textureIndex + i);
+                return semantic.handlerTexture(texture, programInfo.textureIndex + i);
             });
             return result;
         }

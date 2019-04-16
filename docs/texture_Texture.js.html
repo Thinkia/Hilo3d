@@ -7664,7 +7664,7 @@ const Texture = Class.create(/** @lends Texture.prototype */ {
         const gl = state.gl;
         if (this.compressed) {
             gl.compressedTexImage2D(target, level, this.internalFormat, width, height, this.border, image);
-        } else if (image.width) {
+        } else if (image &amp;&amp; image.width !== undefined) {
             gl.texImage2D(target, level, this.internalFormat, this.format, this.type, image);
         } else {
             gl.texImage2D(target, level, this.internalFormat, width, height, this.border, this.format, this.type, image);
@@ -7704,9 +7704,11 @@ const Texture = Class.create(/** @lends Texture.prototype */ {
             const useMipmap = this.useMipmap;
             const useRepeat = this.useRepeat;
 
-            const needPowerOfTwo = useRepeat || useMipmap;
-            const sizeResult = this.getSupportSize(this.image, needPowerOfTwo);
-            this.image = this.resizeImg(this.image, sizeResult.width, sizeResult.height);
+            if (this.image) {
+                const needPowerOfTwo = useRepeat || useMipmap;
+                const sizeResult = this.getSupportSize(this.image, needPowerOfTwo);
+                this.image = this.resizeImg(this.image, sizeResult.width, sizeResult.height);
+            }
 
             state.activeTexture(gl.TEXTURE0 + capabilities.MAX_TEXTURE_INDEX);
             state.bindTexture(this.target, glTexture);

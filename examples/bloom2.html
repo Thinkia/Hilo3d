@@ -106,7 +106,7 @@
                                 get:function(mesh, material, programInfo){
                                     var lastPass = that.lastPass;
                                     if (lastPass && lastPass.framebuffer){
-                                        return Hilo3d.semantic.handlerGLTexture(Hilo3d.constants.TEXTURE_2D, lastPass.framebuffer.texture, programInfo.textureIndex);
+                                        return Hilo3d.semantic.handlerTexture(lastPass.framebuffer.texture, programInfo.textureIndex);
                                     }
                                 }
                             }
@@ -214,7 +214,7 @@
             uniforms:{
                 u_screen:{
                     get:function(mesh, material, programInfo){
-                        return Hilo3d.semantic.handlerGLTexture(Hilo3d.constants.TEXTURE_2D, renderer.framebuffer.texture, programInfo.textureIndex)
+                        return Hilo3d.semantic.handlerTexture(renderer.framebuffer.texture, programInfo.textureIndex)
                     }
                 }
             }
@@ -329,7 +329,7 @@
             uniforms:{
                 u_scene:{
                     get:function(mesh, material, programInfo){
-                        return Hilo3d.semantic.handlerGLTexture(Hilo3d.constants.TEXTURE_2D, renderer.framebuffer.texture, programInfo.textureIndex)
+                        return Hilo3d.semantic.handlerTexture(renderer.framebuffer.texture, programInfo.textureIndex)
                     }
                 }
             },
