@@ -6264,11 +6264,19 @@
             
                 <li  data-name="Framebuffer#bufferInternalFormat"><a href="Framebuffer.html#bufferInternalFormat">bufferInternalFormat</a></li>
             
-                <li  data-name="Framebuffer#internalFormat"><a href="Framebuffer.html#internalFormat">internalFormat</a></li>
+                <li  data-name="Framebuffer#target"><a href="Framebuffer.html#target">target</a></li>
             
                 <li  data-name="Framebuffer#format"><a href="Framebuffer.html#format">format</a></li>
             
+                <li  data-name="Framebuffer#internalFormat"><a href="Framebuffer.html#internalFormat">internalFormat</a></li>
+            
                 <li  data-name="Framebuffer#type"><a href="Framebuffer.html#type">type</a></li>
+            
+                <li  data-name="Framebuffer#minFilter"><a href="Framebuffer.html#minFilter">minFilter</a></li>
+            
+                <li  data-name="Framebuffer#magFilter"><a href="Framebuffer.html#magFilter">magFilter</a></li>
+            
+                <li  data-name="Framebuffer#data"><a href="Framebuffer.html#data">data</a></li>
             
                 <li  data-name="Framebuffer#attachment"><a href="Framebuffer.html#attachment">attachment</a></li>
             
@@ -7405,29 +7413,53 @@ const Framebuffer = Class.create(/** @lends Framebuffer.prototype */ {
      */
     bufferInternalFormat: DEPTH_STENCIL,
 
-    target: TEXTURE_2D,
     /**
-     * internalFormat
+     * texture target
      * @type {GLenum}
-     * @default gl.RGBA
+     * @default gl.TEXTURE_2D
      */
-    internalFormat: RGBA,
-
-    data: null,
+    target: TEXTURE_2D,
 
     /**
-     * format
+     * texture format
      * @type {GLenum}
      * @default gl.RGBA
      */
     format: RGBA,
 
     /**
-     * type
+     * texture internalFormat
+     * @type {GLenum}
+     * @default gl.RGBA
+     */
+    internalFormat: RGBA,
+
+    /**
+     * texture type
      * @type {GLenum}
      * @default gl.UNSIGNED_BYTE
      */
     type: UNSIGNED_BYTE,
+    /**
+     * texture minFilter
+     * @type {GLenum}
+     * @default gl.NEAREST
+     */
+    minFilter: NEAREST,
+
+    /**
+     * texture magFilter
+     * @type {GLenum}
+     * @default gl.NEAREST
+     */
+    magFilter: NEAREST,
+
+    /**
+     * texture data
+     * @type {TypedArray}
+     * @default null
+     */
+    data: null,
 
     /**
      * attachment
@@ -7477,8 +7509,6 @@ const Framebuffer = Class.create(/** @lends Framebuffer.prototype */ {
 
     _isInit: false,
 
-    minFilter: NEAREST,
-    magFilter: NEAREST,
 
     /**
      * @constructs
@@ -7602,7 +7632,7 @@ const Framebuffer = Class.create(/** @lends Framebuffer.prototype */ {
             const program = Program.getProgram(shader, state);
             program.useProgram();
 
-            let vaoId = `${x}_${y}_${width}_${height}_${program.id}`;
+            const vaoId = `${x}_${y}_${width}_${height}_${program.id}`;
             const vao = VertexArrayObject.getVao(gl, vaoId, {
                 useVao: this.useVao,
                 useInstanced: false,

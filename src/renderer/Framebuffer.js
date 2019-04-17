@@ -86,29 +86,53 @@ const Framebuffer = Class.create(/** @lends Framebuffer.prototype */ {
      */
     bufferInternalFormat: DEPTH_STENCIL,
 
-    target: TEXTURE_2D,
     /**
-     * internalFormat
+     * texture target
      * @type {GLenum}
-     * @default gl.RGBA
+     * @default gl.TEXTURE_2D
      */
-    internalFormat: RGBA,
-
-    data: null,
+    target: TEXTURE_2D,
 
     /**
-     * format
+     * texture format
      * @type {GLenum}
      * @default gl.RGBA
      */
     format: RGBA,
 
     /**
-     * type
+     * texture internalFormat
+     * @type {GLenum}
+     * @default gl.RGBA
+     */
+    internalFormat: RGBA,
+
+    /**
+     * texture type
      * @type {GLenum}
      * @default gl.UNSIGNED_BYTE
      */
     type: UNSIGNED_BYTE,
+    /**
+     * texture minFilter
+     * @type {GLenum}
+     * @default gl.NEAREST
+     */
+    minFilter: NEAREST,
+
+    /**
+     * texture magFilter
+     * @type {GLenum}
+     * @default gl.NEAREST
+     */
+    magFilter: NEAREST,
+
+    /**
+     * texture data
+     * @type {TypedArray}
+     * @default null
+     */
+    data: null,
 
     /**
      * attachment
@@ -158,8 +182,6 @@ const Framebuffer = Class.create(/** @lends Framebuffer.prototype */ {
 
     _isInit: false,
 
-    minFilter: NEAREST,
-    magFilter: NEAREST,
 
     /**
      * @constructs
@@ -283,7 +305,7 @@ const Framebuffer = Class.create(/** @lends Framebuffer.prototype */ {
             const program = Program.getProgram(shader, state);
             program.useProgram();
 
-            let vaoId = `${x}_${y}_${width}_${height}_${program.id}`;
+            const vaoId = `${x}_${y}_${width}_${height}_${program.id}`;
             const vao = VertexArrayObject.getVao(gl, vaoId, {
                 useVao: this.useVao,
                 useInstanced: false,

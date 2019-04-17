@@ -12129,6 +12129,14 @@ declare namespace hilo3d {
      * type
      */
     type: GLenum;
+    /**
+     * minFilter
+     */
+    minFilter: GLenum;
+    /**
+     * magFilter
+     */
+    magFilter: GLenum;
 
     /**
      * attachment
@@ -12153,7 +12161,7 @@ declare namespace hilo3d {
     /**
      * texture
      */
-    texture: WebGLTexture;
+    texture: Texture;
 
     /**
      * renderbuffer

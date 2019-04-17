@@ -6264,11 +6264,19 @@
             
                 <li  data-name="Framebuffer#bufferInternalFormat"><a href="Framebuffer.html#bufferInternalFormat">bufferInternalFormat</a></li>
             
-                <li  data-name="Framebuffer#internalFormat"><a href="Framebuffer.html#internalFormat">internalFormat</a></li>
+                <li  data-name="Framebuffer#target"><a href="Framebuffer.html#target">target</a></li>
             
                 <li  data-name="Framebuffer#format"><a href="Framebuffer.html#format">format</a></li>
             
+                <li  data-name="Framebuffer#internalFormat"><a href="Framebuffer.html#internalFormat">internalFormat</a></li>
+            
                 <li  data-name="Framebuffer#type"><a href="Framebuffer.html#type">type</a></li>
+            
+                <li  data-name="Framebuffer#minFilter"><a href="Framebuffer.html#minFilter">minFilter</a></li>
+            
+                <li  data-name="Framebuffer#magFilter"><a href="Framebuffer.html#magFilter">magFilter</a></li>
+            
+                <li  data-name="Framebuffer#data"><a href="Framebuffer.html#data">data</a></li>
             
                 <li  data-name="Framebuffer#attachment"><a href="Framebuffer.html#attachment">attachment</a></li>
             
@@ -7621,8 +7629,8 @@
         <tr >
             
                 <td class="name">
-                    <a name="internalFormat"></a>
-                    <code>internalFormat</code>
+                    <a name="target"></a>
+                    <code>target</code>
                 </td>
             
             
@@ -7640,14 +7648,14 @@
             
                 <td class="default">
                 
-                    gl.RGBA
+                    gl.TEXTURE_2D
                 
                 </td>
             
             
             <td class="description last">
                 
-                <p>internalFormat</p>
+                <p>texture target</p>
                 
     
                 
@@ -7684,7 +7692,44 @@
             
             <td class="description last">
                 
-                <p>format</p>
+                <p>texture format</p>
+                
+    
+                
+            </td>
+        </tr>
+	
+	
+        <tr >
+            
+                <td class="name">
+                    <a name="internalFormat"></a>
+                    <code>internalFormat</code>
+                </td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type"><a href="global.html#GLenum">GLenum</a></span>
+
+
+            
+            </td>
+            
+            
+            
+            
+                <td class="default">
+                
+                    gl.RGBA
+                
+                </td>
+            
+            
+            <td class="description last">
+                
+                <p>texture internalFormat</p>
                 
     
                 
@@ -7721,7 +7766,118 @@
             
             <td class="description last">
                 
-                <p>type</p>
+                <p>texture type</p>
+                
+    
+                
+            </td>
+        </tr>
+	
+	
+        <tr >
+            
+                <td class="name">
+                    <a name="minFilter"></a>
+                    <code>minFilter</code>
+                </td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type"><a href="global.html#GLenum">GLenum</a></span>
+
+
+            
+            </td>
+            
+            
+            
+            
+                <td class="default">
+                
+                    gl.NEAREST
+                
+                </td>
+            
+            
+            <td class="description last">
+                
+                <p>texture minFilter</p>
+                
+    
+                
+            </td>
+        </tr>
+	
+	
+        <tr >
+            
+                <td class="name">
+                    <a name="magFilter"></a>
+                    <code>magFilter</code>
+                </td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type"><a href="global.html#GLenum">GLenum</a></span>
+
+
+            
+            </td>
+            
+            
+            
+            
+                <td class="default">
+                
+                    gl.NEAREST
+                
+                </td>
+            
+            
+            <td class="description last">
+                
+                <p>texture magFilter</p>
+                
+    
+                
+            </td>
+        </tr>
+	
+	
+        <tr >
+            
+                <td class="name">
+                    <a name="data"></a>
+                    <code>data</code>
+                </td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">TypedArray</span>
+
+
+            
+            </td>
+            
+            
+            
+            
+                <td class="default">
+                
+                    null
+                
+                </td>
+            
+            
+            <td class="description last">
+                
+                <p>texture data</p>
                 
     
                 
@@ -8042,7 +8198,7 @@
         
             
             <div class="tag-source">
-                <a href="renderer_Framebuffer.js.html">renderer/Framebuffer.js</a>, <a href="renderer_Framebuffer.js.html#line226">line 226</a>
+                <a href="renderer_Framebuffer.js.html">renderer/Framebuffer.js</a>, <a href="renderer_Framebuffer.js.html#line248">line 248</a>
             </div>
             
         </div>
@@ -8141,7 +8297,7 @@
         
             
             <div class="tag-source">
-                <a href="renderer_Framebuffer.js.html">renderer/Framebuffer.js</a>, <a href="renderer_Framebuffer.js.html#line236">line 236</a>
+                <a href="renderer_Framebuffer.js.html">renderer/Framebuffer.js</a>, <a href="renderer_Framebuffer.js.html#line258">line 258</a>
             </div>
             
         </div>
@@ -8211,7 +8367,7 @@
         
             
             <div class="tag-source">
-                <a href="renderer_Framebuffer.js.html">renderer/Framebuffer.js</a>, <a href="renderer_Framebuffer.js.html#line245">line 245</a>
+                <a href="renderer_Framebuffer.js.html">renderer/Framebuffer.js</a>, <a href="renderer_Framebuffer.js.html#line267">line 267</a>
             </div>
             
         </div>
@@ -8281,7 +8437,7 @@
         
             
             <div class="tag-source">
-                <a href="renderer_Framebuffer.js.html">renderer/Framebuffer.js</a>, <a href="renderer_Framebuffer.js.html#line269">line 269</a>
+                <a href="renderer_Framebuffer.js.html">renderer/Framebuffer.js</a>, <a href="renderer_Framebuffer.js.html#line291">line 291</a>
             </div>
             
         </div>
@@ -8551,7 +8707,7 @@
         
             
             <div class="tag-source">
-                <a href="renderer_Framebuffer.js.html">renderer/Framebuffer.js</a>, <a href="renderer_Framebuffer.js.html#line358">line 358</a>
+                <a href="renderer_Framebuffer.js.html">renderer/Framebuffer.js</a>, <a href="renderer_Framebuffer.js.html#line380">line 380</a>
             </div>
             
         </div>
@@ -8745,7 +8901,7 @@
         
             
             <div class="tag-source">
-                <a href="renderer_Framebuffer.js.html">renderer/Framebuffer.js</a>, <a href="renderer_Framebuffer.js.html#line376">line 376</a>
+                <a href="renderer_Framebuffer.js.html">renderer/Framebuffer.js</a>, <a href="renderer_Framebuffer.js.html#line398">line 398</a>
             </div>
             
         </div>
@@ -9004,7 +9160,7 @@
         
             
             <div class="tag-source">
-                <a href="renderer_Framebuffer.js.html">renderer/Framebuffer.js</a>, <a href="renderer_Framebuffer.js.html#line400">line 400</a>
+                <a href="renderer_Framebuffer.js.html">renderer/Framebuffer.js</a>, <a href="renderer_Framebuffer.js.html#line422">line 422</a>
             </div>
             
         </div>
