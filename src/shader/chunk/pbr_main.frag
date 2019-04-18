@@ -141,7 +141,9 @@ color.a = baseColor.a;
     #endif
 
     #ifdef HILO_LIGHT_MAP
-        color.rgb += baseColor.rgb * HILO_TEXTURE_2D(u_lightMap).rgb;
+        vec4 lightMapColor = HILO_TEXTURE_2D(u_lightMap);
+        // https://github.com/KhronosGroup/glTF/tree/master/extensions/2.0/Vendor/EXT_lights_image_based#rgbd
+        color.rgb += baseColor.rgb * lightMapColor.rgb / lightMapColor.a;
     #endif
 
     // IBL

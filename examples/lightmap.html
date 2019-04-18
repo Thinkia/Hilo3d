@@ -34,15 +34,12 @@
             src: '//ossgw.alicdn.com/tmall-c3/tmx/9578a65ee149dc3a6e71d9844d4e1da9.gltf'
         }, {
             type: 'Texture',
-            // src: '/dl/Room_AO.jpg',
             src: '//ossgw.alicdn.com/tmall-c3/tmx/f15e7f2a8ed6e718396d21349e8940c4.jpg',
             uv: 1
         }, {
-            // src: '/dl/RoomLightingMap.hdr',
             src: '//ossgw.alicdn.com/tmall-c3/tmx/29c92edc7555768b1d74a5e6872d734f.hdr',
             uv: 1
         }]).then(function (result) {
-            window.r = result;
             const model = result[0];
             const aoMap = result[1];
             const lightMap = result[2];
