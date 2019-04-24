@@ -12174,6 +12174,16 @@ declare namespace hilo3d {
     framebuffer: WebGLFramebuffer;
 
     /**
+     * 宽度。
+     */
+    readonly width: number;
+
+    /**
+     * 高度。
+     */
+    readonly height: number;
+
+    /**
      * framebuffer 是否完成
      */
     isComplete(): boolean;
@@ -12273,12 +12283,12 @@ declare namespace hilo3d {
     /**
      * attribute 集合
      */
-    attributes: Object;
+    attributes: {[key: string]: any};
 
     /**
      * uniform 集合
      */
-    uniforms: Object;
+    uniforms: {[key: string]: any};
 
     /**
      * program
@@ -12426,6 +12436,15 @@ declare namespace hilo3d {
      * @param params
      */
     constructor(gl: WebGLRenderingContext, id: string, params: Object);
+
+    /**
+     * 获取 vao
+     * @param  {WebGLRenderingContext} gl
+     * @param  {String} id  缓存id
+     * @param  {Object} params
+     * @return {VertexArrayObject}
+     */
+    static getVao(gl: WebGLRenderingContext, id: string, params: Object): VertexArrayObject;
 
     className: string;
 
@@ -12588,6 +12607,16 @@ declare namespace hilo3d {
      * 是否使用framebuffer
      */
     useFramebuffer: boolean;
+
+    /**
+     * 若使用framebuffer，则可取得。
+     */
+    readonly framebuffer: Framebuffer;
+
+    /**
+     * 当前状态。
+     */
+    readonly state: WebGLState;
 
     /**
      * framebuffer配置
@@ -13236,9 +13265,10 @@ declare namespace hilo3d {
      * 获取自定义shader
      * @param vs 顶点代码
      * @param fs 片段代码
+     * @param header 头代码
      * @param cacheKey 如果有，会以此值缓存 shader
      */
-    static getCustomShader(vs: string, fs: string, cacheKey?: string): Shader;
+    static getCustomShader(vs: string, fs: string, header?: string, cacheKey?: string): Shader;
 
   }
 
@@ -13729,6 +13759,14 @@ declare namespace hilo3d {
      * @param gl gl
      */
     destroy(): void;
+
+    /**
+     * 更新局部贴图
+     * @param xOffset
+     * @param yOffset
+     * @param image
+     */
+    updateSubTexture(xOffset:number, yOffset:number, image:Image|HTMLCanvasElement|ImageData): void;
   }
 
   class Cache {

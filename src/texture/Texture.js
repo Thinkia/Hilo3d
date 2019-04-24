@@ -395,6 +395,10 @@ const Texture = Class.create(/** @lends Texture.prototype */ {
             state.bindTexture(this.target, glTexture);
             state.pixelStorei(gl.UNPACK_PREMULTIPLY_ALPHA_WEBGL, this.premultiplyAlpha);
             state.pixelStorei(gl.UNPACK_FLIP_Y_WEBGL, !!this.flipY);
+            gl.texParameterf(this.target, gl.TEXTURE_MAG_FILTER, this.magFilter);
+            gl.texParameterf(this.target, gl.TEXTURE_MIN_FILTER, this.minFilter);
+            gl.texParameterf(this.target, gl.TEXTURE_WRAP_S, this.wrapS);
+            gl.texParameterf(this.target, gl.TEXTURE_WRAP_T, this.wrapT);
 
             this._uploadTexture(state);
             if (useMipmap) {
@@ -405,10 +409,49 @@ const Texture = Class.create(/** @lends Texture.prototype */ {
                     this.minFilter = LINEAR;
                 }
             }
+
             this.needUpdate = false;
         }
 
+        if (this._needUpdateSubTexture) {
+            this._uploadSubTextures(state, glTexture);
+            this._needUpdateSubTexture = false;
+        }
+
         return this;
+    },
+    /**
+     * 跟新所有的局部贴图
+     * @private
+     * @param  {WebGLState} state
+     * @param  {WebGLTexture} glTexture
+     */
+    _uploadSubTextures(state, glTexture) {
+        if (this._subTextureList.length > 0) {
+            const gl = state.gl;
+            state.activeTexture(gl.TEXTURE0 + capabilities.MAX_TEXTURE_INDEX);
+            state.bindTexture(this.target, glTexture);
+            this._subTextureList.forEach((subInfo) => {
+                const xOffset = subInfo[0];
+                const yOffset = subInfo[1];
+                const image = subInfo[2];
+
+                gl.texSubImage2D(this.target, 0, xOffset, yOffset, this.format, this.type, image);
+            });
+            this._subTextureList.length = 0;
+        }
+    },
+    _needUpdateSubTexture: false,
+    _subTextureList: [],
+    /**
+     * 跟新局部贴图
+     * @param  {Number} xOffset
+     * @param  {Number} yOffset
+     * @param  {Image|Canvas|ImageData} image
+     */
+    updateSubTexture(xOffset, yOffset, image) {
+        this._subTextureList.push([xOffset, yOffset, image]);
+        this._needUpdateSubTexture = true;
     },
     /**
      * 获取 GLTexture
@@ -416,6 +459,7 @@ const Texture = Class.create(/** @lends Texture.prototype */ {
      * @return {WebGLTexture}
      */
     getGLTexture(state) {
+        this.state = state;
         const gl = this.gl = state.gl;
         const id = this.id;
 
@@ -432,10 +476,6 @@ const Texture = Class.create(/** @lends Texture.prototype */ {
             cache.add(id, glTexture);
             this.needUpdate = true;
             this.updateTexture(state, glTexture);
-            gl.texParameterf(this.target, gl.TEXTURE_MAG_FILTER, this.magFilter);
-            gl.texParameterf(this.target, gl.TEXTURE_MIN_FILTER, this.minFilter);
-            gl.texParameterf(this.target, gl.TEXTURE_WRAP_S, this.wrapS);
-            gl.texParameterf(this.target, gl.TEXTURE_WRAP_T, this.wrapT);
         }
 
         return glTexture;
