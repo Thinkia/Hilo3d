@@ -13398,6 +13398,14 @@ declare namespace hilo3d {
      */
     destroy(): void;
 
+    /**
+     * 更新局部贴图
+     * @param xOffset
+     * @param yOffset
+     * @param image
+     */
+    updateSubTexture(xOffset: number, yOffset: number, image: Image | HTMLCanvasElement | ImageData): void;
+
   }
 
   class DataTexture {
@@ -13500,6 +13508,14 @@ declare namespace hilo3d {
      * @param gl gl
      */
     destroy(): void;
+
+    /**
+     * 更新局部贴图
+     * @param xOffset
+     * @param yOffset
+     * @param image
+     */
+    updateSubTexture(xOffset: number, yOffset: number, image: Image | HTMLCanvasElement | ImageData): void;
 
   }
 
@@ -13646,6 +13662,14 @@ declare namespace hilo3d {
      */
     destroy(): void;
 
+    /**
+     * 更新局部贴图
+     * @param xOffset
+     * @param yOffset
+     * @param image
+     */
+    updateSubTexture(xOffset: number, yOffset: number, image: Image | HTMLCanvasElement | ImageData): void;
+
   }
 
   class Texture {
@@ -13766,7 +13790,7 @@ declare namespace hilo3d {
      * @param yOffset
      * @param image
      */
-    updateSubTexture(xOffset:number, yOffset:number, image:Image|HTMLCanvasElement|ImageData): void;
+    updateSubTexture(xOffset: number, yOffset: number, image: Image | HTMLCanvasElement | ImageData): void;
   }
 
   class Cache {
