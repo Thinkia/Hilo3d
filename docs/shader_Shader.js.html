@@ -7376,6 +7376,7 @@ const Shader = Class.create(/** @lends Shader.prototype */ {
     fs: '',
 
     Statics: /** @lends Shader */ {
+        commonOptions: {},
         /**
          * 内部的所有shader块字符串，可以用来拼接glsl代码
          * @type {Object}
@@ -7516,6 +7517,7 @@ const Shader = Class.create(/** @lends Shader.prototype */ {
             let header = headerCache.get(headerKey);
             if (!header || material.isDirty) {
                 const headers = {};
+                Object.assign(headers, this.commonOptions);
                 const lightType = material.lightType;
                 if (lightType &amp;&amp; lightType !== 'NONE') {
                     lightManager.getRenderOption(headers);
