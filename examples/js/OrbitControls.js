@@ -33,6 +33,13 @@
         this.isLockScale = !!opt.isLockScale;
         this.isLockRotate = !!opt.isLockRotate;
         this.isLockMove = !!opt.isLockMove;
+
+        // add rotateSpeed   增加旋转速度         一般模型外取+   模型内取-
+        if( opt.rotateSpeed )
+            this.rotateSpeed = opt.rotateSpeed;
+        else
+            this.rotateSpeed = 1;
+
         if (opt.eulerOrder) {
             tempEuler.order = opt.eulerOrder;
         }
@@ -108,8 +115,8 @@
         if (this.isLockRotate) {
             return;
         }
-        var x = distanceY / 200;
-        var y = distanceX / 200;
+        var x = this.rotateSpeed * distanceY / 200;
+        var y = this.rotateSpeed * distanceX / 200;
         if (this.isLockZ) {
             tempEuler.x += x;
             tempEuler.y += y;
