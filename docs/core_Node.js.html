@@ -6264,11 +6264,19 @@
             
                 <li  data-name="Framebuffer#bufferInternalFormat"><a href="Framebuffer.html#bufferInternalFormat">bufferInternalFormat</a></li>
             
-                <li  data-name="Framebuffer#internalFormat"><a href="Framebuffer.html#internalFormat">internalFormat</a></li>
+                <li  data-name="Framebuffer#target"><a href="Framebuffer.html#target">target</a></li>
             
                 <li  data-name="Framebuffer#format"><a href="Framebuffer.html#format">format</a></li>
             
+                <li  data-name="Framebuffer#internalFormat"><a href="Framebuffer.html#internalFormat">internalFormat</a></li>
+            
                 <li  data-name="Framebuffer#type"><a href="Framebuffer.html#type">type</a></li>
+            
+                <li  data-name="Framebuffer#minFilter"><a href="Framebuffer.html#minFilter">minFilter</a></li>
+            
+                <li  data-name="Framebuffer#magFilter"><a href="Framebuffer.html#magFilter">magFilter</a></li>
+            
+                <li  data-name="Framebuffer#data"><a href="Framebuffer.html#data">data</a></li>
             
                 <li  data-name="Framebuffer#attachment"><a href="Framebuffer.html#attachment">attachment</a></li>
             
@@ -6913,6 +6921,8 @@
             
                 <li class="inherited-method" data-name="CubeTexture#updateTexture"><a href="CubeTexture.html#updateTexture">updateTexture</a></li>
             
+                <li class="inherited-method" data-name="CubeTexture#updateSubTexture"><a href="CubeTexture.html#updateSubTexture">updateSubTexture</a></li>
+            
                 <li class="inherited-method" data-name="CubeTexture#getGLTexture"><a href="CubeTexture.html#getGLTexture">getGLTexture</a></li>
             
                 <li class="inherited-method" data-name="CubeTexture#setGLTexture"><a href="CubeTexture.html#setGLTexture">setGLTexture</a></li>
@@ -7009,6 +7019,8 @@
                 <li class="inherited-method" data-name="DataTexture#resizeImg"><a href="DataTexture.html#resizeImg">resizeImg</a></li>
             
                 <li class="inherited-method" data-name="DataTexture#updateTexture"><a href="DataTexture.html#updateTexture">updateTexture</a></li>
+            
+                <li class="inherited-method" data-name="DataTexture#updateSubTexture"><a href="DataTexture.html#updateSubTexture">updateSubTexture</a></li>
             
                 <li class="inherited-method" data-name="DataTexture#getGLTexture"><a href="DataTexture.html#getGLTexture">getGLTexture</a></li>
             
@@ -7113,6 +7125,8 @@
             
                 <li class="inherited-method" data-name="LazyTexture#updateTexture"><a href="LazyTexture.html#updateTexture">updateTexture</a></li>
             
+                <li class="inherited-method" data-name="LazyTexture#updateSubTexture"><a href="LazyTexture.html#updateSubTexture">updateSubTexture</a></li>
+            
                 <li class="inherited-method" data-name="LazyTexture#getGLTexture"><a href="LazyTexture.html#getGLTexture">getGLTexture</a></li>
             
                 <li class="inherited-method" data-name="LazyTexture#setGLTexture"><a href="LazyTexture.html#setGLTexture">setGLTexture</a></li>
@@ -7205,6 +7219,8 @@
                 <li  data-name="Texture#resizeImg"><a href="Texture.html#resizeImg">resizeImg</a></li>
             
                 <li  data-name="Texture#updateTexture"><a href="Texture.html#updateTexture">updateTexture</a></li>
+            
+                <li  data-name="Texture#updateSubTexture"><a href="Texture.html#updateSubTexture">updateSubTexture</a></li>
             
                 <li  data-name="Texture#getGLTexture"><a href="Texture.html#getGLTexture">getGLTexture</a></li>
             
@@ -7450,6 +7466,13 @@ const Node = Class.create(/** @lends Node.prototype */ {
     useHandCursor: false,
 
     /**
+     * 是否强制使用父元素 worldMatrix，供高级开发者使用
+     * @private
+     * @type {Boolean}
+     */
+    __forceUseParentWorldMatrix: false,
+
+    /**
      * @constructs
      * @param {object} params 初始化参数，所有params都会复制到实例上
      */
@@ -7661,7 +7684,11 @@ const Node = Class.create(/** @lends Node.prototype */ {
         this.traverse((node) => {
             if (node.autoUpdateWorldMatrix || force) {
                 if (node.parent) {
-                    node.worldMatrix.multiply(node.parent.worldMatrix, node.matrix);
+                    if (!node.__forceUseParentWorldMatrix) {
+                        node.worldMatrix.multiply(node.parent.worldMatrix, node.matrix);
+                    } else {
+                        node.worldMatrix.copy(node.parent.worldMatrix);
+                    }
                 } else {
                     node.worldMatrix.copy(node.matrix);
                 }

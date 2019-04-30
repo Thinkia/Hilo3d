@@ -6264,11 +6264,19 @@
             
                 <li  data-name="Framebuffer#bufferInternalFormat"><a href="Framebuffer.html#bufferInternalFormat">bufferInternalFormat</a></li>
             
-                <li  data-name="Framebuffer#internalFormat"><a href="Framebuffer.html#internalFormat">internalFormat</a></li>
+                <li  data-name="Framebuffer#target"><a href="Framebuffer.html#target">target</a></li>
             
                 <li  data-name="Framebuffer#format"><a href="Framebuffer.html#format">format</a></li>
             
+                <li  data-name="Framebuffer#internalFormat"><a href="Framebuffer.html#internalFormat">internalFormat</a></li>
+            
                 <li  data-name="Framebuffer#type"><a href="Framebuffer.html#type">type</a></li>
+            
+                <li  data-name="Framebuffer#minFilter"><a href="Framebuffer.html#minFilter">minFilter</a></li>
+            
+                <li  data-name="Framebuffer#magFilter"><a href="Framebuffer.html#magFilter">magFilter</a></li>
+            
+                <li  data-name="Framebuffer#data"><a href="Framebuffer.html#data">data</a></li>
             
                 <li  data-name="Framebuffer#attachment"><a href="Framebuffer.html#attachment">attachment</a></li>
             
@@ -6913,6 +6921,8 @@
             
                 <li class="inherited-method" data-name="CubeTexture#updateTexture"><a href="CubeTexture.html#updateTexture">updateTexture</a></li>
             
+                <li class="inherited-method" data-name="CubeTexture#updateSubTexture"><a href="CubeTexture.html#updateSubTexture">updateSubTexture</a></li>
+            
                 <li class="inherited-method" data-name="CubeTexture#getGLTexture"><a href="CubeTexture.html#getGLTexture">getGLTexture</a></li>
             
                 <li class="inherited-method" data-name="CubeTexture#setGLTexture"><a href="CubeTexture.html#setGLTexture">setGLTexture</a></li>
@@ -7009,6 +7019,8 @@
                 <li class="inherited-method" data-name="DataTexture#resizeImg"><a href="DataTexture.html#resizeImg">resizeImg</a></li>
             
                 <li class="inherited-method" data-name="DataTexture#updateTexture"><a href="DataTexture.html#updateTexture">updateTexture</a></li>
+            
+                <li class="inherited-method" data-name="DataTexture#updateSubTexture"><a href="DataTexture.html#updateSubTexture">updateSubTexture</a></li>
             
                 <li class="inherited-method" data-name="DataTexture#getGLTexture"><a href="DataTexture.html#getGLTexture">getGLTexture</a></li>
             
@@ -7113,6 +7125,8 @@
             
                 <li class="inherited-method" data-name="LazyTexture#updateTexture"><a href="LazyTexture.html#updateTexture">updateTexture</a></li>
             
+                <li class="inherited-method" data-name="LazyTexture#updateSubTexture"><a href="LazyTexture.html#updateSubTexture">updateSubTexture</a></li>
+            
                 <li class="inherited-method" data-name="LazyTexture#getGLTexture"><a href="LazyTexture.html#getGLTexture">getGLTexture</a></li>
             
                 <li class="inherited-method" data-name="LazyTexture#setGLTexture"><a href="LazyTexture.html#setGLTexture">setGLTexture</a></li>
@@ -7205,6 +7219,8 @@
                 <li  data-name="Texture#resizeImg"><a href="Texture.html#resizeImg">resizeImg</a></li>
             
                 <li  data-name="Texture#updateTexture"><a href="Texture.html#updateTexture">updateTexture</a></li>
+            
+                <li  data-name="Texture#updateSubTexture"><a href="Texture.html#updateSubTexture">updateSubTexture</a></li>
             
                 <li  data-name="Texture#getGLTexture"><a href="Texture.html#getGLTexture">getGLTexture</a></li>
             
@@ -9485,6 +9501,175 @@
 <dl class="inherited-method">
     <dt>
         <div class="nameContainer inherited">
+            <h4 class="name" id="updateSubTexture">
+                
+                    <span class="inherited"><a href="Texture.html#updateSubTexture">inherited</a></span>
+                
+                updateSubTexture<span class="signature">(xOffset, yOffset, image)</span>
+            </h4>
+        
+            
+            <div class="tag-source">
+                <a href="texture_Texture.js.html">texture/Texture.js</a>, <a href="texture_Texture.js.html#line452">line 452</a>
+            </div>
+            
+        </div>
+    </dt>
+    <dd>
+        
+        
+        <div class="description">
+            <p>跟新局部贴图</p>
+        </div>
+        
+
+        
+        
+        
+        
+        
+            
+
+<table class="params">
+    <thead>
+	<tr>
+		
+		<th>Name</th>
+		
+		
+		<th>Type</th>
+		
+		
+		
+		<th class="last">Description</th>
+	</tr>
+	</thead>
+	
+	<tbody>
+	
+	
+        <tr>
+            
+                <td class="name"><code>xOffset</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">Number</span>
+
+
+            
+            </td>
+            
+            
+            
+            <td class="description last">
+                
+                </td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>yOffset</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">Number</span>
+
+
+            
+            </td>
+            
+            
+            
+            <td class="description last">
+                
+                </td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>image</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">Image</span>
+|
+
+<span class="param-type">Canvas</span>
+|
+
+<span class="param-type">ImageData</span>
+
+
+            
+            </td>
+            
+            
+            
+            <td class="description last">
+                
+                </td>
+        </tr>
+	
+	
+	</tbody>
+</table>
+        
+        
+        
+<dl class="details">
+    
+        
+    
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+</dl>
+
+        
+        
+
+        
+
+        
+        
+        
+        
+        
+        
+        
+    </dd>
+</dl>
+        
+            
+<dl class="inherited-method">
+    <dt>
+        <div class="nameContainer inherited">
             <h4 class="name" id="getGLTexture">
                 
                     <span class="inherited"><a href="Texture.html#getGLTexture">inherited</a></span>
@@ -9494,7 +9679,7 @@
         
             
             <div class="tag-source">
-                <a href="texture_Texture.js.html">texture/Texture.js</a>, <a href="texture_Texture.js.html#line416">line 416</a>
+                <a href="texture_Texture.js.html">texture/Texture.js</a>, <a href="texture_Texture.js.html#line461">line 461</a>
             </div>
             
         </div>
@@ -9640,7 +9825,7 @@
         
             
             <div class="tag-source">
-                <a href="texture_Texture.js.html">texture/Texture.js</a>, <a href="texture_Texture.js.html#line447">line 447</a>
+                <a href="texture_Texture.js.html">texture/Texture.js</a>, <a href="texture_Texture.js.html#line489">line 489</a>
             </div>
             
         </div>
@@ -9833,7 +10018,7 @@
         
             
             <div class="tag-source">
-                <a href="texture_Texture.js.html">texture/Texture.js</a>, <a href="texture_Texture.js.html#line459">line 459</a>
+                <a href="texture_Texture.js.html">texture/Texture.js</a>, <a href="texture_Texture.js.html#line501">line 501</a>
             </div>
             
         </div>
@@ -9934,7 +10119,7 @@
         
             
             <div class="tag-source">
-                <a href="texture_Texture.js.html">texture/Texture.js</a>, <a href="texture_Texture.js.html#line472">line 472</a>
+                <a href="texture_Texture.js.html">texture/Texture.js</a>, <a href="texture_Texture.js.html#line514">line 514</a>
             </div>
             
         </div>

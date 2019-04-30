@@ -24,6 +24,6 @@ describe('ShaderMaterial', () => {
         material.getRenderOption(options);
 
         options.INIT.should.equal(1);
-        options.TEST.should.equal(1);
+        options.HILO_CUSTUM_OPTION_TEST.should.equal(1);
     });
 });

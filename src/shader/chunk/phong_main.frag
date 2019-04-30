@@ -31,7 +31,7 @@
             float shadow = 1.0;
             #ifdef HILO_DIRECTIONAL_LIGHTS_SMC
                 if (i < HILO_DIRECTIONAL_LIGHTS_SMC) {
-                    float bias = max(u_directionalLightsShadowBias[i][1] * (1.0 - dot(normal, lightDir)), u_directionalLightsShadowBias[i][0]);
+                    float bias = HILO_MAX(u_directionalLightsShadowBias[i][1] * (1.0 - dot(normal, lightDir)), u_directionalLightsShadowBias[i][0]);
                     shadow = getShadow(u_directionalLightsShadowMap[i], u_directionalLightsShadowMapSize[i], bias, v_fragPos, u_directionalLightSpaceMatrix[i]);
                 }
             #endif
@@ -54,7 +54,7 @@
             float shadow = 1.0;
             #ifdef HILO_SPOT_LIGHTS_SMC
                 if (i < HILO_SPOT_LIGHTS_SMC) {
-                    float bias = max(u_spotLightsShadowBias[i][1] * (1.0 - dot(normal, lightDir)), u_spotLightsShadowBias[i][0]);
+                    float bias = HILO_MAX(u_spotLightsShadowBias[i][1] * (1.0 - dot(normal, lightDir)), u_spotLightsShadowBias[i][0]);
                     shadow = getShadow(u_spotLightsShadowMap[i], u_spotLightsShadowMapSize[i], bias, v_fragPos, u_spotLightSpaceMatrix[i]);
                 }
             #endif
@@ -82,7 +82,7 @@
             float shadow = 1.0;
             #ifdef HILO_POINT_LIGHTS_SMC
                 if (i < HILO_POINT_LIGHTS_SMC) {
-                    float bias = max(u_pointLightsShadowBias[i][1] * (1.0 - dot(normal, lightDir)), u_pointLightsShadowBias[i][0]);
+                    float bias = HILO_MAX(u_pointLightsShadowBias[i][1] * (1.0 - dot(normal, lightDir)), u_pointLightsShadowBias[i][0]);
                     shadow = getShadow(u_pointLightsShadowMap[i], bias, u_pointLightsPos[i], v_fragPos, u_pointLightCamera[i], u_pointLightSpaceMatrix[i]);
                 }
             #endif

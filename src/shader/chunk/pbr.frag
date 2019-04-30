@@ -1,5 +1,6 @@
 #pragma glslify: import('../method/textureEnvMap.glsl');
 #pragma glslify: import('../method/encoding.glsl');
+#pragma glslify: import('./fixMathCrash.glsl');
 
 uniform vec4 u_baseColor;
 #ifdef HILO_BASE_COLOR_MAP

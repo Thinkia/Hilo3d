@@ -7946,6 +7946,7 @@ declare namespace hilo3d {
      * @param params.bottom 下面的图片地址
      * @param params.front 前面的图片地址
      * @param params.back 背面的图片地址
+     * @param params.uv uv
      */
     load(params: {
       crossOrigin?: boolean;
@@ -7956,6 +7957,7 @@ declare namespace hilo3d {
       bottom?: string;
       front?: string;
       back?: string;
+      uv?: number;
     }): Promise<CubeTexture>;
 
     isBasicLoader: boolean;
@@ -8291,8 +8293,9 @@ declare namespace hilo3d {
      * @param params 加载参数
      * @param params.src 纹理图片地址
      * @param params.crossOrigin 是否跨域，不传将自动判断
+     * @param params.uv uv
      */
-    load(params: {src: string, crossOrigin?: boolean}): Promise<Texture>;
+    load(params: {src: string, crossOrigin?: boolean, uv?: number, flipY?: number}): Promise<Texture>;
 
     isBasicLoader: boolean;
 
@@ -8509,6 +8512,10 @@ declare namespace hilo3d {
   }
 
   class IBasicMaterial extends IMaterial {
+    /**
+     * 渲染顺序。
+     */
+    renderOrder?: number;
     /**
      * 光照类型，支持: NONE, PHONG, BLINN-PHONG, LAMBERT
      */
@@ -12122,6 +12129,14 @@ declare namespace hilo3d {
      * type
      */
     type: GLenum;
+    /**
+     * minFilter
+     */
+    minFilter: GLenum;
+    /**
+     * magFilter
+     */
+    magFilter: GLenum;
 
     /**
      * attachment
@@ -12146,7 +12161,7 @@ declare namespace hilo3d {
     /**
      * texture
      */
-    texture: WebGLTexture;
+    texture: Texture;
 
     /**
      * renderbuffer
@@ -12157,6 +12172,16 @@ declare namespace hilo3d {
      * framebuffer
      */
     framebuffer: WebGLFramebuffer;
+
+    /**
+     * 宽度。
+     */
+    readonly width: number;
+
+    /**
+     * 高度。
+     */
+    readonly height: number;
 
     /**
      * framebuffer 是否完成
@@ -12258,12 +12283,12 @@ declare namespace hilo3d {
     /**
      * attribute 集合
      */
-    attributes: Object;
+    attributes: {[key: string]: any};
 
     /**
      * uniform 集合
      */
-    uniforms: Object;
+    uniforms: {[key: string]: any};
 
     /**
      * program
@@ -12411,6 +12436,15 @@ declare namespace hilo3d {
      * @param params
      */
     constructor(gl: WebGLRenderingContext, id: string, params: Object);
+
+    /**
+     * 获取 vao
+     * @param  {WebGLRenderingContext} gl
+     * @param  {String} id  缓存id
+     * @param  {Object} params
+     * @return {VertexArrayObject}
+     */
+    static getVao(gl: WebGLRenderingContext, id: string, params: Object): VertexArrayObject;
 
     className: string;
 
@@ -12573,6 +12607,16 @@ declare namespace hilo3d {
      * 是否使用framebuffer
      */
     useFramebuffer: boolean;
+
+    /**
+     * 若使用framebuffer，则可取得。
+     */
+    readonly framebuffer: Framebuffer;
+
+    /**
+     * 当前状态。
+     */
+    readonly state: WebGLState;
 
     /**
      * framebuffer配置
@@ -13221,9 +13265,10 @@ declare namespace hilo3d {
      * 获取自定义shader
      * @param vs 顶点代码
      * @param fs 片段代码
+     * @param header 头代码
      * @param cacheKey 如果有，会以此值缓存 shader
      */
-    static getCustomShader(vs: string, fs: string, cacheKey?: string): Shader;
+    static getCustomShader(vs: string, fs: string, header?: string, cacheKey?: string): Shader;
 
   }
 
@@ -13353,6 +13398,14 @@ declare namespace hilo3d {
      */
     destroy(): void;
 
+    /**
+     * 更新局部贴图
+     * @param xOffset
+     * @param yOffset
+     * @param image
+     */
+    updateSubTexture(xOffset: number, yOffset: number, image: Image | HTMLCanvasElement | ImageData): void;
+
   }
 
   class DataTexture {
@@ -13455,6 +13508,14 @@ declare namespace hilo3d {
      * @param gl gl
      */
     destroy(): void;
+
+    /**
+     * 更新局部贴图
+     * @param xOffset
+     * @param yOffset
+     * @param image
+     */
+    updateSubTexture(xOffset: number, yOffset: number, image: Image | HTMLCanvasElement | ImageData): void;
 
   }
 
@@ -13601,6 +13662,14 @@ declare namespace hilo3d {
      */
     destroy(): void;
 
+    /**
+     * 更新局部贴图
+     * @param xOffset
+     * @param yOffset
+     * @param image
+     */
+    updateSubTexture(xOffset: number, yOffset: number, image: Image | HTMLCanvasElement | ImageData): void;
+
   }
 
   class Texture {
@@ -13714,6 +13783,14 @@ declare namespace hilo3d {
      * @param gl gl
      */
     destroy(): void;
+
+    /**
+     * 更新局部贴图
+     * @param xOffset
+     * @param yOffset
+     * @param image
+     */
+    updateSubTexture(xOffset: number, yOffset: number, image: Image | HTMLCanvasElement | ImageData): void;
   }
 
   class Cache {

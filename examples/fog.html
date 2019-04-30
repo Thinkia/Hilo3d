@@ -20,16 +20,19 @@
             far: 200,
             z: 10,
         });
+        var backgroundColor = new Hilo3d.Color(0.6,0.8,0.9);
         var stage = new Hilo3d.Stage({
             container: $('container'),
             camera: camera,
             width: innerWidth,
             height: innerHeight,
+            clearColor:backgroundColor,
             fog:new Hilo3d.Fog({
                 mode:'EXP2', // LINEAR, EXP, EXP2
                 start:5,
-                end:10,
-                density:0.1
+                end:15,
+                density:0.1,
+                color:backgroundColor
             }),
             useInstanced:true,
             useVao:true
@@ -57,14 +60,14 @@
         }, function(err) {
             return new Hilo3d.Color(1, 0, 0);
         }).then(function(diffuse) {
-            var material = new Hilo3d.BasicMaterial({ 
-                diffuse : diffuse,
+            var material = new Hilo3d.PBRMaterial({ 
+                baseColorMap : diffuse,
                 side:Hilo3d.constants.FRONT_AND_BACK
             });
             var geometry = new Hilo3d.PlaneGeometry();
 
             for (var i = 0; i < 100; i++) {
-                let r = 4;
+                let r = 5;
                 var rect = new Hilo3d.Mesh({
                     geometry: geometry,
                     material: Math.random() < .5 ? material : new Hilo3d.BasicMaterial({

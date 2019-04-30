@@ -1,4 +1,5 @@
 const Shader = Hilo3d.Shader;
+const ShaderMaterial = Hilo3d.ShaderMaterial;
 
 describe('Shader', () => {
     Shader.init(testEnv.renderer);
@@ -37,6 +38,23 @@ describe('Shader', () => {
 #define HILO_SIDE 1028
 #define HILO_RECEIVE_SHADOWS 1
 #define HILO_CAST_SHADOWS 1
+#define HILO_HAS_FOG 1
+#define HILO_FOG_LINEAR 1
+`);
+        const shaderMaterialHeader = Shader.getHeader(mesh, new ShaderMaterial({
+            getCustomRenderOption(options){
+                options.CUSTUM_1 = 1;
+                options.CUSTUM_2 = 0;
+                return options;
+            }
+        }), lightManager, fog);
+        shaderMaterialHeader.should.equal(`#define SHADER_NAME ShaderMaterial
+#define HILO_LIGHT_TYPE_NONE 1
+#define HILO_SIDE 1028
+#define HILO_RECEIVE_SHADOWS 1
+#define HILO_CAST_SHADOWS 1
+#define CUSTUM_1 1
+#define CUSTUM_2 0
 #define HILO_HAS_FOG 1
 #define HILO_FOG_LINEAR 1
 `);

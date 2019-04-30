@@ -37,7 +37,7 @@
         }
     });
     stage.addChild(colorBox);
-    let texture = new Hilo3d.LazyTexture({
+    var texture = new Hilo3d.LazyTexture({
         crossOrigin:true,
         src:'//gw.alicdn.com/tfs/TB1iNtERXXXXXcBaXXXXXXXXXXX-600-600.png'
     });
@@ -68,16 +68,15 @@
 
     renderer.on('afterRender', () => {
         framebuffer.bind();
-
         renderer.clear(clearColor);
-        textureBox.material.diffuse.setGLTexture(texture.getGLTexture(renderer.state));
+        textureBox.material.diffuse = texture;
         renderer.renderList.traverse((mesh) => {
             renderer.renderMesh(mesh);
         });
         framebuffer.unbind()
 
         framebuffer.render(0, 0.7, 0.3, 0.3);
-        textureBox.material.diffuse.setGLTexture(framebuffer.texture);
+        textureBox.material.diffuse = framebuffer.texture;
 
     });
 

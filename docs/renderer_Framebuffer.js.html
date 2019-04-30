@@ -6264,11 +6264,19 @@
             
                 <li  data-name="Framebuffer#bufferInternalFormat"><a href="Framebuffer.html#bufferInternalFormat">bufferInternalFormat</a></li>
             
-                <li  data-name="Framebuffer#internalFormat"><a href="Framebuffer.html#internalFormat">internalFormat</a></li>
+                <li  data-name="Framebuffer#target"><a href="Framebuffer.html#target">target</a></li>
             
                 <li  data-name="Framebuffer#format"><a href="Framebuffer.html#format">format</a></li>
             
+                <li  data-name="Framebuffer#internalFormat"><a href="Framebuffer.html#internalFormat">internalFormat</a></li>
+            
                 <li  data-name="Framebuffer#type"><a href="Framebuffer.html#type">type</a></li>
+            
+                <li  data-name="Framebuffer#minFilter"><a href="Framebuffer.html#minFilter">minFilter</a></li>
+            
+                <li  data-name="Framebuffer#magFilter"><a href="Framebuffer.html#magFilter">magFilter</a></li>
+            
+                <li  data-name="Framebuffer#data"><a href="Framebuffer.html#data">data</a></li>
             
                 <li  data-name="Framebuffer#attachment"><a href="Framebuffer.html#attachment">attachment</a></li>
             
@@ -6913,6 +6921,8 @@
             
                 <li class="inherited-method" data-name="CubeTexture#updateTexture"><a href="CubeTexture.html#updateTexture">updateTexture</a></li>
             
+                <li class="inherited-method" data-name="CubeTexture#updateSubTexture"><a href="CubeTexture.html#updateSubTexture">updateSubTexture</a></li>
+            
                 <li class="inherited-method" data-name="CubeTexture#getGLTexture"><a href="CubeTexture.html#getGLTexture">getGLTexture</a></li>
             
                 <li class="inherited-method" data-name="CubeTexture#setGLTexture"><a href="CubeTexture.html#setGLTexture">setGLTexture</a></li>
@@ -7009,6 +7019,8 @@
                 <li class="inherited-method" data-name="DataTexture#resizeImg"><a href="DataTexture.html#resizeImg">resizeImg</a></li>
             
                 <li class="inherited-method" data-name="DataTexture#updateTexture"><a href="DataTexture.html#updateTexture">updateTexture</a></li>
+            
+                <li class="inherited-method" data-name="DataTexture#updateSubTexture"><a href="DataTexture.html#updateSubTexture">updateSubTexture</a></li>
             
                 <li class="inherited-method" data-name="DataTexture#getGLTexture"><a href="DataTexture.html#getGLTexture">getGLTexture</a></li>
             
@@ -7113,6 +7125,8 @@
             
                 <li class="inherited-method" data-name="LazyTexture#updateTexture"><a href="LazyTexture.html#updateTexture">updateTexture</a></li>
             
+                <li class="inherited-method" data-name="LazyTexture#updateSubTexture"><a href="LazyTexture.html#updateSubTexture">updateSubTexture</a></li>
+            
                 <li class="inherited-method" data-name="LazyTexture#getGLTexture"><a href="LazyTexture.html#getGLTexture">getGLTexture</a></li>
             
                 <li class="inherited-method" data-name="LazyTexture#setGLTexture"><a href="LazyTexture.html#setGLTexture">setGLTexture</a></li>
@@ -7205,6 +7219,8 @@
                 <li  data-name="Texture#resizeImg"><a href="Texture.html#resizeImg">resizeImg</a></li>
             
                 <li  data-name="Texture#updateTexture"><a href="Texture.html#updateTexture">updateTexture</a></li>
+            
+                <li  data-name="Texture#updateSubTexture"><a href="Texture.html#updateSubTexture">updateSubTexture</a></li>
             
                 <li  data-name="Texture#getGLTexture"><a href="Texture.html#getGLTexture">getGLTexture</a></li>
             
@@ -7328,7 +7344,7 @@ import VertexArrayObject from './VertexArrayObject';
 import math from '../math/math';
 import Color from '../math/Color';
 import GeometryData from '../geometry/GeometryData';
-import capabilities from './capabilities';
+import Texture from '../texture/Texture';
 import {
     getTypedArrayClass
 } from '../utils/util';
@@ -7344,7 +7360,8 @@ const {
     DEPTH_TEST,
     CULL_FACE,
     TRIANGLE_STRIP,
-    NEAREST
+    NEAREST,
+    CLAMP_TO_EDGE
 } = constants;
 
 const cache = new Cache();
@@ -7404,29 +7421,53 @@ const Framebuffer = Class.create(/** @lends Framebuffer.prototype */ {
      */
     bufferInternalFormat: DEPTH_STENCIL,
 
-    target: TEXTURE_2D,
     /**
-     * internalFormat
+     * texture target
      * @type {GLenum}
-     * @default gl.RGBA
+     * @default gl.TEXTURE_2D
      */
-    internalFormat: RGBA,
-
-    data: null,
+    target: TEXTURE_2D,
 
     /**
-     * format
+     * texture format
      * @type {GLenum}
      * @default gl.RGBA
      */
     format: RGBA,
 
     /**
-     * type
+     * texture internalFormat
+     * @type {GLenum}
+     * @default gl.RGBA
+     */
+    internalFormat: RGBA,
+
+    /**
+     * texture type
      * @type {GLenum}
      * @default gl.UNSIGNED_BYTE
      */
     type: UNSIGNED_BYTE,
+    /**
+     * texture minFilter
+     * @type {GLenum}
+     * @default gl.NEAREST
+     */
+    minFilter: NEAREST,
+
+    /**
+     * texture magFilter
+     * @type {GLenum}
+     * @default gl.NEAREST
+     */
+    magFilter: NEAREST,
+
+    /**
+     * texture data
+     * @type {TypedArray}
+     * @default null
+     */
+    data: null,
 
     /**
      * attachment
@@ -7458,7 +7499,7 @@ const Framebuffer = Class.create(/** @lends Framebuffer.prototype */ {
 
     /**
      * texture
-     * @type {WebGLTexture}
+     * @type {Texture}
      */
     texture: null,
 
@@ -7476,8 +7517,6 @@ const Framebuffer = Class.create(/** @lends Framebuffer.prototype */ {
 
     _isInit: false,
 
-    minFilter: NEAREST,
-    magFilter: NEAREST,
 
     /**
      * @constructs
@@ -7601,7 +7640,7 @@ const Framebuffer = Class.create(/** @lends Framebuffer.prototype */ {
             const program = Program.getProgram(shader, state);
             program.useProgram();
 
-            let vaoId = `${x}_${y}_${width}_${height}_${program.id}`;
+            const vaoId = `${x}_${y}_${width}_${height}_${program.id}`;
             const vao = VertexArrayObject.getVao(gl, vaoId, {
                 useVao: this.useVao,
                 useInstanced: false,
@@ -7620,7 +7659,7 @@ const Framebuffer = Class.create(/** @lends Framebuffer.prototype */ {
             }
 
             state.activeTexture(gl.TEXTURE0);
-            state.bindTexture(gl.TEXTURE_2D, this.texture);
+            state.bindTexture(gl.TEXTURE_2D, this.texture.getGLTexture(state));
             vao.draw();
         }
     },
@@ -7644,21 +7683,26 @@ const Framebuffer = Class.create(/** @lends Framebuffer.prototype */ {
     /**
      * 生成纹理
      * @private
-     * @return {WebGLTexture}
+     * @return {Texture}
      */
     createTexture() {
         const state = this.state;
         const gl = state.gl;
-        const texture = gl.createTexture();
+        const texture = new Texture({
+            minFilter: this.minFilter,
+            magFilter: this.magFilter,
+            internalFormat: this.internalFormat,
+            format: this.format,
+            type: this.type,
+            width: this.width,
+            height: this.height,
+            image: this.data,
+            wrapS: CLAMP_TO_EDGE,
+            wrapT: CLAMP_TO_EDGE
+        });
 
-        state.activeTexture(gl.TEXTURE0 + capabilities.MAX_TEXTURE_INDEX);
-        state.bindTexture(this.target, texture);
-        gl.texImage2D(this.target, 0, this.internalFormat, this.width, this.height, 0, this.format, this.type, this.data);
-        gl.texParameteri(this.target, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
-        gl.texParameteri(this.target, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
-        gl.texParameteri(this.target, gl.TEXTURE_MIN_FILTER, this.minFilter);
-        gl.texParameteri(this.target, gl.TEXTURE_MAG_FILTER, this.magFilter);
-        gl.framebufferTexture2D(gl.FRAMEBUFFER, this.attachment, this.target, texture, 0);
+        const glTexture = texture.getGLTexture(state);
+        gl.framebufferTexture2D(gl.FRAMEBUFFER, this.attachment, this.target, glTexture, 0);
 
         return texture;
     },
@@ -7724,7 +7768,7 @@ const Framebuffer = Class.create(/** @lends Framebuffer.prototype */ {
             }
 
             if (this.texture) {
-                gl.deleteTexture(this.texture);
+                this.texture.destroy();
                 this.texture = null;
             }
         }

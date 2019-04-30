@@ -22,7 +22,6 @@ void main(void) {
     #pragma glslify: import('./chunk/diffuse_main.frag');
     #pragma glslify: import('./chunk/phong_main.frag');
     #pragma glslify: import('./chunk/transparency_main.frag');
-    #pragma glslify: import('./chunk/fog_main.frag');
     #pragma glslify: import('./chunk/frag_color.frag');
     #pragma glslify: import('./chunk/logDepth_main.frag');
 }

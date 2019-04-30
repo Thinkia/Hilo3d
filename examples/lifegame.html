@@ -43,7 +43,7 @@
     renderer.on('afterRender', function(){
         lifegameFramebuffer.bind();
         lifegameFramebuffer.texture = lifegameFramebuffer.backTexture;
-        renderer.gl.framebufferTexture2D(renderer.gl.FRAMEBUFFER, lifegameFramebuffer.attachment, lifegameFramebuffer.target, lifegameFramebuffer.texture, 0);
+        renderer.gl.framebufferTexture2D(renderer.gl.FRAMEBUFFER, lifegameFramebuffer.attachment, lifegameFramebuffer.target, lifegameFramebuffer.texture.getGLTexture(renderer.state), 0);
 
         postProcess.draw(lifegameFramebuffer.frontTexture, {
             uniforms:{
@@ -94,11 +94,11 @@
         x = Math.min(width-1, x);
         y = Math.min(height-1, y);
 
-        gl.bindTexture(gl.TEXTURE_2D, lifegameFramebuffer.frontTexture);
+        gl.bindTexture(gl.TEXTURE_2D, lifegameFramebuffer.frontTexture.getGLTexture(renderer.state));
         gl.texSubImage2D(gl.TEXTURE_2D, 0, x, y, 1, 1,
                          gl.RGBA, gl.UNSIGNED_BYTE,
                          new Uint8Array([255, 255, 255, 255]));
-        gl.bindTexture(gl.TEXTURE_2D, lifegameFramebuffer.backTexture);
+        gl.bindTexture(gl.TEXTURE_2D, lifegameFramebuffer.backTexture.getGLTexture(renderer.state));
         gl.texSubImage2D(gl.TEXTURE_2D, 0, x, y, 1, 1,
                          gl.RGBA, gl.UNSIGNED_BYTE,
                          new Uint8Array([255, 255, 255, 255]));
